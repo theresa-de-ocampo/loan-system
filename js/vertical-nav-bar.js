@@ -7,8 +7,8 @@ for (var i = 0; i < arrow.length; i++) {
 	});
 }
 
-let sidebar = document.querySelector(".vertical-nav-bar");
+let sidebar = document.getElementsByTagName("nav")[0];
 let sidebarBtn = document.querySelector(".fa-bars");
 sidebarBtn.addEventListener("click", ()=>{
-	sidebar.classList.toggle("close");
+	sidebar.classList.toggle("closed");
 });
