@@ -1,18 +1,5 @@
-/*@import url("https://fonts.googleapis.com/css2?family=Poppins:ital,wght@0,100;0,200;0,300;0,400;0,500;0,600;0,700;0,800;0,900;1,100;1,200;1,300;1,400;1,500;1,600;1,700;1,800;1,900&display=swap");*/
-
-* {
-	box-sizing: border-box;
-	font-family: 'Poppins', sans-serif;
-	margin: 0;
-	padding: 0;
-}
-
-html, body {
-	height: 100%;
-}
-
 nav {
-	background: #11101d;
+	background: var(--xiketic);
 	height: 100%;
 	left: 0;
 	position: fixed;
@@ -78,7 +65,7 @@ nav .nav-links li {
 }
 
 nav .nav-links li:hover {
-	background: #1d1b31;
+	background: var(--dark-purple);
 }
 
 nav .nav-links li .parent-menu {
@@ -129,7 +116,7 @@ nav.closed .nav-links li a .link-name {
 }
 
 nav .nav-links li .sub-menu {
-	background: #1d1b31;
+	background: var(--dark-purple);
 	display: none;
 	margin-top: -10px;
 	padding: 6px 6px 14px 80px;
@@ -182,10 +169,6 @@ nav.closed .nav-links li .sub-menu .link-name {
 	opacity: 1;
 }
 
-/*nav .nav-links li .sub-menu a:not(.link-name) {
-	cursor: default;
-}*/
-
 nav .nav-links li .sub-menu.blank {
 	opacity: 0;
 	padding: 3px 20px 6px 16px;
@@ -199,7 +182,7 @@ nav .nav-links li:hover .sub-menu.blank {
 
 nav .profile-details {
 	align-items: center;
-	background: #1d1b31;
+	background: var(--dark-purple);
 	bottom: 0;
 	display: flex;
 	justify-content: flex-start;
@@ -223,7 +206,7 @@ nav .profile-details .profile-content {
 }
 
 nav .profile-details img {
-	background: #1d1b31;
+	background: var(--dark-purple);
 	border-radius: 16px;
 	height: 52px;
 	margin: 0 14px 0 12px;
@@ -261,48 +244,10 @@ nav .nav-links li .fa-sign-out-alt {
 }
 
 .fa-sign-out-alt:hover {
-	background-color: #11101d;
-}
-
-main {
-	background: #E4E9F7;
-	left: 280px;
-	min-height: 100vh;
-	position: relative;
-	transition: all 0.5s ease;
-	width: calc(100% - 280px);
+	background-color: var(--xiketic);
 }
 
 nav.closed ~ main {
 	left: 78px;
 	width: calc(100% - 78px);
-}
-
-main header {
-	align-items: center;
-	color: #11101d;
-	display: flex;
-	font-size: 35px;
-	height: 60px;
-	overflow: hidden;
-}
-
-main header .fa-bars {
-	cursor: pointer;
-	margin: 0 15px;
-}
-
-h2 {
-	font-size: 26px;
-	font-weight: 600;
-}
-
-section {
-	padding: 30px 60px;
-}
-
-@media (max-width: 420px) {
-	nav.closed .nav-links li .sub-menu{
-		display: none;
-	}
 }

@@ -1,0 +1,5 @@
+@media (max-width: 420px) {
+	nav.closed .nav-links li .sub-menu{
+		display: none;
+	}
+}
