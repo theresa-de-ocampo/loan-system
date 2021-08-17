@@ -4,11 +4,13 @@
 	--xiketic: #11101d;
 	--dark-purple: #1d1b31;
 	--link-water: #e4e9f7;
+	--light-steel-blue: #a9bcd0;
+	--roman-silver: #787e87;
 }
 
 * {
 	box-sizing: border-box;
-	font-family: 'Poppins', sans-serif;
+	font-family: "Poppins", sans-serif;
 	margin: 0;
 	padding: 0;
 }
@@ -45,6 +47,19 @@ h2 {
 	font-weight: 600;
 }
 
+h3 {
+	font-size: 24px;
+	margin: 10px 0;
+}
+
 section {
-	padding: 30px 60px;
+	margin: 30px 60px;
+	padding: 20px 50px;
+	box-shadow: 2px 2px 4px rgba(0, 0, 0, 0.6);
+	background-color: #fff;
+	border-radius: 20px;
+}
+
+hr {
+	margin-bottom: 15px;
 }

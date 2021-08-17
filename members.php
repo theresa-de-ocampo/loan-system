@@ -1,3 +1,13 @@
+<?php
+	require_once "config/config.php";
+	require_once "lib/database-handler.php";
+	require_once "lib/conversion-util.php";
+	require_once "models/Guarantor.php";
+
+	$converter = new Converter();
+	$guarantor = new Guarantor();
+	$guarantors = $guarantor->getGuarantors();
+?>
 <!DOCTYPE html>
 <html lang="en">
 <head>
@@ -6,8 +16,11 @@
 	<meta name="description" content="" />
 	<meta name="viewport" content="width=device-width, initial-scale=1.0">
 	<link rel="stylesheet" type="text/css" href="css/all.min.css" />
+	<link rel="stylesheet" type="text/css" href="css/datatables.min.css" />
+	<link rel="stylesheet" type="text/css" href="css/tingle.min.css" />
 	<link rel="stylesheet" type="text/css" href="css/style.css" />
 	<link rel="stylesheet" type="text/css" href="css/vertical-nav-bar.css" />
+	<link rel="stylesheet" type="text/css" href="css/tables.css" />
 	<link rel="stylesheet" type="text/css" href="css/media-queries.css" />
 	<title></title>
 </head>
@@ -22,9 +35,37 @@
 		
 		<section id="guarantors">
 			<h3>Guarantors</h3>
-			<p>
-				Lorem ipsum dolor sit amet, consectetur adipiscing elit. Vivamus vestibulum, nunc eu lobortis pharetra, metus purus tristique eros, sed efficitur augue sapien et lacus. Praesent sed ultricies felis. Duis ligula mauris, consequat et mattis vitae, congue ac tortor. Integer hendrerit arcu in risus pellentesque, ac fringilla odio euismod. Quisque tincidunt, enim quis accumsan semper, elit neque aliquet lacus, vel pharetra nulla sem sit amet ligula. Praesent consectetur quam pharetra ex molestie maximus. Nam gravida euismod leo, sit amet interdum eros facilisis rhoncus. Morbi ac eleifend risus. Duis in dictum sapien. Duis fermentum eu leo ut lobortis. Donec non ipsum felis. Duis libero nunc, efficitur vitae efficitur a, condimentum at libero. Donec ac urna vel magna lobortis laoreet.
-			</p>
+			<hr />
+			<table id="guarantors-tbl" class="display cell-border" width="100%">
+				<thead>
+					<tr>
+						<th>ID</th>
+						<th>First Name</th>
+						<th>Middle Name</th>
+						<th>Last Name</th>
+						<th>Contact Number</th>
+						<th>Birthday</th>
+						<th>Age</th>
+						<th>Address</th>
+						<th>Edit</th>
+					</tr>
+				</thead>
+				<tbody>
+					<?php foreach ($guarantors as $g): ?>
+					<tr>
+						<td><?php echo $g->guarantor_id ?></td>
+						<td><?php echo $g->fname ?></td>
+						<td><?php echo $g->mname ?></td>
+						<td><?php echo $g->lname ?></td>
+						<td><?php echo $g->contact_no ?></td>
+						<td><?php echo $converter->shortToLongDate($g->bday, null) ?></td>
+						<td><?php echo $converter->bdayToAge($g->bday); ?></td>
+						<td><?php echo $g->phase_block_lot ?></td>
+						<td><i class="fas fa-user-edit"></i></td>
+					</tr>
+					<?php endforeach; ?>
+				</tbody>
+			</table>
 		</section><!-- #guarantors -->
 
 		<section id="savings">
@@ -35,6 +76,11 @@
 		</section><!-- .savings -->
 	</main>
 
+	<script src="js/jquery-3.6.0.min.js"></script>
 	<script src="js/vertical-nav-bar.js"></script>
+	<script src="js/datatables.min.js"></script>
+	<script src="js/tingle.min.js"></script>
+	<script src="js/modal.js"></script>
+	<script src="js/members.js"></script>
 </body>
 </html>

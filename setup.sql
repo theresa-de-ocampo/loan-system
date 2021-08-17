@@ -45,24 +45,65 @@ CREATE TABLE `guarantor_cycle_map` (
 		ON DELETE RESTRICT
 ) Engine=InnoDB;
 
-INSERT INTO
-	`cycle` (`cycle_id`)
-VALUES
-	('2021');
+-- [STORED PROCEDURE] calculate_age
+DELIMITER $$
+CREATE PROCEDURE calculate_age (
+	IN p_bday DATE,
+	OUT p_age INT UNSIGNED
+)
+BEGIN
+	SELECT
+		TIMESTAMPDIFF(YEAR, p_bday, CURDATE())
+	INTO
+		p_age;
+END $$
+DELIMITER ;
 
 INSERT INTO 
 	`data_subject`
 VALUES
-	(DEFAULT, 'Theresa', 'Gumapas', 'De Ocampo', '09078466964', '1999-11-07', 'P1, B5, L27'),
-	(DEFAULT, 'Aurora', 'Imbis', 'Liberato', '09358314949', '1984-01-01', 'P2, B1, L46'),
-	(DEFAULT, 'Beth', 'Bigalbal', 'Navalta', '09189218835', '1965-07-19', 'P2, B1, L8');
+	(DEFAULT, 'Aurora', 'Imbis', 'Liberato', '09358314949', '1984-01-01', 'P1, B1, L1'),
+	(DEFAULT, 'Beth', 'Bigalbal', 'Navalta', '09189218835', '1965-07-19', 'P1, B1, L2'),
+	(DEFAULT, 'Felicita', 'Pabiton', 'Nable', '09186475411', '1995-06-01', 'P1, B1, L3'),
+	(DEFAULT, 'Gina', 'Medina', 'Robiso', '09452579778', '1999-11-13', 'P1, B1, L4'),
+	(DEFAULT, 'Helen', 'Balatico', 'Tailon', '09072914753', '1980-11-05', 'P1, B1, L5'),
+	(DEFAULT, 'Jane', 'Hera', 'Histo', '09229013858', '1983-03-20', 'P1, B1, L6'),
+	(DEFAULT, 'Adrian', 'Ilag', 'Dela Torre', '09239174896', '1980-06-09', 'P1, B1, L7'),
+	(DEFAULT, 'Lyn', 'Lopez', 'Ledesma', '09348918364', '1994-08-23', 'P1, B1, L8'),
+	(DEFAULT, 'Mary', 'Rodriguez', 'Pingol', '09251388491', '1973-10-09', 'P1, B1, L9'),
+	(DEFAULT, 'Mavic', 'Ferrer', 'Gariando', '09071213894', '1995-01-23', 'P1, B1, L10'),
+	(DEFAULT, 'Mona', 'Nacalaban', 'Aguinaldo', '09749712038', '1956-08-23', 'P1, B1, L11'),
+	(DEFAULT, 'Nelly', 'Años', 'Zamora', '09449293018', '1991-05-18', 'P1, B1, L12'),
+	(DEFAULT, 'Theresa', 'Gumapas', 'De Ocampo', '09078466964', '1999-11-07', 'P2, B1, L1');
 
 INSERT INTO
-	`guarantor`
+	`guarantor` (`number_of_share`, `data_subject_id`)
 VALUES
-	(DEFAULT, 5, 2);
+	(5, 1),
+	(4, 2),
+	(5, 3),
+	(5, 4),
+	(5, 5),
+	(4, 6),
+	(4, 7),
+	(3, 8),
+	(5, 9),
+	(5, 10),
+	(2, 11),
+	(5, 12);
 
 INSERT INTO
 	`guarantor_cycle_map`
 VALUES
-	('2021', 1);
+	('2021', 1),
+	('2021', 2),
+	('2021', 3),
+	('2021', 4),
+	('2021', 5),
+	('2021', 6),
+	('2021', 7),
+	('2021', 8),
+	('2021', 9),
+	('2021', 10),
+	('2021', 11),
+	('2021', 12);
