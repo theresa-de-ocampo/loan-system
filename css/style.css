@@ -1,11 +1,14 @@
 /*@import url("https://fonts.googleapis.com/css2?family=Poppins:ital,wght@0,100;0,200;0,300;0,400;0,500;0,600;0,700;0,800;0,900;1,100;1,200;1,300;1,400;1,500;1,600;1,700;1,800;1,900&display=swap");*/
 
 :root {
-	--xiketic: #11101d;
+	--athens-gray: #e8e9eb;
+	--blue-chill: #0d8b90;
 	--dark-purple: #1d1b31;
-	--link-water: #e4e9f7;
 	--light-steel-blue: #a9bcd0;
+	--link-water: #e4e9f7;
 	--roman-silver: #787e87;
+	--silver-sand: #c5c6c8;
+	--xiketic: #11101d;
 }
 
 * {
@@ -26,6 +29,7 @@ main {
 	position: relative;
 	transition: all 0.5s ease;
 	width: calc(100% - 280px);
+	padding-bottom: 30px;
 }
 
 main header {

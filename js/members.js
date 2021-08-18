@@ -1,33 +1,31 @@
 // jshint esversion: 6
-$("table").DataTable({
-	/*
-		Button -> Filtering Input -> Processing Display Element -> Table -> 
-		Table Information Summary -> Pagination Control
-	*/
-	dom: "Bfrtip", 
-	responsive: true,
-	buttons: [
-		{
-			text: "Add",
-			action: function() {
-				createModal("#add-guarantor", "hello");
+$.get("inc/guarantor-form.html", function( data ) {
+	$("#guarantors-tbl").DataTable({
+		dom: "Bfrtip", 
+		responsive: true,
+		buttons: [
+			{
+				text: "Add",
+				action: function() {
+					createModal("#add-guarantor", data);
+				},
+				attr: {
+					id: "add-guarantor"
+				}
 			},
-			attr: {
-				id: "add-guarantor"
+			{
+				extend: "print",
+				title: "Guarantors"
+			},
+			{
+				extend: 'csv'
 			}
-		},
-		{
-			extend: "print",
-			title: "Guarantors"
-		},
-		{
-			extend: 'csv'
-		}
-	],
-	columnDefs: [
-		{
-			targets: [5],
-			width: 100
-		}
-	]
+		],
+		columnDefs: [
+			{
+				targets: [5],
+				width: 100
+			}
+		]
+	});
 });

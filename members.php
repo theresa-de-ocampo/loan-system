@@ -21,8 +21,10 @@
 	<link rel="stylesheet" type="text/css" href="css/style.css" />
 	<link rel="stylesheet" type="text/css" href="css/vertical-nav-bar.css" />
 	<link rel="stylesheet" type="text/css" href="css/tables.css" />
+	<link rel="stylesheet" type="text/css" href="css/forms.css" />
 	<link rel="stylesheet" type="text/css" href="css/media-queries.css" />
-	<title></title>
+	<link rel="shortcut icon" type="image/x-icon" href="img/favicon.png" />
+	<title><?php echo COOPERATIVE; ?></title>
 </head>
 <body>
 	<?php require_once "inc/vertical-nav-bar.html"; ?>
