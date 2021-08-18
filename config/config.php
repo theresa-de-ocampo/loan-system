@@ -1,6 +1,6 @@
 <?php
 // Location Parameters
-define("COOPERATIVE", "Ciudad Nuevo");
+define("COOPERATIVE", "Cooperative");
 define("SUBDIVISION", "Ciudad Nuevo");
 define("BARANGAY", "Timalan Balsahan");
 define("CITY_TOWN", "Naic");
