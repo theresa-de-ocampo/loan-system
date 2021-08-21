@@ -4,7 +4,7 @@ CREATE DATABASE `loan`;
 USE `loan`;
 
 CREATE TABLE `cycle` (
-	`cycle_id` YEAR PRIMARY KEY,
+	`cycle_id` YEAR PRIMARY KEY DEFAULT (YEAR(CURDATE())),
 	`membership_fee` SMALLINT NOT NULL DEFAULT 12000,
 	`interest_rate` DECIMAL(3, 2) DEFAULT 0.10 -- in decimal
 ) Engine=InnoDB;
@@ -20,19 +20,18 @@ CREATE TABLE `data_subject` (
 ) Engine=InnoDB;
 
 CREATE TABLE `guarantor` (
-	`guarantor_id` INT UNSIGNED AUTO_INCREMENT PRIMARY KEY,
-	`number_of_share` TINYINT NOT NULL,
-	`data_subject_id` INT UNSIGNED,
+	`guarantor_id` INT UNSIGNED PRIMARY KEY,
 
-	CONSTRAINT fk_guarantor_data_subject FOREIGN KEY (`data_subject_id`)
+	CONSTRAINT fk_guarantor_data_subject FOREIGN KEY (`guarantor_id`)
 		REFERENCES `data_subject` (`data_subject_id`)
 		ON UPDATE CASCADE
 		ON DELETE RESTRICT
 ) Engine=InnoDB;
 
 CREATE TABLE `guarantor_cycle_map` (
-	`cycle_id` YEAR,
 	`guarantor_id` INT UNSIGNED,
+	`cycle_id` YEAR DEFAULT (YEAR(CURDATE())),
+	`number_of_share` TINYINT NOT NULL,
 
 	CONSTRAINT pk_guarantor_cycle_map PRIMARY KEY (`guarantor_id`, `cycle_id`),
 	CONSTRAINT fk_guarantor_cycle_map_cycle FOREIGN KEY (`cycle_id`)
@@ -59,6 +58,11 @@ BEGIN
 END $$
 DELIMITER ;
 
+INSERT INTO
+	`cycle`
+VALUES
+	(DEFAULT, DEFAULT, DEFAULT);
+
 INSERT INTO 
 	`data_subject`
 VALUES
@@ -77,33 +81,33 @@ VALUES
 	(DEFAULT, 'Theresa', 'Gumapas', 'De Ocampo', '09078466964', '1999-11-07', 'P2, B1, L1');
 
 INSERT INTO
-	`guarantor` (`number_of_share`, `data_subject_id`)
+	`guarantor`
 VALUES
-	(5, 1),
-	(4, 2),
-	(5, 3),
-	(5, 4),
-	(5, 5),
-	(4, 6),
-	(4, 7),
-	(3, 8),
-	(5, 9),
-	(5, 10),
-	(2, 11),
-	(5, 12);
+	(1),
+	(2),
+	(3),
+	(4),
+	(5),
+	(6),
+	(7),
+	(8),
+	(9),
+	(10),
+	(11),
+	(12);
 
 INSERT INTO
-	`guarantor_cycle_map`
+	`guarantor_cycle_map` (`guarantor_id`, `number_of_share`)
 VALUES
-	('2021', 1),
-	('2021', 2),
-	('2021', 3),
-	('2021', 4),
-	('2021', 5),
-	('2021', 6),
-	('2021', 7),
-	('2021', 8),
-	('2021', 9),
-	('2021', 10),
-	('2021', 11),
-	('2021', 12);
+	(1, 5),
+	(2, 4),
+	(3, 5),
+	(4, 5),
+	(5, 5),
+	(6, 4),
+	(7, 4),
+	(8, 3),
+	(9, 5),
+	(10, 5),
+	(11, 2),
+	(12, 5);

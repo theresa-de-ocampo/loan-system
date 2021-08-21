@@ -7,7 +7,7 @@ class Guarantor {
 	}
 
 	public function getGuarantors() {
-		$this->db->query("SELECT * FROM `data_subject` INNER JOIN `guarantor` USING (`data_subject_id`)");
+		$this->db->query("SELECT * FROM `data_subject` INNER JOIN `guarantor` WHERE data_subject_id = guarantor_id");
 		return $this->db->resultSet();
 	}
 }
