@@ -1,4 +1,42 @@
-@media (max-width: 420px) {
+@media screen and (max-width: 920px) {
+	.tingle-modal-box {
+		width: 75%;
+	}
+}
+
+@media screen and (max-width: 768px) {
+	header.modal {
+		font-size: 25px;
+	}
+
+	form .grid-wrapper {
+		grid-template-columns: 1fr;
+	}
+
+	.tingle-modal-box {
+		width: 60%;
+	}
+}
+
+@media screen and (max-width: 540px) {
+	header.modal {
+		margin-top: 48px;
+	}
+
+	footer {
+		padding-bottom: 20px;
+	}
+
+	.tingle-modal-box {
+		width: 100%;
+	}
+
+	.tingle-modal--overflow {
+		padding: 0;
+	}
+}
+
+@media screen and (max-width: 420px) {
 	nav.closed .nav-links li .sub-menu{
 		display: none;
 	}

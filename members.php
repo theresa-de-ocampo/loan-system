@@ -60,7 +60,7 @@
 						<td><?php echo $g->mname ?></td>
 						<td><?php echo $g->lname ?></td>
 						<td><?php echo $g->contact_no ?></td>
-						<td><?php echo $converter->shortToLongDate($g->bday, null) ?></td>
+						<td><?php echo $converter->shortToLongDate($g->bday) ?></td>
 						<td><?php echo $converter->bdayToAge($g->bday); ?></td>
 						<td><?php echo $g->phase_block_lot ?></td>
 						<td><i class="fas fa-user-edit"></i></td>
@@ -72,9 +72,8 @@
 
 		<section id="savings">
 			<h3>Savings</h3>
-			<p>
-				Donec laoreet, magna vitae egestas suscipit, lectus dolor lobortis magna, nec gravida diam tellus aliquet sem. Quisque semper tristique risus in elementum. Praesent nec pellentesque quam, non semper dolor. Curabitur a efficitur orci, ac semper nisl. Class aptent taciti sociosqu ad litora torquent per conubia nostra, per inceptos himenaeos. Mauris sit amet finibus felis, nec consectetur urna. In ullamcorper imperdiet nibh. Suspendisse mattis, nibh a dictum iaculis, elit sem mattis eros, eget rutrum magna ante ut tellus. Nullam dapibus orci nunc, ut tempus nunc maximus sit amet. Proin mollis eget arcu commodo mattis. Nullam in ullamcorper leo, id porta diam.
-			</p>
+			<!-- <table id="savings-tbl" class="display cell-border" width="100%">
+			</table> -->
 		</section><!-- .savings -->
 	</main>
 
