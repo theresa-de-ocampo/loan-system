@@ -7,6 +7,7 @@
 	$converter = new Converter();
 	$guarantor = new Guarantor();
 	$guarantors = $guarantor->getGuarantors();
+	$savings = $guarantor->getSavings();
 ?>
 <!DOCTYPE html>
 <html lang="en">
@@ -72,8 +73,26 @@
 
 		<section id="savings">
 			<h3>Savings</h3>
-			<!-- <table id="savings-tbl" class="display cell-border" width="100%">
-			</table> -->
+			<table id="savings-tbl" class="display cell-border" width="100%">
+				<thead>
+					<tr>
+						<th>ID</th>
+						<th>Member</th>
+						<th>No. of Share</th>
+						<th>Principal</th>
+					</tr>
+				</thead>
+				<tbody>
+					<?php foreach ($savings as $s): ?>
+					<tr>
+						<td><?php echo $s->guarantor_id; ?></td>
+						<td><?php echo $s->member; ?></td>
+						<td><?php echo $s->number_of_share; ?></td>
+						<td><?php echo $s->principal; ?></td>
+					</tr>
+					<?php endforeach; ?>
+				</tbody>
+			</table><!-- #savings-tbl -->
 		</section><!-- .savings -->
 	</main>
 

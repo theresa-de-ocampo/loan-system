@@ -15,10 +15,17 @@ $.get("inc/guarantor-form.html", function( data ) {
 			},
 			{
 				extend: "print",
-				title: "Guarantors"
+				title: "Guarantors",
+				exportOptions: {
+					columns: [0, 1, 2, 3, 4, 5, 6, 7]
+				}
 			},
 			{
-				extend: 'csv'
+				extend: 'csv',
+				title: "Guarantors",
+				exportOptions: {
+					columns: [0, 1, 2, 3, 4, 5, 6, 7]
+				}
 			}
 		],
 		columnDefs: [
@@ -28,4 +35,19 @@ $.get("inc/guarantor-form.html", function( data ) {
 			}
 		]
 	});
+});
+
+$("#savings-tbl").DataTable({
+	dom: "Bfrtip", 
+	responsive: true,
+	buttons: [
+		{
+			extend: "print",
+			title: "Savings"
+		},
+		{
+			extend: 'csv',
+			title: "Savings"
+		}
+	]
 });

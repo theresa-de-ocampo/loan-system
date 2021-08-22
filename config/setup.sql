@@ -58,6 +58,25 @@ BEGIN
 END $$
 DELIMITER ;
 
+-- [VIEW] savings
+CREATE VIEW savings AS
+SELECT
+	`guarantor_id`,
+	CONCAT(fname, ' ', lname) AS `member`,
+	`number_of_share`,
+	`number_of_share` * `membership_fee` AS `principal`
+FROM
+	`data_subject`
+INNER JOIN
+	`guarantor_cycle_map` gcm
+ON 
+	`data_subject_id = guarantor_id` AND
+	`cycle_id` = YEAR(CURDATE())
+INNER JOIN
+	`cycle` c
+ON
+	c.`cycle_id` = gcm.`cycle_id`;
+
 INSERT INTO
 	`cycle`
 VALUES

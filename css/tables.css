@@ -1,8 +1,5 @@
-#guarantors-tbl {
-	padding-top: 20px !important;
-}
-
 table {
+	padding-top: 20px;
 	text-align: center;
 }
 
@@ -17,4 +14,18 @@ table thead th:first-child {
 
 table thead th:last-child {
 	border-radius: 0 5px 0 0;
+}
+
+.fa-user-edit {
+	color: var(--blue-chill);
+}
+
+.fa-user-edit:hover {
+	color: var(--cyan);
+}
+
+.dataTables_filter input {
+	width: 200px;
+	display: inline;
+	margin-left: 3px;
 }
