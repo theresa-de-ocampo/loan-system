@@ -9,6 +9,7 @@ class Database {
 	private $dbh;
 	private $error;
 	private $stmt;
+	private $logFile;
 	
 	public function __construct() {
 		// Set DSN
@@ -22,8 +23,9 @@ class Database {
 		try {
 			$this->dbh = new PDO($dsn, $this->user, $this->password, $options);
 		}		
-		catch ( PDOException $e ) {
-			$this->error = $e->getMessage();
+		catch (PDOException $e) {
+			$this->error = $e->getMessage()." in ".$e->getFile()." on line ".$e->getLine();
+			$this->terminate();
 		}
 	}
 	
@@ -51,10 +53,26 @@ class Database {
 		}
 		$this->stmt->bindValue($param, $value, $type);
 	}
+
+	public function bindAndExecute($data) {
+		return $this->execute($data);
+	}
 	
 	// Execute the prepared statement
-	public function execute(){
-		return $this->stmt->execute();
+	public function execute($message = "", $redirect = "") {
+		try {
+			return $this->stmt->execute();
+		}
+		catch (PDOException $e) {
+			$this->logFile = "../src/log.txt";
+			$this->error = $e->getMessage()." in ".$e->getFile()." on line ".$e->getLine();
+			$this->logError();
+		}
+		finally {
+			if ($redirect !== "") {
+				$this->confirmQuery($message, $redirect);
+			}
+		}
 	}
 	
 	// Get result set as array of objects
@@ -69,18 +87,48 @@ class Database {
 		return $this->stmt->fetch(PDO::FETCH_OBJ);
 	}
 
+	// Get single column from the next row of a result set or false if there are no more rows.
 	public function resultColumn() {
 		$this->execute();
 		return $this->stmt->fetchColumn();
 	}
 	
 	// Get record row count
-	public function rowCount(){
+	public function rowCount() {
 		return $this->stmt->rowCount();
 	}
 	
 	// Returns the last inserted ID
-	public function lastInsertId(){
+	public function lastInsertId() {
 		return $this->dbh->lastInsertId();
+	}
+
+	public function __destruct() {
+		$this->dbh = null;
+	}
+
+	private function terminate() {
+		$this->logFile = "src/log.txt";
+		$this->logError();
+		echo "<script>window.location.href='error-505.php'</script>";
+		die();
+	}
+
+	private function logError() {
+		$time = date("Y-m-d H:i", time());
+		$contents = "$time\t$this->error\r";
+		file_put_contents($this->logFile, $contents, FILE_APPEND);
+	}
+
+	private function confirmQuery($message, $redirect) {
+		if ($this->stmt->rowCount() > 0) {
+			if ($message !== "") {
+				echo "<script>alert('$message')</script>";
+			}
+		}
+		else {
+			echo "<script>alert('An unexpected error occurred. Please try again later.');</script>";
+		}
+		echo "<script>window.location.href = '$redirect';</script>";
 	}
 }
