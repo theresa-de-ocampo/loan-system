@@ -1,6 +1,6 @@
 // jshint esversion: 6
-function createModal(selector, content) {
-	var modal = new tingle.modal({
+function createModal(content) {
+	let modal = new tingle.modal({
 		footer: false,
 		stickyFooter: false,
 		closeMethods: ["overlay", "button", "escape"],

@@ -27,5 +27,15 @@ table thead th:last-child {
 .dataTables_filter input {
 	width: 200px;
 	display: inline;
-	margin-left: 3px;
+	margin-left: 5px;
+}
+
+table.display.dataTable tbody tr:hover,
+table.display.dataTable tbody tr:hover > .sorting_1 {
+	background-color: var(--botticelli);
+}
+
+.fas, .far,
+#new-guarantor table tr:hover {
+	cursor: pointer;
 }

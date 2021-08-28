@@ -1,6 +1,6 @@
-<form action="src/add-guarantor.php" method="post">
+<form action="src/add-new-guarantor.php" method="post">
 	<div class="grid-wrapper">
-		<header class="modal">Add a Guarantor</header>
+		<header class="modal">New Guarantor</header>
 		<div class="grid-item">
 			<label for="fname">First Name</label>
 			<input id="fname" type="text" name="fname" required />
@@ -23,15 +23,18 @@
 		</div><!-- .grid-item -->
 		<div class="grid-item">
 			<label for="">Phase, Block, and Lot</label>
-			<input id="address" type="text" name="address" required />
+			<input id="address" type="text" name="address" required class="medium" />
 		</div><!-- .grid-item -->
 		<div class="grid-item">
 			<label for="">No. of Share</label>
-			<input id="number-of-share" type="number" name="number-of-share" required class="short" />
+			<input id="number-of-share" type="number" name="number-of-share" required class="short" pattern="[1-5]" />
 		</div><!-- .grid-item -->
 	</div><!-- .grid-wrapper -->
 
 	<footer>
+		<p>
+			By clicking this button, you agree to our <a href="agreement.html"><b>Terms</b> and that you have read our <b>Data Use Policy</b>, including our <b>Cookie Use</b></a>.
+		</p>
 		<button id="modal-ok" type="submit" name="add"><i class="fas fa-plus"></i></button>
 	</footer>
 </form>

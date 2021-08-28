@@ -1,9 +1,9 @@
 <?php
-if (isset($_POST["submit"])) {
-	unset($_POST["submit"]);
+if (isset($_POST["add"])) {
+	unset($_POST["add"]);
 	require_once "../config/config.php";
 	require_once "../lib/database-handler.php";
 	require_once "../models/Guarantor.php";
 	$guarantor = new Guarantor();
-	$guarantor->addGuarantor($_POST);
+	$guarantor->addNewGuarantor($_POST);
 }

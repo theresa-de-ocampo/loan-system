@@ -2,7 +2,9 @@
 
 :root {
 	--athens-gray: #e8e9eb;
+	--botticelli: #d4e1ee;
 	--blue-chill: #0d8b90;
+	--cyan: #03b8c0;
 	--dark-purple: #1d1b31;
 	--light-steel-blue: #a9bcd0;
 	--link-water: #e4e9f7;
@@ -66,4 +68,12 @@ section {
 
 hr {
 	margin-bottom: 15px;
+}
+
+.divider {
+	margin: 20px 0 30px 0;
+}
+
+.info {
+	margin: 30px;
 }

@@ -1,4 +1,4 @@
-<?php
+<?php 
 	require_once "config/config.php";
 	require_once "lib/database-handler.php";
 	require_once "lib/conversion-util.php";
@@ -6,8 +6,7 @@
 
 	$converter = new Converter();
 	$guarantor = new Guarantor();
-	$guarantors = $guarantor->getCurrentGuarantors();
-	$savings = $guarantor->getSavings();
+	$not_current_guarantors = $guarantor->getNotCurrentGuarantors();
 ?>
 <!DOCTYPE html>
 <html lang="en">
@@ -29,71 +28,60 @@
 </head>
 <body>
 	<?php require_once "inc/vertical-nav-bar.html"; ?>
-
 	<main>
 		<header>
 			<i class="fas fa-bars"></i>
 			<h2 class="text">Members</h2>
 		</header>
-		
-		<section id="guarantors">
-			<h3>Guarantors</h3>
-			<hr />
-			<table id="guarantors-tbl" class="display cell-border" width="100%">
+
+		<section id="new-guarantor">
+			<h3>Guarantor</h3>
+			<form action="src/add-guarantor.php" method="post">
+				<div class="flex-wrapper">
+					<div class="flex-item short">
+						<label for="data-subject-id">ID<i class="far fa-question-circle"></i></label>
+						<input id="data-subject-id" type="number" name="data-subject-id" required readonly />
+					</div><!-- .flex-item -->
+					<div class="flex-item">
+						<label for="name">New Guarantor<i class="far fa-question-circle"></i></label>
+						<input id="name" type="text" required readonly />
+					</div><!-- .flex-item -->
+					<div class="flex-item short">
+						<label for="">No. of Share</label>
+						<input id="number-of-share" type="number" name="number-of-share" required pattern="[1-5]" />
+					</div><!-- .flex-item -->
+				</div><!-- .flex-wrapper -->
+				<footer>
+					<button type="reset" class="dt-button">Cancel</button>
+					<button type="submit" name="submit" class="dt-button">Submit</button>
+				</footer>
+			</form>
+			<hr class="divider" />
+			<table id="new-guarantor-tbl" class="display cell-border" width="100%">
 				<thead>
 					<tr>
 						<th>ID</th>
 						<th>First Name</th>
 						<th>Middle Name</th>
 						<th>Last Name</th>
-						<th>Contact Number</th>
-						<th>Birthday</th>
 						<th>Age</th>
 						<th>Address</th>
-						<th>Edit</th>
 					</tr>
 				</thead>
 				<tbody>
-					<?php foreach ($guarantors as $g): ?>
+					<?php foreach ($not_current_guarantors as $ncg): ?>
 					<tr>
-						<td><?php echo $g->guarantor_id ?></td>
-						<td><?php echo $g->fname ?></td>
-						<td><?php echo $g->mname ?></td>
-						<td><?php echo $g->lname ?></td>
-						<td><?php echo $g->contact_no ?></td>
-						<td><?php echo $converter->shortToLongDate($g->bday) ?></td>
-						<td><?php echo $converter->bdayToAge($g->bday); ?></td>
-						<td><?php echo $g->phase_block_lot ?></td>
-						<td><i class="fas fa-user-edit"></i></td>
+						<td><?php echo $ncg->data_subject_id; ?></td>
+						<td><?php echo $ncg->fname; ?></td>
+						<td><?php echo $ncg->mname; ?></td>
+						<td><?php echo $ncg->lname; ?></td>
+						<td><?php echo $converter->bdayToAge($ncg->bday); ?></td>
+						<td><?php echo $ncg->phase_block_lot; ?></td>
 					</tr>
 					<?php endforeach; ?>
 				</tbody>
-			</table><!-- #guarantors-tbl -->
-		</section><!-- #guarantors -->
-
-		<section id="savings">
-			<h3>Savings</h3>
-			<table id="savings-tbl" class="display cell-border" width="100%">
-				<thead>
-					<tr>
-						<th>ID</th>
-						<th>Member</th>
-						<th>No. of Share</th>
-						<th>Principal</th>
-					</tr>
-				</thead>
-				<tbody>
-					<?php foreach ($savings as $s): ?>
-					<tr>
-						<td><?php echo $s->guarantor_id; ?></td>
-						<td><?php echo $s->member; ?></td>
-						<td><?php echo $s->number_of_share; ?></td>
-						<td><?php echo $s->principal; ?></td>
-					</tr>
-					<?php endforeach; ?>
-				</tbody>
-			</table><!-- #savings-tbl -->
-		</section><!-- .savings -->
+			</table><!-- #new-guarantor-tbl -->
+		</section><!-- #new-guarantor -->
 	</main>
 
 	<script src="js/jquery-3.6.0.min.js"></script>
@@ -101,6 +89,6 @@
 	<script src="js/datatables.min.js"></script>
 	<script src="js/tingle.min.js"></script>
 	<script src="js/modal.js"></script>
-	<script src="js/members.js"></script>
+	<script src="js/add-guarantor.js"></script>
 </body>
 </html>

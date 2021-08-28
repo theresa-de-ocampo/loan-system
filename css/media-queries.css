@@ -1,6 +1,22 @@
+@media screen and (max-width: 1300px) {
+}
+
 @media screen and (max-width: 920px) {
 	.tingle-modal-box {
 		width: 75%;
+	}
+
+	form .flex-wrapper {
+		display: block;
+	}
+
+	form .flex-wrapper .flex-item {
+		padding: unset;
+		margin: 10px 0;
+	}
+
+	form .flex-wrapper .flex-item:not(:last-child) {
+		border-right: unset;
 	}
 }
 

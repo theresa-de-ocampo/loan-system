@@ -9,7 +9,7 @@ class Database {
 	private $dbh;
 	private $error;
 	private $stmt;
-	private $logFile;
+	private $logFile = "../src/log.txt";
 	
 	public function __construct() {
 		// Set DSN
@@ -56,6 +56,22 @@ class Database {
 
 	public function bindAndExecute($data) {
 		return $this->execute($data);
+	}
+
+	public function startTransaction() {
+		$this->dbh->beginTransaction();
+	}
+
+	public function commit() {
+		$this->dbh->commit();
+	}
+
+	public function rollBack() {
+		$this->dbh->rollBack();
+	}
+
+	public function executeWithoutCatch() {
+		return $this->stmt->execute();
 	}
 	
 	// Execute the prepared statement
@@ -114,21 +130,24 @@ class Database {
 		die();
 	}
 
-	private function logError() {
+	public function logError($error = "") {
 		$time = date("Y-m-d H:i", time());
-		$contents = "$time\t$this->error\r";
+		if ($error !== "")
+			$contents = "$time\t$error\r";
+		else
+			$contents = "$time\t$this->error\r";
 		file_put_contents($this->logFile, $contents, FILE_APPEND);
 	}
 
-	private function confirmQuery($message, $redirect) {
+	public function confirmQuery($message, $redirect) {
 		if ($this->stmt->rowCount() > 0) {
 			if ($message !== "") {
-				echo "<script>alert('$message')</script>";
+				echo "<script>alert('$message');</script>";
 			}
 		}
 		else {
 			echo "<script>alert('An unexpected error occurred. Please try again later.');</script>";
 		}
-		echo "<script>window.location.href = '$redirect';</script>";
+		echo "<script>window.location.replace('$redirect');</script>";
 	}
 }
