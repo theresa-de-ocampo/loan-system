@@ -2,10 +2,12 @@
 
 :root {
 	--athens-gray: #e8e9eb;
+	--azureish-white: #dae8f5;
 	--botticelli: #d4e1ee;
 	--blue-chill: #0d8b90;
 	--cyan: #03b8c0;
 	--dark-purple: #1d1b31;
+	--eden: #0d3b4c;
 	--light-steel-blue: #a9bcd0;
 	--link-water: #e4e9f7;
 	--roman-silver: #787e87;
@@ -60,7 +62,7 @@ h3 {
 
 section {
 	margin: 30px 60px;
-	padding: 20px 50px;
+	padding: 20px 50px 40px 50px;
 	box-shadow: 2px 2px 4px rgba(0, 0, 0, 0.6);
 	background-color: #fff;
 	border-radius: 20px;

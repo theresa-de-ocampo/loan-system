@@ -1,5 +1,9 @@
 <?php
 	require_once "config/config.php";
+	require_once "lib/database-handler.php";
+	require_once "models/Guarantor.php";
+
+	$guarantor = new Guarantor();
 ?>
 <!DOCTYPE html>
 <html lang="en">
@@ -11,6 +15,7 @@
 	<link rel="stylesheet" type="text/css" href="css/all.min.css" />
 	<link rel="stylesheet" type="text/css" href="css/style.css" />
 	<link rel="stylesheet" type="text/css" href="css/vertical-nav-bar.css" />
+	<link rel="stylesheet" type="text/css" href="css/home.css" />
 	<link rel="stylesheet" type="text/css" href="css/media-queries.css" />
 	<link rel="shortcut icon" type="image/x-icon" href="img/favicon.png" />
 	<title><?php echo COOPERATIVE; ?></title>
@@ -23,28 +28,74 @@
 			<i class="fas fa-bars"></i>
 			<h2 class="text">Home</h2>
 		</header>
-		
-		<section id="financial-standing">
-			<h3>Financial Standing</h3>
-			<p>
-				Lorem ipsum dolor sit amet, consectetur adipiscing elit. Vivamus vestibulum, nunc eu lobortis pharetra, metus purus tristique eros, sed efficitur augue sapien et lacus. Praesent sed ultricies felis. Duis ligula mauris, consequat et mattis vitae, congue ac tortor. Integer hendrerit arcu in risus pellentesque, ac fringilla odio euismod. Quisque tincidunt, enim quis accumsan semper, elit neque aliquet lacus, vel pharetra nulla sem sit amet ligula. Praesent consectetur quam pharetra ex molestie maximus. Nam gravida euismod leo, sit amet interdum eros facilisis rhoncus. Morbi ac eleifend risus. Duis in dictum sapien. Duis fermentum eu leo ut lobortis. Donec non ipsum felis. Duis libero nunc, efficitur vitae efficitur a, condimentum at libero. Donec ac urna vel magna lobortis laoreet.
-			</p>
-			<p>
-				Sed id magna iaculis, varius eros at, molestie libero. Sed non arcu libero. Nam vitae tellus eget libero laoreet gravida. Mauris sit amet egestas leo. Nam vestibulum fringilla enim eget faucibus. Nunc sem urna, pharetra eu tellus ultricies, efficitur luctus nulla. Nulla non augue laoreet, tristique nisi nec, tincidunt velit. Duis vitae dapibus nulla.
-			</p>
-			<p>
-				Ut efficitur hendrerit lacus, ac euismod odio. Donec maximus tincidunt tortor sed posuere. Mauris volutpat, nunc porttitor laoreet lacinia, elit tellus eleifend nulla, id fermentum odio elit vestibulum dui. Quisque pulvinar velit turpis, mollis vulputate nisl interdum vel. Suspendisse at ligula eu magna iaculis laoreet. Aenean ornare, arcu sit amet efficitur laoreet, libero nisl pharetra augue, eu pellentesque nibh nulla et nulla. Morbi elit nisi, suscipit vulputate gravida non, venenatis vel quam. Morbi pulvinar iaculis molestie.
-			</p>
-			<p>			
-				Mauris vitae commodo neque, in fermentum elit. Integer cursus ligula lacus, et iaculis orci cursus vel. Vivamus eros dui, ornare in sem sed, fringilla tempus lacus. Maecenas venenatis maximus finibus. Nam feugiat, tortor scelerisque eleifend vulputate, leo purus sagittis dui, sit amet sagittis tortor libero eu velit. Praesent sed urna lobortis sapien luctus dictum at eu magna. Etiam lacinia vel mauris at hendrerit. Duis gravida ligula aliquam lorem rhoncus finibus. Integer augue ex, fringilla tincidunt laoreet sit amet, posuere ut dolor. Phasellus non elementum urna, ut euismod dolor. Vestibulum placerat, orci vitae dictum mattis, turpis purus pharetra tortor, imperdiet aliquet elit augue nec nunc. Curabitur congue dui in orci lobortis volutpat eu rhoncus mi.
-			</p>
-		</section><!-- #financial-standing -->
 
 		<section id="dashboard">
 			<h3>Dashboard</h3>
-			<p>
-				Donec laoreet, magna vitae egestas suscipit, lectus dolor lobortis magna, nec gravida diam tellus aliquet sem. Quisque semper tristique risus in elementum. Praesent nec pellentesque quam, non semper dolor. Curabitur a efficitur orci, ac semper nisl. Class aptent taciti sociosqu ad litora torquent per conubia nostra, per inceptos himenaeos. Mauris sit amet finibus felis, nec consectetur urna. In ullamcorper imperdiet nibh. Suspendisse mattis, nibh a dictum iaculis, elit sem mattis eros, eget rutrum magna ante ut tellus. Nullam dapibus orci nunc, ut tempus nunc maximus sit amet. Proin mollis eget arcu commodo mattis. Nullam in ullamcorper leo, id porta diam.
-			</p>
+			<div class="grid-wrapper">
+				<div class="grid-item">
+					<div class="tally-label">
+						<div class="fas fa-user-tie"></div>
+						<h4>Guarantors</h4>
+					</div>
+					<p><?php echo $guarantor->getTotalCurrentGuarantors("", "home.php"); ?></p>
+				</div><!-- .grid-item -->
+				<div class="grid-item">
+					<div class="tally-label">
+						<div class="fas fa-user-tag"></div>
+						<h4>Borrowers</h4>
+					</div>
+					<p>0</p>
+				</div><!-- .grid-item -->
+				<div class="grid-item">
+					<div class="tally-label">
+						<div class="fas fa-file-invoice"></div>
+						<h4>Payments Today</h4>
+					</div>
+					<p><span>&#8369;</span> 0</p>
+				</div><!-- .grid-item -->
+				<div class="grid-item">
+					<div class="tally-label">
+						<div class="fas fa-sign-language"></div>
+						<h4>Loans Today</h4>
+					</div>
+					<p>0</p>
+				</div><!-- .grid-item -->
+				<div class="grid-item">
+					<div class="tally-label">
+						<div class="fas fa-piggy-bank"></div>
+						<h4>Savings</h4>
+					</div>
+					<p><span>&#8369;</span> <?php echo number_format($guarantor->getTotalSavings("", "home.php")); ?></p>
+				</div><!-- .grid-item -->
+				<div class="grid-item">
+					<div class="tally-label">
+						<div class="fas fa-crosshairs"></div>
+						<h4>Uncollected Loans</h4>
+					</div>
+					<p><span>&#8369;</span> 0</p>
+				</div><!-- .grid-item -->
+				<div class="grid-item">
+					<div class="tally-label">
+						<div class="fas fa-vote-yea"></div>
+						<h4>Collections</h4>
+					</div>
+					<p><span>&#8369;</span> 0</p>
+				</div><!-- .grid-item -->
+				<div class="grid-item">
+					<div class="tally-label">
+						<div class="fas fa-wallet"></div>
+						<h4>Cash On Hand</h4>
+					</div>
+					<p><span>&#8369;</span> <?php echo number_format($guarantor->getTotalSavings("", "home.php")); ?></p>
+				</div><!-- .grid-item -->
+				<div class="grid-item">
+					<div class="tally-label">
+						<div class="fas fa-exclamation-triangle"></div>
+						<h4>To Be Recovered</h4>
+					</div>
+					<p><span>&#8369;</span> 0</p>
+				</div><!-- .grid-item -->
+			</div><!-- .grid-wrapper -->
 		</section><!-- #dashboard -->
 	</main>
 

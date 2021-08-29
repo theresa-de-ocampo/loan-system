@@ -6,6 +6,11 @@ class Guarantor {
 		$this->db = new Database();
 	}
 
+	public function getTotalCurrentGuarantors() {
+		$this->db->query("SELECT COUNT(`data_subject_id`) FROM `current_guarantors`");
+		return $this->db->resultColumn();
+	}
+
 	public function getCurrentGuarantors() {
 		$this->db->query("SELECT * FROM `current_guarantors`");
 		return $this->db->resultSet();
@@ -14,6 +19,11 @@ class Guarantor {
 	public function getSavings() {
 		$this->db->query("SELECT * FROM `savings`");
 		return $this->db->resultSet();
+	}
+
+	public function getTotalSavings() {
+		$this->db->query("SELECT SUM(principal) FROM `savings`");
+		return $this->db->resultColumn();
 	}
 
 	public function getNotCurrentGuarantors() {

@@ -1,4 +1,7 @@
-@media screen and (max-width: 1300px) {
+@media screen and (max-width: 1100px) {
+	#dashboard .grid-wrapper {
+		grid-template-columns: 1fr 1fr;
+	}
 }
 
 @media screen and (max-width: 920px) {
@@ -17,6 +20,12 @@
 
 	form .flex-wrapper .flex-item:not(:last-child) {
 		border-right: unset;
+	}
+}
+
+@media screen and (max-width: 800px) {
+	#dashboard .grid-wrapper {
+		grid-template-columns: 1fr;
 	}
 }
 
@@ -49,6 +58,10 @@
 
 	.tingle-modal--overflow {
 		padding: 0;
+	}
+
+	section {
+		margin: 30px;
 	}
 }
 
