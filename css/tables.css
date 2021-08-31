@@ -16,11 +16,11 @@ table thead th:last-child {
 	border-radius: 0 5px 0 0;
 }
 
-.fa-user-edit {
+table .fas {
 	color: var(--blue-chill);
 }
 
-.fa-user-edit:hover {
+table .fas:hover {
 	color: var(--cyan);
 }
 

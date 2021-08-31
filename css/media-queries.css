@@ -2,6 +2,10 @@
 	#dashboard .grid-wrapper {
 		grid-template-columns: 1fr 1fr;
 	}
+
+	#summary .grid-wrapper {
+		grid-template-columns: 1.8fr 1fr 1fr;
+	}
 }
 
 @media screen and (max-width: 920px) {
@@ -20,6 +24,18 @@
 
 	form .flex-wrapper .flex-item:not(:last-child) {
 		border-right: unset;
+	}
+
+	#summary .grid-wrapper {
+		grid-template-columns: 1fr 1fr;
+	}
+
+	#summary table {
+		grid-column: 1/3;
+	}
+
+	.grid-wrapper > div {
+		margin-top: 20px;
 	}
 }
 

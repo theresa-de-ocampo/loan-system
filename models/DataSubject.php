@@ -7,9 +7,16 @@ class DataSubject {
 		$this->db = new Database();
 	}
 
+	public function getName($id) {
+		$this->db->query("SELECT CONCAT(`fname`, ' ', LEFT(`mname`, 1), '. ', `lname`) AS name FROM `data_subject` WHERE `data_subject_id` = ?");
+		$this->db->bind(1, $id);
+		return $this->db->resultColumn();
+	}
+
 	public function getDataSubject($id) {
 		$this->db->query("SELECT * FROM `data_subject` WHERE `data_subject_id` = ?");
 		$this->db->bind(1, $id);
+		return $this->db->resultRecord();
 	}
 
 	public function insertDataSubject($data) {

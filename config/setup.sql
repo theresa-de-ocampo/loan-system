@@ -1,7 +1,7 @@
 USE mysql;
-DROP DATABASE IF EXISTS `loan`;
-CREATE DATABASE `loan`;
-USE `loan`;
+DROP DATABASE IF EXISTS `ciudad_nuevo`;
+CREATE DATABASE `ciudad_nuevo`;
+USE `ciudad_nuevo`;
 
 CREATE TABLE `cycle` (
 	`cycle_id` YEAR PRIMARY KEY DEFAULT (YEAR(CURDATE())),
@@ -40,6 +40,50 @@ CREATE TABLE `guarantor_cycle_map` (
 		ON DELETE RESTRICT,
 	CONSTRAINT fk_guarantor_cycle_map_guarantor FOREIGN KEY (`guarantor_id`)
 		REFERENCES `guarantor` (`guarantor_id`)
+		ON UPDATE CASCADE
+		ON DELETE RESTRICT
+) Engine=InnoDB;
+
+CREATE TABLE `loan` (
+	`loan_id` INT UNSIGNED AUTO_INCREMENT PRIMARY KEY,
+	`borrower_id` INT UNSIGNED NOT NULL,
+	`guarantor_id` INT UNSIGNED NOT NULL,
+	`loan_date_time` DATETIME NOT NULL,
+	`principal` DECIMAL(10, 2) NOT NULL,
+	`status` ENUM('Active', 'Closed') DEFAULT 'Active' NOT NULL,
+
+	CONSTRAINT fk_loan_borrower_id FOREIGN KEY (`borrower_id`)
+		REFERENCES `data_subject` (`data_subject_id`)
+		ON UPDATE CASCADE
+		ON DELETE RESTRICT,
+	CONSTRAINT fk_loan_guarantor_id FOREIGN KEY (`guarantor_id`)
+		REFERENCES `guarantor` (`guarantor_id`)
+		ON UPDATE CASCADE
+		ON DELETE RESTRICT
+) Engine=InnoDB;
+
+CREATE TABLE `loan_detail` (
+	`loan_detail_id` INT UNSIGNED AUTO_INCREMENT PRIMARY KEY,
+	`transaction_date` DATE NOT NULL,
+	`principal_balance` DECIMAL(10, 2) NOT NULL,
+	`principal_payment` DECIMAL(10, 2),
+	`interest_amount` DECIMAL(8, 2),
+	`interest_status` ENUM('Paid', 'Pending', 'Overdue', 'Late') DEFAULT 'Pending',
+	`interest_date_time_paid` DATETIME,
+	`interest_balance` DECIMAL(8, 2),
+	`penalty_amount` DECIMAL(8, 2),
+	`penalty_from_interest_date` DATE,
+	`penalty_status` ENUM('Paid', 'Pending') DEFAULT 'Pending',
+	`penalty_date_time_paid` DATETIME,
+	`penalty_balance` DECIMAL(8, 2),
+	`processing_fee_amount` DECIMAL(7, 2),
+	`processing_fee_status` ENUM('Paid', 'Pending') DEFAULT 'Pending',
+	`processing_fee_date_time_paid` DATETIME,
+	`processing_fee_balance` DECIMAL(7, 2),
+	`loan_id` INT UNSIGNED NOT NULL,
+
+	CONSTRAINT fk_loan_detail_loan_id FOREIGN KEY (`loan_id`)
+		REFERENCES `loan` (`loan_id`)
 		ON UPDATE CASCADE
 		ON DELETE RESTRICT
 ) Engine=InnoDB;
@@ -126,7 +170,8 @@ VALUES
 	(DEFAULT, 'Mavic', 'Ferrer', 'Gariando', '09071213894', '1995-01-23', 'P1, B2, L10'),
 	(DEFAULT, 'Mona', 'Nacalaban', 'Aguinaldo', '09749712038', '1956-08-23', 'P1, B2, L11'),
 	(DEFAULT, 'Nelly', 'Años', 'Zamora', '09449293018', '1991-05-18', 'P1, B2, L12'),
-	(DEFAULT, 'Nelsie', 'Bigalbal', 'Nasol', '09458129443', '1965-07-19', 'P1, B2, L13');
+	(DEFAULT, 'Nelsie', 'Bigalbal', 'Nasol', '09458129443', '1965-07-19', 'P1, B2, L13'),
+	(DEFAULT, 'Cherryluz', 'Casaul', 'Javier', '09749481225', '1981-03-21', 'P2, B1, L1');
 
 INSERT INTO
 	`guarantor`
@@ -161,3 +206,15 @@ VALUES
 	(20, '2021', 2),
 	(21, '2021', 5),
 	(22, '2021', 5);
+
+INSERT INTO
+	`loan`
+VALUES
+	(DEFAULT, 23, 9, '2021-02-10 10:00:00', 5000, DEFAULT);
+
+INSERT INTO
+	`loan_detail`
+VALUES
+	(DEFAULT, '2021-02-10', 5000, NULL, 500, 'Paid', '2021-02-10 08:00:00', 0, NULL, NULL, NULL, NULL, NULL, 60, 'Paid', '2021-02-10 08:01:00', 0, 1),
+	(DEFAULT, '2021-03-10', 5000, NULL, 500, 'Paid', '2021-03-10 08:15:00', 0, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, 1),
+	(DEFAULT, '2021-04-10', 5000, NULL, 500, 'Paid', '2021-04-10 08:14:00', 0, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, 1);
