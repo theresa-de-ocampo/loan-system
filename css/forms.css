@@ -66,6 +66,7 @@ footer {
 }
 
 .tingle-modal footer {
+	align-items: center;
 	background-color: var(--athens-gray);
 	border-top: 2px solid var(--silver-sand);
 	display: flex;
@@ -86,7 +87,7 @@ footer {
 	color: white;
 	font-size: 2rem;
 	margin: 3px;
-	padding: 12px 15px;
+	padding: 17px 20px;
 	position: relative;
 	transition: color 0.2s ease, background-color 0.2s ease, transform 0.3s ease;
 }

@@ -21,9 +21,16 @@ class DataSubject {
 
 	public function insertDataSubject($data) {
 		$this->db->query("INSERT INTO `data_subject` (`fname`, `mname`, `lname`, `contact_no`, `bday`, `phase_block_lot`) VALUES (?, ?, ?, ?, ?, ?)");
-		$i = 1;
-		for ($i = 1; $i <= 6; $i++)
+		foreach($data as $field)
 			$this->db->bind($i, $field);
 		$this->db->executeWithoutCatch();
+	}
+
+	public function updateDataSubject($data) {
+		$this->db->query("UPDATE `data_subject` SET `fname` = ?, `mname` = ?, `lname` = ?, `contact_no` = ?, `bday` = ?, `phase_block_lot` = ? WHERE `data_subject_id` = ?");
+		$i = 1;
+		foreach ($data as $field)
+			$this->db->bind($i++, $field);
+		$this->db->execute("Data subject was updated successfully!", "../members.php");
 	}
 }
