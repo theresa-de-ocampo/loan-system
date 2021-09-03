@@ -45,6 +45,13 @@
 	}
 }
 
+/* Tablet */
+@media only screen and (max-width: 769px) {
+	.login-container .headline {
+		padding-bottom: 20px;
+	}
+}
+
 @media screen and (max-width: 768px) {
 	header.modal {
 		font-size: 25px;
@@ -81,8 +88,56 @@
 	}
 }
 
+/* For Mobile L */
+@media only screen and (max-width: 426px) {
+	.login-container .headline {
+		font-size: 35px;
+		padding-bottom: 15px;
+	}
+	
+	.login-container form {
+		max-width: 322px;
+	}
+}
+
 @media screen and (max-width: 420px) {
 	nav.closed .nav-links li .sub-menu{
 		display: none;
+	}
+}
+
+/* For Mobile M */
+@media only screen and (max-width: 376px) {
+	.login-container .headline {
+		font-size: 30px;
+		padding-bottom: 12px;
+	}
+	
+	.login-container form {
+		max-width: 280px;
+	}
+	
+	.login-container label {
+		font-size: 15px;
+	}
+}
+
+/* For Mobile S */
+@media only screen and (max-width: 320px) {
+	.login-container .headline {
+		font-size: 25px;
+		padding-bottom: 6px;
+	}
+	
+	.login-container form {
+		max-width: 250px;
+	}
+	
+	.login-container .forget-password {
+		font-size: 13px;
+	}
+	
+	.login-container label {
+		font-size: 15px;
 	}
 }

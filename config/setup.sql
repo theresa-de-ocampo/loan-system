@@ -62,28 +62,101 @@ CREATE TABLE `loan` (
 		ON DELETE RESTRICT
 ) Engine=InnoDB;
 
-CREATE TABLE `loan_detail` (
-	`loan_detail_id` INT UNSIGNED AUTO_INCREMENT PRIMARY KEY,
-	`transaction_date` DATE NOT NULL,
-	`principal_balance` DECIMAL(10, 2) NOT NULL,
-	`principal_payment` DECIMAL(10, 2),
-	`interest_amount` DECIMAL(8, 2),
-	`interest_status` ENUM('Paid', 'Pending', 'Overdue', 'Late') DEFAULT 'Pending',
-	`interest_date_time_paid` DATETIME,
-	`interest_balance` DECIMAL(8, 2),
-	`penalty_amount` DECIMAL(8, 2),
-	`penalty_from_interest_date` DATE,
-	`penalty_status` ENUM('Paid', 'Pending') DEFAULT 'Pending',
-	`penalty_date_time_paid` DATETIME,
-	`penalty_balance` DECIMAL(8, 2),
-	`processing_fee_amount` DECIMAL(7, 2),
-	`processing_fee_status` ENUM('Paid', 'Pending') DEFAULT 'Pending',
-	`processing_fee_date_time_paid` DATETIME,
-	`processing_fee_balance` DECIMAL(7, 2),
+CREATE TABLE `principal_payment` (
+	`principal_payment_id` INT UNSIGNED AUTO_INCREMENT PRIMARY KEY,
+	`amount` DECIMAL(10, 2) NOT NULL,
+	`date_time_paid` DATETIME NOT NULL,
 	`loan_id` INT UNSIGNED NOT NULL,
 
-	CONSTRAINT fk_loan_detail_loan_id FOREIGN KEY (`loan_id`)
+	CONSTRAINT fk_principal_payment_loan_id FOREIGN KEY (`loan_id`)
 		REFERENCES `loan` (`loan_id`)
+		ON UPDATE CASCADE
+		ON DELETE RESTRICT
+) Engine=InnoDB;
+
+CREATE TABLE `interest` (
+	`interest_id` INT UNSIGNED AUTO_INCREMENT PRIMARY KEY,
+	`interest_date` DATE NOT NULL,
+	`amount` DECIMAL(8, 2) NOT NULL,
+	`status` ENUM('Paid', 'Pending', 'Overdue', 'Late') DEFAULT 'Pending' NOT NULL,
+	`loan_id` INT UNSIGNED NOT NULL,
+
+	CONSTRAINT fk_interest_loan_id FOREIGN KEY (`loan_id`)
+		REFERENCES `loan` (`loan_id`)
+		ON UPDATE CASCADE
+		ON DELETE RESTRICT
+) Engine=InnoDB;
+
+CREATE TABLE `interest_payment` (
+	`interest_payment_id` INT UNSIGNED AUTO_INCREMENT PRIMARY KEY,
+	`amount` DECIMAL(10, 2) NOT NULL,
+	`date_time_paid` DATETIME NOT NULL,
+	`interest_id` INT UNSIGNED NOT NULL,
+
+	CONSTRAINT fk_interest_payment_interest_id FOREIGN KEY (`interest_id`)
+		REFERENCES `interest` (`interest_id`)
+		ON UPDATE CASCADE
+		ON DELETE RESTRICT
+) Engine=InnoDB;
+
+CREATE TABLE `penalty` (
+	`penalty_id` INT UNSIGNED AUTO_INCREMENT PRIMARY KEY,
+	`penalty_date` DATE NOT NULL,
+	`amount` DECIMAL(8, 2) NOT NULL,
+	`status` ENUM('Paid', 'Pending') DEFAULT 'Pending' NOT NULL,
+	`loan_id` INT UNSIGNED NOT NULL,
+
+	CONSTRAINT fk_penalty_loan_id FOREIGN KEY (`loan_id`)
+		REFERENCES `loan` (`loan_id`)
+		ON UPDATE CASCADE
+		ON DELETE RESTRICT
+) Engine=InnoDB;
+
+CREATE TABLE `penalty_payment` (
+	`penalty_payment_id` INT UNSIGNED AUTO_INCREMENT PRIMARY KEY,
+	`amount` DECIMAL(10, 2) NOT NULL,
+	`date_time_paid` DATETIME NOT NULL,
+	`penalty_id` INT UNSIGNED NOT NULL,
+
+	CONSTRAINT fk_penalty_payment_penalty_id FOREIGN KEY (`penalty_id`)
+		REFERENCES `penalty` (`penalty_id`)
+		ON UPDATE CASCADE
+		ON DELETE RESTRICT
+) Engine=InnoDB;
+
+CREATE TABLE `processing_fee` (
+	`processing_fee_id` INT UNSIGNED AUTO_INCREMENT PRIMARY KEY,
+	`processing_fee_date` DATE NOT NULL,
+	`amount` DECIMAL(8, 2) NOT NULL,
+	`status` ENUM('Paid', 'Pending') DEFAULT 'Pending' NOT NULL,
+	`loan_id` INT UNSIGNED NOT NULL,
+
+	CONSTRAINT fk_processing_fee_loan_id FOREIGN KEY (`loan_id`)
+		REFERENCES `loan` (`loan_id`)
+		ON UPDATE CASCADE
+		ON DELETE RESTRICT
+) Engine=InnoDB;
+
+CREATE TABLE `processing_fee_payment` (
+	`processing_fee_payment_id` INT UNSIGNED AUTO_INCREMENT PRIMARY KEY,
+	`amount` DECIMAL(10, 2) NOT NULL,
+	`date_time_paid` DATETIME NOT NULL,
+	`processing_fee_id` INT UNSIGNED NOT NULL,
+
+	CONSTRAINT fk_processing_fee_payment_processing_fee_id FOREIGN KEY (`processing_fee_id`)
+		REFERENCES `processing_fee` (`processing_fee_id`)
+		ON UPDATE CASCADE
+		ON DELETE RESTRICT
+) Engine=InnoDB;
+
+CREATE TABLE `administrator` (
+	`admin_id` INT UNSIGNED AUTO_INCREMENT PRIMARY KEY,
+	`email` VARCHAR(100) NOT NULL,
+	`password` VARCHAR(255) NOT NULL,
+	`data_subject_id` INT UNSIGNED,
+
+	CONSTRAINT fk_admin_data_subject_id FOREIGN KEY (`data_subject_id`)
+		REFERENCES `data_subject` (`data_subject_id`)
 		ON UPDATE CASCADE
 		ON DELETE RESTRICT
 ) Engine=InnoDB;
@@ -208,13 +281,47 @@ VALUES
 	(22, '2021', 5);
 
 INSERT INTO
+	`administrator`
+VALUES
+	(DEFAULT, 'ma_theresa7@yahoo.com', '$2y$10$uyNGNk8Ccj35tfSpFOWVte4rOjE02VDMYTBMYJAqULRysMSDYWjuO', 11);
+
+INSERT INTO
 	`loan`
 VALUES
 	(DEFAULT, 23, 9, '2021-02-10 10:00:00', 5000, DEFAULT);
 
 INSERT INTO
-	`loan_detail`
+	`interest`
 VALUES
-	(DEFAULT, '2021-02-10', 5000, NULL, 500, 'Paid', '2021-02-10 08:00:00', 0, NULL, NULL, NULL, NULL, NULL, 60, 'Paid', '2021-02-10 08:01:00', 0, 1),
-	(DEFAULT, '2021-03-10', 5000, NULL, 500, 'Paid', '2021-03-10 08:15:00', 0, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, 1),
-	(DEFAULT, '2021-04-10', 5000, NULL, 500, 'Paid', '2021-04-10 08:14:00', 0, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, 1);
+	(DEFAULT, '2021-02-10', 500, 'Paid', 1),
+	(DEFAULT, '2021-03-10', 500, 'Paid', 1),
+	(DEFAULT, '2021-04-10', 500, 'Paid', 1),
+	(DEFAULT, '2021-05-10', 500, 'Paid', 1),
+	(DEFAULT, '2021-06-10', 500, 'Overdue', 1);
+
+INSERT INTO
+	`interest_payment`
+VALUES
+	(DEFAULT, 500, '2021-02-10 08:00:00', 1),
+	(DEFAULT, 500, '2021-03-10 08:00:00', 2),
+	(DEFAULT, 500, '2021-04-10 08:00:00', 3),
+	(DEFAULT, 500, '2021-05-10 08:00:00', 4);
+
+INSERT INTO
+	`processing_fee`
+VALUES
+	(DEFAULT, '2021-02-10', 60, 'Paid', 1),
+	(DEFAULT, '2021-05-10', 60, 'Paid', 1);
+
+INSERT INTO
+	`processing_fee_payment`
+VALUES
+	(DEFAULT, 60, '2021-02-10 08:02:00', 1),
+	(DEFAULT, 60, '2021-05-10 08:02:00', 1);
+
+SELECT
+	COALESCE(SUM(amount), 0)
+FROM
+	principal_payment
+WHERE
+	loan_id = 1 AND DATE;

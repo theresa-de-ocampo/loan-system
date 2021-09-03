@@ -1,0 +1,104 @@
+body {
+	align-items: center;
+	display: flex;
+	justify-content: center;
+	min-height: 100vh;
+	position: relative;
+}
+
+.login-container {
+	margin:auto;
+	max-width:668px;
+	padding-bottom: 95px;
+	width:100%;
+}
+
+.login-container::before {
+	background-attachment: fixed;
+	background-image: url("../img/coop-bg.svg");
+	background-position: center center;
+	background-repeat: no-repeat;
+	background-size: cover;
+	bottom:0;
+	content:'';
+	left:0;
+	min-height: 100vh;
+	position: absolute;
+	right:0;
+	top:0;
+	z-index: -1;
+}
+
+.login-container .headline {
+	font-size: 42px;
+	font-weight: 700;
+	line-height: 52px;
+	padding-bottom: 25px;
+	text-align: center;
+	text-transform: capitalize;
+}
+
+.login-container form{
+	margin: auto;
+	max-width: 350px;
+	width: 100%;
+}
+
+.login-container .form-group {
+	margin-bottom: 15px;
+}
+
+.login-container .form-group input {
+	display: block;
+	letter-spacing: -0.1px;
+	line-height: 24px;
+	padding: 11px 15px;
+}
+
+.login-container .form-group input:valid {
+	background-color: var(--athens-gray);
+}
+
+.login-container .form-group input:-webkit-autofill {
+	-webkit-box-shadow: 0 0 0px 1000px var(--athens-gray) inset;
+}
+
+.login-container .form-group input::placeholder {
+	text-transform: capitalize;
+}
+	
+.login-container .form-group input:focus {
+	border-color: var(--dark-purple);
+}
+
+.login-container .btn {
+	background-color: var(--dark-purple);
+	border-radius: 5px;
+	border: none;
+	color: var(--athens-gray);
+	cursor: pointer;
+	font-size: 17px;
+	font-weight: 700;
+	height: 48px;
+	line-height: 22px;
+	margin: 15px 0 30px;
+	padding: 12px 29px;
+	text-align: center;
+	text-transform: uppercase;
+	width: 100%;
+}
+
+.login-container .btn:focus {
+	outline: none;
+}
+
+.login-container label {
+	display: contents!important;
+	text-transform: capitalize;
+	vertical-align: middle;
+}
+
+.login-container input[type="checkbox"]{
+	height: 13px;
+    width: 13px;
+}
