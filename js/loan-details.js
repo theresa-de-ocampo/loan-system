@@ -1,9 +1,9 @@
-$("#loan-details-tbl").DataTable({
+$("#principal-payments-tbl").DataTable({
 	dom: "Bfrtip", 
 	responsive: true,
 	buttons: [
 		{
-			text: "Principal Payment",
+			text: "Pay",
 			action: function() {
 				window.location.href = "add-guarantor.php";
 			},
@@ -13,17 +13,45 @@ $("#loan-details-tbl").DataTable({
 		},
 		{
 			extend: "print",
-			title: "Loan Details"
+			title: "Principal Payments"
 		},
 		{
 			extend: "csv",
-			title: "Loan Details"
+			title: "Principal Payments"
 		}
-	]/*,
-	columnDefs: [
+	]
+});
+
+$("#interests-tbl").DataTable({
+	dom: "Bfrtip", 
+	responsive: true,
+	buttons: [
 		{
-			targets: [1, 6, 9, 11, 15],
-			width: 100
+			extend: "print",
+			title: "Interests"
+		},
+		{
+			extend: "csv",
+			title: "Interests"
 		}
-	]*/
+	]
+});
+
+$("#interest-payments-tbl").DataTable({
+	dom: "Bfrtip", 
+	responsive: true,
+	buttons: [
+		{
+			extend: "print",
+			title: "Interest Payments"
+		},
+		{
+			extend: "csv",
+			title: "Interest Payments"
+		}
+	]
+});
+
+$("table td a").on("click", function() {
+
 });

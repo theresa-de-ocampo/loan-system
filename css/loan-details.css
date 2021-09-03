@@ -68,3 +68,7 @@
 .grid-wrapper > * {
 	border-radius: 15px;
 }
+
+table td a {
+	color: red;
+}

@@ -16,7 +16,9 @@
 	$transaction = new Transaction();
 	$data_subject = new DataSubject();
 	$loan = $transaction->getLoan($id);
-	$loan_details = $transaction->getLoanDetails($id);
+	$principal_payments = $transaction->getPrincipalPayments($id);
+	$interests = $transaction->getInterests($id);
+	$interest_payments = $transaction->getInterestPayments($id);
 ?>
 <!DOCTYPE html>
 <html lang="en">
@@ -30,6 +32,7 @@
 	<link rel="stylesheet" type="text/css" href="css/style.css" />
 	<link rel="stylesheet" type="text/css" href="css/vertical-nav-bar.css" />
 	<link rel="stylesheet" type="text/css" href="css/tables.css" />
+	<link rel="stylesheet" type="text/css" href="css/forms.css" />
 	<link rel="stylesheet" type="text/css" href="css/loan-details.css" />
 	<link rel="stylesheet" type="text/css" href="css/media-queries.css" />
 	<link rel="shortcut icon" type="image/x-icon" href="img/favicon.png" />
@@ -75,62 +78,80 @@
 			</div><!-- .grid-wrapper -->
 		</section><!-- #summary -->
 
-		<section id="loan-details">
-			<h3>Loan Details</h3>
+		<section id="principal-payments">
+			<h3>Principal Payments</h3>
 			<hr />
-			<table id="loan-details-tbl" class="display cell-border" width="100%">
+			<table id="principal-payments-tbl" class="display cell-border" width="100%">
 				<thead>
-					<tr>
-						<th rowspan="2">ID</th>
-						<th rowspan="2">DATE</th>
-						<th colspan="2">PRINCIPAL</th>
-						<th colspan="4">INTEREST</th>
-						<th colspan="5">PENALTY</th>
-						<th colspan="4">PROCESSING FEE</th>
-					</tr>
 					<tr>
 						<th>Balance</th>
 						<th>Payment</th>
-						<th>Amount</th>
-						<th>Status</th>
 						<th>Date Paid</th>
-						<th>Balance</th>
-						<th>Amount</th>
-						<th>From Interest Date</th>
-						<th>Status</th>
-						<th>Date Paid</th>
-						<th>Balance</th>
-						<th>Amount</th>
-						<th>Status</th>
-						<th>Date Paid</th>
-						<th>Balance</th>
 					</tr>
 				</thead>
 				<tbody>
-					<?php foreach ($loan_details as $ld): ?>
+					<?php foreach ($principal_payments as $pp): ?>
 					<tr>
-						<td><?php echo $ld->loan_detail_id; ?></td>
-						<td><?php echo $converter->shortToLongDate($ld->transaction_date); ?></td>
-						<td><?php echo $ld->principal_balance; ?></td>
-						<td><?php echo $ld->principal_payment; ?></td>
-						<td><?php echo $ld->interest_amount; ?></td>
-						<td><?php echo $ld->interest_status; ?></td>
-						<td><?php echo $converter->shortToLongDate($ld->interest_date_time_paid); ?></td>
-						<td><?php echo $ld->interest_balance; ?></td>
-						<td><?php echo $ld->penalty_amount; ?></td>
-						<td><?php echo $converter->shortToLongDate($ld->penalty_from_interest_date); ?></td>
-						<td><?php echo $ld->penalty_status; ?></td>
-						<td><?php echo $converter->shortToLongDate($ld->penalty_date_time_paid); ?></td>
-						<td><?php echo $ld->penalty_balance; ?></td>
-						<td><?php echo $ld->processing_fee_amount; ?></td>
-						<td><?php echo $ld->processing_fee_status; ?></td>
-						<td><?php echo $converter->shortToLongDate($ld->processing_fee_date_time_paid); ?></td>
-						<td><?php echo $ld->processing_fee_balance; ?></td>
+						<td>0</td>
+						<td><?php echo $pp->amount; ?></td>
+						<td><?php echo $converter->shortToLongDate($pp->date_time_paid); ?></td>
 					</tr>
 					<?php endforeach; ?>
 				</tbody>
-			</table><!-- #loan-details-tbl -->
-		</section><!-- #loan-details -->
+			</table><!-- #principal-payments-tbl -->
+		</section><!-- #principal-payments -->
+
+		<section id="interests">
+			<h3>Interests</h3>
+			<hr />
+			<table id="interests-tbl" class="display cell-border" width="100%">
+				<thead>
+					<tr>
+						<th>ID</th>
+						<th>Interest Date</th>
+						<th>Amount</th>
+						<th>Status</th>
+					</tr>
+				</thead>
+				<tbody>
+					<?php foreach ($interests as $i): ?>
+					<tr>
+						<td><?php echo $i->interest_id; ?></td>
+						<td><?php echo $converter->shortToLongDate($i->interest_date); ?></td>
+						<td><?php echo $i->amount; ?></td>
+						<?php if ($i->status == "Paid" || $i->status == "Late"): ?>
+						<td><?php echo $i->status; ?></td>
+						<?php else: ?>
+						<td><a href="#" data-loan-id="<?php echo $id; ?>" data-interest-id="<?php echo $i->interest_id; ?>"><?php echo $i->status; ?></a></td>
+						<?php endif; ?>
+					</tr>
+					<?php endforeach; ?>
+				</tbody>
+			</table><!-- #interests-tbl -->
+		</section><!-- #interests -->
+
+		<section id="interest-payments">
+			<h3>Interest Payments</h3>
+			<hr />
+			<table id="interest-payments-tbl" class="display cell-border" width="100%">
+				<thead>
+					<tr>
+						<th>Interest Date</th>
+						<th>Amount</th>
+						<th>Date Paid</th>
+					</tr>
+				</thead>
+				<tbdoy>
+					<?php foreach ($interest_payments as $ip): ?>
+					<tr>
+						<td><?php echo $converter->shortToLongDate($ip->interest_date); ?></td>
+						<td><?php echo $ip->amount; ?></td>
+						<td><?php echo $converter->shortToLongDate($ip->date_time_paid); ?></td>
+					</tr>
+					<?php endforeach; ?>
+				</tbdoy>
+			</table><!-- #interest-payments-tbl -->
+		</section><!-- #interest-payments -->
 	</main>
 
 	<script src="js/jquery-3.6.0.min.js"></script>

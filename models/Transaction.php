@@ -17,8 +17,24 @@ class Transaction {
 		return $this->db->resultRecord();
 	}
 
-	public function getLoanDetails($id) {
-		$this->db->query("SELECT * FROM `loan_detail` WHERE `loan_id` = ?");
+	public function getPrincipalPayments($id) {
+		$this->db->query("SELECT * FROM `principal_payment` WHERE `loan_id` = ?");
+		$this->db->bind(1, $id);
+		return $this->db->resultSet();
+	}
+
+	public function getPrincipalBalance($id) {
+
+	}
+
+	public function getInterests($id) {
+		$this->db->query("SELECT * FROM `interest` WHERE `loan_id` = ?");
+		$this->db->bind(1, $id);
+		return $this->db->resultSet();
+	}
+
+	public function getInterestPayments($id) {
+		$this->db->query("SELECT * FROM `interest_payment` INNER JOIN `interest` USING (`interest_id`) WHERE `loan_id` = ?");
 		$this->db->bind(1, $id);
 		return $this->db->resultSet();
 	}
