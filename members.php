@@ -89,7 +89,7 @@
 						<td><?php echo $s->guarantor_id; ?></td>
 						<td><?php echo $s->member; ?></td>
 						<td><?php echo $s->number_of_share; ?></td>
-						<td><?php echo $s->principal; ?></td>
+						<td><?php echo number_format($s->principal, 2, ".", ","); ?></td>
 					</tr>
 					<?php endforeach; ?>
 				</tbody>
