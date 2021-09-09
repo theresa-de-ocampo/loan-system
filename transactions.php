@@ -60,7 +60,7 @@
 						<td><?php echo $data_subject->getName($l->borrower_id); ?></td>
 						<td><?php echo $data_subject->getName($l->guarantor_id); ?></td>
 						<td><?php echo $converter->shortToLongDate($l->loan_date_time); ?></td>
-						<td><?php echo $l->principal; ?></td>
+						<td><?php echo number_format($l->principal, 2, ".", ","); ?></td>
 						<td><?php echo $l->status; ?></td>
 						<td><a class="fas fa-eye" href="loan-details.php?id=<?php echo $l->loan_id; ?>"></a></td>
 					</tr>

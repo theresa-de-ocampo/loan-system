@@ -150,4 +150,13 @@ class Database {
 		}
 		echo "<script>window.location.replace('$redirect');</script>";
 	}
+
+	public function confirmQueryWithReceipt($redirect) {
+		if ($this->stmt->rowCount() > 0) {
+			echo "<script>window.location.replace('$redirect');</script>";
+		}
+		else {
+			echo "<script>alert('An unexpected error occurred. Please try again later.');</script>";
+		}
+	}
 }

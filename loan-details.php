@@ -19,6 +19,8 @@
 	$principal_payments = $transaction->getPrincipalPayments($id);
 	$interests = $transaction->getInterests($id);
 	$interest_payments = $transaction->getInterestPayments($id);
+	$processing_fees = $transaction->getProcessingFees($id);
+	$processing_fee_payments = $transaction->getProcessingFeePayments($id);
 ?>
 <!DOCTYPE html>
 <html lang="en">
@@ -29,6 +31,7 @@
 	<meta name="viewport" content="width=device-width, initial-scale=1.0">
 	<link rel="stylesheet" type="text/css" href="css/all.min.css" />
 	<link rel="stylesheet" type="text/css" href="css/datatables.min.css" />
+	<link rel="stylesheet" type="text/css" href="css/tingle.min.css" />
 	<link rel="stylesheet" type="text/css" href="css/style.css" />
 	<link rel="stylesheet" type="text/css" href="css/vertical-nav-bar.css" />
 	<link rel="stylesheet" type="text/css" href="css/tables.css" />
@@ -93,7 +96,7 @@
 					<?php foreach ($principal_payments as $pp): ?>
 					<tr>
 						<td>0</td>
-						<td><?php echo $pp->amount; ?></td>
+						<td><?php echo number_format($pp->amount, 2, ".", ","); ?></td>
 						<td><?php echo $converter->shortToLongDate($pp->date_time_paid); ?></td>
 					</tr>
 					<?php endforeach; ?>
@@ -118,11 +121,20 @@
 					<tr>
 						<td><?php echo $i->interest_id; ?></td>
 						<td><?php echo $converter->shortToLongDate($i->interest_date); ?></td>
-						<td><?php echo $i->amount; ?></td>
+						<td><?php echo number_format($i->amount, 2, ".", ","); ?></td>
 						<?php if ($i->status == "Paid" || $i->status == "Late"): ?>
 						<td><?php echo $i->status; ?></td>
 						<?php else: ?>
-						<td><a href="#" data-loan-id="<?php echo $id; ?>" data-interest-id="<?php echo $i->interest_id; ?>"><?php echo $i->status; ?></a></td>
+						<td>
+							<a 
+								href="#" 
+								data-loan-id="<?php echo $id; ?>" 
+								data-interest-id="<?php echo $i->interest_id; ?>"
+								data-interest-balance="<?php echo number_format($transaction->getInterestBalance($id, $i->interest_id), 2, ".", ","); ?>"
+								>
+								<?php echo $i->status; ?>
+							</a>
+						</td>
 						<?php endif; ?>
 					</tr>
 					<?php endforeach; ?>
@@ -141,22 +153,84 @@
 						<th>Date Paid</th>
 					</tr>
 				</thead>
-				<tbdoy>
+				<tbody>
 					<?php foreach ($interest_payments as $ip): ?>
 					<tr>
 						<td><?php echo $converter->shortToLongDate($ip->interest_date); ?></td>
-						<td><?php echo $ip->amount; ?></td>
+						<td><?php echo number_format($ip->amount, 2, ".", ","); ?></td>
 						<td><?php echo $converter->shortToLongDate($ip->date_time_paid); ?></td>
 					</tr>
 					<?php endforeach; ?>
-				</tbdoy>
+				</tbody>
 			</table><!-- #interest-payments-tbl -->
 		</section><!-- #interest-payments -->
+
+		<section id="processing-fees">
+			<h3>Processing Fees</h3>
+			<hr />
+			<table id="processing-fees-tbl" class="display cell-border" width="100%">
+				<thead>
+					<tr>
+						<th>ID</th>
+						<th>Fee Date</th>
+						<th>Amount</th>
+						<th>Status</th>
+					</tr>
+				</thead>
+				<tbody>
+					<?php foreach ($processing_fees as $pf): ?>
+					<tr>
+						<td><?php echo $pf->processing_fee_id; ?></td>
+						<td><?php echo $converter->shortToLongDate($pf->processing_fee_date); ?></td>
+						<td><?php echo number_format($pf->amount, 2, ".", ","); ?></td>
+						<?php if ($pf->status == "Paid"): ?>
+						<td><?php echo $pf->status; ?></td>
+						<?php else: ?>
+						<td>
+							<a 
+								href="#" 
+								data-loan-id="<?php echo $id; ?>" 
+								data-processing-fee-id="<?php echo $pf->processing_fee_id; ?>"
+								>
+								<?php echo $pf->status; ?>
+							</a>
+						</td>
+						<?php endif; ?>
+					</tr>
+					<?php endforeach; ?>
+				</tbody>
+			</table><!-- #processing-fees-tbl -->
+		</section><!-- #processing-fees -->
+
+		<section id="processing-fee-payments">
+			<h3>Processing Fee Payments</h3>
+			<hr />
+			<table id="processing-fee-payments-tbl" class="display cell-border" width="100%">
+				<thead>
+					<tr>
+						<th>Fee Date</th>
+						<th>Amount</th>
+						<th>Date Paid</th>
+					</tr>
+				</thead>
+				<tbody>
+					<?php foreach ($processing_fee_payments as $pfp): ?>
+					<tr>
+						<td><?php echo $converter->shortToLongDate($pfp->processing_fee_date); ?></td>
+						<td><?php echo number_format($pfp->amount, 2, ".", ","); ?></td>
+						<td><?php echo $converter->shortToLongDate($pfp->date_time_paid); ?></td>
+					</tr>
+					<?php endforeach; ?>
+				</tbody>
+			</table><!-- #processing-fee-payments-tbl -->
+		</section><!-- #processing-fee-payments -->
 	</main>
 
 	<script src="js/jquery-3.6.0.min.js"></script>
 	<script src="js/vertical-nav-bar.js"></script>
 	<script src="js/datatables.min.js"></script>
+	<script src="js/tingle.min.js"></script>
+	<script src="js/modal.js"></script>
 	<script src="js/loan-details.js"></script>
 </body>
 </html>

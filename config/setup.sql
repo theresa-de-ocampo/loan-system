@@ -65,7 +65,7 @@ CREATE TABLE `loan` (
 CREATE TABLE `principal_payment` (
 	`principal_payment_id` INT UNSIGNED AUTO_INCREMENT PRIMARY KEY,
 	`amount` DECIMAL(10, 2) NOT NULL,
-	`date_time_paid` DATETIME NOT NULL,
+	`date_time_paid` DATETIME NOT NULL DEFAULT (NOW()),
 	`loan_id` INT UNSIGNED NOT NULL,
 
 	CONSTRAINT fk_principal_payment_loan_id FOREIGN KEY (`loan_id`)
@@ -90,7 +90,7 @@ CREATE TABLE `interest` (
 CREATE TABLE `interest_payment` (
 	`interest_payment_id` INT UNSIGNED AUTO_INCREMENT PRIMARY KEY,
 	`amount` DECIMAL(10, 2) NOT NULL,
-	`date_time_paid` DATETIME NOT NULL,
+	`date_time_paid` DATETIME NOT NULL DEFAULT (NOW()),
 	`interest_id` INT UNSIGNED NOT NULL,
 
 	CONSTRAINT fk_interest_payment_interest_id FOREIGN KEY (`interest_id`)
@@ -115,7 +115,7 @@ CREATE TABLE `penalty` (
 CREATE TABLE `penalty_payment` (
 	`penalty_payment_id` INT UNSIGNED AUTO_INCREMENT PRIMARY KEY,
 	`amount` DECIMAL(10, 2) NOT NULL,
-	`date_time_paid` DATETIME NOT NULL,
+	`date_time_paid` DATETIME NOT NULL DEFAULT (NOW()),
 	`penalty_id` INT UNSIGNED NOT NULL,
 
 	CONSTRAINT fk_penalty_payment_penalty_id FOREIGN KEY (`penalty_id`)
@@ -140,7 +140,7 @@ CREATE TABLE `processing_fee` (
 CREATE TABLE `processing_fee_payment` (
 	`processing_fee_payment_id` INT UNSIGNED AUTO_INCREMENT PRIMARY KEY,
 	`amount` DECIMAL(10, 2) NOT NULL,
-	`date_time_paid` DATETIME NOT NULL,
+	`date_time_paid` DATETIME NOT NULL DEFAULT (NOW()),
 	`processing_fee_id` INT UNSIGNED NOT NULL,
 
 	CONSTRAINT fk_processing_fee_payment_processing_fee_id FOREIGN KEY (`processing_fee_id`)
@@ -172,6 +172,73 @@ BEGIN
 		TIMESTAMPDIFF(YEAR, p_bday, CURDATE())
 	INTO
 		p_age;
+END $$
+DELIMITER ;
+
+-- [STORED PROCEDURE] get_principal_balance
+DELIMITER $$
+CREATE PROCEDURE get_principal_balance (
+	IN p_loan_id INT UNSIGNED,
+	OUT p_balance INT UNSIGNED
+)
+BEGIN
+	DECLARE amount_to_be_paid, total_payment INT UNSIGNED;
+
+	SELECT
+		COALESCE(SUM(amount), 0)
+	INTO
+		total_payment
+	FROM
+		principal_payment
+	WHERE
+		loan_id = p_loan_id;
+
+	SELECT
+		principal
+	INTO
+		amount_to_be_paid
+	FROM
+		loan
+	WHERE 
+		loan_id = p_loan_id;
+
+	SELECT
+		amount_to_be_paid - total_payment
+	INTO p_balance;
+END $$
+DELIMITER ;
+
+-- [STORED PROCEDURE] get_interest_balance
+DELIMITER $$
+CREATE PROCEDURE get_interest_balance (
+	IN p_loan_id INT UNSIGNED,
+	IN p_interest_id INT UNSIGNED,
+	OUT p_balance INT UNSIGNED
+)
+BEGIN
+	DECLARE amount_to_be_paid, total_payment INT UNSIGNED;
+
+	SELECT
+		COALESCE(SUM(amount), 0)
+	INTO
+		total_payment
+	FROM
+		interest_payment
+	WHERE
+		interest_id = p_interest_id;
+
+	SELECT
+		amount
+	INTO
+		amount_to_be_paid
+	FROM
+		interest
+	WHERE 
+		interest_id = p_interest_id;
+
+	SELECT
+		amount_to_be_paid - total_payment
+	INTO p_balance;
 END $$
 DELIMITER ;
 
@@ -317,11 +384,4 @@ INSERT INTO
 	`processing_fee_payment`
 VALUES
 	(DEFAULT, 60, '2021-02-10 08:02:00', 1),
-	(DEFAULT, 60, '2021-05-10 08:02:00', 1);
-
-SELECT
-	COALESCE(SUM(amount), 0)
-FROM
-	principal_payment
-WHERE
-	loan_id = 1 AND DATE;
+	(DEFAULT, 60, '2021-05-10 08:02:00', 2);

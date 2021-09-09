@@ -19,4 +19,14 @@ class Converter {
 			$formatted_date = str_replace(".", "", $formatted_date);
 		return $formatted_date;
 	}
+
+	public function shortToLongDateTime($datetime) {
+		$time_stamp = strtotime($datetime);
+		$format = "M. j, Y \\a\\t g:i A";
+		$formatted_date = date($format, $time_stamp);
+
+		if (strpos($formatted_date, "May") !== false)
+			$formatted_date = str_replace(".", "", $formatted_date);
+		return $formatted_date;
+	}
 }
