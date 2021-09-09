@@ -1,5 +1,5 @@
 // jshint esversion: 6
-$.get("inc/guarantor-form.html", function( data ) {
+$.get("inc/guarantor-form.html", function(data) {
 	let $table = $("#new-guarantor-tbl").DataTable({
 		dom: "Bfrtip", 
 		responsive: true,
@@ -19,12 +19,11 @@ $.get("inc/guarantor-form.html", function( data ) {
 	$("table").on("click", "tr", function() {
 		let $tr = $(this);
 
-		if ($tr.hasClass('selected')) {
-			$tr.removeClass('selected');
-		}
+		if ($tr.hasClass("selected"))
+			$tr.removeClass("selected");
 		else {
-			$table.$('tr.selected').removeClass('selected');
-			$tr.addClass('selected');
+			$table.$("tr.selected").removeClass("selected");
+			$tr.addClass("selected");
 		}
 		
 		if ($tr.hasClass("child"))

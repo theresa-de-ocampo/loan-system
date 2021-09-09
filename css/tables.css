@@ -18,6 +18,7 @@ table thead th:last-child {
 
 table .fas {
 	color: var(--blue-chill);
+	text-decoration: none;
 }
 
 table .fas:hover {
