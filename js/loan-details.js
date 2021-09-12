@@ -132,3 +132,20 @@ $("#penalty-payments-tbl").DataTable({
 		}
 	]
 });
+
+$.get("inc/penalty-payment-form.html", function(data) {
+	$("#penalties-tbl td a").on("click", function() {
+		$button = $(this);
+		createModal(data);
+
+		$(".tingle-modal-box #loan-id").val($button.attr("data-loan-id"));
+		$(".tingle-modal-box #penalty-id").val($button.attr("data-penalty-id"));
+		$(".tingle-modal-box #balance").val($button.attr("data-penalty-balance"));
+
+		$(".tingle-modal-box form .fa-pencil-alt").on("click", function(e) {
+			let ans = confirm("Proceed with payment?");
+			if (!ans)
+				e.preventDefault();
+		});
+	});
+});

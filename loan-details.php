@@ -132,7 +132,7 @@
 								href="#" 
 								data-loan-id="<?php echo $id; ?>" 
 								data-interest-id="<?php echo $i->interest_id; ?>"
-								data-interest-balance="<?php echo $transaction->getInterestBalance($id, $i->interest_id); ?>"
+								data-interest-balance="<?php echo $transaction->getInterestBalance($i->interest_id); ?>"
 								>
 								<?php echo $i->status; ?>
 							</a>
@@ -195,7 +195,7 @@
 								href="#"
 								data-loan-id="<?php echo $id; ?>"
 								data-penalty-id="<?php echo $p->penalty_id; ?>"
-								data-penalty-balance="<?php echo $transaction->getPenaltyBalance($id, $p->penalty_id); ?>"
+								data-penalty-balance="<?php echo $transaction->getPenaltyBalance($p->penalty_id); ?>"
 								>
 								<?php echo $p->status; ?>
 							</a>
@@ -221,9 +221,9 @@
 				<tbody>
 					<?php foreach ($penalty_payments as $pp): ?>
 					<tr>
-						<td><?php echo $pp->penalty_date; ?></td>
-						<td><?php echo $pp->amount; ?></td>
-						<td><?php echo $pp->date_paid; ?></td>
+						<td><?php echo $converter->shortToLongDate($pp->penalty_date); ?></td>
+						<td><?php echo number_format($pp->amount, 2, ".", ","); ?></td>
+						<td><?php echo $converter->shortToLongDate($pp->date_time_paid); ?></td>
 					</tr>
 					<?php endforeach; ?>
 				</tbody>

@@ -216,7 +216,6 @@ DELIMITER ;
 -- [STORED PROCEDURE] get_interest_balance
 DELIMITER $$
 CREATE PROCEDURE get_interest_balance (
-	IN p_loan_id INT UNSIGNED,
 	IN p_interest_id INT UNSIGNED,
 	OUT p_balance DECIMAL(9, 2)
 )
@@ -247,10 +246,44 @@ BEGIN
 END $$
 DELIMITER ;
 
+-- [STORED PROCEDURE] get_interest_balance_by_date
+DELIMITER $$
+CREATE PROCEDURE get_interest_balance_by_date (
+	IN p_interest_id INT UNSIGNED,
+	IN p_penalty_date DATE,
+	OUT p_balance DECIMAL(9, 2)
+)
+BEGIN
+	DECLARE amount_to_be_paid, total_payment DECIMAL(9, 2);
+
+	SELECT
+		COALESCE(SUM(amount), 0)
+	INTO
+		total_payment
+	FROM
+		interest_payment
+	WHERE
+		interest_id = p_interest_id AND
+		DATE(date_time_paid) <= p_penalty_date;
+
+	SELECT
+		amount
+	INTO
+		amount_to_be_paid
+	FROM
+		interest
+	WHERE 
+		interest_id = p_interest_id;
+
+	SELECT
+		amount_to_be_paid - total_payment
+	INTO p_balance;
+END $$
+DELIMITER ;
+
 -- [STORED PROCEDURE] get_penalty_balance
 DELIMITER $$
 CREATE PROCEDURE get_penalty_balance (
-	IN p_loan_id INT UNSIGNED,
 	IN p_penalty_id INT UNSIGNED,
 	OUT p_balance DECIMAL(9, 2)
 )
