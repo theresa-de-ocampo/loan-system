@@ -17,6 +17,10 @@ class Converter {
 
 		if (strpos($formatted_date, "May") !== false)
 			$formatted_date = str_replace(".", "", $formatted_date);
+		else if (strpos($formatted_date, "Jun") !== false) 
+			$formatted_date = str_replace(".", "e", $formatted_date);
+		else if (strpos($formatted_date, "Jul") !== false)
+			$formatted_date = str_replace(".", "y", $formatted_date);
 		return $formatted_date;
 	}
 
@@ -27,6 +31,10 @@ class Converter {
 
 		if (strpos($formatted_date, "May") !== false)
 			$formatted_date = str_replace(".", "", $formatted_date);
+		else if (strpos($formatted_date, "Jun") !== false) 
+			$formatted_date = str_replace(".", "e", $formatted_date);
+		else if (strpos($formatted_date, "Jul") !== false)
+			$formatted_date = str_replace(".", "y", $formatted_date);
 		return $formatted_date;
 	}
 }
