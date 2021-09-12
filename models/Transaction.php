@@ -70,6 +70,12 @@ class Transaction {
 		return $this->db->resultColumn();
 	}
 
+	public function getPenaltyPayments($id) {
+		$this->db->query("SELECT `penalty_date`, `penalty`.`amount`, `date_time_paid` FROM `penalty_payment` INNER JOIN `penalty` USING (`penalty_id`) WHERE `loan_id` = ?");
+		$this->db->bind(1, $id);
+		return $this->db->resultSet();
+	}
+
 	public function getProcessingFees($id) {
 		$this->db->query("SELECT * FROM `processing_fee` WHERE `loan_id` = ?");
 		$this->db->bind(1, $id);

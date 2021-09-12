@@ -20,6 +20,7 @@
 	$interests = $transaction->getInterests($id);
 	$interest_payments = $transaction->getInterestPayments($id);
 	$penalties = $transaction->getPenalties($id);
+	$penalty_payments = $transaction->getPenaltyPayments($id);
 	$processing_fees = $transaction->getProcessingFees($id);
 	$processing_fee_payments = $transaction->getProcessingFeePayments($id);
 ?>
@@ -205,6 +206,29 @@
 				</tbody>
 			</table><!-- #penalties-tbl -->
 		</section><!-- #penalties -->
+
+		<section id="penalty-payments">
+			<h3>Penalty Payments</h3>
+			<hr />
+			<table id="penalty-payments-tbl" class="display cell-border" width="100%">
+				<thead>
+					<tr>
+						<th>Penalty Date</th>
+						<th>Amount</th>
+						<th>Date Paid</th>
+					</tr>
+				</thead>
+				<tbody>
+					<?php foreach ($penalty_payments as $pp): ?>
+					<tr>
+						<td><?php echo $pp->penalty_date; ?></td>
+						<td><?php echo $pp->amount; ?></td>
+						<td><?php echo $pp->date_paid; ?></td>
+					</tr>
+					<?php endforeach; ?>
+				</tbody>
+			</table><!-- #penalty-payments-tbl -->
+		</section><!-- #penalty-payments -->
 
 		<section id="processing-fees">
 			<h3>Processing Fees</h3>

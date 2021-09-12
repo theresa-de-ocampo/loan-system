@@ -117,3 +117,18 @@ $("#penalties-tbl").DataTable({
 		}
 	]
 });
+
+$("#penalty-payments-tbl").DataTable({
+	dom: "Bfrtip", 
+	responsive: true,
+	buttons: [
+		{
+			extend: "print",
+			title: "Penalty Payments"
+		},
+		{
+			extend: "csv",
+			title: "Penalty Payments"
+		}
+	]
+});
