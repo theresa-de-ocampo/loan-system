@@ -1,11 +1,12 @@
 <?php
-	if (isset($_GET["interest-id"]) && isset($_GET["payment-id"])) {
+	if (isset($_GET["interest-id"]) && isset($_GET["balance"]) && isset($_GET["payment-id"])) {
 		$interest_id = $_GET["interest-id"];
+		$balance = $_GET["balance"];
 		$payment_id = $_GET["payment-id"];
 	}
 	else {
 		echo "<script>alert('Sorry, something went wrong!');</script>";
-		echo "<script>window.location.replace('transactions.php');</script>";
+		echo "<script>window.location.replace('../transactions.php');</script>";
 	}
 	require_once "../config/config.php";
 	require_once "../lib/database-handler.php";
@@ -76,7 +77,7 @@
 		</tr>
 		<tr>
 			<th>Interest Balance</th>
-			<td>&#8369; <?php echo number_format($data["interest_balance"], 2, ".", ","); ?></td>
+			<td>&#8369; <?php echo number_format($balance, 2, ".", ","); ?></td>
 		</tr>
 		<tr>
 			<th>Amount Paid</th>
