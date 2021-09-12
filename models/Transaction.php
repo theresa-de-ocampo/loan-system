@@ -54,6 +54,22 @@ class Transaction {
 		return $this->db->resultSet();
 	}
 
+	public function getPenalties($id) {
+		$this->db->query("SELECT `penalty_id`, `penalty_date`, `interest_date`, `penalty`.`amount`, `penalty`.`status` FROM `penalty` INNER JOIN `interest` USING (`interest_id`) WHERE `penalty`.`loan_id` = ?");
+		$this->db->bind(1, $id);
+		return $this->db->resultSet();
+	}
+
+	public function getPenaltyBalance($loan_id, $penalty_id) {
+		$this->db->query("CALL get_penalty_balance(?, ?, @balance)");
+		$this->db->bind(1, $loan_id);
+		$this->db->bind(2, $penalty_id);
+		$this->db->execute();
+
+		$this->db->query("SELECT @balance");
+		return $this->db->resultColumn();
+	}
+
 	public function getProcessingFees($id) {
 		$this->db->query("SELECT * FROM `processing_fee` WHERE `loan_id` = ?");
 		$this->db->bind(1, $id);

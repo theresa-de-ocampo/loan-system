@@ -19,6 +19,7 @@
 	$principal_payments = $transaction->getPrincipalPayments($id);
 	$interests = $transaction->getInterests($id);
 	$interest_payments = $transaction->getInterestPayments($id);
+	$penalties = $transaction->getPenalties($id);
 	$processing_fees = $transaction->getProcessingFees($id);
 	$processing_fee_payments = $transaction->getProcessingFeePayments($id);
 ?>
@@ -130,7 +131,7 @@
 								href="#" 
 								data-loan-id="<?php echo $id; ?>" 
 								data-interest-id="<?php echo $i->interest_id; ?>"
-								data-interest-balance="<?php echo number_format($transaction->getInterestBalance($id, $i->interest_id), 2, ".", ","); ?>"
+								data-interest-balance="<?php echo $transaction->getInterestBalance($id, $i->interest_id); ?>"
 								>
 								<?php echo $i->status; ?>
 							</a>
@@ -164,6 +165,46 @@
 				</tbody>
 			</table><!-- #interest-payments-tbl -->
 		</section><!-- #interest-payments -->
+
+		<section id="penalties">
+			<h3>Penalties</h3>
+			<hr />
+			<table id="penalties-tbl" class="display cell-border" width="100%">
+				<thead>
+					<tr>
+						<th>ID</th>
+						<th>Penalty Date</th>
+						<th>From Interest Date</th>
+						<th>Amount</th>
+						<th>Status</th>
+					</tr>
+				</thead>
+				<tbody>
+					<?php foreach ($penalties as $p): ?>
+					<tr>
+						<td><?php echo $p->penalty_id; ?></td>
+						<td><?php echo $converter->shortToLongDate($p->penalty_date); ?></td>
+						<td><?php echo $converter->shortToLongDate($p->interest_date); ?></td>
+						<td><?php echo number_format($p->amount, 2, ".", ","); ?></td>
+						<?php if ($p->status == "Paid"): ?>
+						<td><?php echo $p->status; ?></td>
+						<?php else: ?>
+						<td>
+							<a
+								href="#"
+								data-loan-id="<?php echo $id; ?>"
+								data-penalty-id="<?php echo $p->penalty_id; ?>"
+								data-penalty-balance="<?php echo $transaction->getPenaltyBalance($id, $p->penalty_id); ?>"
+								>
+								<?php echo $p->status; ?>
+							</a>
+						</td>
+						<?php endif; ?>
+					</tr>
+					<?php endforeach; ?>
+				</tbody>
+			</table><!-- #penalties-tbl -->
+		</section><!-- #penalties -->
 
 		<section id="processing-fees">
 			<h3>Processing Fees</h3>

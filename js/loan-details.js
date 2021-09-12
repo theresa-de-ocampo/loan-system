@@ -102,3 +102,18 @@ $.get("inc/interest-payment-form.html", function(data) {
 		});
 	});
 });
+
+$("#penalties-tbl").DataTable({
+	dom: "Bfrtip", 
+	responsive: true,
+	buttons: [
+		{
+			extend: "print",
+			title: "Penalties"
+		},
+		{
+			extend: "csv",
+			title: "Penalties"
+		}
+	]
+});

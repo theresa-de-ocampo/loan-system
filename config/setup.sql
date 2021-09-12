@@ -77,7 +77,7 @@ CREATE TABLE `principal_payment` (
 CREATE TABLE `interest` (
 	`interest_id` INT UNSIGNED AUTO_INCREMENT PRIMARY KEY,
 	`interest_date` DATE NOT NULL,
-	`amount` DECIMAL(8, 2) NOT NULL,
+	`amount` DECIMAL(9, 2) NOT NULL,
 	`status` ENUM('Paid', 'Pending', 'Overdue', 'Late') DEFAULT 'Pending' NOT NULL,
 	`loan_id` INT UNSIGNED NOT NULL,
 
@@ -89,7 +89,7 @@ CREATE TABLE `interest` (
 
 CREATE TABLE `interest_payment` (
 	`interest_payment_id` INT UNSIGNED AUTO_INCREMENT PRIMARY KEY,
-	`amount` DECIMAL(10, 2) NOT NULL,
+	`amount` DECIMAL(9, 2) NOT NULL,
 	`date_time_paid` DATETIME NOT NULL DEFAULT (NOW()),
 	`interest_id` INT UNSIGNED NOT NULL,
 
@@ -102,10 +102,15 @@ CREATE TABLE `interest_payment` (
 CREATE TABLE `penalty` (
 	`penalty_id` INT UNSIGNED AUTO_INCREMENT PRIMARY KEY,
 	`penalty_date` DATE NOT NULL,
-	`amount` DECIMAL(8, 2) NOT NULL,
+	`amount` DECIMAL(9, 2) NOT NULL,
 	`status` ENUM('Paid', 'Pending') DEFAULT 'Pending' NOT NULL,
+	`interest_id` INT UNSIGNED NOT NULL,
 	`loan_id` INT UNSIGNED NOT NULL,
 
+	CONSTRAINT fk_penalty_interest_id FOREIGN KEY (`interest_id`)
+		REFERENCES `interest` (`interest_id`)
+		ON UPDATE CASCADE
+		ON DELETE RESTRICT,
 	CONSTRAINT fk_penalty_loan_id FOREIGN KEY (`loan_id`)
 		REFERENCES `loan` (`loan_id`)
 		ON UPDATE CASCADE
@@ -114,7 +119,7 @@ CREATE TABLE `penalty` (
 
 CREATE TABLE `penalty_payment` (
 	`penalty_payment_id` INT UNSIGNED AUTO_INCREMENT PRIMARY KEY,
-	`amount` DECIMAL(10, 2) NOT NULL,
+	`amount` DECIMAL(9, 2) NOT NULL,
 	`date_time_paid` DATETIME NOT NULL DEFAULT (NOW()),
 	`penalty_id` INT UNSIGNED NOT NULL,
 
@@ -139,7 +144,7 @@ CREATE TABLE `processing_fee` (
 
 CREATE TABLE `processing_fee_payment` (
 	`processing_fee_payment_id` INT UNSIGNED AUTO_INCREMENT PRIMARY KEY,
-	`amount` DECIMAL(10, 2) NOT NULL,
+	`amount` DECIMAL(9, 2) NOT NULL,
 	`date_time_paid` DATETIME NOT NULL DEFAULT (NOW()),
 	`processing_fee_id` INT UNSIGNED NOT NULL,
 
@@ -179,10 +184,10 @@ DELIMITER ;
 DELIMITER $$
 CREATE PROCEDURE get_principal_balance (
 	IN p_loan_id INT UNSIGNED,
-	OUT p_balance INT UNSIGNED
+	OUT p_balance DECIMAL(10, 2)
 )
 BEGIN
-	DECLARE amount_to_be_paid, total_payment INT UNSIGNED;
+	DECLARE amount_to_be_paid, total_payment DECIMAL(10, 2);
 
 	SELECT
 		COALESCE(SUM(amount), 0)
@@ -213,10 +218,10 @@ DELIMITER $$
 CREATE PROCEDURE get_interest_balance (
 	IN p_loan_id INT UNSIGNED,
 	IN p_interest_id INT UNSIGNED,
-	OUT p_balance INT UNSIGNED
+	OUT p_balance DECIMAL(9, 2)
 )
 BEGIN
-	DECLARE amount_to_be_paid, total_payment INT UNSIGNED;
+	DECLARE amount_to_be_paid, total_payment DECIMAL(9, 2);
 
 	SELECT
 		COALESCE(SUM(amount), 0)
@@ -239,6 +244,41 @@ BEGIN
 	SELECT
 		amount_to_be_paid - total_payment
 	INTO p_balance;
+END $$
+DELIMITER ;
+
+-- [STORED PROCEDURE] get_penalty_balance
+DELIMITER $$
+CREATE PROCEDURE get_penalty_balance (
+	IN p_loan_id INT UNSIGNED,
+	IN p_penalty_id INT UNSIGNED,
+	OUT p_balance DECIMAL(9, 2)
+)
+BEGIN
+	DECLARE amount_to_be_paid, total_payment DECIMAL(9, 2);
+
+	SELECT
+		COALESCE(SUM(amount), 0)
+	INTO
+		total_payment
+	FROM
+		penalty_payment
+	WHERE
+		penalty_id = p_penalty_id;
+
+	SELECT
+		amount
+	INTO
+		amount_to_be_paid
+	FROM
+		penalty
+	WHERE
+		penalty_id = p_penalty_id;
+
+	SELECT 
+		amount_to_be_paid - total_payment
+	INTO
+		p_balance;
 END $$
 DELIMITER ;
 
@@ -373,6 +413,17 @@ VALUES
 	(DEFAULT, 500, '2021-03-10 08:00:00', 2),
 	(DEFAULT, 500, '2021-04-10 08:00:00', 3),
 	(DEFAULT, 500, '2021-05-10 08:00:00', 4);
+
+INSERT INTO
+	`penalty`
+VALUES
+	(DEFAULT, '2021-06-11', 17, 'Pending', 5, 1),
+	(DEFAULT, '2021-06-12', 17, 'Pending', 5, 1),
+	(DEFAULT, '2021-06-13', 17, 'Pending', 5, 1),
+	(DEFAULT, '2021-06-14', 17, 'Pending', 5, 1),
+	(DEFAULT, '2021-06-15', 17, 'Pending', 5, 1),
+	(DEFAULT, '2021-06-16', 17, 'Pending', 5, 1),
+	(DEFAULT, '2021-06-17', 500, 'Pending', 5, 1);
 
 INSERT INTO
 	`processing_fee`
