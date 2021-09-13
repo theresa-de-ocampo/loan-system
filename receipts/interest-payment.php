@@ -17,6 +17,7 @@
 	$converter = new Converter();
 	$transaction = new Transaction();
 	$data = $transaction->getInterestReceiptData($interest_id, $payment_id);
+	$custom_id = "L".$data["loan_id"]." I".$interest_id." IP".$payment_id;
 ?>
 <!DOCTYPE html>
 <html lang="en">
@@ -28,7 +29,7 @@
 	<link rel="stylesheet" type="text/css" href="../css/all.min.css" />
 	<link rel="stylesheet" type="text/css" href="../css/print.css" media="print" />
 	<link rel="shortcut icon" type="image/x-icon" href="../img/favicon.png" />
-	<title><?php echo COOPERATIVE; ?></title>
+	<title><?php echo $custom_id; ?></title>
 </head>
 <body>
 	<header>
@@ -90,11 +91,7 @@
 	</table>
 	
 	<footer>
-		<div id="barcode">
-			L<?php echo $data["loan_id"]; ?>
-			I<?php echo $interest_id; ?>
-			IP<?php echo $payment_id; ?>
-		</div>
+		<div id="barcode"><?php echo $custom_id; ?></div>
 		&lowast;&lowast;&lowast; Thank you! &lowast;&lowast;&lowast;
 	</footer>
 
