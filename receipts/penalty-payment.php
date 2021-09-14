@@ -27,6 +27,7 @@
 	<meta name="description" content="" />
 	<meta name="viewport" content="width=device-width, initial-scale=1.0">
 	<link rel="stylesheet" type="text/css" href="../css/all.min.css" />
+	<link rel="stylesheet" type="text/css" href="../css/long-print-size.css" media="print" />
 	<link rel="stylesheet" type="text/css" href="../css/print.css" media="print" />
 	<link rel="shortcut icon" type="image/x-icon" href="../img/favicon.png" />
 	<title><?php echo $custom_id; ?></title>
