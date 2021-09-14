@@ -32,6 +32,16 @@ class Transaction {
 		return $this->db->resultColumn();
 	}
 
+	public function getPrincipalBalanceByDateTime($id, $date_time) {
+		$this->db->query("CALL get_principal_balance_by_date_time(?, ?, @balance)");
+		$this->db->bind(1, $id);
+		$this->db->bind(2, $date_time);
+		$this->db->execute();
+
+		$this->db->query("SELECT @balance");
+		return $this->db->resultColumn();
+	}
+
 	public function getInterests($id) {
 		$this->db->query("SELECT * FROM `interest` WHERE `loan_id` = ?");
 		$this->db->bind(1, $id);
@@ -86,6 +96,58 @@ class Transaction {
 		return $this->db->resultSet();
 	}
 
+	public function insertPrincipalPayment($data) {
+		try {
+			$this->db->startTransaction();
+			$loan_id = $data["loan-id"];
+			$balance = $data["balance"];
+			$amount = $data["amount"];
+
+			$this->db->query("INSERT INTO `principal_payment` (`amount`, `loan_id`) VALUES (?, ?)");
+			$this->db->bind(1, $amount);
+			$this->db->bind(2, $loan_id);
+			$this->db->executeWithoutCatch();
+			$principal_payment_id = $this->db->lastInsertId();
+
+			if ($amount >= $balance) {
+				$this->db->query("UPDATE `loan` SET `status` = 'Closed' WHERE `loan_id` = ?");
+				$this->db->bind(1, $loan_id);
+				$this->db->executeWithoutCatch();
+			}
+			$this->db->commit();
+		}
+		catch (PDOException $e) {
+			$this->db->rollBack();
+			$error = $e->getMessage()." in ".$e->getFile()." on line ".$e->getLine();
+			$this->db->logError($error);
+		}
+		finally {
+			$this->db->confirmQueryWithReceipt("../receipts/principal-payment.php?loan-id=$loan_id&balance=$balance&payment-id=$principal_payment_id");
+		}
+	}
+
+	public function getPrincipalReceiptData($loan_id, $principal_payment_id) {
+		$this->db->query("SELECT * FROM `loan` WHERE `loan_id` = ?");
+		$this->db->bind(1, $loan_id);
+		$loan = $this->db->resultRecord();
+
+		$this->db->query("SELECT * FROM `principal_payment` WHERE `principal_payment_id` = ?");
+		$this->db->bind(1, $principal_payment_id);
+		$principal_payment = $this->db->resultRecord();
+
+		$entities = $this->getEntities($loan->borrower_id, $loan->guarantor_id);
+		
+		return array(
+			"borrower" => $entities["borrower"],
+			"guarantor" => $entities["guarantor"],
+			"loan_date_time" => $loan->loan_date_time,
+			"principal" => $loan->principal,
+			"principal_balance" => $this->getPrincipalBalanceByDateTime($loan->loan_id, $principal_payment->date_time_paid),
+			"amount_paid" => $principal_payment->amount,
+			"date_time_paid" => $principal_payment->date_time_paid
+		);
+	}
+
 	public function insertInterestPayment($data) {
 		try {
 			$this->db->startTransaction();
@@ -94,7 +156,7 @@ class Transaction {
 			$balance = $data["balance"];
 			$amount = $data["amount"];
 			
-			$this->db->query("INSERT INTO `interest_payment` (`amount`, `interest_id`) VALUES(?, ?)");
+			$this->db->query("INSERT INTO `interest_payment` (`amount`, `interest_id`) VALUES (?, ?)");
 			$this->db->bind(1, $amount);
 			$this->db->bind(2, $interest_id);
 			$this->db->executeWithoutCatch();
@@ -139,13 +201,11 @@ class Transaction {
 		$this->db->bind(1, $interest_payment_id);
 		$interest_payment = $this->db->resultRecord();
 
-		$data_subject = new DataSubject();
-		$borrower = $data_subject->getName($loan->borrower_id);
-		$guarantor = $data_subject->getName($loan->guarantor_id);
+		$entities = $this->getEntities($loan->borrower_id, $loan->guarantor_id);
 
 		return array(
-			"borrower" => $borrower,
-			"guarantor" => $guarantor,
+			"borrower" => $entities["borrower"],
+			"guarantor" => $entities["guarantor"],
 			"loan_date_time" => $loan->loan_date_time,
 			"principal" => $loan->principal,
 			"principal_balance" => $this->getPrincipalBalance($loan->loan_id),
@@ -166,7 +226,7 @@ class Transaction {
 			$balance = $data["balance"];
 			$amount = $data["amount"];
 
-			$this->db->query("INSERT INTO `penalty_payment` (`amount`, `penalty_id`) VALUES(?, ?)");
+			$this->db->query("INSERT INTO `penalty_payment` (`amount`, `penalty_id`) VALUES (?, ?)");
 			$this->db->bind(1, $amount);
 			$this->db->bind(2, $penalty_id);
 			$this->db->executeWithoutCatch();
@@ -216,13 +276,11 @@ class Transaction {
 		$this->db->bind(1, $penalty->interest_id);
 		$interest = $this->db->resultRecord();
 
-		$data_subject = new DataSubject();
-		$borrower = $data_subject->getName($loan->borrower_id);
-		$guarantor = $data_subject->getName($loan->guarantor_id);
+		$entities = $this->getEntities($loan->borrower_id, $loan->guarantor_id);
 
 		return array(
-			"borrower" => $borrower,
-			"guarantor" => $guarantor,
+			"borrower" => $entities["borrower"],
+			"guarantor" => $entities["guarantor"],
 			"interest_date" => $interest->interest_date,
 			"interest_balance" => $this->getInterestBalanceByDate($interest->interest_id, $penalty->penalty_date),
 			"penalty_date" => $penalty->penalty_date,
@@ -231,5 +289,12 @@ class Transaction {
 			"date_time_paid" => $penalty_payment->date_time_paid,
 			"interest_id" => $interest->interest_id
 		);
+	}
+
+	private function getEntities($borrower_id, $guarantor_id) {
+		$data_subject = new DataSubject();
+		$borrower = $data_subject->getName($borrower_id);
+		$guarantor = $data_subject->getName($guarantor_id);
+		return array("borrower" => $borrower, "guarantor" => $guarantor);
 	}
 }

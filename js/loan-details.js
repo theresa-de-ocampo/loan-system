@@ -6,7 +6,12 @@ $("#principal-payments-tbl").DataTable({
 		{
 			text: "Pay",
 			action: function() {
-				window.location.href = "add-guarantor.php";
+				$.get("inc/principal-payment-form.html", function(data) {
+					createModal(data);
+					$(".tingle-modal-box #loan-id").val($("#loan-id-holder").text());
+					$(".tingle-modal-box #balance").val($("#loan-balance-holder").text());
+					confirmPayment();
+				});
 			},
 			attr: {
 				id: "principal-payment"
@@ -94,12 +99,7 @@ $.get("inc/interest-payment-form.html", function(data) {
 		$(".tingle-modal-box #loan-id").val($button.attr("data-loan-id"));
 		$(".tingle-modal-box #interest-id").val($button.attr("data-interest-id"));
 		$(".tingle-modal-box #balance").val($button.attr("data-interest-balance"));
-
-		$(".tingle-modal-box form .fa-pencil-alt").on("click", function(e) {
-			let ans = confirm("Proceed with payment?");
-			if (!ans)
-				e.preventDefault();
-		});
+		confirmPayment();
 	});
 });
 
@@ -130,7 +130,8 @@ $("#penalty-payments-tbl").DataTable({
 			extend: "csv",
 			title: "Penalty Payments"
 		}
-	]
+	],
+	order: []
 });
 
 $.get("inc/penalty-payment-form.html", function(data) {
@@ -141,11 +142,14 @@ $.get("inc/penalty-payment-form.html", function(data) {
 		$(".tingle-modal-box #loan-id").val($button.attr("data-loan-id"));
 		$(".tingle-modal-box #penalty-id").val($button.attr("data-penalty-id"));
 		$(".tingle-modal-box #balance").val($button.attr("data-penalty-balance"));
-
-		$(".tingle-modal-box form .fa-pencil-alt").on("click", function(e) {
-			let ans = confirm("Proceed with payment?");
-			if (!ans)
-				e.preventDefault();
-		});
+		confirmPayment();
 	});
 });
+
+function confirmPayment() {
+	$(".tingle-modal-box form .fa-pencil-alt").on("click", function(e) {
+		let ans = confirm("Proceed with payment?");
+		if (!ans)
+			e.preventDefault();
+	});
+}

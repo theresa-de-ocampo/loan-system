@@ -47,3 +47,8 @@
 table td a {
 	color: red;
 }
+
+#loan-id-holder,
+#loan-balance-holder {
+	display: none;
+}

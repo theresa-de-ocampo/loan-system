@@ -213,6 +213,41 @@ BEGIN
 END $$
 DELIMITER ;
 
+-- [STORED PROCEDURE] get_principal_balance_by_date_time
+DELIMITER $$
+CREATE PROCEDURE get_principal_balance_by_date_time (
+	IN p_loan_id INT UNSIGNED,
+	IN p_date_time DATETIME,
+	OUT p_balance DECIMAL(9, 2)
+)
+BEGIN
+	DECLARE amount_to_be_paid, total_payment DECIMAL(9, 2);
+
+	SELECT
+		COALESCE(SUM(amount), 0)
+	INTO
+		total_payment
+	FROM
+		principal_payment
+	WHERE
+		loan_id = p_loan_id AND
+		date_time_paid < p_date_time;
+
+	SELECT
+		principal
+	INTO
+		amount_to_be_paid
+	FROM
+		loan
+	WHERE 
+		loan_id = p_loan_id;
+
+	SELECT
+		amount_to_be_paid - total_payment
+	INTO p_balance;
+END $$
+DELIMITER ;
+
 -- [STORED PROCEDURE] get_interest_balance
 DELIMITER $$
 CREATE PROCEDURE get_interest_balance (

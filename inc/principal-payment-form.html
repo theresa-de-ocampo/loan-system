@@ -1,0 +1,21 @@
+<form action="src/add-principal-payment.php" method="post">
+	<div class="grid-wrapper">
+		<header class="modal">Principal Payment</header>
+		<div class="grid-item">
+			<label for="loan-id">Loan ID</label>
+			<input id="loan-id" type="number" name="loan-id" required class="short" readonly />
+		</div><!-- .grid-item -->
+		<div class="grid-item">
+			<label for="balance">Balance</label>
+			<input id="balance" type="number" name="balance" required class="medium" readonly />
+		</div><!-- .grid-item -->
+		<div class="grid-item">
+			<label for="amount">Amount</label>
+			<input id="amount" type="number" name="amount" required class="medium" />
+		</div><!-- .grid-item -->
+	</div><!-- .grid-wrapper -->
+
+	<footer>
+		<button id="modal-ok" type="submit" name="add"><i class="fas fa-pencil-alt"></i></button>
+	</footer>
+</form>

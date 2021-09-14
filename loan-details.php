@@ -86,6 +86,8 @@
 		<section id="principal-payments">
 			<h3>Principal Payments</h3>
 			<hr />
+			<div id="loan-id-holder"><?php echo $id; ?></div>
+			<div id="loan-balance-holder"><?php echo $transaction->getPrincipalBalance($id); ?></div>
 			<table id="principal-payments-tbl" class="display cell-border" width="100%">
 				<thead>
 					<tr>
@@ -97,7 +99,11 @@
 				<tbody>
 					<?php foreach ($principal_payments as $pp): ?>
 					<tr>
-						<td>0</td>
+						<td>
+							<?php
+								echo $transaction->getPrincipalBalanceByDateTime($pp->loan_id, $pp->date_time_paid); 
+							?>
+						</td>
 						<td><?php echo number_format($pp->amount, 2, ".", ","); ?></td>
 						<td><?php echo $converter->shortToLongDate($pp->date_time_paid); ?></td>
 					</tr>
