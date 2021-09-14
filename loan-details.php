@@ -262,6 +262,8 @@
 								href="#" 
 								data-loan-id="<?php echo $id; ?>" 
 								data-processing-fee-id="<?php echo $pf->processing_fee_id; ?>"
+								data-processing-fee-balance=
+									"<?php echo $transaction->getProcessingFeeBalance($pf->processing_fee_id); ?>"
 								>
 								<?php echo $pf->status; ?>
 							</a>

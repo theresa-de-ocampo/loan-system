@@ -350,6 +350,40 @@ BEGIN
 END $$
 DELIMITER ;
 
+-- [STORED PROCEDURE] get_processing_fee_balance
+DELIMITER $$
+CREATE PROCEDURE get_processing_fee_balance (
+	IN p_processing_fee_id INT UNSIGNED,
+	OUT p_balance DECIMAL(9, 2)
+)
+BEGIN
+	DECLARE amount_to_be_paid, total_payment DECIMAL(9, 2);
+
+	SELECT
+		COALESCE(SUM(amount), 0)
+	INTO
+		total_payment
+	FROM
+		processing_fee_payment
+	WHERE
+		processing_fee_id = p_processing_fee_id;
+
+	SELECT
+		amount
+	INTO
+		amount_to_be_paid
+	FROM
+		processing_fee
+	WHERE
+		processing_fee_id = p_processing_fee_id;
+
+	SELECT 
+		amount_to_be_paid - total_payment
+	INTO
+		p_balance;
+END $$
+DELIMITER ;
+
 -- [VIEW] savings
 CREATE VIEW savings AS
 SELECT
@@ -497,7 +531,8 @@ INSERT INTO
 	`processing_fee`
 VALUES
 	(DEFAULT, '2021-02-10', 60, 'Paid', 1),
-	(DEFAULT, '2021-05-10', 60, 'Paid', 1);
+	(DEFAULT, '2021-05-10', 60, 'Paid', 1),
+	(DEFAULT, '2021-08-10', 60, 'Pending', 1);
 
 INSERT INTO
 	`processing_fee_payment`

@@ -1,0 +1,25 @@
+<form action="src/add-processing-fee-payment.php" method="post">
+	<div class="grid-wrapper">
+		<header class="modal">Processing Fee Payment</header>
+		<div class="grid-item">
+			<label for="loan-id">Loan ID</label>
+			<input id="loan-id" type="number" name="loan-id" required readonly class="short" />
+		</div><!-- .grid-item -->
+		<div class="grid-item">
+			<label for="processing-fee-id">Processing Fee ID</label>
+			<input id="processing-fee-id" type="number" name="processing-fee-id" required readonly class="short" />
+		</div><!-- .grid-item -->
+		<div class="grid-item">
+			<label for="balance">Balance</label>
+			<input id="balance" type="number" name="balance" required class="medium" readonly />
+		</div><!-- .grid-item -->
+		<div class="grid-item">
+			<label for="amount">Amount</label>
+			<input id="amount" type="number" name="amount" required class="medium" />
+		</div><!-- .grid-item -->
+	</div><!-- .grid-wrapper -->
+
+	<footer>
+		<button id="modal-ok" type="submit" name="add"><i class="fas fa-pencil-alt"></i></button>
+	</footer>
+</form>

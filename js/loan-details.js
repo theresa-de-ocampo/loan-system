@@ -146,6 +146,18 @@ $.get("inc/penalty-payment-form.html", function(data) {
 	});
 });
 
+$.get("inc/processing-fee-payment-form.html", function(data) {
+	$("#processing-fees-tbl td a").on("click", function() {
+		$button = $(this);
+		createModal(data);
+
+		$(".tingle-modal-box #loan-id").val($button.attr("data-loan-id"));
+		$(".tingle-modal-box #processing-fee-id").val($button.attr("data-processing-fee-id"));
+		$(".tingle-modal-box #balance").val($button.attr("data-processing-fee-balance"));
+		confirmPayment();
+	});
+});
+
 function confirmPayment() {
 	$(".tingle-modal-box form .fa-pencil-alt").on("click", function(e) {
 		let ans = confirm("Proceed with payment?");
