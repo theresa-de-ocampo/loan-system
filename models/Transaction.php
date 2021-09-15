@@ -106,33 +106,17 @@ class Transaction {
 	}
 
 	public function insertPrincipalPayment($data) {
-		try {
-			$this->db->startTransaction();
-			$loan_id = $data["loan-id"];
-			$balance = $data["balance"];
-			$amount = $data["amount"];
+		$loan_id = $data["loan-id"];
+		$balance = $data["balance"];
+		$amount = $data["amount"];
 
-			$this->db->query("INSERT INTO `principal_payment` (`amount`, `loan_id`) VALUES (?, ?)");
-			$this->db->bind(1, $amount);
-			$this->db->bind(2, $loan_id);
-			$this->db->executeWithoutCatch();
-			$principal_payment_id = $this->db->lastInsertId();
+		$this->db->query("INSERT INTO `principal_payment` (`amount`, `loan_id`) VALUES (?, ?)");
+		$this->db->bind(1, $amount);
+		$this->db->bind(2, $loan_id);
+		$this->db->execute();
+		$principal_payment_id = $this->db->lastInsertId();
 
-			if ($amount >= $balance) {
-				$this->db->query("UPDATE `loan` SET `status` = 'Closed' WHERE `loan_id` = ?");
-				$this->db->bind(1, $loan_id);
-				$this->db->executeWithoutCatch();
-			}
-			$this->db->commit();
-		}
-		catch (PDOException $e) {
-			$this->db->rollBack();
-			$error = $e->getMessage()." in ".$e->getFile()." on line ".$e->getLine();
-			$this->db->logError($error);
-		}
-		finally {
-			$this->db->confirmQueryWithReceipt("../receipts/principal-payment.php?loan-id=$loan_id&balance=$balance&payment-id=$principal_payment_id");
-		}
+		$this->db->confirmQueryWithReceipt("../receipts/principal-payment.php?loan-id=$loan_id&balance=$balance&payment-id=$principal_payment_id");
 	}
 
 	public function getPrincipalReceiptData($loan_id, $principal_payment_id) {

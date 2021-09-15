@@ -384,6 +384,227 @@ BEGIN
 END $$
 DELIMITER ;
 
+-- [STORED PROCEDURE] get_interest_receivables
+DELIMITER $$
+CREATE PROCEDURE get_interest_receivables (
+	IN p_loan_id INT UNSIGNED,
+	OUT p_total_receivables DECIMAL(9, 2)
+)
+BEGIN
+	DECLARE total_interest, total_payment DECIMAL(9, 2);
+
+	SELECT
+		SUM(`amount`)
+	INTO
+		total_interest
+	FROM
+		`interest`
+	WHERE
+		`loan_id` = p_loan_id;
+
+	SELECT
+		COALESCE(SUM(`amount`), 0)
+	INTO
+		total_payment
+	FROM
+		`interest_payment`
+	WHERE
+		`interest_id` IN (
+				SELECT
+					`interest_id`
+				FROM
+					`interest`
+				WHERE
+					`loan_id` = p_loan_id
+			);
+
+	SET p_total_receivables = total_interest - total_payment;
+END $$
+DELIMITER ;
+
+-- [STORED PROCEDURE] get_penalty_receivables
+DELIMITER $$
+CREATE PROCEDURE get_penalty_receivables (
+	IN p_loan_id INT UNSIGNED,
+	OUT p_total_receivables DECIMAL(9, 2)
+)
+BEGIN
+	DECLARE total_penalties, total_payment DECIMAL(9, 2);
+
+	SELECT
+		SUM(`amount`)
+	INTO
+		total_penalties
+	FROM
+		`penalty`
+	WHERE
+		`loan_id` = p_loan_id;
+
+	SELECT
+		COALESCE(SUM(`amount`), 0)
+	INTO
+		total_payment
+	FROM
+		`penalty_payment`
+	WHERE
+		`penalty_id` IN (
+				SELECT
+					`penalty_id`
+				FROM
+					`penalty`
+				WHERE
+					`loan_id` = p_loan_id
+			);
+
+	SET p_total_receivables = total_penalties - total_payment;
+END $$
+DELIMITER ;
+
+-- [STORED PROCEDURE] get_processing_fee_receivables
+DELIMITER $$
+CREATE PROCEDURE get_processing_fee_receivables (
+	IN p_loan_id INT UNSIGNED,
+	OUT p_total_receivables DECIMAL(9, 2)
+)
+BEGIN
+	DECLARE total_processing_fees, total_payment DECIMAL(9, 2);
+
+	SELECT
+		SUM(`amount`)
+	INTO
+		total_processing_fees
+	FROM
+		`processing_fee`
+	WHERE
+		`loan_id` = p_loan_id;
+
+	SELECT
+		COALESCE(SUM(`amount`), 0)
+	INTO
+		total_payment
+	FROM
+		`processing_fee_payment`
+	WHERE
+		`processing_fee_id` IN (
+				SELECT
+					`processing_fee_id`
+				FROM
+					`processing_fee`
+				WHERE
+					`loan_id` = p_loan_id
+			);
+
+	SET p_total_receivables = total_processing_fees - total_payment;
+END $$
+DELIMITER ;
+
+-- [STORED PROCEDURE] check_loan_status
+DELIMITER $$
+CREATE PROCEDURE check_loan_status (
+	IN p_loan_id INT UNSIGNED
+)
+BEGIN
+	DECLARE principal_flag, interest_flag, penalty_flag, processing_fee_flag TINYINT;
+
+	CALL get_principal_balance(p_loan_id, @balance);
+	SELECT @balance INTO principal_flag;
+
+	CALL get_interest_receivables(p_loan_id, @total_receivables);
+	SELECT @total_receivables INTO interest_flag;
+
+	CALL get_penalty_receivables(p_loan_id, @total_receivables);
+	SELECT @total_receivables INTO penalty_flag;
+
+	CALL get_processing_fee_receivables(p_loan_id, @total_receivables);
+	SELECT @total_receivables INTO processing_fee_flag;
+
+	IF principal_flag = 0 AND interest_flag = 0 AND penalty_flag = 0 AND processing_fee_flag = 0 THEN
+		UPDATE `loan` SET `status` = 'Closed' WHERE `loan_id` = p_loan_id;
+	END IF;
+END $$
+DELIMITER ;
+
+-- [TRIGGER] after_principal_payment
+CREATE TRIGGER after_principal_payment
+AFTER INSERT ON `principal_payment`
+FOR EACH ROW
+	CALL check_loan_status(NEW.loan_id);
+
+-- [TRIGGER] after_interest_payment
+DELIMITER $$
+CREATE TRIGGER after_interest_payment
+AFTER INSERT ON `interest_payment`
+FOR EACH ROW
+BEGIN
+	DECLARE acquired_loan_id INT UNSIGNED;
+
+	SELECT
+		`loan_id`
+	INTO
+		acquired_loan_id
+	FROM
+		`loan`
+	INNER JOIN `interest`
+		USING (`loan_id`)
+	INNER JOIN `interest_payment`
+		USING (`interest_id`)
+	WHERE
+		`interest_payment_id` = NEW.`interest_payment_id`;
+
+	CALL check_loan_status(acquired_loan_id);
+END $$
+DELIMITER ;
+
+-- [TRIGGER] after_penalty_payment
+DELIMITER $$
+CREATE TRIGGER after_penalty_payment
+AFTER INSERT ON `penalty_payment`
+FOR EACH ROW
+BEGIN
+	DECLARE acquired_loan_id INT UNSIGNED;
+
+	SELECT
+		`loan_id`
+	INTO
+		acquired_loan_id
+	FROM
+		`loan`
+	INNER JOIN `penalty`
+		USING (`loan_id`)
+	INNER JOIN `penalty_payment`
+		USING (`penalty_id`)
+	WHERE
+		`penalty_payment_id` = NEW.`penalty_payment_id`;
+
+	CALL check_loan_status(acquired_loan_id);
+END $$
+DELIMITER ;
+
+-- [TRIGGER] after_processing_fee_payment
+DELIMITER $$
+CREATE TRIGGER after_processing_fee_payment
+AFTER INSERT ON `processing_fee_payment`
+FOR EACH ROW
+BEGIN
+	DECLARE acquired_loan_id INT UNSIGNED;
+
+	SELECT
+		`loan_id`
+	INTO
+		acquired_loan_id
+	FROM
+		`loan`
+	INNER JOIN `processing_fee`
+		USING (`loan_id`)
+	INNER JOIN `processing_fee_payment`
+		USING (`processing_fee_id`)
+	WHERE
+		`processing_fee_payment_id` = NEW.`processing_fee_payment_id`;
+
+	CALL check_loan_status(acquired_loan_id);
+END $$
+DELIMITER ;
+
 -- [VIEW] savings
 CREATE VIEW savings AS
 SELECT
