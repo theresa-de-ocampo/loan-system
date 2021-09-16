@@ -15,6 +15,8 @@
 	$converter = new Converter();
 	$transaction = new Transaction();
 	$data_subject = new DataSubject();
+	$accrued_interest = $transaction->getAccruedInterest($id);
+	$total_receivables = $transaction->getTotalReceivablesByLoan($id);
 	$loan = $transaction->getLoan($id);
 	$principal_payments = $transaction->getPrincipalPayments($id);
 	$interests = $transaction->getInterests($id);
@@ -74,11 +76,11 @@
 				</table>
 				<div id="accrued-interest">
 					<h4>Accrued Interest</h4>
-					<p><span>&#8369;</span> 30,000</p>
+					<p><span>&#8369;</span> <?php echo number_format($accrued_interest, 2, ".", ","); ?></p>
 				</div><!-- #accrued-interest -->
 				<div id="total-receivables">
 					<h4>Total Receivables</h4>
-					<p><span>&#8369;</span> 2,500</p>
+					<p><span>&#8369;</span> <?php echo number_format($total_receivables, 2, ".", ","); ?></p>
 				</div>
 			</div><!-- .grid-wrapper -->
 		</section><!-- #summary -->

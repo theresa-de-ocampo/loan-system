@@ -344,6 +344,24 @@ class Transaction {
 		);
 	}
 
+	public function getAccruedInterest($id) {
+		$this->db->query("CALL get_accrued_interest(?, @accrued_interest)");
+		$this->db->bind(1, $id);
+		$this->db->execute();
+
+		$this->db->query("SELECT @accrued_interest");
+		return $this->db->resultColumn();
+	}
+
+	public function getTotalReceivablesByLoan($id) {
+		$this->db->query("CALL get_total_receivables_by_loan(?, @total_receivables)");
+		$this->db->bind(1, $id);
+		$this->db->execute();
+
+		$this->db->query("SELECT @total_receivables");
+		return $this->db->resultColumn();
+	}
+
 	private function getEntities($borrower_id, $guarantor_id) {
 		$data_subject = new DataSubject();
 		$borrower = $data_subject->getName($borrower_id);
