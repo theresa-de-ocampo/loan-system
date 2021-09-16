@@ -721,6 +721,11 @@ VALUES
 	(DEFAULT, 23, 9, '2021-02-10 10:00:00', 5000, DEFAULT);
 
 INSERT INTO
+	`principal_payment`
+VALUES
+	(DEFAULT, 3000, '2021-06-23 08:00:00', 1);
+
+INSERT INTO
 	`interest`
 VALUES
 	(DEFAULT, '2021-02-10', 500, 'Paid', 1),
@@ -753,7 +758,7 @@ INSERT INTO
 VALUES
 	(DEFAULT, '2021-02-10', 60, 'Paid', 1),
 	(DEFAULT, '2021-05-10', 60, 'Paid', 1),
-	(DEFAULT, '2021-08-10', 60, 'Pending', 1);
+	(DEFAULT, '2021-08-10', 30, 'Pending', 1);
 
 INSERT INTO
 	`processing_fee_payment`
