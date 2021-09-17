@@ -18,6 +18,8 @@
 	$accrued_interest = $transaction->getAccruedInterest($id);
 	$total_receivables = $transaction->getTotalReceivablesByLoan($id);
 	$loan = $transaction->getLoan($id);
+	$borrower = $data_subject->getName($loan->borrower_id);
+	$guarantor = $data_subject->getName($loan->guarantor_id);
 	$principal_payments = $transaction->getPrincipalPayments($id);
 	$interests = $transaction->getInterests($id);
 	$interest_payments = $transaction->getInterestPayments($id);
@@ -53,27 +55,17 @@
 			<h2 class="text">Transactions</h2>
 		</header>
 
+		<!-- Hidden, used as header for printing. -->
+		<div id="loan-info-holder">
+			<?php require_once "inc/print-header.html"; ?>
+			<div id="summary-details"><?php require "inc/loan-info.php"; ?></div>
+			<hr class="print-hr" />
+		</div><!-- #loan-info-holder -->
+
 		<section id="summary">
 			<h3>Summary</h3>
 			<div class="grid-wrapper">
-				<table>
-					<tr>
-						<th>Loan ID:</th>
-						<td><?php echo $id; ?></td>
-					</tr>
-					<tr>
-						<th>Borrower:</th>
-						<td><?php echo $data_subject->getName($loan->borrower_id); ?></td>
-					</tr>
-					<tr>
-						<th>Guarantor:</th>
-						<td><?php echo $data_subject->getName($loan->guarantor_id); ?></td>
-					</tr>
-					<tr>
-						<th>Loan Date:</th>
-						<td><?php echo $converter->shortToLongDate($loan->loan_date_time); ?></td>
-					</tr>
-				</table>
+				<?php require "inc/loan-info.php"; ?>
 				<div id="accrued-interest">
 					<h4>Accrued Interest</h4>
 					<p><span>&#8369;</span> <?php echo number_format($accrued_interest, 2, ".", ","); ?></p>
@@ -81,7 +73,7 @@
 				<div id="total-receivables">
 					<h4>Total Receivables</h4>
 					<p><span>&#8369;</span> <?php echo number_format($total_receivables, 2, ".", ","); ?></p>
-				</div>
+				</div><!-- #total-receivables -->
 			</div><!-- .grid-wrapper -->
 		</section><!-- #summary -->
 

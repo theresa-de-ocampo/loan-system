@@ -40,3 +40,39 @@ table.display.dataTable tbody tr:hover > .sorting_1 {
 #new-guarantor table tr:hover {
 	cursor: pointer;
 }
+
+#print-header {
+	display: flex;
+	gap: 20px;
+}
+
+#print-header h1 {
+	font-size: 25px;
+	line-height: 1.2;
+}
+
+#print-header .fa-handshake {
+	font-size: 100px;
+}
+
+#print-header address {
+	line-height: 1.4;
+}
+
+.print-hr {
+	margin: 10px 0;
+}
+
+#summary-details {
+	display: flex;
+	justify-content: center;
+}
+
+#summary-details table {
+	padding: 0;
+}
+
+#summary-details th {
+	text-align: right;
+	padding-right: 12px;
+}
