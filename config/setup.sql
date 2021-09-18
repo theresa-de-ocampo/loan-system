@@ -187,7 +187,7 @@ CREATE PROCEDURE get_accrued_interest (
 	OUT p_accrued_interest DECIMAL(10, 2)
 )
 	SELECT
-		COALESCE(SUM(amount), 0)
+		COALESCE(SUM(`amount`), 0)
 	INTO
 		p_accrued_interest
 	FROM
@@ -206,26 +206,24 @@ BEGIN
 	DECLARE amount_to_be_paid, total_payment DECIMAL(10, 2);
 
 	SELECT
-		COALESCE(SUM(amount), 0)
+		COALESCE(SUM(`amount`), 0)
 	INTO
 		total_payment
 	FROM
-		principal_payment
+		`principal_payment`
 	WHERE
-		loan_id = p_loan_id;
+		`loan_id` = p_loan_id;
 
 	SELECT
-		principal
+		`principal`
 	INTO
 		amount_to_be_paid
 	FROM
-		loan
+		`loan`
 	WHERE 
-		loan_id = p_loan_id;
+		`loan_id` = p_loan_id;
 
-	SELECT
-		amount_to_be_paid - total_payment
-	INTO p_balance;
+	SET p_balance = amount_to_be_paid - total_payment;
 END $$
 DELIMITER ;
 
@@ -240,27 +238,25 @@ BEGIN
 	DECLARE amount_to_be_paid, total_payment DECIMAL(9, 2);
 
 	SELECT
-		COALESCE(SUM(amount), 0)
+		COALESCE(SUM(`amount`), 0)
 	INTO
 		total_payment
 	FROM
-		principal_payment
+		`principal_payment`
 	WHERE
-		loan_id = p_loan_id AND
-		date_time_paid < p_date_time;
+		`loan_id` = p_loan_id AND
+		`date_time_paid` < p_date_time;
 
 	SELECT
-		principal
+		`principal`
 	INTO
 		amount_to_be_paid
 	FROM
-		loan
+		`loan`
 	WHERE 
-		loan_id = p_loan_id;
+		`loan_id` = p_loan_id;
 
-	SELECT
-		amount_to_be_paid - total_payment
-	INTO p_balance;
+	SET p_balance = amount_to_be_paid - total_payment;
 END $$
 DELIMITER ;
 
@@ -274,26 +270,24 @@ BEGIN
 	DECLARE amount_to_be_paid, total_payment DECIMAL(9, 2);
 
 	SELECT
-		COALESCE(SUM(amount), 0)
+		COALESCE(SUM(`amount`), 0)
 	INTO
 		total_payment
 	FROM
-		interest_payment
+		`interest_payment`
 	WHERE
-		interest_id = p_interest_id;
+		`interest_id` = p_interest_id;
 
 	SELECT
-		amount
+		`amount`
 	INTO
 		amount_to_be_paid
 	FROM
-		interest
+		`interest`
 	WHERE 
-		interest_id = p_interest_id;
+		`interest_id` = p_interest_id;
 
-	SELECT
-		amount_to_be_paid - total_payment
-	INTO p_balance;
+	SET p_balance = amount_to_be_paid - total_payment;
 END $$
 DELIMITER ;
 
@@ -308,27 +302,25 @@ BEGIN
 	DECLARE amount_to_be_paid, total_payment DECIMAL(9, 2);
 
 	SELECT
-		COALESCE(SUM(amount), 0)
+		COALESCE(SUM(`amount`), 0)
 	INTO
 		total_payment
 	FROM
-		interest_payment
+		`interest_payment`
 	WHERE
-		interest_id = p_interest_id AND
-		DATE(date_time_paid) <= p_penalty_date;
+		`interest_id` = p_interest_id AND
+		DATE(`date_time_paid`) <= p_penalty_date;
 
 	SELECT
-		amount
+		`amount`
 	INTO
 		amount_to_be_paid
 	FROM
-		interest
+		`interest`
 	WHERE 
-		interest_id = p_interest_id;
+		`interest_id` = p_interest_id;
 
-	SELECT
-		amount_to_be_paid - total_payment
-	INTO p_balance;
+	SET p_balance = amount_to_be_paid - total_payment;
 END $$
 DELIMITER ;
 
@@ -342,27 +334,24 @@ BEGIN
 	DECLARE amount_to_be_paid, total_payment DECIMAL(9, 2);
 
 	SELECT
-		COALESCE(SUM(amount), 0)
+		COALESCE(SUM(`amount`), 0)
 	INTO
 		total_payment
 	FROM
-		penalty_payment
+		`penalty_payment`
 	WHERE
-		penalty_id = p_penalty_id;
+		`penalty_id` = p_penalty_id;
 
 	SELECT
-		amount
+		`amount`
 	INTO
 		amount_to_be_paid
 	FROM
-		penalty
+		`penalty`
 	WHERE
-		penalty_id = p_penalty_id;
+		`penalty_id` = p_penalty_id;
 
-	SELECT 
-		amount_to_be_paid - total_payment
-	INTO
-		p_balance;
+	SET p_balance = amount_to_be_paid - total_payment;
 END $$
 DELIMITER ;
 
@@ -376,27 +365,24 @@ BEGIN
 	DECLARE amount_to_be_paid, total_payment DECIMAL(9, 2);
 
 	SELECT
-		COALESCE(SUM(amount), 0)
+		COALESCE(SUM(`amount`), 0)
 	INTO
 		total_payment
 	FROM
-		processing_fee_payment
+		`processing_fee_payment`
 	WHERE
-		processing_fee_id = p_processing_fee_id;
+		`processing_fee_id` = p_processing_fee_id;
 
 	SELECT
-		amount
+		`amount`
 	INTO
 		amount_to_be_paid
 	FROM
-		processing_fee
+		`processing_fee`
 	WHERE
-		processing_fee_id = p_processing_fee_id;
+		`processing_fee_id` = p_processing_fee_id;
 
-	SELECT 
-		amount_to_be_paid - total_payment
-	INTO
-		p_balance;
+	SET p_balance = amount_to_be_paid - total_payment;
 END $$
 DELIMITER ;
 
@@ -750,12 +736,13 @@ VALUES
 INSERT INTO
 	`loan`
 VALUES
-	(DEFAULT, 23, 9, '2021-02-10 10:00:00', 5000, DEFAULT);
+	(DEFAULT, 23, 9, '2021-02-10 10:00:00', 5000, 'Closed');
 
 INSERT INTO
 	`principal_payment`
 VALUES
-	(DEFAULT, 3000, '2021-06-23 08:00:00', 1);
+	(DEFAULT, 3000, '2021-06-23 08:00:00', 1),
+	(DEFAULT, 2000, '2021-08-10 08:00:00', 1);
 
 INSERT INTO
 	`interest`
@@ -764,7 +751,9 @@ VALUES
 	(DEFAULT, '2021-03-10', 500, 'Paid', 1),
 	(DEFAULT, '2021-04-10', 500, 'Paid', 1),
 	(DEFAULT, '2021-05-10', 500, 'Paid', 1),
-	(DEFAULT, '2021-06-10', 500, 'Overdue', 1);
+	(DEFAULT, '2021-06-10', 500, 'Late', 1),
+	(DEFAULT, '2021-07-10', 200, 'Paid', 1),
+	(DEFAULT, '2021-08-10', 200, 'Paid', 1);
 
 INSERT INTO
 	`interest_payment`
@@ -772,28 +761,43 @@ VALUES
 	(DEFAULT, 500, '2021-02-10 08:00:00', 1),
 	(DEFAULT, 500, '2021-03-10 08:00:00', 2),
 	(DEFAULT, 500, '2021-04-10 08:00:00', 3),
-	(DEFAULT, 500, '2021-05-10 08:00:00', 4);
+	(DEFAULT, 500, '2021-05-10 08:00:00', 4),
+	(DEFAULT, 200, '2021-07-07 08:00:00', 6),
+	(DEFAULT, 200, '2021-08-10 08:00:00', 7),
+	(DEFAULT, 500, '2021-08-16 08:00:00', 5);
 
 INSERT INTO
 	`penalty`
 VALUES
-	(DEFAULT, '2021-06-11', 17, 'Pending', 5, 1),
-	(DEFAULT, '2021-06-12', 17, 'Pending', 5, 1),
-	(DEFAULT, '2021-06-13', 17, 'Pending', 5, 1),
-	(DEFAULT, '2021-06-14', 17, 'Pending', 5, 1),
-	(DEFAULT, '2021-06-15', 17, 'Pending', 5, 1),
-	(DEFAULT, '2021-06-16', 17, 'Pending', 5, 1),
-	(DEFAULT, '2021-06-17', 500, 'Pending', 5, 1);
+	(DEFAULT, '2021-06-11', 17, 'Paid', 5, 1),
+	(DEFAULT, '2021-06-12', 17, 'Paid', 5, 1),
+	(DEFAULT, '2021-06-13', 17, 'Paid', 5, 1),
+	(DEFAULT, '2021-06-14', 17, 'Paid', 5, 1),
+	(DEFAULT, '2021-06-15', 17, 'Paid', 5, 1),
+	(DEFAULT, '2021-06-16', 17, 'Paid', 5, 1),
+	(DEFAULT, '2021-06-17', 500, 'Paid', 5, 1);
+
+INSERT INTO
+	`penalty_payment`
+VALUES
+	(DEFAULT, 17, '2021-08-16 08:01:00', 1),
+	(DEFAULT, 17, '2021-08-16 08:02:00', 2),
+	(DEFAULT, 17, '2021-08-16 08:03:00', 3),
+	(DEFAULT, 17, '2021-08-16 08:04:00', 4),
+	(DEFAULT, 17, '2021-08-16 08:05:00', 5),
+	(DEFAULT, 17, '2021-08-16 08:06:00', 6),
+	(DEFAULT, 500, '2021-08-16 08:07:00', 7);
 
 INSERT INTO
 	`processing_fee`
 VALUES
 	(DEFAULT, '2021-02-10', 60, 'Paid', 1),
 	(DEFAULT, '2021-05-10', 60, 'Paid', 1),
-	(DEFAULT, '2021-08-10', 30, 'Pending', 1);
+	(DEFAULT, '2021-08-10', 30, 'Paid', 1);
 
 INSERT INTO
 	`processing_fee_payment`
 VALUES
 	(DEFAULT, 60, '2021-02-10 08:02:00', 1),
-	(DEFAULT, 60, '2021-05-10 08:02:00', 2);
+	(DEFAULT, 60, '2021-05-10 08:02:00', 2),
+	(DEFAULT, 30, '2021-08-10 08:02:00', 3);
