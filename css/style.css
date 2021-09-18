@@ -79,3 +79,7 @@ hr {
 .info {
 	margin: 30px;
 }
+
+div[id$="-holder"] {
+	display: none;
+}

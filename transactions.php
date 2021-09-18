@@ -37,6 +37,9 @@
 			<i class="fas fa-bars"></i>
 			<h2 class="text">Transactions</h2>
 		</header>
+
+		<!-- Hidden, used as header for printing. -->
+		<div id="coop-info-holder"><?php require_once "inc/print-header.php"; ?></div>
 		
 		<section id="loan-disbursements">
 			<h3>Loan Disbursements</h3>

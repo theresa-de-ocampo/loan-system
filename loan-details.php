@@ -57,7 +57,7 @@
 
 		<!-- Hidden, used as header for printing. -->
 		<div id="loan-info-holder">
-			<?php require_once "inc/print-header.html"; ?>
+			<?php require_once "inc/print-header.php"; ?>
 			<div id="summary-details"><?php require "inc/loan-info.php"; ?></div>
 			<hr class="print-hr" />
 		</div><!-- #loan-info-holder -->

@@ -47,7 +47,3 @@
 table td a {
 	color: red;
 }
-
-div[id$="-holder"] {
-	display: none;
-}
