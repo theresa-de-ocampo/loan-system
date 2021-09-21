@@ -44,10 +44,6 @@
 	border-radius: 15px;
 }
 
-table td a {
-	color: red;
-}
-
 #summary-details {
 	display: flex;
 	justify-content: center;

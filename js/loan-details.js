@@ -10,7 +10,7 @@ $(function() {
 	}
 
 	// PRINCIPAL
-	$("#principal-payments-tbl").DataTable({
+	let $principalPaymentsTbl = $("#principal-payments-tbl").DataTable({
 		dom: "Bfrtip", 
 		responsive: true,
 		buttons: [
@@ -42,9 +42,10 @@ $(function() {
 		],
 		order: []
 	});
+	checkForRows($principalPaymentsTbl, "#principal-payments-tbl");
 
 	// INTERESTS
-	$("#interests-tbl").DataTable({
+	let $interestsTbl = $("#interests-tbl").DataTable({
 		dom: "Bfrtip", 
 		responsive: true,
 		buttons: [
@@ -61,8 +62,9 @@ $(function() {
 			}
 		]
 	});
+	checkForRows($interestsTbl, "#interests-tbl");
 
-	$("#interest-payments-tbl").DataTable({
+	let $interestPaymentsTbl = $("#interest-payments-tbl").DataTable({
 		dom: "Bfrtip", 
 		responsive: true,
 		buttons: [
@@ -80,7 +82,8 @@ $(function() {
 		],
 		order: []
 	});
-
+	checkForRows($interestPaymentsTbl, "#interest-payments-tbl");
+	
 	$.get("inc/interest-payment-form.html", function(data) {
 		$("#interests-tbl td a").on("click", function() {
 			$button = $(this);
@@ -94,7 +97,7 @@ $(function() {
 	});
 
 	// PENALTIES
-	$("#penalties-tbl").DataTable({
+	$penaltiesTbl = $("#penalties-tbl").DataTable({
 		dom: "Bfrtip", 
 		responsive: true,
 		buttons: [
@@ -111,8 +114,9 @@ $(function() {
 			}
 		]
 	});
+	checkForRows($penaltiesTbl, "#penalties-tbl");
 
-	$("#penalty-payments-tbl").DataTable({
+	$penaltyPaymentsTbl = $("#penalty-payments-tbl").DataTable({
 		dom: "Bfrtip", 
 		responsive: true,
 		buttons: [
@@ -130,6 +134,7 @@ $(function() {
 		],
 		order: []
 	});
+	checkForRows($penaltyPaymentsTbl, "#penalty-payments-tbl");
 
 	$.get("inc/penalty-payment-form.html", function(data) {
 		$("#penalties-tbl td a").on("click", function() {
@@ -144,7 +149,7 @@ $(function() {
 	});
 
 	// PROCESSING FEES
-	$("#processing-fees-tbl").DataTable({
+	$processingFeesTbl = $("#processing-fees-tbl").DataTable({
 		dom: "Bfrtip", 
 		responsive: true,
 		buttons: [
@@ -161,8 +166,9 @@ $(function() {
 			}
 		]
 	});
+	checkForRows($processingFeesTbl, "#processing-fees-tbl");
 
-	$("#processing-fee-payments-tbl").DataTable({
+	$processingFeePaymentsTbl = $("#processing-fee-payments-tbl").DataTable({
 		dom: "Bfrtip", 
 		responsive: true,
 		buttons: [
@@ -180,6 +186,7 @@ $(function() {
 		],
 		order: []
 	});
+	checkForRows($processingFeePaymentsTbl, "#processing-fee-payments-tbl");
 
 	$.get("inc/processing-fee-payment-form.html", function(data) {
 		$("#processing-fees-tbl td a").on("click", function() {
