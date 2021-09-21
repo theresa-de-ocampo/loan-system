@@ -95,7 +95,9 @@
 					<tr>
 						<td>
 							<?php
-								echo $transaction->getPrincipalBalanceByDateTime($pp->loan_id, $pp->date_time_paid); 
+								echo number_format(
+									$transaction->getPrincipalBalanceByDateTime($pp->loan_id, $pp->date_time_paid), 2, ".", ","
+								); 
 							?>
 						</td>
 						<td><?php echo number_format($pp->amount, 2, ".", ","); ?></td>

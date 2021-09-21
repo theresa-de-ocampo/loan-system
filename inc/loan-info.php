@@ -5,7 +5,7 @@
 	</tr>
 	<tr>
 		<th>Principal:</th>
-		<td><span>&#8369;</span> <?php echo $loan->principal; ?></td>
+		<td><span>&#8369;</span> <?php echo number_format($loan->principal, 2, ".", ","); ?></td>
 	</tr>
 	<tr>
 		<th>Borrower:</th>
