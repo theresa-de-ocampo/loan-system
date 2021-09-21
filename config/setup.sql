@@ -6,7 +6,8 @@ USE `ciudad_nuevo`;
 CREATE TABLE `cycle` (
 	`cycle_id` YEAR PRIMARY KEY DEFAULT (YEAR(CURDATE())),
 	`membership_fee` SMALLINT NOT NULL DEFAULT 12000,
-	`interest_rate` DECIMAL(3, 2) DEFAULT 0.10 -- in decimal
+	`interest_rate` DECIMAL(3, 2) NOT NULL DEFAULT 0.10, -- in decimal
+	`min_processing_fee` SMALLINT NOT NULL DEFAULT 20
 ) Engine=InnoDB;
 
 CREATE TABLE `data_subject` (
@@ -144,7 +145,7 @@ CREATE TABLE `processing_fee` (
 
 CREATE TABLE `processing_fee_payment` (
 	`processing_fee_payment_id` INT UNSIGNED AUTO_INCREMENT PRIMARY KEY,
-	`amount` DECIMAL(9, 2) NOT NULL,
+	`amount` DECIMAL(8, 2) NOT NULL,
 	`date_time_paid` DATETIME NOT NULL DEFAULT (NOW()),
 	`processing_fee_id` INT UNSIGNED NOT NULL,
 
@@ -167,21 +168,76 @@ CREATE TABLE `administrator` (
 ) Engine=InnoDB;
 
 -- [STORED PROCEDURE] calculate_age
-DELIMITER $$
 CREATE PROCEDURE calculate_age (
 	IN p_bday DATE,
 	OUT p_age INT UNSIGNED
 )
-BEGIN
 	SELECT
 		TIMESTAMPDIFF(YEAR, p_bday, CURDATE())
 	INTO
 		p_age;
+
+-- [STORED PROCEDURE] precise_timestampdiff_month
+CREATE PROCEDURE precise_timestampdiff_month (
+	IN p_start_date DATE,
+	IN p_end_date DATE,
+	OUT p_date_difference DECIMAL(6, 4)
+)
+	SET p_date_difference = 
+		TIMESTAMPDIFF(MONTH, p_start_date, p_end_date) +
+		DATEDIFF(
+			p_end_date,
+			p_start_date + INTERVAL TIMESTAMPDIFF(MONTH, p_start_date, p_end_date) MONTH
+		) /
+		DATEDIFF(
+			p_start_date + INTERVAL TIMESTAMPDIFF(MONTH, p_start_date, p_end_date) + 1 MONTH,
+			p_start_date + INTERVAL TIMESTAMPDIFF(MONTH, p_start_date, p_end_date) MONTH
+		);
+
+-- [STORED PROCEDURE] get_interest_rate
+CREATE PROCEDURE get_interest_rate(OUT p_interest_rate DECIMAL(3, 2))
+	SELECT
+		`interest_rate`
+	INTO
+		p_interest_rate
+	FROM
+		`cycle`
+	WHERE
+		`cycle_id` = YEAR(CURDATE());
+
+-- [STORED PROCEDURE] get_min_processing_fee
+CREATE PROCEDURE get_min_processing_fee(OUT p_min_processing_fee SMALLINT)
+	SELECT
+		`min_processing_fee`
+	INTO
+		p_min_processing_fee
+	FROM
+		`cycle`
+	WHERE
+		`cycle_id` = YEAR(CURDATE());
+
+-- [STORED PROCEDURE] get_processing_fee()
+DELIMITER $$
+CREATE PROCEDURE get_processing_fee(
+	IN p_principal_loan DECIMAL(10, 2),
+	OUT p_processing_fee DECIMAL(8, 2)
+)
+BEGIN
+	DECLARE lv_interest_rate DECIMAL(3, 2);
+	DECLARE lv_min_processing_fee SMALLINT;
+
+	CALL get_interest_rate(lv_interest_rate);
+	CALL get_min_processing_fee(lv_min_processing_fee);
+
+	IF p_principal_loan > 1000 THEN
+		SET p_processing_fee = lv_min_processing_fee + (((p_principal_loan - 1000) / 1000) * 10);
+	ELSE
+		SET p_processing_fee = lv_min_processing_fee;
+	END IF;
 END $$
 DELIMITER ;
 
 -- [STORED PROCEDURE] get_accrued_interest
-DELIMITER $$
 CREATE PROCEDURE get_accrued_interest (
 	IN p_loan_id INT UNSIGNED,
 	OUT p_accrued_interest DECIMAL(10, 2)
@@ -193,8 +249,7 @@ CREATE PROCEDURE get_accrued_interest (
 	FROM
 		`interest`
 	WHERE
-		`loan_id` = p_loan_id $$
-DELIMITER ;
+		`loan_id` = p_loan_id;
 
 -- [STORED PROCEDURE] get_principal_balance
 DELIMITER $$
@@ -359,7 +414,7 @@ DELIMITER ;
 DELIMITER $$
 CREATE PROCEDURE get_processing_fee_balance (
 	IN p_processing_fee_id INT UNSIGNED,
-	OUT p_balance DECIMAL(9, 2)
+	OUT p_balance DECIMAL(8, 2)
 )
 BEGIN
 	DECLARE amount_to_be_paid, total_payment DECIMAL(9, 2);
@@ -396,7 +451,7 @@ BEGIN
 	DECLARE total_interest, total_payment DECIMAL(9, 2);
 
 	SELECT
-		SUM(`amount`)
+		COALESCE(SUM(`amount`), 0)
 	INTO
 		total_interest
 	FROM
@@ -434,7 +489,7 @@ BEGIN
 	DECLARE total_penalties, total_payment DECIMAL(9, 2);
 
 	SELECT
-		SUM(`amount`)
+		COALESCE(SUM(`amount`), 0)
 	INTO
 		total_penalties
 	FROM
@@ -466,13 +521,13 @@ DELIMITER ;
 DELIMITER $$
 CREATE PROCEDURE get_processing_fee_receivables (
 	IN p_loan_id INT UNSIGNED,
-	OUT p_total_receivables DECIMAL(9, 2)
+	OUT p_total_receivables DECIMAL(8, 2)
 )
 BEGIN
 	DECLARE total_processing_fees, total_payment DECIMAL(9, 2);
 
 	SELECT
-		SUM(`amount`)
+		COALESCE(SUM(`amount`), 0)
 	INTO
 		total_processing_fees
 	FROM
@@ -541,6 +596,177 @@ BEGIN
 	SET p_total_receivables = @principal_balance + @interest_receivables + @penalty_receivables + @processing_fee_receivables;
 END $$
 DELIMITER ;
+
+-- [STORED PROCEDURE] check_for_interest
+DELIMITER $$
+CREATE PROCEDURE check_for_interest()
+BEGIN
+	DECLARE lv_end_of_table TINYINT DEFAULT 0;
+	DECLARE lv_today DATE DEFAULT CURDATE();
+	DECLARE lv_flag DECIMAL(6, 4);
+	DECLARE lv_loan_id INT UNSIGNED;
+	DECLARE lv_loan_date DATE;
+	DECLARE lv_interest_rate DECIMAL(3, 2);
+	DECLARE lv_interest_amount DECIMAL(9, 2);
+
+	DECLARE loan_cursor
+		CURSOR FOR
+			SELECT `loan_id`, `loan_date_time` FROM `loan` WHERE `status` = 'Active';
+
+	DECLARE CONTINUE HANDLER FOR NOT FOUND SET lv_end_of_table = 1;
+
+	OPEN loan_cursor;
+	loan_loop: LOOP
+		FETCH loan_cursor INTO lv_loan_id, lv_loan_date;
+
+		IF lv_end_of_table = 1 THEN
+			LEAVE loan_loop;
+		END IF;
+
+		CALL precise_timestampdiff_month(lv_loan_date, lv_today, lv_flag);
+
+		-- IF lv_flag is a number without a fractional part, i.e., 1.0, 2.0, 3.0, and so on.
+		IF CEIL(lv_flag) = lv_flag THEN
+			CALL get_interest_rate(lv_interest_rate);
+			CALL get_principal_balance(lv_loan_id, @principal_balance);
+			SET lv_interest_amount = @principal_balance * lv_interest_rate;
+
+			INSERT INTO
+				`interest`
+			VALUES
+				(DEFAULT, lv_today, lv_interest_amount, DEFAULT, lv_loan_id);
+		END IF;
+	END LOOP loan_loop;
+	CLOSE loan_cursor;
+END $$
+DELIMITER ;
+
+-- [STORED PROCEDURE] check_for_penalty
+DELIMITER $$
+CREATE PROCEDURE check_for_penalty()
+BEGIN
+	DECLARE lv_end_of_table TINYINT DEFAULT 0;
+	DECLARE lv_today DATE DEFAULT CURDATE();
+	DECLARE lv_loan_id INT UNSIGNED;
+	DECLARE lv_interest_id INT UNSIGNED;
+	DECLARE lv_interest_date DATE;
+	DECLARE lv_interest_status CHAR(10);
+	DECLARE lv_penalty_amount DECIMAL(9, 2);
+
+	DECLARE interest_cursor
+		CURSOR FOR
+			SELECT
+				`loan`.`loan_id`,
+				`interest_id`,
+				`interest_date`,
+				`interest`.`status`
+			FROM
+				`loan`
+			INNER JOIN `interest`
+				USING (`loan_id`)
+			WHERE
+				`loan`.`status` = 'Active' AND
+				`interest`.`status` IN ('Pending', 'Overdue');
+
+	DECLARE CONTINUE HANDLER FOR NOT FOUND SET lv_end_of_table = 1;
+
+	OPEN interest_cursor;
+	interest_loop: LOOP
+		FETCH interest_cursor INTO lv_loan_id, lv_interest_id, lv_interest_date, lv_interest_status;
+
+		IF lv_end_of_table = 1 THEN
+			LEAVE interest_loop;
+		END IF;
+
+		CALL get_interest_balance(lv_interest_id, @interest_balance);
+		IF lv_today BETWEEN DATE_ADD(lv_interest_date, INTERVAL 1 DAY) AND DATE_ADD(lv_interest_date, INTERVAL 7 DAY) THEN
+			IF lv_today <= DATE_ADD(lv_interest_date, INTERVAL 6 DAY) THEN
+				IF lv_interest_status = 'Pending' THEN
+					UPDATE `interest` SET `status` = 'Overdue' WHERE `interest_id` = lv_interest_id;
+				END IF;
+				SET lv_penalty_amount = ROUND(@interest_balance / DAY(LAST_DAY(lv_today)));
+			ELSE
+				SET lv_penalty_amount = @interest_balance;
+			END IF;
+
+			INSERT INTO
+				`penalty`
+			VALUES
+				(DEFAULT, lv_today, lv_penalty_amount, DEFAULT, lv_interest_id, lv_loan_id);
+		END IF;
+	END LOOP interest_loop;
+	CLOSE interest_cursor;
+END $$
+DELIMITER ;
+
+-- [STORED PROCEDURE] check_for_processing_fee
+DELIMITER $$
+CREATE PROCEDURE check_for_processing_fee()
+BEGIN
+	DECLARE lv_end_of_table TINYINT DEFAULT 0;
+	DECLARE lv_today DATE DEFAULT CURDATE();
+	DECLARE lv_date_difference DECIMAL(6, 4);
+	DECLARE lv_loan_id INT UNSIGNED;
+	DECLARE lv_loan_date DATE;
+	DECLARE lv_principal DECIMAL(10, 2);
+	DECLARE lv_paid DECIMAL(10, 2);
+	DECLARE lv_processing_fee_amount DECIMAL(8, 2);
+
+	DECLARE loan_cursor
+		CURSOR FOR
+			SELECT
+				`loan`.`loan_id`,
+				`loan_date_time`,
+				`loan`.`principal`,
+				COALESCE(SUM(`principal_payment`.`amount`), 0) AS paid
+			FROM
+				`loan`
+			LEFT JOIN `principal_payment`
+				USING (`loan_id`)
+			WHERE
+				`status` = 'Active'
+			GROUP BY
+				`loan`.`loan_id`
+			HAVING
+				paid < `loan`.`principal`;
+
+
+	DECLARE CONTINUE HANDLER FOR NOT FOUND SET lv_end_of_table = 1;
+
+	OPEN loan_cursor;
+	loan_loop: LOOP
+		FETCH loan_cursor INTO lv_loan_id, lv_loan_date, lv_principal, lv_paid;
+
+		IF lv_end_of_table = 1 THEN
+			LEAVE loan_loop;
+		END IF;
+
+		CALL precise_timestampdiff_month(lv_loan_date, lv_today, lv_date_difference);
+		
+		IF (lv_date_difference != 0 AND ((lv_date_difference % 3) = 0)) = 1 THEN
+			CALL get_processing_fee(lv_principal - lv_paid, lv_processing_fee_amount);
+
+			INSERT INTO `processing_fee`
+			VALUES (DEFAULT, lv_today, lv_processing_fee_amount, DEFAULT, lv_loan_id);
+		END IF;
+	END LOOP loan_loop;
+	CLOSE loan_cursor;
+END $$
+DELIMITER ;
+
+-- [EVENT] check_accruals (Run everday at 12:10 A.M.)
+/*SET GLOBAL event_scheduler = ON;
+DELIMITER $$
+CREATE EVENT check_accruals
+ON SCHEDULE EVERY 1 DAY
+STARTS (TIMESTAMP(CURRENT_DATE) + INTERVAL 1 DAY + INTERVAL 10 MINUTE)
+DO
+BEGIN
+	CALL check_for_interest();
+	CALL check_for_penalty();
+	CALL check_for_processing_fee();
+END $$
+DELIMITER ;*/
 
 -- [TRIGGER] after_principal_payment
 CREATE TRIGGER after_principal_payment
@@ -662,10 +888,10 @@ WHERE
 
 /* Population of Tables */
 INSERT INTO
-	`cycle`
+	`cycle` (`cycle_id`)
 VALUES
-	('2020', DEFAULT, DEFAULT),
-	(DEFAULT, DEFAULT, DEFAULT);
+	('2020'),
+	('2021');
 
 INSERT INTO 
 	`data_subject`
@@ -736,13 +962,14 @@ VALUES
 INSERT INTO
 	`loan`
 VALUES
-	(DEFAULT, 23, 9, '2021-02-10 10:00:00', 5000, 'Closed');
+	(DEFAULT, 23, 9, '2021-02-10 10:00:00', 5000, 'Closed'),
+	(DEFAULT, 22, 21, '2021-06-21 11:00:00', 3000, 'Active');
 
 INSERT INTO
 	`principal_payment`
 VALUES
 	(DEFAULT, 3000, '2021-06-23 08:00:00', 1),
-	(DEFAULT, 2000, '2021-08-10 08:00:00', 1);
+	(DEFAULT, 2000, '2021-06-20 08:00:00', 1);
 
 INSERT INTO
 	`interest`
