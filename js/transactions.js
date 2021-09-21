@@ -1,7 +1,7 @@
 // jshint esversion: 6
 $(function() {
 	let coopInfo = $("#coop-info-holder").html();
-	$("#loan-disbursements-tbl").DataTable({
+	$loanDisbursementsTbl = $("#loan-disbursements-tbl").DataTable({
 		dom: "Bfrtip", 
 		responsive: true,
 		buttons: [
@@ -39,4 +39,5 @@ $(function() {
 			}
 		]
 	});
+	checkForRows($loanDisbursementsTbl, "#loan-disbursements-tbl");
 });

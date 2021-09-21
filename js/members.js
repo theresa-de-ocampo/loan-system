@@ -1,7 +1,7 @@
 // jshint esversion: 6
 $(function() {
 	let coopInfo = $("#coop-info-holder").html();
-	$("#guarantors-tbl").DataTable({
+	$guarantorsTbl = $("#guarantors-tbl").DataTable({
 		dom: "Bfrtip", 
 		responsive: true,
 		buttons: [
@@ -39,8 +39,9 @@ $(function() {
 			}
 		]
 	});
+	checkForRows($guarantorsTbl, "#guarantors-tbl");
 
-	$("#savings-tbl").DataTable({
+	$savingsTbl = $("#savings-tbl").DataTable({
 		dom: "Bfrtip", 
 		responsive: true,
 		buttons: [
@@ -57,6 +58,7 @@ $(function() {
 			}
 		]
 	});
+	checkForRows($savingsTbl, "#savings-tbl");
 
 	$.get("inc/data-subject-form.html", function(data) {
 		function formatDate(date) {

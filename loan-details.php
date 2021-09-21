@@ -299,6 +299,7 @@
 	<script src="js/vertical-nav-bar.js"></script>
 	<script src="js/datatables.min.js"></script>
 	<script src="js/tingle.min.js"></script>
+	<script src="js/tables.js"></script>
 	<script src="js/modal.js"></script>
 	<script src="js/loan-details.js"></script>
 </body>
