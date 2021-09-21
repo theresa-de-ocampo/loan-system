@@ -31,6 +31,10 @@ table .fas:hover {
 	margin-left: 5px;
 }
 
+table td a {
+	color: #d33333;
+}
+
 table.display.dataTable tbody tr:hover,
 table.display.dataTable tbody tr:hover > .sorting_1 {
 	background-color: var(--botticelli);
@@ -61,18 +65,4 @@ table.display.dataTable tbody tr:hover > .sorting_1 {
 
 .print-hr {
 	margin: 10px 0;
-}
-
-#summary-details {
-	display: flex;
-	justify-content: center;
-}
-
-#summary-details table {
-	padding: 0;
-}
-
-#summary-details th {
-	text-align: right;
-	padding-right: 12px;
 }
