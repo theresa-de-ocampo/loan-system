@@ -219,7 +219,7 @@ CREATE PROCEDURE get_min_processing_fee(OUT p_min_processing_fee SMALLINT)
 -- [STORED PROCEDURE] get_processing_fee()
 DELIMITER $$
 CREATE PROCEDURE get_processing_fee(
-	IN p_principal_loan DECIMAL(10, 2),
+	IN p_principal_balance DECIMAL(10, 2),
 	OUT p_processing_fee DECIMAL(8, 2)
 )
 BEGIN
@@ -229,8 +229,8 @@ BEGIN
 	CALL get_interest_rate(lv_interest_rate);
 	CALL get_min_processing_fee(lv_min_processing_fee);
 
-	IF p_principal_loan > 1000 THEN
-		SET p_processing_fee = lv_min_processing_fee + (((p_principal_loan - 1000) / 1000) * 10);
+	IF p_principal_balance > 1000 THEN
+		SET p_processing_fee = lv_min_processing_fee + (((p_principal_balance - 1000) / 1000) * 10);
 	ELSE
 		SET p_processing_fee = lv_min_processing_fee;
 	END IF;
@@ -989,7 +989,7 @@ VALUES
 	(DEFAULT, 500, '2021-03-10 08:00:00', 2),
 	(DEFAULT, 500, '2021-04-10 08:00:00', 3),
 	(DEFAULT, 500, '2021-05-10 08:00:00', 4),
-	(DEFAULT, 200, '2021-07-07 08:00:00', 6),
+	(DEFAULT, 200, '2021-07-10 08:00:00', 6),
 	(DEFAULT, 200, '2021-08-10 08:00:00', 7),
 	(DEFAULT, 500, '2021-08-16 08:00:00', 5);
 
