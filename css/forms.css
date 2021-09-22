@@ -89,7 +89,7 @@ footer {
 	margin: 3px;
 	padding: 17px 20px;
 	position: relative;
-	transition: color 0.2s ease, background-color 0.2s ease, transform 0.3s ease;
+	transition: color 0.2s ease, background-color 0.2s ease, transform 0.5s ease;
 }
 
 .tingle-modal form i.fas::after {
@@ -105,7 +105,7 @@ footer {
 	width: 100%;
 }
 
-.tingle-modal form i.fas:hover:after {
+.tingle-modal form i.fas:hover::after {
 	box-shadow: 10px 0 20px rgba(0, 0, 0, 0.19), 6px 0 6px rgba(0, 0, 0, 0.23);
 	transform: scale(1);
 }
