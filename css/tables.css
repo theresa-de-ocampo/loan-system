@@ -32,7 +32,7 @@ table .fas:hover {
 }
 
 table td a {
-	color: #d33333;
+	color: var(--persian-red);
 }
 
 table.display.dataTable tbody tr:hover,

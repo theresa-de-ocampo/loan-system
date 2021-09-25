@@ -1,7 +1,7 @@
 // jshint esversion: 6
 $(function() {
 	let coopInfo = $("#coop-info-holder").html();
-	$loanDisbursementsTbl = $("#loan-disbursements-tbl").DataTable({
+	let $loanDisbursementsTbl = $("#loan-disbursements-tbl").DataTable({
 		dom: "Bfrtip", 
 		responsive: true,
 		buttons: [

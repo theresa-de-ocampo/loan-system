@@ -1,0 +1,115 @@
+#collapsed {
+	display: none;
+}
+
+#loan {
+	transition: all ease 0.5s;
+}
+
+#tabbed-panel > label {
+	text-transform: uppercase;
+}
+
+#tabbed-panel > input {
+	display: none;
+}
+
+#tabbed-panel > label {
+	display: block;
+	float: left;
+	padding: 12px 20px;
+	margin-right: 5px;
+	cursor: pointer;
+	transition: background-color 0.3s;
+}
+
+#tabbed-panel > label:hover,
+#tabbed-panel > input:checked + label {
+	background-color: var(--dark-purple);
+}
+
+#tabbed-panel > label:hover {
+	color: white;
+}
+
+#tabbed-panel > input:checked + label {
+	color: white;
+	font-weight: bold;
+}
+
+#content-wrapper {
+	clear: both;
+	perspective: 500px;
+	position: relative;
+}
+
+#content-wrapper > .tab-content {
+	position: absolute;
+	border: 2px solid var(--dark-purple);
+	padding: 20px 50px 30px 50px;
+	line-height: 1.4em;
+	opacity: 0;
+	transform: rotateX(-20deg);
+	transform-origin: top center;
+	transition: opacity 0.3s, transform 0.8s;
+	z-index: 0;
+	top: 0;
+	left: 0;
+	width: 100%;
+}
+
+#guarantor-tab:checked ~ #content-wrapper >  div:nth-of-type(1),
+#borrower-tab:checked ~ #content-wrapper > div:nth-of-type(2),
+#dealings-tab:checked ~ #content-wrapper > div:nth-of-type(3),
+#submit-tab:checked ~ #content-wrapper > div:nth-of-type(4) {
+	transform: rotateX(0);
+	opacity: 1;
+	z-index: 1;
+}
+
+#content-wrapper header {
+	margin-bottom: 20px;
+	display: flex;
+	justify-content: center;
+}
+
+.step-container {
+	list-style: none;
+	position: relative;
+	border-radius: 35px;
+	overflow: hidden;
+	background-color: var(--botticelli);
+}
+
+.step-container::after {
+	content: "";
+	width: 5ch;
+	background: var(--eden);
+	height: 100%;
+	position: absolute;
+	top: 0;
+	left: 0;
+	border-radius: 35px;
+}
+
+.step-item {
+	font-size: 20px;
+	line-height: 1;
+	font-weight: bold;
+	color: var(--chambray);
+	text-transform: uppercase;
+	text-align: center;
+	padding: 11px 0;
+	position: relative;
+	display: inline-block;
+	z-index: 5;
+}
+
+.step-item.number {
+	color: #fff;
+	padding: 11px 0 11px 20px;
+}
+
+.step-item.description {
+	padding: 11px 20px 11px 15px;
+}

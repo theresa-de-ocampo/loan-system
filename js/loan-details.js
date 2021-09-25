@@ -97,7 +97,7 @@ $(function() {
 	});
 
 	// PENALTIES
-	$penaltiesTbl = $("#penalties-tbl").DataTable({
+	let $penaltiesTbl = $("#penalties-tbl").DataTable({
 		dom: "Bfrtip", 
 		responsive: true,
 		buttons: [
@@ -116,7 +116,7 @@ $(function() {
 	});
 	checkForRows($penaltiesTbl, "#penalties-tbl");
 
-	$penaltyPaymentsTbl = $("#penalty-payments-tbl").DataTable({
+	let $penaltyPaymentsTbl = $("#penalty-payments-tbl").DataTable({
 		dom: "Bfrtip", 
 		responsive: true,
 		buttons: [
@@ -149,7 +149,7 @@ $(function() {
 	});
 
 	// PROCESSING FEES
-	$processingFeesTbl = $("#processing-fees-tbl").DataTable({
+	let $processingFeesTbl = $("#processing-fees-tbl").DataTable({
 		dom: "Bfrtip", 
 		responsive: true,
 		buttons: [
@@ -168,7 +168,7 @@ $(function() {
 	});
 	checkForRows($processingFeesTbl, "#processing-fees-tbl");
 
-	$processingFeePaymentsTbl = $("#processing-fee-payments-tbl").DataTable({
+	let $processingFeePaymentsTbl = $("#processing-fee-payments-tbl").DataTable({
 		dom: "Bfrtip", 
 		responsive: true,
 		buttons: [
