@@ -26,6 +26,7 @@
 	<link rel="stylesheet" type="text/css" href="css/vertical-nav-bar.css" />
 	<link rel="stylesheet" type="text/css" href="css/tables.css" />
 	<link rel="stylesheet" type="text/css" href="css/forms.css" />
+	<link rel="stylesheet" type="text/css" href="css/image-upload.css" />
 	<link rel="stylesheet" type="text/css" href="css/add-loan.css" />
 	<link rel="stylesheet" type="text/css" href="css/media-queries.css" />
 	<link rel="shortcut icon" type="image/x-icon" href="img/favicon.png" />
@@ -110,7 +111,6 @@
 									<li class="step-item description">Provide Borrower Information</li>
 								</ul><!-- .step-container -->
 							</header>
-
 							<div id="existing-data-subject">
 								<div class="flex-wrapper">
 									<div class="flex-item short">
@@ -189,9 +189,16 @@
 									<li class="step-item description">Finalize Transaction</li>
 								</ul><!-- .step-container -->
 							</header>
-							<p>
-								Lorem ipsum dolor sit amet, consectetur adipiscing elit. Vivamus vestibulum, nunc eu lobortis pharetra, metus purus tristique eros, sed efficitur augue sapien et lacus. Praesent sed ultricies felis. Duis ligula mauris, consequat et mattis vitae, congue ac tortor. Integer hendrerit arcu in risus pellentesque, ac fringilla odio euismod.
-							</p>
+							<label for="principal">Principal</label>
+							<input id="principal" type="number" name="principal" required class="medium" />
+							<label for="proof">Proof of Transaction</label>
+							<div id="drop-area">
+								<div class="fas fa-cloud-upload-alt"></div>
+								<div>Drag &amp; Drop to Upload File</div>
+								<div>OR</div>
+								<button type="button">Browse File</button>
+							</div><!-- #drop-area -->
+							<input id="proof" type="file" name="proof" />
 						</div><!-- dealings-content.tab-content -->
 
 						<div id="submit-content" class="tab-content">
@@ -216,6 +223,7 @@
 	<script src="js/datatables.min.js"></script>
 	<script src="js/tingle.min.js"></script>
 	<script src="js/modal.js"></script>
+	<script src="js/image-upload.js"></script>
 	<script src="js/add-loan.js"></script>
 </body>
 </html>

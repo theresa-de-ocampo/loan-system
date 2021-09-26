@@ -42,7 +42,7 @@ form label {
 
 input {
 	border-radius: 5px;
-	border: 1px solid lightgrey;
+	border: 1px solid var(--light-gray);
 	border-bottom-width: 2px;
 	font-size: 17px;
 	height: 38px;

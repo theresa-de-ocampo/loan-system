@@ -6,6 +6,24 @@
 	#summary .grid-wrapper {
 		grid-template-columns: 1.8fr 1fr 1fr;
 	}
+
+	.fa-cloud-upload-alt {
+		font-size: 70px;
+	}
+
+	#drop-area > div:nth-of-type(2) {
+		font-size: 25px;
+	}
+
+	#drop-area > div:nth-of-type(3) {
+		font-size: 20px;
+		margin: 20px 0;
+	}
+
+	#drop-area button {
+		font-size: 15px;
+		font-weight: unset;
+	}
 }
 
 @media screen and (max-width: 920px) {
@@ -120,12 +138,43 @@
 	#content-wrapper header {
 		margin: 0 0 20px 0;
 	}
+
+	.fa-cloud-upload-alt {
+		font-size: 60px;
+		margin-bottom: 5px;
+	}
+
+	#drop-area > div:nth-of-type(2) {
+		font-size: 16px;
+	}
+
+	#drop-area > div:nth-of-type(3) {
+		font-size: 14px;
+		margin: 14px 0;
+	}
+
+	#drop-area button {
+		padding: 8px 22px;
+	}
 }
 
 @media screen and (max-width: 600px) {
 	.dataTables_filter input {
 		display: block;
 		margin: 5px auto 0 auto;
+	}
+
+	.fa-cloud-upload-alt {
+		font-size: 50px;
+		margin-bottom: 3px;
+	}
+
+	#drop-area > div:nth-of-type(3) {
+		margin: 5px;
+	}
+
+	#drop-area button {
+		padding: 5px 20px;
 	}
 }
 

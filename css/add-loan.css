@@ -121,3 +121,11 @@
 #new-data-subject hr {
 	margin: 15px 0 0 0;
 }
+
+#principal {
+	width: 20ch;
+}
+
+#dealings-content label:not(:first-of-type) {
+	margin-top: 25px;
+}
