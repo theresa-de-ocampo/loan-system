@@ -102,6 +102,7 @@
 								</tbody>
 							</table><!-- #guarantor-tbl -->
 						</div><!-- #guarantor-content.tab-content -->
+
 						<div id="borrower-content" class="tab-content">
 							<header>
 								<ul class="step-container">
@@ -109,42 +110,78 @@
 									<li class="step-item description">Provide Borrower Information</li>
 								</ul><!-- .step-container -->
 							</header>
-							<div class="flex-wrapper">
-								<div class="flex-item short">
-									<label for="borrower-id">ID<i class="far fa-question-circle"></i></label>
-									<input id="borrower-id" type="number" name="data-subject-id" required readonly />
-								</div><!-- .flex-item -->
-								<div class="flex-item">
-									<label for="borrower-name">Borrower<i class="far fa-question-circle"></i></label>
-									<input id="borrower-name" type="text" required readonly />
-								</div><!-- .flex-item -->
-							</div><!-- .flex-wrapper -->
-							<hr class="divider" />
-							<table id="data-subject-tbl" class="display cell-border" width="100%">
-								<thead>
-									<tr>
-										<th>ID</th>
-										<th>First Name</th>
-										<th>Middle Name</th>
-										<th>Last Name</th>
-										<th>Age</th>
-										<th>Address</th>
-									</tr>
-								</thead>
-								<tbody>
-									<?php foreach ($data_subjects as $ds): ?>
-									<tr>
-										<td><?php echo $ds->data_subject_id; ?></td>
-										<td><?php echo $ds->fname; ?></td>
-										<td><?php echo $ds->mname; ?></td>
-										<td><?php echo $ds->lname; ?></td>
-										<td><?php echo $converter->bdayToAge($ds->bday); ?></td>
-										<td><?php echo $ds->phase_block_lot; ?></td>
-									</tr>
-									<?php endforeach; ?>
-								</tbody>
-							</table><!-- #data-subject-tbl -->
+
+							<div id="existing-data-subject">
+								<div class="flex-wrapper">
+									<div class="flex-item short">
+										<label for="borrower-id">ID<i class="far fa-question-circle"></i></label>
+										<input id="borrower-id" type="number" name="data-subject-id" required readonly />
+									</div><!-- .flex-item -->
+									<div class="flex-item">
+										<label for="borrower-name">Borrower<i class="far fa-question-circle"></i></label>
+										<input id="borrower-name" type="text" required readonly />
+									</div><!-- .flex-item -->
+								</div><!-- .flex-wrapper -->
+								<hr class="divider" />
+								<table id="data-subject-tbl" class="display cell-border" width="100%">
+									<thead>
+										<tr>
+											<th>ID</th>
+											<th>First Name</th>
+											<th>Middle Name</th>
+											<th>Last Name</th>
+											<th>Age</th>
+											<th>Address</th>
+										</tr>
+									</thead>
+									<tbody>
+										<?php foreach ($data_subjects as $ds): ?>
+										<tr>
+											<td><?php echo $ds->data_subject_id; ?></td>
+											<td><?php echo $ds->fname; ?></td>
+											<td><?php echo $ds->mname; ?></td>
+											<td><?php echo $ds->lname; ?></td>
+											<td><?php echo $converter->bdayToAge($ds->bday); ?></td>
+											<td><?php echo $ds->phase_block_lot; ?></td>
+										</tr>
+										<?php endforeach; ?>
+									</tbody>
+								</table><!-- #data-subject-tbl -->
+							</div><!-- #existing-data-subject -->
+							<div id="new-data-subject">
+								<div class="grid-wrapper">
+									<div class="grid-item solo">
+										<button type="button" class="dt-button">&#8592; Choose Existing</button>
+										<hr />
+									</div><!-- .grid-item.solo-->
+									<div class="grid-item">
+										<label for="fname">First Name</label>
+										<input id="fname" type="text" name="fname" required />
+									</div><!-- .grid-item -->
+									<div class="grid-item">
+										<label for="mname">Middle Name</label>
+										<input id="mname" type="text" name="mname" required />
+									</div><!-- .grid-item -->
+									<div class="grid-item">
+										<label for="lname">Last Name</label>
+										<input id="lname" type="text" name="lname" required />
+									</div><!-- .grid-item -->
+									<div class="grid-item">
+										<label for="contact-no">Contact No. (09*********)</label>
+										<input id="contact-no" type="text" name="contact-no" pattern="^09[0-9]{9}" required />
+									</div><!-- .grid-item -->
+									<div class="grid-item">
+										<label for="bday">Birthday</label>
+										<input id="bday" type="date" name="bday" required class="medium" />
+									</div><!-- .grid-item -->
+									<div class="grid-item">
+										<label for="">Phase, Block, and Lot</label>
+										<input id="address" type="text" name="address" required class="medium" />
+									</div><!-- .grid-item -->
+								</div><!-- .grid-wrapper -->
+							</div><!-- #new-data-subject -->
 						</div><!-- #borrower-content.tab-content -->
+
 						<div id="dealings-content" class="tab-content">
 							<header>
 								<ul class="step-container">
@@ -156,6 +193,7 @@
 								Lorem ipsum dolor sit amet, consectetur adipiscing elit. Vivamus vestibulum, nunc eu lobortis pharetra, metus purus tristique eros, sed efficitur augue sapien et lacus. Praesent sed ultricies felis. Duis ligula mauris, consequat et mattis vitae, congue ac tortor. Integer hendrerit arcu in risus pellentesque, ac fringilla odio euismod.
 							</p>
 						</div><!-- dealings-content.tab-content -->
+
 						<div id="submit-content" class="tab-content">
 							<header>
 								<ul class="step-container">

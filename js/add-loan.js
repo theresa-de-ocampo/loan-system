@@ -1,5 +1,8 @@
 // jshint esversion: 6
 $(function() {
+	let $existingDataSubjectPane = $("#existing-data-subject");
+	let $newDataSubjectPane = $("#new-data-subject");
+
 	let $guarantorTbl = $("#guarantor-tbl").DataTable({
 		dom: "frtip",
 		responsive: true
@@ -12,10 +15,20 @@ $(function() {
 			{
 				text: "New Data Suject",
 				action: function() {
-					window.location.href = "add-guarantor.php";
-				},
+					$existingDataSubjectPane.css("display", "none");
+					$newDataSubjectPane.css("display", "block");
+					if ($window.width() >= maxWidth)
+						changeHeight("borrower-tab");
+				}
 			}
 		]
+	});
+
+	$("#new-data-subject button").on("click", function() {
+		$newDataSubjectPane.css("display", "none");
+		$existingDataSubjectPane.css("display", "block");
+		if ($window.width() >= maxWidth)
+			changeHeight("borrower-tab");
 	});
 
 	$("#guarantor-content input[readonly]").on("click", function() {
@@ -46,14 +59,6 @@ $(function() {
 		$("#guarantor-name").val(person);
 	});
 
-	$.fn.isBgColor = function(color) {
-        var thisBgColor = this.eq(0).css('backgroundColor');
-        var computedColor = $('<div/>').css({ 
-            backgroundColor: color
-        }).css('backgroundColor');
-        return thisBgColor === computedColor;
-    };
-
 	/*
 		(1)
 		The tabbed panel contains animations. Specifically, it flips from the top, towards the viewer.
@@ -81,7 +86,6 @@ $(function() {
 	let maxWidth = 850;
 
 	function changeHeight(id, extra = 0) {
-		console.log(extra);
 		switch (id) {
 			case "guarantor-tab":
 				$guarantorContent.css({"height": "auto", "overflow": "visible"});

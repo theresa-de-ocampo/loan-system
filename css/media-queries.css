@@ -39,20 +39,16 @@
 	}
 }
 
-@media screen and (max-width: 850px) {
+@media screen and (max-width: 920px) {
 	#loan {
 		height: auto !important;
-	}
-
-	#collapsed {
-		display: block;
 	}
 
 	#tabbed-panel > label {
 		display: none;
 	}
 
-	#content-wrapper > .tab-content {
+	#content-wrapper .tab-content {
 		border: 0;
 		opacity: 1;
 		position: unset;
@@ -62,9 +58,7 @@
 		overflow: visible;
 		padding: 0;
 	}
-}
 
-@media screen and (max-width: 810px) {
 	#content-wrapper header {
 		display: block;
 		height: auto;
@@ -125,6 +119,13 @@
 
 	#content-wrapper header {
 		margin: 0 0 20px 0;
+	}
+}
+
+@media screen and (max-width: 600px) {
+	.dataTables_filter input {
+		display: block;
+		margin: 5px auto 0 auto;
 	}
 }
 

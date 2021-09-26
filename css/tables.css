@@ -27,7 +27,7 @@ table .fas:hover {
 
 .dataTables_filter input {
 	width: 200px;
-	display: inline;
+	display: inline-block;
 	margin-left: 5px;
 }
 
