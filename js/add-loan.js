@@ -2,13 +2,15 @@
 $(function() {
 	let $existingDataSubjectPane = $("#existing-data-subject");
 	let $newDataSubjectPane = $("#new-data-subject");
+	let $existingDataSubjectInputs = $("#existing-data-subject");
+	let $newDataSubjectInputs = $("#existing-data-subject");
 
 	let $guarantorTbl = $("#guarantor-tbl").DataTable({
 		dom: "frtip",
 		responsive: true
 	});
 
-	$("#data-subject-tbl").DataTable({
+	let $dataSubjectTbl = $("#data-subject-tbl").DataTable({
 		dom: "Bfrtip", 
 		responsive: true,
 		buttons: [
@@ -19,6 +21,8 @@ $(function() {
 					$newDataSubjectPane.css("display", "block");
 					if ($window.width() >= maxWidth)
 						changeHeight("borrower-tab");
+					$existingDataSubjectInputs.removeAttr("required");
+					$newDataSubjectInputs.attr("required", true);
 				}
 			}
 		]
@@ -29,6 +33,8 @@ $(function() {
 		$existingDataSubjectPane.css("display", "block");
 		if ($window.width() >= maxWidth)
 			changeHeight("borrower-tab");
+		$newDataSubjectInputs.removeAttr("required");
+		$existingDataSubjectInputs.attr("required", true);
 	});
 
 	$("#guarantor-content input[readonly]").on("click", function() {
@@ -44,6 +50,13 @@ $(function() {
 		let person = getPerson($guarantorTbl, $tr);
 		$("#guarantor-id").val(person[0]);
 		$("#guarantor-name").val(person[1]);
+	});
+
+	$("#data-subject-tbl").on("click", "tr", function() {
+		let $tr = $(this);
+		let person = getPerson($dataSubjectTbl, $tr);
+		$("#borrower-id").val(person[0]);
+		$("#borrower-name").val(person[1]);
 	});
 
 	/*

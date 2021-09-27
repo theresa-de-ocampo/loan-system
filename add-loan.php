@@ -156,27 +156,27 @@
 									</div><!-- .grid-item.solo-->
 									<div class="grid-item">
 										<label for="fname">First Name</label>
-										<input id="fname" type="text" name="fname" required />
+										<input id="fname" type="text" name="fname" />
 									</div><!-- .grid-item -->
 									<div class="grid-item">
 										<label for="mname">Middle Name</label>
-										<input id="mname" type="text" name="mname" required />
+										<input id="mname" type="text" name="mname" />
 									</div><!-- .grid-item -->
 									<div class="grid-item">
 										<label for="lname">Last Name</label>
-										<input id="lname" type="text" name="lname" required />
+										<input id="lname" type="text" name="lname" />
 									</div><!-- .grid-item -->
 									<div class="grid-item">
 										<label for="contact-no">Contact No. (09*********)</label>
-										<input id="contact-no" type="text" name="contact-no" pattern="^09[0-9]{9}" required />
+										<input id="contact-no" type="text" name="contact-no" pattern="^09[0-9]{9}" />
 									</div><!-- .grid-item -->
 									<div class="grid-item">
 										<label for="bday">Birthday</label>
-										<input id="bday" type="date" name="bday" required class="medium" />
+										<input id="bday" type="date" name="bday" class="medium" />
 									</div><!-- .grid-item -->
 									<div class="grid-item">
 										<label for="">Phase, Block, and Lot</label>
-										<input id="address" type="text" name="address" required class="medium" />
+										<input id="address" type="text" name="address" class="medium" />
 									</div><!-- .grid-item -->
 								</div><!-- .grid-wrapper -->
 							</div><!-- #new-data-subject -->
