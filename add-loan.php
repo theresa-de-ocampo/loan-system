@@ -209,8 +209,9 @@
 								</ul><!-- .step-container -->
 							</header>
 							<p>
-								Lorem ipsum dolor sit amet, consectetur adipiscing elit. Vivamus vestibulum, nunc eu lobortis pharetra, metus purus tristique eros, sed efficitur augue sapien et lacus. Praesent sed ultricies felis. Duis ligula mauris, consequat et mattis vitae, congue ac tortor. Integer hendrerit arcu in risus pellentesque, ac fringilla odio euismod.
+								By clicking the button below, you agree to our <a href="agreement.html" target="_blank"><b>Terms</b> and that you have read our <b>Data Use Policy</b>, including our <b>Cookie Use</b></a>.
 							</p>
+							<button type="submit" class="dt-button">Submit</button>
 						</div><!-- #submit-content.tab-content -->
 					</div><!-- #content-wrapper -->
 				</div><!-- #tabbed-panel -->
