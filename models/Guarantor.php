@@ -32,16 +32,11 @@ class Guarantor {
 	}
 
 	public function addNewGuarantor($data) {
+		require_once "../models/DataSubject.php";
 		try {
 			$this->db->startTransaction();
-			$this->db->query("INSERT INTO `data_subject` (`fname`, `mname`, `lname`, `contact_no`, `bday`, `phase_block_lot`) VALUES (?, ?, ?, ?, ?, ?)");
-			$this->db->bind(1, $data["fname"]);
-			$this->db->bind(2, $data["mname"]);
-			$this->db->bind(3, $data["lname"]);
-			$this->db->bind(4, $data["contact-no"]);
-			$this->db->bind(5, $data["bday"]);
-			$this->db->bind(6, $data["address"]);
-			$this->db->executeWithoutCatch();
+			$data_subject = new DataSubject();
+			$data_subject->addDataSubject([$data["fname"], $data["mname"], $data["lname"], $data["contact-no"], $data["bday"], $data["address"]]);
 			$id = $this->db->lastInsertId();
 
 			$this->db->query("INSERT INTO `guarantor` VALUES (?)");

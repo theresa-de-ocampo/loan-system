@@ -5,5 +5,5 @@ if (isset($_POST["edit"])) {
 	require_once "../lib/database-handler.php";
 	require_once "../models/DataSubject.php";
 	$data_subject = new DataSubject();
-	$data_subject->updateDataSubject($_POST);
+	$data_subject->editDataSubject($_POST);
 }
