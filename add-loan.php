@@ -211,7 +211,7 @@
 							<p>
 								By clicking the button below, you agree to our <a href="agreement.html" target="_blank"><b>Terms</b> and that you have read our <b>Data Use Policy</b>, including our <b>Cookie Use</b></a>.
 							</p>
-							<button type="submit" class="dt-button">Submit</button>
+							<button type="submit" name="submit" class="dt-button">Submit</button>
 						</div><!-- #submit-content.tab-content -->
 					</div><!-- #content-wrapper -->
 				</div><!-- #tabbed-panel -->
@@ -223,6 +223,7 @@
 	<script src="js/vertical-nav-bar.js"></script>
 	<script src="js/datatables.min.js"></script>
 	<script src="js/tingle.min.js"></script>
+	<script src="js/tables.js"></script>
 	<script src="js/modal.js"></script>
 	<script src="js/image-upload.js"></script>
 	<script src="js/add-loan.js"></script>

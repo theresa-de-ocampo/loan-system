@@ -18,22 +18,9 @@ $.get("inc/guarantor-form.html", function(data) {
 
 	$("table").on("click", "tr", function() {
 		let $tr = $(this);
-
-		if ($tr.hasClass("selected"))
-			$tr.removeClass("selected");
-		else {
-			$table.$("tr.selected").removeClass("selected");
-			$tr.addClass("selected");
-		}
-		
-		if ($tr.hasClass("child"))
-			$tr = $tr.prev();
-		let data = $table.row($tr).data();
-		let personId = data[0];
-		let person = data[1] + " " + data[3];
-		
-		$("#data-subject-id").val(personId);
-		$("#name").val(person);
+		let person = getPerson($table, $tr);
+		$("#data-subject-id").val(person[0]);
+		$("#name").val(person[1]);
 	});
 });
 
