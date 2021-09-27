@@ -46,18 +46,17 @@
 			<hr />
 			<form action="src/add-loan.php" method="post">
 				<div id="tabbed-panel">
-
 					<input id="guarantor-tab" name="tab" type="radio" checked />
-					<label for="guarantor-tab">Guarantor</label>
+					<label for="guarantor-tab" role="button">Guarantor</label>
 					
 					<input id="borrower-tab" name="tab" type="radio" />
-					<label for="borrower-tab">Borrower</label>
+					<label for="borrower-tab" role="button">Borrower</label>
 					
 					<input id="dealings-tab" name="tab" type="radio" />
-					<label for="dealings-tab">Dealings</label>
+					<label for="dealings-tab" role="button">Dealings</label>
 
 					<input id="submit-tab" name="tab" type="radio" />
-					<label for="submit-tab">Submit</label>
+					<label for="submit-tab" role="button">Submit</label>
 					
 					<div id="content-wrapper">
 						<div id="guarantor-content" class="tab-content">
