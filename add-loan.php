@@ -44,7 +44,7 @@
 		<section id="loan">
 			<h3>Loan</h3>
 			<hr />
-			<form action="src/add-loan.php" method="post">
+			<form action="src/add-loan.php" method="post" enctype="multipart/form-data">
 				<div id="tabbed-panel">
 					<input id="guarantor-tab" name="tab" type="radio" checked />
 					<label for="guarantor-tab" role="button">Guarantor</label>
@@ -69,7 +69,7 @@
 							<div class="flex-wrapper">
 								<div class="flex-item short">
 									<label for="guarantor-id">ID<i class="far fa-question-circle"></i></label>
-									<input id="guarantor-id" type="number" name="data-subject-id" required readonly />
+									<input id="guarantor-id" type="number" name="guarantor-id" required readonly />
 								</div><!-- .flex-item -->
 								<div class="flex-item">
 									<label for="guarantor-name">Guarantor<i class="far fa-question-circle"></i></label>

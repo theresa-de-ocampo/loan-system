@@ -49,7 +49,7 @@ CREATE TABLE `loan` (
 	`loan_id` INT UNSIGNED AUTO_INCREMENT PRIMARY KEY,
 	`borrower_id` INT UNSIGNED NOT NULL,
 	`guarantor_id` INT UNSIGNED NOT NULL,
-	`loan_date_time` DATETIME NOT NULL,
+	`loan_date_time` DATETIME NOT NULL DEFAULT (NOW()),
 	`principal` DECIMAL(10, 2) NOT NULL,
 	`status` ENUM('Active', 'Closed') DEFAULT 'Active' NOT NULL,
 

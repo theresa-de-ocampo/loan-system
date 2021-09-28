@@ -362,6 +362,60 @@ class Transaction {
 		return $this->db->resultColumn();
 	}
 
+	public function addNewLoan($data, $proof) {
+		try {
+			$this->db->startTransaction();
+			if (empty($data["data-subject-id"])) {
+				require_once "../models/DataSubject.php";
+				$dataSubject = new DataSubject();
+				$dataSubject->addDataSubject([$data["fname"], $data["mname"], $data["lname"], $data["contact-no"], $data["bday"], $data["address"]]);
+				$borrower_id = $this->db->lastInsertId();
+			}
+			else
+				$borrower_id = $data["data-subject-id"];
+			$this->db->query("INSERT INTO `loan` (borrower_id, guarantor_id, principal) VALUES (?, ?, ?)");
+			$this->db->bind(1, $borrower_id);
+			$this->db->bind(2, $data["guarantor-id"]);
+			$this->db->bind(3, $data["principal"]);
+			$this->db->executeWithoutCatch();
+			$loan_id = $this->db->lastInsertId();
+
+			// Add image (proof of transaction) to project repository.
+			require_once "../lib/upload-image.php";
+			$upload_image = new UploadImage();
+			$file_error = $proof["proof"]["error"];
+			$file_tmp_name = $proof["proof"]["tmp_name"];
+			if ($file_error == UPLOAD_ERR_OK)
+				if ($upload_image->isImage($file_tmp_name)) {
+					$path = $proof["proof"]["name"];
+					$extension = pathinfo($path, PATHINFO_EXTENSION);
+					$target_dir = "../img/transactions/loan/";
+					$file_dest = $target_dir.$loan_id.".".$extension;
+					move_uploaded_file($file_tmp_name, $file_dest);
+				}
+				else
+					throw new Exception("Please upload image files only.");
+			else
+				throw new Exception($upload_image->codeToMessage($file_error));
+
+			$this->db->commit();
+		}
+		catch (PDOException $e) {
+			$this->db->rollBack();
+			$error = $e->getMessage()." in ".$e->getFile()." on line ".$e->getLine();
+			$this->db->logError($error);
+		}
+		catch (Exception $e) {
+			$this->db->rollBack();
+			$message = $e->getMessage();
+			echo "<script>alert('$message');</script>";
+			echo "<script>window.location.replace('../transactions.php');</script>";
+		}
+		finally {
+			$this->db->confirmQuery("Loan disbursement was successfully recorded!", "../transactions.php");
+		}
+	}
+
 	private function getEntities($borrower_id, $guarantor_id) {
 		$data_subject = new DataSubject();
 		$borrower = $data_subject->getName($borrower_id);

@@ -59,6 +59,13 @@ $(function() {
 		$("#borrower-name").val(person[1]);
 	});
 
+	$("form").on("submit", function() {
+		if ($existingDataSubjectPane.is(":visible"))
+			$("#fname, #mname, #lname, #contact-no, #bday, #address").val("");
+		else
+			$("#borrower-id").val("");
+	});
+
 	/*
 		(1)
 		The tabbed panel contains animations. Specifically, it flips from the top, towards the viewer.
