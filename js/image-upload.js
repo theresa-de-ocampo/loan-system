@@ -46,6 +46,7 @@ $(function() {
 		e.preventDefault();
 		file = e.originalEvent.dataTransfer.files[0]; // Retrieve the first file only if user selected multiple files
 		displayPreview();
+		$imageField = file;
 	});
 
 	$browseButton.on("click", function() {
