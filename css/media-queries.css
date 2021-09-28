@@ -26,6 +26,12 @@
 	}
 }
 
+@media screen and (max-width: 960px) {
+	#collateral {
+		width: 90%;
+	}
+}
+
 @media screen and (max-width: 920px) {
 	.tingle-modal-box {
 		width: 75%;
@@ -55,9 +61,7 @@
 	.grid-wrapper > div {
 		margin-top: 20px;
 	}
-}
 
-@media screen and (max-width: 920px) {
 	#loan {
 		height: auto !important;
 	}

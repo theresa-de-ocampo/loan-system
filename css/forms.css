@@ -56,6 +56,10 @@ input:focus {
 	border-color: var(--blue-chill);
 }
 
+input[type="file"] {
+	padding-top: 5px;
+}
+
 .medium {
 	width: 90%;
 }

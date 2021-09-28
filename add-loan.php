@@ -189,7 +189,7 @@
 								</ul><!-- .step-container -->
 							</header>
 							<label for="principal">Principal</label>
-							<input id="principal" type="number" name="principal" required class="medium" />
+							<input id="principal" type="number" name="principal" required />
 							<label for="proof">Proof of Transaction</label>
 							<div id="drop-area">
 								<div class="fas fa-cloud-upload-alt"></div>
@@ -198,6 +198,8 @@
 								<button type="button">Browse File</button>
 							</div><!-- #drop-area -->
 							<input id="proof" type="file" name="proof" />
+							<label for="collateral">Collateral<i class="far fa-question-circle"></i></label>
+							<input id="collateral" type="file" name="collateral" />
 						</div><!-- dealings-content.tab-content -->
 
 						<div id="submit-content" class="tab-content">
@@ -224,6 +226,7 @@
 	<script src="js/tingle.min.js"></script>
 	<script src="js/tables.js"></script>
 	<script src="js/modal.js"></script>
+	<script src="js/validation.js"></script>
 	<script src="js/image-upload.js"></script>
 	<script src="js/add-loan.js"></script>
 </body>

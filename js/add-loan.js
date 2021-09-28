@@ -4,6 +4,7 @@ $(function() {
 	let $newDataSubjectPane = $("#new-data-subject");
 	let $existingDataSubjectInputs = $("#existing-data-subject");
 	let $newDataSubjectInputs = $("#existing-data-subject");
+	let $principal = $("#principal");
 
 	let $guarantorTbl = $("#guarantor-tbl").DataTable({
 		dom: "frtip",
@@ -45,6 +46,11 @@ $(function() {
 		createModal("<div class='info'>Select the borrower from the table.</div>");
 	});
 
+	$("label[for='collateral']").on("click", function(e) {
+		e.preventDefault();
+		createModal("<div class='info'>Required if loan amount >= &#8369; 10,000</div>");
+	});
+
 	$("#guarantor-tbl").on("click", "tr", function() {
 		let $tr = $(this);
 		let person = getPerson($guarantorTbl, $tr);
@@ -59,11 +65,29 @@ $(function() {
 		$("#borrower-name").val(person[1]);
 	});
 
-	$("form").on("submit", function() {
+	$principal.on("change", function() {
+		let principal = parseFloat($principal.val());
+		let $collateral = $("#collateral");
+		if (principal >= 10000)
+			$collateral.attr("required", true);
+		else
+			$collateral.removeAttr("required");
+		console.log(principal);
+	});
+
+	$("form").on("submit", function(e) {
 		if ($existingDataSubjectPane.is(":visible"))
 			$("#fname, #mname, #lname, #contact-no, #bday, #address").val("");
 		else
 			$("#borrower-id").val("");
+
+		if (!completeInputs()) {
+			e.preventDefault();
+			alert("Please fill out all required fields!");
+		}
+		else {
+			alert("Complete");
+		}
 	});
 
 	/*
