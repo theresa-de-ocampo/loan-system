@@ -85,9 +85,6 @@ $(function() {
 			e.preventDefault();
 			alert("Please fill out all required fields!");
 		}
-		else {
-			alert("Complete");
-		}
 	});
 
 	/*

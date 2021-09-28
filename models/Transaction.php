@@ -362,7 +362,7 @@ class Transaction {
 		return $this->db->resultColumn();
 	}
 
-	public function addNewLoan($data, $proof) {
+	public function addNewLoan($data, $files) {
 		try {
 			$this->db->startTransaction();
 			if (empty($data["data-subject-id"])) {
@@ -381,23 +381,40 @@ class Transaction {
 			$loan_id = $this->db->lastInsertId();
 
 			// Add image (proof of transaction) to project repository.
-			require_once "../lib/upload-image.php";
-			$upload_image = new UploadImage();
-			$file_error = $proof["proof"]["error"];
-			$file_tmp_name = $proof["proof"]["tmp_name"];
-			if ($file_error == UPLOAD_ERR_OK)
-				if ($upload_image->isImage($file_tmp_name)) {
-					$path = $proof["proof"]["name"];
+			require_once "../lib/upload-file.php";
+			$upload_file = new UploadFile();
+			$proof_file_error = $files["proof"]["error"];
+			$proof_file_tmp_name = $files["proof"]["tmp_name"];
+			if ($proof_file_error == UPLOAD_ERR_OK)
+				if ($upload_file->isImage($proof_file_tmp_name)) {
+					$path = $files["proof"]["name"];
 					$extension = pathinfo($path, PATHINFO_EXTENSION);
 					$target_dir = "../img/transactions/loan/";
 					$file_dest = $target_dir.$loan_id.".".$extension;
-					move_uploaded_file($file_tmp_name, $file_dest);
+					move_uploaded_file($proof_file_tmp_name, $file_dest);
 				}
 				else
-					throw new Exception("Please upload image files only.");
+					throw new Exception("Please upload image files only for proof of transaction.");
 			else
-				throw new Exception($upload_image->codeToMessage($file_error));
+				throw new Exception("[PROOF] ".$upload_file->codeToMessage($proof_file_error));
 
+			if ($_POST["principal"] >= 10000) {
+				$collateral_file_error = $files["collateral"]["error"];
+				$collateral_file_tmp_name = $files["collateral"]["tmp_name"];
+				if ($collateral_file_error == UPLOAD_ERR_OK)
+					if ($upload_file->isImage($collateral_file_tmp_name) || $upload_file->isPDF($collateral_file_tmp_name)) {
+						$path = $files["collateral"]["name"];
+						$extension = pathinfo($path, PATHINFO_EXTENSION);
+						$target_dir = "../img/transactions/collateral/";
+						$file_dest = $target_dir.$loan_id.".".$extension;
+						move_uploaded_file($collateral_file_tmp_name, $file_dest);
+					}
+					else
+						throw new Exception("Please upload image or PDF files only for the collateral.");
+				else
+					throw new Exception("[COLLATERAL] ".$upload_file->codeToMessage($proof_file_error));
+			}
+			
 			$this->db->commit();
 		}
 		catch (PDOException $e) {

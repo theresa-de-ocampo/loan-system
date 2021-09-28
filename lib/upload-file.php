@@ -1,11 +1,11 @@
 <?php
 
-class UploadImage {
+class UploadFile {
 	public function codeToMessage($code) {
 		switch ($code) {
 			case UPLOAD_ERR_INI_SIZE: // The uploaded file exceeds the upload_max_filesize directive in php.ini
 			case UPLOAD_ERR_FORM_SIZE: // The uploaded file exceeds the MAX_FILE_SIZE directive that was specified in the HTML form
-				$message = "Sorry, please upload an image that is less than 2MB.";
+				$message = "Sorry, please upload a file that is less than 2MB.";
 				break;
 			case UPLOAD_ERR_PARTIAL:
 				$message = "Sorry, an error occurred. The file was only partially uploaded";
@@ -33,5 +33,11 @@ class UploadImage {
 		$allowed_types = array(IMAGETYPE_PNG, IMAGETYPE_JPEG, IMAGETYPE_GIF);
 		$detected_type = exif_imagetype($file_tmp_name);
 		return in_array($detected_type, $allowed_types);
+	}
+
+	public function isPDF($file_tmp_name) {
+		$finfo = finfo_open(FILEINFO_MIME_TYPE);
+		$mime = finfo_file($finfo, $file_tmp_name);
+		return $mime == "application/pdf";
 	}
 }

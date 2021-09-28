@@ -197,7 +197,7 @@
 								<div>OR</div>
 								<button type="button">Browse File</button>
 							</div><!-- #drop-area -->
-							<input id="proof" type="file" name="proof" />
+							<input id="proof" type="file" name="proof" required />
 							<label for="collateral">Collateral<i class="far fa-question-circle"></i></label>
 							<input id="collateral" type="file" name="collateral" />
 						</div><!-- dealings-content.tab-content -->
