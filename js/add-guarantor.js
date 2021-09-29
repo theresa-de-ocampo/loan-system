@@ -24,7 +24,7 @@ $.get("inc/guarantor-form.html", function(data) {
 	});
 });
 
-$(".far, input[readonly]").on("click", function() {
+$("input[readonly]").on("click", function() {
 	createModal("<div class='info'>Select from the previous data subjects in the table below, or click the <b>New</b> button if the guarantor has no previous records.</div>");
 });
 
