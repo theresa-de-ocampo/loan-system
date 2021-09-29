@@ -129,6 +129,10 @@ footer {
 	transform: rotate(90deg);
 }
 
+.info {
+	padding: 30px;
+}
+
 form .flex-wrapper {
 	display: flex;
 }
