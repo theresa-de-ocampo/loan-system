@@ -210,7 +210,7 @@
 								</ul><!-- .step-container -->
 							</header>
 							<p>
-								By clicking the button below, you agree to our <a href="agreement.html" target="_blank"><b>Terms</b> and that you have read our <b>Data Use Policy</b>, including our <b>Cookie Use</b></a>.
+								By clicking the button below, you agree to our <a href="agreement.php" target="_blank"><b>Terms</b> and that you have read our <b>Data Use Policy</b>, including our <b>Cookie Use</b></a>.
 							</p>
 							<button type="submit" name="submit" class="dt-button">Submit</button>
 						</div><!-- #submit-content.tab-content -->
