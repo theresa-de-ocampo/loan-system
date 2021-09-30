@@ -79,7 +79,7 @@ CREATE TABLE `principal_payment` (
 
 CREATE TABLE `interest` (
 	`interest_id` INT UNSIGNED AUTO_INCREMENT PRIMARY KEY,
-	`interest_date` DATE NOT NULL,
+	`interest_date` DATE NOT NULL DEFAULT (CURDATE()),
 	`amount` DECIMAL(9, 2) NOT NULL,
 	`status` ENUM('Paid', 'Pending', 'Overdue', 'Late') DEFAULT 'Pending' NOT NULL,
 	`loan_id` INT UNSIGNED NOT NULL,
@@ -134,7 +134,7 @@ CREATE TABLE `penalty_payment` (
 
 CREATE TABLE `processing_fee` (
 	`processing_fee_id` INT UNSIGNED AUTO_INCREMENT PRIMARY KEY,
-	`processing_fee_date` DATE NOT NULL,
+	`processing_fee_date` DATE NOT NULL DEFAULT (CURDATE()),
 	`amount` DECIMAL(8, 2) NOT NULL,
 	`status` ENUM('Paid', 'Pending') DEFAULT 'Pending' NOT NULL,
 	`loan_id` INT UNSIGNED NOT NULL,

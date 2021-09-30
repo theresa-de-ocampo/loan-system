@@ -382,12 +382,14 @@ class Transaction {
 
 			/*
 			Add files to project repository. 
-			Update newly inserted loan record to include the documents.
+			UPDATE newly inserted loan record to include the documents.
+			Add advance interest, and processing fee.
 			[NOTE] Sequencing of commands is important.
 				1. UPDATE can't be done with the INSERT command earlier because the filename is based on the record ID.
 				2. UPDATE is done before the file(s) was/were copied to the project repository. If it was the other way around, you'd have to delete the files from the respository in case the UPDATE command fails.
 			*/
 			require_once "../lib/upload-file.php";
+			$principal = $_POST["principal"];
 			$upload_file = new UploadFile();
 			$proof_file_error = $files["proof"]["error"];
 			$proof_file_tmp_name = $files["proof"]["tmp_name"];
@@ -398,7 +400,22 @@ class Transaction {
 					$target_dir = "../img/transactions/loan/";
 					$file_dest = $target_dir.$loan_id.".".$extension;
 					$file_name = $loan_id.".".$extension;
+
 					$this->db->query("UPDATE `loan` SET `proof` = '$file_name' WHERE `loan_id` = $loan_id");
+					$this->db->executeWithoutCatch();
+
+					$this->db->query("CALL get_interest_rate(@rate)");
+					$this->db->execute();
+					$this->db->query("SELECT @rate");
+					$amount = $this->db->resultColumn() * $principal;
+					$this->db->query("INSERT INTO `interest` (`amount`, `loan_id`) VALUES ($amount, $loan_id)");
+					$this->db->executeWithoutCatch();
+
+					$this->db->query("CALL get_processing_fee($principal, @fee)");
+					$this->db->execute();
+					$this->db->query("SELECT @fee");
+					$amount = $this->db->resultColumn();
+					$this->db->query("INSERT INTO `processing_fee` (`amount`, `loan_id`) VALUES ($amount, $loan_id)");
 					$this->db->executeWithoutCatch();
 					move_uploaded_file($proof_file_tmp_name, $file_dest);
 				}
@@ -407,7 +424,7 @@ class Transaction {
 			else
 				throw new Exception("[PROOF] ".$upload_file->codeToMessage($proof_file_error));
 
-			if ($_POST["principal"] >= 10000) {
+			if ($principal >= 10000) {
 				$collateral_file_error = $files["collateral"]["error"];
 				$collateral_file_tmp_name = $files["collateral"]["tmp_name"];
 				if ($collateral_file_error == UPLOAD_ERR_OK)
