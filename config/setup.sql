@@ -52,6 +52,8 @@ CREATE TABLE `loan` (
 	`loan_date_time` DATETIME NOT NULL DEFAULT (NOW()),
 	`principal` DECIMAL(10, 2) NOT NULL,
 	`status` ENUM('Active', 'Closed') DEFAULT 'Active' NOT NULL,
+	`proof` CHAR(10) NOT NULL,
+	`collateral` CHAR(10),
 
 	CONSTRAINT fk_loan_borrower_id FOREIGN KEY (`borrower_id`)
 		REFERENCES `data_subject` (`data_subject_id`)
@@ -966,8 +968,8 @@ VALUES
 INSERT INTO
 	`loan`
 VALUES
-	(DEFAULT, 23, 9, '2021-02-10 10:00:00', 5000, 'Closed'),
-	(DEFAULT, 24, 10, '2021-06-21 11:00:00', 25000, 'Closed');
+	(DEFAULT, 23, 9, '2021-02-10 10:00:00', 5000, 'Closed', '1.jpg', NULL),
+	(DEFAULT, 24, 10, '2021-06-21 11:00:00', 25000, 'Closed', '2.jpg', '2.pdf');
 
 INSERT INTO
 	`principal_payment`
