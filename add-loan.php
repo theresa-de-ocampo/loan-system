@@ -195,7 +195,7 @@
 								<div class="fas fa-cloud-upload-alt"></div>
 								<div>Drag &amp; Drop to Upload File</div>
 								<div>OR</div>
-								<button type="button">Browse File</button>
+								<button type="button" class="focal-button">Browse File</button>
 							</div><!-- #drop-area -->
 							<input id="proof" type="file" name="proof" required />
 							<label for="collateral">Collateral<i class="far fa-question-circle"></i></label>

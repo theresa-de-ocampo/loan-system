@@ -57,3 +57,39 @@
 	text-align: right;
 	padding-right: 12px;
 }
+
+#documents img,
+#pdf-button-wrapper {
+	width: 100%;
+	border-radius: 15px;
+}
+
+#pdf-button-wrapper {
+	background-image: url("../img/banner.png");
+	background-size: cover;
+	height: 16vw;
+	text-align: center;
+	display: flex;
+	justify-content: center;
+	align-items: center;
+}
+
+
+#pdf-button-wrapper a {
+	background-color: var(--botticelli);
+	color: var(--xiketic);
+	text-decoration: none;
+}
+
+#pdf-button-wrapper a:hover {
+	background-color: #fff;
+}
+
+.fa-external-link-alt {
+	display: inline-block;
+	margin-left: 5px;
+}
+
+#documents h4:nth-of-type(2) {
+	margin-top: 28px;
+}

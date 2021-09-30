@@ -65,7 +65,7 @@ h3 {
 
 h4 {
 	font-size: 22px;
-	margin: 10px 0 20px 0;
+	margin: 10px 0;
 }
 
 section {
@@ -86,4 +86,20 @@ hr {
 
 div[id$="-holder"] {
 	display: none;
+}
+
+.focal-button {
+	padding: 10px 25px;
+	font-size: 20px;
+	font-weight: 500;
+	border: none;
+	outline: none;
+	background-color: var(--blue-chill);
+	color: #fff;
+	border-radius: 5px;
+	cursor: pointer;
+}
+
+.focal-button:hover {
+	background-color: var(--cyan);
 }

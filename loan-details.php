@@ -27,6 +27,10 @@
 	$penalty_payments = $transaction->getPenaltyPayments($id);
 	$processing_fees = $transaction->getProcessingFees($id);
 	$processing_fee_payments = $transaction->getProcessingFeePayments($id);
+	$collateral = $loan->collateral;
+	$hasCollateral = $collateral != "";
+	$collateralFileName = "img/transactions/collateral/".$collateral;
+	$proofImgTag = "<img src='img/transactions/loan/".$loan->proof."' alt='Acceptance Photo' />";
 ?>
 <!DOCTYPE html>
 <html lang="en">
@@ -293,6 +297,28 @@
 				</tbody>
 			</table><!-- #processing-fee-payments-tbl -->
 		</section><!-- #processing-fee-payments -->
+
+		<section id="documents">
+			<?php if ($collateral != ""): ?>
+			<h3>Documents</h3>
+			<hr />
+			<h4>Proof of Transaction</h4>
+			<?php echo $proofImgTag; ?>
+			<h4>Collateral</h4>
+			<?php if (strpos($collateral, "pdf") !== false): ?><!-- Can be replaced with str_contains in PHP 8.0 -->
+			<div id="pdf-button-wrapper">
+				<a class="focal-button" href="<?php echo $collateralFileName; ?>" target="__blank">View File</a>
+			</div>
+			<?php else: ?>
+			
+			<img src="<?php echo $collateralFileName; ?>" alt="Collateral Document" />
+			<?php endif; ?>
+
+			<?php else: ?>
+			<h3>Proof of Transaction</h3>
+			<?php echo $proofImgTag; ?>
+			<?php endif; ?>
+		</section><!-- #documents -->
 	</main>
 
 	<script src="js/jquery-3.6.0.min.js"></script>
