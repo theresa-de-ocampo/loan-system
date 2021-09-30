@@ -92,7 +92,7 @@
 	</table>
 	
 	<footer>
-		<div id="barcode" style="font-size:22pt"><?php echo $custom_id; ?></div>
+		<div id="barcode"><?php echo $custom_id; ?></div>
 		&lowast;&lowast;&lowast; Thank you! &lowast;&lowast;&lowast;
 	</footer>
 
