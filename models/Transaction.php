@@ -157,11 +157,10 @@ class Transaction {
 
 			$this->db->query("SELECT `interest_date` FROM `interest` WHERE `interest_id` = ?");
 			$this->db->bind(1, $interest_id);
-			$interest_date = strtotime($this->db->resultColumn());
+			$interest_date = $this->db->resultColumn();
 
 			if ($amount >= $balance) {
-				$now = time();
-				if ($now > $interest_date)
+				if (date("Y-m-d") > $interest_date)
 					$status = "Late";
 				else
 					$status = "Paid";
