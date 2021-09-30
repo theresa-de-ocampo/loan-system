@@ -16,9 +16,6 @@ $(function() {
 				let fileUrl = fileReader.result;
 				let imgTag = `<img src="${fileUrl}" alt="Your uploaded image." />`;
 				$dropArea.html(imgTag);
-				$(document).on("click", "#drop-area img", function() {
-					$imageField.trigger("click");
-				});
 			};
 			fileReader.readAsDataURL(file); // Get base64 format of the image.
 		}
@@ -57,5 +54,9 @@ $(function() {
 		file = this.files[0];
 		$dropArea.addClass("active");
 		displayPreview();
+	});
+
+	$("#drop-area").on("click", "img", function() {
+		$imageField.trigger("click");
 	});
 });
