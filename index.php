@@ -22,22 +22,26 @@
 </head>
 <body> 
 	<div class="login-container">
-		<div class="headline"> cooperative login </div>
+		<div class="headline"><?php echo COOPERATIVE; ?></div>
 		<form action="src/process-login.php" method="post">
 			<div class="form-group">
 				<input type="email" name="email" placeholder="email" required />
 			</div><!-- form-group -->
 			<div class="form-group">
-				<input type="password" name="password" placeholder="password" id="showpass" required />
+				<input type="password" name="password" placeholder="password" class="password" required />
 			</div><!-- form-group -->
 			<div class="show-password">
-				<input id="passcheck" class="passcheck" type="checkbox" onclick="showFunction()" />
-				<label for="passcheck"> show password </label>
+				<input id="show-password" type="checkbox" />
+				<label for="show-password"> show password </label>
 			</div><!-- show-password -->
 			<button type="submit" name="submit" class="btn">login</button>
 		</form>
 	</div><!-- login-container -->
 
-	<script src="js/login.js"></script>
+	<script src="js/jquery-3.6.0.min.js"></script>
+	<script src="js/validation.js"></script>
+	<script>
+		$("#show-password").on("click", toggleVisibility);
+	</script>
 </body>
 </html>
