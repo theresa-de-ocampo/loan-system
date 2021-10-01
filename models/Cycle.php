@@ -1,10 +1,24 @@
 <?php
 class Cycle {
 	private $db;
-	private $cycle_id;
+	private $cycleId;
 
 	public function __construct() {
 		$this->db = new Database();
+		$this->setCycleId();
+		$this->db->query("SET @session_cycle_id = $this->cycleId");
+		$this->db->execute();
+	}
+
+	public function setCycleId() {
+		if (isset($_SESSION["cycle"])) {
+			$session_cycle = $_SESSION["cycle"];
+			$periods = $this->getPeriods();
+			if (in_array($session_cycle, $periods))
+				$this->cycleId = $session_cycle;
+			else
+				$this->cycleId = $this->getLatestPeriod();
+		}
 	}
 
 	public function getCycleId() {

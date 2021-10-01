@@ -10,7 +10,7 @@ define("CP_NUMBER", "09074895893");
 
 // Database parameters
 define("DB_HOST", "localhost");
-define("DB_NAME", "ciudad_nuevo");
+define("DB_NAME", "cooperative");
 define("DB_CHARSET", "UTF8");
 define("DB_USER", "theresa_de_ocampo");
 define("DB_PASSWORD", "mtdo_bsit");

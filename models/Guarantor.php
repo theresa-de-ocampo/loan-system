@@ -12,22 +12,22 @@ class Guarantor {
 	}
 
 	public function getCurrentGuarantors() {
-		$this->db->query("SELECT * FROM `current_guarantors`");
+		$this->db->query("SELECT * FROM current_guarantors");
 		return $this->db->resultSet();
 	}
 
 	public function getSavings() {
-		$this->db->query("SELECT * FROM `savings`");
+		$this->db->query("SELECT * FROM savings");
 		return $this->db->resultSet();
 	}
 
 	public function getTotalSavings() {
-		$this->db->query("SELECT SUM(principal) FROM `savings`");
+		$this->db->query("SELECT SUM(principal) FROM savings");
 		return $this->db->resultColumn();
 	}
 
 	public function getNotCurrentGuarantors() {
-		$this->db->query("SELECT * FROM `not_current_guarantors`");
+		$this->db->query("SELECT * FROM not_current_guarantors");
 		return $this->db->resultSet();
 	}
 

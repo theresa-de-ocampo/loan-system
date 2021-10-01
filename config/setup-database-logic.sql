@@ -684,7 +684,7 @@ DELIMITER ;
 CREATE VIEW savings AS
 SELECT
 	`guarantor_id`,
-	CONCAT(fname, ' ', lname) AS `member`,
+	CONCAT(fname, ' ', LEFT(mname, 1), '. ', lname) AS `member`,
 	`number_of_share`,
 	`number_of_share` * `membership_fee` AS `principal`
 FROM
@@ -693,11 +693,13 @@ INNER JOIN
 	`guarantor_cycle_map` gcm
 ON 
 	`data_subject_id` = `guarantor_id` AND
-	`cycle_id` = YEAR(CURDATE())
+	`cycle_id` = cycle_id()
 INNER JOIN
 	`cycle` c
 ON
 	c.`cycle_id` = gcm.`cycle_id`;
+
+CREATE FUNCTION cycle_id() RETURNS YEAR DETERMINISTIC NO SQL RETURN @session_cycle_id;
 
 -- [VIEW] current_guarantors
 CREATE VIEW current_guarantors AS
@@ -706,7 +708,7 @@ FROM `data_subject`
 INNER JOIN
 	`guarantor_cycle_map` ON `data_subject_id` = `guarantor_id`
 WHERE
-	`cycle_id` = YEAR(CURDATE());
+	`cycle_id` = cycle_id();
 
 -- [VIEW] not_current_guarantors
 CREATE VIEW not_current_guarantors AS

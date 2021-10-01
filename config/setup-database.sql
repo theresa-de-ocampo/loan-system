@@ -1,7 +1,7 @@
 USE mysql;
-DROP DATABASE IF EXISTS `ciudad_nuevo`;
-CREATE DATABASE `ciudad_nuevo`;
-USE `ciudad_nuevo`;
+DROP DATABASE IF EXISTS `cooperative`;
+CREATE DATABASE `cooperative`;
+USE `cooperative`;
 
 CREATE TABLE `cycle` (
 	`cycle_id` YEAR PRIMARY KEY DEFAULT (YEAR(CURDATE())),

@@ -4,8 +4,10 @@
 	require_once "lib/database-handler.php";
 	require_once "lib/conversion-util.php";
 	require_once "models/Guarantor.php";
+	require_once "models/Cycle.php";
 
 	$converter = new Converter();
+	$cycle = new Cycle();
 	$guarantor = new Guarantor();
 	$guarantors = $guarantor->getCurrentGuarantors();
 	$savings = $guarantor->getSavings();
@@ -80,7 +82,6 @@
 			<table id="savings-tbl" class="display cell-border" width="100%">
 				<thead>
 					<tr>
-						<th>ID</th>
 						<th>Member</th>
 						<th>No. of Share</th>
 						<th>Principal</th>
@@ -89,7 +90,6 @@
 				<tbody>
 					<?php foreach ($savings as $s): ?>
 					<tr>
-						<td><?php echo $s->guarantor_id; ?></td>
 						<td><?php echo $s->member; ?></td>
 						<td><?php echo $s->number_of_share; ?></td>
 						<td><?php echo number_format($s->principal, 2, ".", ","); ?></td>

@@ -4,6 +4,7 @@ if (isset($_POST["submit"])) {
 	require_once "../config/config.php";
 	require_once "../lib/database-handler.php";
 	require_once "../models/Administrator.php";
+	require_once "../models/Cycle.php";
 
 	$email = $_POST["email"];
 	$password = $_POST["password"];
@@ -13,6 +14,12 @@ if (isset($_POST["submit"])) {
 		if (password_verify($password, $admin->password)) {
 			$_SESSION["admin-verified"] = $admin->data_subject_id;
 			$_SESSION["cycle"] = date("Y");
+			/*$cycle = new Cycle();
+			$cycle_id = $cycle->getCycleId();
+
+			$db = new Database();
+			$db->query("SET @session_cycle_id = $cycle_id");
+			$db->execute();*/
 			$path = "../home.php";
 		}
 		else {
