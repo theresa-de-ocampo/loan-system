@@ -4,8 +4,8 @@ table {
 }
 
 table thead th {
-	font-family: "Poppins Regular", sans-serif;
 	background-color: var(--light-steel-blue);
+	font-family: "Poppins Regular", sans-serif;
 }
 
 table thead th:first-child {
@@ -26,9 +26,9 @@ table .fas:hover {
 }
 
 .dataTables_filter input {
-	width: 200px;
 	display: inline-block;
 	margin-left: 5px;
+	width: 200px;
 }
 
 table td a {

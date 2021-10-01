@@ -15,11 +15,11 @@
 }
 
 #tabbed-panel > label {
+	cursor: pointer;
 	display: block;
 	float: left;
-	padding: 12px 20px;
 	margin-right: 5px;
-	cursor: pointer;
+	padding: 12px 20px;
 	transition: background-color 0.3s;
 }
 
@@ -44,26 +44,26 @@
 }
 
 #content-wrapper .tab-content {
-	position: absolute;
 	border: 2px solid var(--dark-purple);
-	padding: 20px 50px 30px 50px;
+	left: 0;
 	line-height: 1.4em;
 	opacity: 0;
-	transform: rotateX(-20deg);
-	transform-origin: top center;
-	transition: opacity 0.3s, transform 0.8s;
-	z-index: 0;
+	padding: 20px 50px 30px 50px;
+	position: absolute;
 	top: 0;
-	left: 0;
+	transform-origin: top center;
+	transform: rotateX(-20deg);
+	transition: opacity 0.3s, transform 0.8s;
 	width: 100%;
+	z-index: 0;
 }
 
 #guarantor-tab:checked ~ #content-wrapper >  div:nth-of-type(1),
 #borrower-tab:checked ~ #content-wrapper > div:nth-of-type(2),
 #dealings-tab:checked ~ #content-wrapper > div:nth-of-type(3),
 #submit-tab:checked ~ #content-wrapper > div:nth-of-type(4) {
-	transform: rotateX(0);
 	opacity: 1;
+	transform: rotateX(0);
 	z-index: 1;
 }
 
@@ -72,40 +72,40 @@
 }
 
 #content-wrapper header {
-	margin-bottom: 20px;
 	display: flex;
 	justify-content: center;
+	margin-bottom: 20px;
 }
 
 .step-container {
-	list-style: none;
-	position: relative;
-	border-radius: 35px;
-	overflow: hidden;
 	background-color: var(--botticelli);
+	border-radius: 35px;
+	list-style: none;
+	overflow: hidden;
+	position: relative;
 }
 
 .step-container::after {
-	content: "";
-	width: 5ch;
 	background: var(--eden);
+	border-radius: 35px;
+	content: "";
 	height: 100%;
+	left: 0;
 	position: absolute;
 	top: 0;
-	left: 0;
-	border-radius: 35px;
+	width: 5ch;
 }
 
 .step-item {
-	font-size: 20px;
-	line-height: 1;
-	font-weight: bold;
 	color: var(--chambray);
-	text-transform: uppercase;
-	text-align: center;
+	display: inline-block;
+	font-size: 20px;
+	font-weight: bold;
+	line-height: 1;
 	padding: 11px 0;
 	position: relative;
-	display: inline-block;
+	text-align: center;
+	text-transform: uppercase;
 	z-index: 5;
 }
 

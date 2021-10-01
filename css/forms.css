@@ -25,14 +25,14 @@ form .grid-wrapper .solo {
 
 header.modal {
 	background-color: var(--light-steel-blue);
-	font-size: 30px;
 	color: white;
-	padding: 15px;
-	text-shadow: 1px 1px 2px #000;
-	text-align: center;
+	font-size: 30px;
 	font-weight: bold;
-	margin-bottom: 10px;
 	grid-column: 1/-1;
+	margin-bottom: 10px;
+	padding: 15px;
+	text-align: center;
+	text-shadow: 1px 1px 2px #000;
 }
 
 form label {
@@ -41,9 +41,9 @@ form label {
 }
 
 input {
+	border-bottom-width: 2px;
 	border-radius: 5px;
 	border: 1px solid var(--light-gray);
-	border-bottom-width: 2px;
 	font-size: 17px;
 	height: 38px;
 	outline: none;
@@ -151,8 +151,8 @@ form .flex-wrapper .short {
 }
 
 form .flex-wrapper .flex-item:first-child {
-	padding-left: 0;
 	flex-basis: 150px;
+	padding-left: 0;
 }
 
 form .flex-wrapper .flex-item:not(:last-child) {
@@ -160,7 +160,7 @@ form .flex-wrapper .flex-item:not(:last-child) {
 }
 
 .fa-question-circle {
-	display: inline-block;
 	color: var(--blue-chill);
+	display: inline-block;
 	margin-left: 3px;
 }

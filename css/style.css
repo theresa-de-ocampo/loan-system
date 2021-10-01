@@ -33,10 +33,10 @@ main {
 	background: var(--link-water);
 	left: 280px;
 	min-height: 100vh;
+	padding-bottom: 30px;
 	position: relative;
 	transition: all 0.5s ease;
 	width: calc(100% - 280px);
-	padding-bottom: 30px;
 }
 
 main header {
@@ -69,11 +69,11 @@ h4 {
 }
 
 section {
-	margin: 30px 60px;
-	padding: 20px 50px 40px 50px;
-	box-shadow: 2px 2px 4px rgba(0, 0, 0, 0.6);
 	background-color: #fff;
 	border-radius: 20px;
+	box-shadow: 2px 2px 4px rgba(0, 0, 0, 0.6);
+	margin: 30px 60px;
+	padding: 20px 50px 40px 50px;
 }
 
 hr {
@@ -89,15 +89,15 @@ div[id$="-holder"] {
 }
 
 .focal-button {
-	padding: 10px 25px;
+	background-color: var(--blue-chill);
+	border-radius: 5px;
+	border: none;
+	color: #fff;
+	cursor: pointer;
 	font-size: 20px;
 	font-weight: 500;
-	border: none;
 	outline: none;
-	background-color: var(--blue-chill);
-	color: #fff;
-	border-radius: 5px;
-	cursor: pointer;
+	padding: 10px 25px;
 }
 
 .focal-button:hover {

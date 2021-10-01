@@ -42,8 +42,8 @@
 	}
 
 	form .flex-wrapper .flex-item {
-		padding: unset;
 		margin: 10px 0;
+		padding: unset;
 	}
 
 	form .flex-wrapper .flex-item:not(:last-child) {
@@ -72,13 +72,13 @@
 
 	#content-wrapper .tab-content {
 		border: 0;
-		opacity: 1;
-		position: unset;
-		transform: none;
-		margin-bottom: 60px;
 		height: auto !important;
+		margin-bottom: 60px;
+		opacity: 1;
 		overflow: visible;
 		padding: 0;
+		position: unset;
+		transform: none;
 	}
 
 	#content-wrapper header {
@@ -88,10 +88,10 @@
 	}
 
 	.step-container {
-		position: static;
+		background-color: unset;
 		border-radius: unset;
 		overflow: visible;
-		background-color: unset;
+		position: static;
 	}
 
 	.step-container::after {

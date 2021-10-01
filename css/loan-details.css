@@ -27,17 +27,17 @@
 
 #summary .grid-wrapper {
 	display: grid;
-	grid-template-columns: 1.3fr 1fr 1fr;
 	gap: 0 30px;
+	grid-template-columns: 1.3fr 1fr 1fr;
 }
 
 #summary .grid-wrapper > div {
-	display: flex;
 	align-items: center;
+	display: flex;
 	flex-direction: column;
 	justify-content: center;
-	text-align: center;
 	min-height: 120px;
+	text-align: center;
 }
 
 #summary .grid-wrapper > * {
@@ -54,24 +54,24 @@
 }
 
 #summary-details th {
-	text-align: right;
 	padding-right: 12px;
+	text-align: right;
 }
 
 #documents img,
 #pdf-button-wrapper {
-	width: 100%;
 	border-radius: 15px;
+	width: 100%;
 }
 
 #pdf-button-wrapper {
+	align-items: center;
 	background-image: url("../img/banner.png");
 	background-size: cover;
-	height: 16vw;
-	text-align: center;
 	display: flex;
+	height: 16vw;
 	justify-content: center;
-	align-items: center;
+	text-align: center;
 }
 
 
