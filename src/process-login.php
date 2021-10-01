@@ -12,6 +12,7 @@ if (isset($_POST["submit"])) {
 	if ($admin) {
 		if (password_verify($password, $admin->password)) {
 			$_SESSION["admin-verified"] = $admin->data_subject_id;
+			$_SESSION["cycle"] = date("Y");
 			$path = "../home.php";
 		}
 		else {

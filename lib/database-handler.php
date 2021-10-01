@@ -96,6 +96,12 @@ class Database {
 		$this->execute();
 		return $this->stmt->fetchAll(PDO::FETCH_OBJ);
 	}
+
+	// Get result set as a one-dimensional array columns (1 column per record)
+	public function resultSetOneColumn() {
+		$this->execute();
+		return $this->stmt->fetchAll(PDO::FETCH_COLUMN);
+	}
 	
 	// Get single record as object
 	public function resultRecord() {
