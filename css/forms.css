@@ -41,9 +41,9 @@ form label {
 }
 
 input {
-	border-bottom-width: 2px;
 	border-radius: 5px;
 	border: 1px solid var(--light-gray);
+	border-bottom-width: 2px; /* Should always be after border property. */
 	font-size: 17px;
 	height: 38px;
 	outline: none;
