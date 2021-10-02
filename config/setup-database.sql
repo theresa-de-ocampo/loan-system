@@ -54,6 +54,7 @@ CREATE TABLE `loan` (
 	`status` ENUM('Active', 'Closed') DEFAULT 'Active' NOT NULL,
 	`proof` CHAR(10) NOT NULL,
 	`collateral` CHAR(10),
+	`cycle_id` YEAR DEFAULT (YEAR(CURDATE())),
 
 	CONSTRAINT fk_loan_borrower_id FOREIGN KEY (`borrower_id`)
 		REFERENCES `data_subject` (`data_subject_id`)
@@ -61,6 +62,10 @@ CREATE TABLE `loan` (
 		ON DELETE RESTRICT,
 	CONSTRAINT fk_loan_guarantor_id FOREIGN KEY (`guarantor_id`)
 		REFERENCES `guarantor` (`guarantor_id`)
+		ON UPDATE CASCADE
+		ON DELETE RESTRICT,
+	CONSTRAINT fk_loan_cycle_id FOREIGN KEY (`cycle_id`)
+		REFERENCES `cycle` (`cycle_id`)
 		ON UPDATE CASCADE
 		ON DELETE RESTRICT
 ) Engine=InnoDB;
@@ -249,8 +254,8 @@ VALUES
 INSERT INTO
 	`loan`
 VALUES
-	(DEFAULT, 23, 9, '2021-02-10 10:00:00', 5000, 'Closed', '1.jpg', NULL),
-	(DEFAULT, 24, 10, '2021-06-21 11:00:00', 25000, 'Closed', '2.jpg', '2.pdf');
+	(DEFAULT, 23, 9, '2021-02-10 10:00:00', 5000, 'Closed', '1.jpg', NULL, '2021'),
+	(DEFAULT, 24, 10, '2021-06-21 11:00:00', 25000, 'Closed', '2.jpg', '2.pdf', '2021');
 
 INSERT INTO
 	`principal_payment`

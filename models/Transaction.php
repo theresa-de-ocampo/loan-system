@@ -1,13 +1,16 @@
 <?php
 class Transaction {
 	private $db;
+	private $cycle;
 
 	public function __construct() {
 		$this->db = new Database();
+		$cycle = new Cycle();
+		$this->cycle = $cycle->getCycleId();
 	}
 
 	public function getLoans() {
-		$this->db->query("SELECT * FROM `loan`");
+		$this->db->query("SELECT * FROM `loan`  WHERE `cycle_id` = $this->cycle");
 		return $this->db->resultSet();
 	}
 
