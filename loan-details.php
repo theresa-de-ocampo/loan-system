@@ -9,6 +9,7 @@
 	require_once "config/config.php";
 	require_once "lib/database-handler.php";
 	require_once "lib/conversion-util.php";
+	require_once "models/Cycle.php";
 	require_once "models/Transaction.php";
 	require_once "models/DataSubject.php";
 
