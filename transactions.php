@@ -11,6 +11,7 @@
 	$transaction = new Transaction();
 	$data_subject = new DataSubject();
 	$loans = $transaction->getLoans();
+	$principal_payments = $transaction->getAllPrincipalPayments();
 ?>
 <!DOCTYPE html>
 <html lang="en">
@@ -75,6 +76,24 @@
 
 		<section id="principal-payments">
 			<h3>Principal Payments</h3>
+			<table id="principal-payments-tbl" class="display cell-border" width="100%">
+				<thead>
+					<th>Borrower</th>
+					<th>Guarantor</th>
+					<th>Amount</th>
+					<th>Date Time Paid</th>
+				</thead>
+				<tbody>
+					<?php foreach ($principal_payments as $pp): ?>
+						<tr>
+							<td><?php echo $data_subject->getName($pp->borrower_id); ?></td>
+							<td><?php echo $data_subject->getName($pp->guarantor_id); ?></td>
+							<td><?php echo number_format($pp->amount, 2, ".", ","); ?></td>
+							<td><?php echo $converter->shortToLongDateTime($pp->date_time_paid); ?></td>
+						</tr>
+					<?php endforeach; ?>
+				</tbody>
+			</table><!-- #principal-payments-tbl -->
 		</section><!-- #principal-payments -->
 	</main>
 

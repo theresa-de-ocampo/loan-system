@@ -40,4 +40,22 @@ $(function() {
 		]
 	});
 	checkForRows($loanDisbursementsTbl, "#loan-disbursements-tbl");
+
+	let $table = $("#principal-payments-tbl").DataTable({
+		dom: "Bfrtip", 
+		responsive: true,
+		buttons: [
+			{
+				extend: "print",
+				title: "Principal Payments",
+				customize: function(win) {
+					$(win.document.body).prepend(coopInfo);
+				}
+			},
+			{
+				extend: 'csv',
+				title: "Principal Payments"
+			}
+		]
+	});
 });

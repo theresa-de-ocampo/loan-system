@@ -14,6 +14,11 @@ class Transaction {
 		return $this->db->resultSet();
 	}
 
+	public function getAllPrincipalPayments() {
+		$this->db->query("SELECT `borrower_id`, `guarantor_id`, `principal_payment`.`amount`, `date_time_paid` FROM `principal_payment` INNER JOIN `loan` USING (`loan_id`) WHERE `loan`.`cycle_id` = $this->cycle");
+		return $this->db->resultSet();
+	}
+
 	public function getLoan($id) {
 		$this->db->query("SELECT * FROM `loan` WHERE `loan_id` = ?");
 		$this->db->bind(1, $id);
