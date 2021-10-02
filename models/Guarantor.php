@@ -1,9 +1,12 @@
 <?php
 class Guarantor {
 	private $db;
+	private $cycle;
 
 	public function __construct() {
 		$this->db = new Database();
+		$cycle = new Cycle();
+		$this->cycle = $cycle->getCycleId();
 	}
 
 	public function getTotalCurrentGuarantors() {
@@ -12,12 +15,16 @@ class Guarantor {
 	}
 
 	public function getCurrentGuarantors() {
-		$this->db->query("SELECT * FROM current_guarantors");
+		$this->db->query(
+			"SELECT * FROM `data_subject` INNER JOIN `guarantor_cycle_map` ON `data_subject_id` = `guarantor_id` WHERE `cycle_id` = $this->cycle"
+		);
 		return $this->db->resultSet();
 	}
 
 	public function getSavings() {
-		$this->db->query("SELECT * FROM savings");
+		$this->db->query(
+			"SELECT `guarantor_id`, CONCAT(fname, ' ', LEFT(mname, 1), '. ', lname) AS `member`, `number_of_share`, `number_of_share` * `membership_fee` AS `principal` FROM `data_subject` INNER JOIN `guarantor_cycle_map` gcm ON `data_subject_id` = `guarantor_id` AND `cycle_id` = $this->cycle INNER JOIN `cycle` c ON c.`cycle_id` = gcm.`cycle_id`"
+		);
 		return $this->db->resultSet();
 	}
 
@@ -27,7 +34,7 @@ class Guarantor {
 	}
 
 	public function getNotCurrentGuarantors() {
-		$this->db->query("SELECT * FROM not_current_guarantors");
+		$this->db->query("SELECT * FROM `data_subject` WHERE `data_subject_id` NOT IN (SELECT `data_subject_id` FROM `data_subject` INNER JOIN `guarantor_cycle_map` ON `data_subject_id` = `guarantor_id` WHERE `cycle_id` = $this->cycle)");
 		return $this->db->resultSet();
 	}
 

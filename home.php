@@ -2,6 +2,7 @@
 	require_once "config/config.php";
 	require_once "lib/verification.php";
 	require_once "lib/database-handler.php";
+	require_once "models/Cycle.php";
 	require_once "models/Guarantor.php";
 
 	$guarantor = new Guarantor();

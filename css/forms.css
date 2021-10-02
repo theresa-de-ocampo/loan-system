@@ -164,3 +164,7 @@ form .flex-wrapper .flex-item:not(:last-child) {
 	display: inline-block;
 	margin-left: 3px;
 }
+
+.flex-wrapper + button[type="submit"] {
+	display: none;
+}

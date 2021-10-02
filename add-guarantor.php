@@ -1,12 +1,12 @@
 <?php 
 	require_once "config/config.php";
+	require_once "lib/verification.php";
 	require_once "lib/database-handler.php";
 	require_once "lib/conversion-util.php";
 	require_once "models/Guarantor.php";
 	require_once "models/Cycle.php";
 
 	$converter = new Converter();
-	/*$cycle = new Cycle();*/
 	$guarantor = new Guarantor();
 	$not_current_guarantors = $guarantor->getNotCurrentGuarantors();
 ?>
