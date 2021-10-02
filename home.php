@@ -39,7 +39,7 @@
 						<div class="fas fa-user-tie"></div>
 						<h4>Guarantors</h4>
 					</div>
-					<p><?php echo $guarantor->getTotalCurrentGuarantors("", "home.php"); ?></p>
+					<p><?php echo $guarantor->getTotalCurrentGuarantors(); ?></p>
 				</div><!-- .grid-item -->
 				<div class="grid-item">
 					<div class="tally-label">
@@ -67,7 +67,7 @@
 						<div class="fas fa-piggy-bank"></div>
 						<h4>Savings</h4>
 					</div>
-					<p><span>&#8369;</span> <?php echo number_format($guarantor->getTotalSavings("", "home.php")); ?></p>
+					<p><span>&#8369;</span> <?php echo number_format($guarantor->getTotalSavings()); ?></p>
 				</div><!-- .grid-item -->
 				<div class="grid-item">
 					<div class="tally-label">
@@ -88,7 +88,7 @@
 						<div class="fas fa-wallet"></div>
 						<h4>Cash On Hand</h4>
 					</div>
-					<p><span>&#8369;</span> <?php echo number_format($guarantor->getTotalSavings("", "home.php")); ?></p>
+					<p><span>&#8369;</span> 0</p>
 				</div><!-- .grid-item -->
 				<div class="grid-item">
 					<div class="tally-label">

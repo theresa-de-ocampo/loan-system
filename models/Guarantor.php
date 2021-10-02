@@ -10,7 +10,9 @@ class Guarantor {
 	}
 
 	public function getTotalCurrentGuarantors() {
-		$this->db->query("SELECT COUNT(`data_subject_id`) FROM `current_guarantors`");
+		$this->db->query(
+			"SELECT COUNT(`data_subject_id`) FROM `data_subject` INNER JOIN `guarantor_cycle_map` ON `data_subject_id` = `guarantor_id` WHERE `cycle_id` = $this->cycle"
+		);
 		return $this->db->resultColumn();
 	}
 
@@ -29,7 +31,9 @@ class Guarantor {
 	}
 
 	public function getTotalSavings() {
-		$this->db->query("SELECT SUM(principal) FROM savings");
+		$this->db->query(
+			"SELECT COALESCE(SUM(`number_of_share` * `membership_fee`), 0) FROM  `guarantor_cycle_map` INNER JOIN `cycle` USING (`cycle_id`) WHERE `cycle_id` = $this->cycle"
+		);
 		return $this->db->resultColumn();
 	}
 
