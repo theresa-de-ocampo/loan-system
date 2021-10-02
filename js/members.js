@@ -1,7 +1,7 @@
 // jshint esversion: 6
 $(function() {
 	let coopInfo = $("#coop-info-holder").html();
-	$guarantorsTbl = $("#guarantors-tbl").DataTable({
+	let $guarantorsTbl = $("#guarantors-tbl").DataTable({
 		dom: "Bfrtip", 
 		responsive: true,
 		buttons: [
@@ -41,7 +41,7 @@ $(function() {
 	});
 	checkForRows($guarantorsTbl, "#guarantors-tbl");
 
-	$savingsTbl = $("#savings-tbl").DataTable({
+	let $savingsTbl = $("#savings-tbl").DataTable({
 		dom: "Bfrtip", 
 		responsive: true,
 		buttons: [
@@ -79,7 +79,7 @@ $(function() {
 			let $tr = $(this).closest("tr");
 			if ($tr.hasClass("child"))
 				$tr = $tr.prev();
-			let row = $("#guarantors-tbl").DataTable().row($tr).data();
+			let row = $guarantorsTbl.row($tr).data();
 			
 			createModal(data);
 			$(".tingle-modal-box #id").val(row[0]);
