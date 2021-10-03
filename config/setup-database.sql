@@ -1,6 +1,8 @@
 USE mysql;
 DROP DATABASE IF EXISTS `cooperative`;
-CREATE DATABASE `cooperative`;
+CREATE DATABASE `cooperative`
+	CHARACTER SET  utf8mb4
+	COLLATE utf8mb4_0900_ai_ci;
 USE `cooperative`;
 
 CREATE TABLE `cycle` (
