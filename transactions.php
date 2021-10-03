@@ -5,13 +5,14 @@
 	require_once "lib/conversion-util.php";
 	require_once "models/Cycle.php";
 	require_once "models/Transaction.php";
+	require_once "models/Loan.php";
 	require_once "models/DataSubject.php";
 
 	$converter = new Converter();
-	$transaction = new Transaction();
+	$loan = new Loan();
 	$data_subject = new DataSubject();
-	$loans = $transaction->getLoans();
-	$principal_payments = $transaction->getAllPrincipalPayments();
+	$loans = $loan->getLoans();
+	$principal_payments = $loan->getAllPrincipalPayments();
 ?>
 <!DOCTYPE html>
 <html lang="en">

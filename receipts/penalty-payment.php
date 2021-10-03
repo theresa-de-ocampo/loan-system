@@ -14,10 +14,11 @@
 	require_once "../models/Cycle.php";
 	require_once "../models/DataSubject.php";
 	require_once "../models/Transaction.php";
+	require_once "../models/Penalty.php";
 
 	$converter = new Converter();
-	$transaction = new Transaction();
-	$data = $transaction->getPenaltyReceiptData($penalty_id, $payment_id);
+	$penalty = new Penalty();
+	$data = $penalty->getPenaltyReceiptData($penalty_id, $payment_id);
 	$custom_id = "I".$data["interest_id"]." P".$penalty_id." PP".$payment_id;
 ?>
 <!DOCTYPE html>

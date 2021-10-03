@@ -14,10 +14,11 @@
 	require_once "../models/Cycle.php";
 	require_once "../models/DataSubject.php";
 	require_once "../models/Transaction.php";
+	require_once "../models/Interest.php";
 
 	$converter = new Converter();
-	$transaction = new Transaction();
-	$data = $transaction->getInterestReceiptData($interest_id, $payment_id);
+	$interest = new Interest();
+	$data = $interest->getInterestReceiptData($interest_id, $payment_id);
 	$custom_id = "L".$data["loan_id"]." I".$interest_id." IP".$payment_id;
 ?>
 <!DOCTYPE html>

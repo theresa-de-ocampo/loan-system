@@ -14,10 +14,11 @@
 	require_once "../models/Cycle.php";
 	require_once "../models/DataSubject.php";
 	require_once "../models/Transaction.php";
+	require_once "../models/ProcessingFee.php";
 
 	$converter = new Converter();
-	$transaction = new Transaction();
-	$data = $transaction->getProcessingFeeReceiptData($processing_fee_id, $payment_id);
+	$processing_fee = new ProcessingFee();
+	$data = $processing_fee->getProcessingFeeReceiptData($processing_fee_id, $payment_id);
 	$custom_id = "L".$data["loan_id"]." PF".$processing_fee_id." PFP".$payment_id;
 ?>
 <!DOCTYPE html>

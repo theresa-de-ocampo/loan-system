@@ -5,6 +5,7 @@ if (isset($_POST["add"])) {
 	require_once "../lib/database-handler.php";
 	require_once "../models/Cycle.php";
 	require_once "../models/Transaction.php";
-	$transaction = new Transaction();
-	$transaction->insertPrincipalPayment($_POST);
+	require_once "../models/Loan.php";
+	$loan = new Loan();
+	$loan->insertPrincipalPayment($_POST);
 }

@@ -10,28 +10,36 @@
 	require_once "lib/database-handler.php";
 	require_once "lib/conversion-util.php";
 	require_once "models/Cycle.php";
-	require_once "models/Transaction.php";
 	require_once "models/DataSubject.php";
+	require_once "models/Transaction.php";
+	require_once "models/Loan.php";
+	require_once "models/Interest.php";
+	require_once "models/Penalty.php";
+	require_once "models/ProcessingFee.php";
 
 	$converter = new Converter();
-	$transaction = new Transaction();
 	$data_subject = new DataSubject();
-	$accrued_interest = $transaction->getAccruedInterest($id);
-	$total_receivables = $transaction->getTotalReceivablesByLoan($id);
-	$loan = $transaction->getLoan($id);
-	$borrower = $data_subject->getName($loan->borrower_id);
-	$guarantor = $data_subject->getName($loan->guarantor_id);
-	$principal_payments = $transaction->getPrincipalPayments($id);
-	$interests = $transaction->getInterests($id);
-	$interest_payments = $transaction->getInterestPayments($id);
-	$penalties = $transaction->getPenalties($id);
-	$penalty_payments = $transaction->getPenaltyPayments($id);
-	$processing_fees = $transaction->getProcessingFees($id);
-	$processing_fee_payments = $transaction->getProcessingFeePayments($id);
-	$collateral = $loan->collateral;
+	$transaction = new Transaction();
+	$loan = new Loan();
+	$interest = new Interest();
+	$penalty = new Penalty();
+	$processing_fee = new ProcessingFee();
+	$accrued_interest = $interest->getAccruedInterest($id);
+	$total_receivables = $loan->getTotalReceivablesByLoan($id);
+	$loan_record = $loan->getLoan($id);
+	$borrower = $data_subject->getName($loan_record->borrower_id);
+	$guarantor = $data_subject->getName($loan_record->guarantor_id);
+	$principal_payments = $loan->getPrincipalPayments($id);
+	$interests = $interest->getInterests($id);
+	$interest_payments = $interest->getInterestPayments($id);
+	$penalties = $penalty->getPenalties($id);
+	$penalty_payments = $penalty->getPenaltyPayments($id);
+	$processing_fees = $processing_fee->getProcessingFees($id);
+	$processing_fee_payments = $processing_fee->getProcessingFeePayments($id);
+	$collateral = $loan_record->collateral;
 	$hasCollateral = $collateral != "";
 	$collateralFileName = "img/transactions/collateral/".$collateral;
-	$proofImgTag = "<img src='img/transactions/loan/".$loan->proof."' alt='Acceptance Photo' />";
+	$proofImgTag = "<img src='img/transactions/loan/".$loan_record->proof."' alt='Acceptance Photo' />";
 ?>
 <!DOCTYPE html>
 <html lang="en">
@@ -86,7 +94,7 @@
 			<h3>Principal Payments</h3>
 			<hr />
 			<div id="loan-id-holder"><?php echo $id; ?></div>
-			<div id="loan-balance-holder"><?php echo $transaction->getPrincipalBalance($id); ?></div>
+			<div id="loan-balance-holder"><?php echo $loan->getPrincipalBalance($id); ?></div>
 			<table id="principal-payments-tbl" class="display cell-border" width="100%">
 				<thead>
 					<tr>
@@ -101,7 +109,7 @@
 						<td>
 							<?php
 								echo number_format(
-									$transaction->getPrincipalBalanceByDateTime($pp->loan_id, $pp->date_time_paid), 2, ".", ","
+									$loan->getPrincipalBalanceByDateTime($pp->loan_id, $pp->date_time_paid), 2, ".", ","
 								); 
 							?>
 						</td>
@@ -139,7 +147,7 @@
 								href="#" 
 								data-loan-id="<?php echo $id; ?>" 
 								data-interest-id="<?php echo $i->interest_id; ?>"
-								data-interest-balance="<?php echo $transaction->getInterestBalance($i->interest_id); ?>"
+								data-interest-balance="<?php echo $interest->getInterestBalance($i->interest_id); ?>"
 								>
 								<?php echo $i->status; ?>
 							</a>
@@ -202,7 +210,7 @@
 								href="#"
 								data-loan-id="<?php echo $id; ?>"
 								data-penalty-id="<?php echo $p->penalty_id; ?>"
-								data-penalty-balance="<?php echo $transaction->getPenaltyBalance($p->penalty_id); ?>"
+								data-penalty-balance="<?php echo $penalty->getPenaltyBalance($p->penalty_id); ?>"
 								>
 								<?php echo $p->status; ?>
 							</a>
@@ -264,7 +272,7 @@
 								data-loan-id="<?php echo $id; ?>" 
 								data-processing-fee-id="<?php echo $pf->processing_fee_id; ?>"
 								data-processing-fee-balance=
-									"<?php echo $transaction->getProcessingFeeBalance($pf->processing_fee_id); ?>"
+									"<?php echo $processing_fee->getProcessingFeeBalance($pf->processing_fee_id); ?>"
 								>
 								<?php echo $pf->status; ?>
 							</a>
