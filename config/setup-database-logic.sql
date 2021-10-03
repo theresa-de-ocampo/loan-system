@@ -1,3 +1,116 @@
+-- [FUNCTION] get_total_principal_paid
+DELIMITER $$
+CREATE FUNCTION total_principal_paid (
+	p_loan_id INT UNSIGNED
+)
+RETURNS DECIMAL(10, 2)
+NOT DETERMINISTIC
+BEGIN
+	DECLARE lv_total_payment DECIMAL(10, 2);
+
+	SELECT
+		COALESCE(SUM(`amount`), 0)
+	INTO
+		lv_total_payment
+	FROM
+		`principal_payment`
+	WHERE
+		`loan_id` = p_loan_id;
+
+	RETURN (lv_total_payment);
+END $$
+DELIMITER ;
+
+-- [FUNCTION] total_interest_paid
+DELIMITER $$
+CREATE FUNCTION total_interest_paid (
+	p_loan_id INT UNSIGNED
+)
+RETURNS DECIMAL(9, 2)
+NOT DETERMINISTIC
+BEGIN
+	DECLARE lv_total_payment DECIMAL (9, 2);
+
+	SELECT
+		COALESCE(SUM(`amount`), 0)
+	INTO
+		lv_total_payment
+	FROM
+		`interest_payment`
+	WHERE
+		`interest_id` IN (
+				SELECT
+					`interest_id`
+				FROM
+					`interest`
+				WHERE
+					`loan_id` = p_loan_id
+			);
+
+	RETURN (lv_total_payment);
+END $$
+DELIMITER ;
+
+-- [FUNCTION] total_penalty_paid
+DELIMITER $$
+CREATE FUNCTION total_penalty_paid (
+	p_loan_id INT UNSIGNED
+)
+RETURNS DECIMAL(9, 2)
+NOT DETERMINISTIC
+BEGIN
+	DECLARE lv_total_payment DECIMAL(9, 2);
+
+	SELECT
+		COALESCE(SUM(`amount`), 0)
+	INTO
+		lv_total_payment
+	FROM
+		`penalty_payment`
+	WHERE
+		`penalty_id` IN (
+				SELECT
+					`penalty_id`
+				FROM
+					`penalty`
+				WHERE
+					`loan_id` = p_loan_id
+			);
+
+	RETURN (lv_total_payment);
+END $$
+DELIMITER ;
+
+-- [FUNCTION] total_processing_fee_paid
+DELIMITER $$
+CREATE FUNCTION total_processing_fee_paid (
+	p_loan_id INT UNSIGNED
+)
+RETURNS DECIMAL (8, 2)
+NOT DETERMINISTIC
+BEGIN
+	DECLARE lv_total_payment DECIMAL(8, 2);
+
+	SELECT
+		COALESCE(SUM(`amount`), 0)
+	INTO
+		lv_total_payment
+	FROM
+		`processing_fee_payment`
+	WHERE
+		`processing_fee_id` IN (
+				SELECT
+					`processing_fee_id`
+				FROM
+					`processing_fee`
+				WHERE
+					`loan_id` = p_loan_id
+			);
+
+	RETURN (lv_total_payment);
+END $$
+DELIMITER ;
+
 -- [STORED PROCEDURE] calculate_age
 CREATE PROCEDURE calculate_age (
 	IN p_bday DATE,
@@ -89,16 +202,7 @@ CREATE PROCEDURE get_principal_balance (
 	OUT p_balance DECIMAL(10, 2)
 )
 BEGIN
-	DECLARE amount_to_be_paid, total_payment DECIMAL(10, 2);
-
-	SELECT
-		COALESCE(SUM(`amount`), 0)
-	INTO
-		total_payment
-	FROM
-		`principal_payment`
-	WHERE
-		`loan_id` = p_loan_id;
+	DECLARE amount_to_be_paid DECIMAL(10, 2);
 
 	SELECT
 		`principal`
@@ -109,7 +213,7 @@ BEGIN
 	WHERE 
 		`loan_id` = p_loan_id;
 
-	SET p_balance = amount_to_be_paid - total_payment;
+	SET p_balance = amount_to_be_paid - total_principal_paid(p_loan_id);
 END $$
 DELIMITER ;
 
@@ -290,23 +394,7 @@ BEGIN
 	WHERE
 		`loan_id` = p_loan_id;
 
-	SELECT
-		COALESCE(SUM(`amount`), 0)
-	INTO
-		total_payment
-	FROM
-		`interest_payment`
-	WHERE
-		`interest_id` IN (
-				SELECT
-					`interest_id`
-				FROM
-					`interest`
-				WHERE
-					`loan_id` = p_loan_id
-			);
-
-	SET p_total_receivables = total_interest - total_payment;
+	SET p_total_receivables = total_interest - total_interest_paid(p_loan_id);
 END $$
 DELIMITER ;
 
@@ -328,23 +416,7 @@ BEGIN
 	WHERE
 		`loan_id` = p_loan_id;
 
-	SELECT
-		COALESCE(SUM(`amount`), 0)
-	INTO
-		total_payment
-	FROM
-		`penalty_payment`
-	WHERE
-		`penalty_id` IN (
-				SELECT
-					`penalty_id`
-				FROM
-					`penalty`
-				WHERE
-					`loan_id` = p_loan_id
-			);
-
-	SET p_total_receivables = total_penalties - total_payment;
+	SET p_total_receivables = total_penalties - total_penalty_paid(p_loan_id);
 END $$
 DELIMITER ;
 
@@ -366,23 +438,7 @@ BEGIN
 	WHERE
 		`loan_id` = p_loan_id;
 
-	SELECT
-		COALESCE(SUM(`amount`), 0)
-	INTO
-		total_payment
-	FROM
-		`processing_fee_payment`
-	WHERE
-		`processing_fee_id` IN (
-				SELECT
-					`processing_fee_id`
-				FROM
-					`processing_fee`
-				WHERE
-					`loan_id` = p_loan_id
-			);
-
-	SET p_total_receivables = total_processing_fees - total_payment;
+	SET p_total_receivables = total_processing_fees - total_processing_fee_paid(p_loan_id);
 END $$
 DELIMITER ;
 
