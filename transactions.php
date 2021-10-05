@@ -4,13 +4,13 @@
 	require_once "lib/database-handler.php";
 	require_once "lib/conversion-util.php";
 	require_once "models/Cycle.php";
+	require_once "models/DataSubject.php";
 	require_once "models/Transaction.php";
 	require_once "models/Loan.php";
-	require_once "models/DataSubject.php";
 
 	$converter = new Converter();
-	$loan = new Loan();
 	$data_subject = new DataSubject();
+	$loan = new Loan();
 	$loans = $loan->getLoans();
 	$principal_payments = $loan->getAllPrincipalPayments();
 ?>
