@@ -1,6 +1,5 @@
 // jshint esversion: 6
 $(function() {
-	let coopInfo = $("#coop-info-holder").html();
 	let $guarantorsTbl = $("#guarantors-tbl").DataTable({
 		dom: "Bfrtip", 
 		responsive: true,
@@ -20,9 +19,7 @@ $(function() {
 				exportOptions: {
 					columns: [0, 1, 2, 3, 4, 5, 6, 7]
 				},
-				customize: function(win) {
-					$(win.document.body).prepend(coopInfo);
-				}
+				customize: addHeaderToPdf
 			},
 			{
 				extend: 'csv',
@@ -48,9 +45,7 @@ $(function() {
 			{
 				extend: "print",
 				title: "Savings",
-				customize: function(win) {
-					$(win.document.body).prepend(coopInfo);
-				}
+				customize: addHeaderToPdf
 			},
 			{
 				extend: 'csv',
@@ -75,7 +70,7 @@ $(function() {
 			return [year, month, day].join('-');
 		}
 
-		$("#guarantors-tbl").on("click", ".fa-user-edit", function() {
+		$guarantorsTbl.on("click", ".fa-user-edit", function() {
 			let $tr = $(this).closest("tr");
 			if ($tr.hasClass("child"))
 				$tr = $tr.prev();

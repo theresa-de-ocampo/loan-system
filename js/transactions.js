@@ -1,6 +1,5 @@
 // jshint esversion: 6
 $(function() {
-	let coopInfo = $("#coop-info-holder").html();
 	let $loanDisbursementsTbl = $("#loan-disbursements-tbl").DataTable({
 		dom: "Bfrtip", 
 		responsive: true,
@@ -20,9 +19,7 @@ $(function() {
 				exportOptions: {
 					columns: [0, 1, 2, 3, 4]
 				},
-				customize: function(win) {
-					$(win.document.body).prepend(coopInfo);
-				}
+				customize: addHeaderToPdf
 			},
 			{
 				extend: 'csv',
@@ -41,16 +38,14 @@ $(function() {
 	});
 	checkForRows($loanDisbursementsTbl, "#loan-disbursements-tbl");
 
-	let $table = $("#principal-payments-tbl").DataTable({
+	let $principalPaymentsTbl = $("#principal-payments-tbl").DataTable({
 		dom: "Bfrtip", 
 		responsive: true,
 		buttons: [
 			{
 				extend: "print",
 				title: "Principal Payments",
-				customize: function(win) {
-					$(win.document.body).prepend(coopInfo);
-				}
+				customize: addHeaderToPdf
 			},
 			{
 				extend: 'csv',
@@ -58,4 +53,5 @@ $(function() {
 			}
 		]
 	});
+	checkForRows($principalPaymentsTbl, "#principal-payments-tbl");
 });

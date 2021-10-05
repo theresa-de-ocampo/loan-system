@@ -1,12 +1,6 @@
 // jshint esversion: 6
 $(function() {
-	const coopInfo = $("#coop-info-holder").html();
 	const $tables = $("table");
-
-	function addHeaderToPdf(win) {
-		$(win.document.body).prepend(coopInfo);
-	}
-
 	for (const table of $tables) {
 		let $table = $(table);
 		let title = $table.attr("data-guarantor-name");

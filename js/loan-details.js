@@ -1,6 +1,11 @@
 // jshint esversion: 6
 $(function() {
 	let summaryDetails = $("#loan-info-holder").html();
+
+	function addHeaderToLoanDetailsPdf(win) {
+		$(win.document.body).prepend(summaryDetails);
+	}
+
 	function confirmPayment() {
 		$(".tingle-modal-box form .fa-pencil-alt").on("click", function(e) {
 			let ans = confirm("Proceed with payment?");
@@ -31,9 +36,7 @@ $(function() {
 			{
 				extend: "print",
 				title: "Principal Payments",
-				customize: function(win) {
-					$(win.document.body).prepend(summaryDetails);
-				}
+				customize: addHeaderToLoanDetailsPdf
 			},
 			{
 				extend: "csv",
@@ -52,9 +55,7 @@ $(function() {
 			{
 				extend: "print",
 				title: "Interests",
-				customize: function(win) {
-					$(win.document.body).prepend(summaryDetails);
-				}
+				customize: addHeaderToLoanDetailsPdf
 			},
 			{
 				extend: "csv",
@@ -71,9 +72,7 @@ $(function() {
 			{
 				extend: "print",
 				title: "Interest Payments",
-				customize: function(win) {
-					$(win.document.body).prepend(summaryDetails);
-				}
+				customize: addHeaderToLoanDetailsPdf
 			},
 			{
 				extend: "csv",
@@ -104,9 +103,7 @@ $(function() {
 			{
 				extend: "print",
 				title: "Penalties",
-				customize: function(win) {
-					$(win.document.body).prepend(summaryDetails);
-				}
+				customize: addHeaderToLoanDetailsPdf
 			},
 			{
 				extend: "csv",
@@ -123,9 +120,7 @@ $(function() {
 			{
 				extend: "print",
 				title: "Penalty Payments",
-				customize: function(win) {
-					$(win.document.body).prepend(summaryDetails);
-				}
+				customize: addHeaderToLoanDetailsPdf
 			},
 			{
 				extend: "csv",
@@ -156,9 +151,7 @@ $(function() {
 			{
 				extend: "print",
 				title: "Processing Fees",
-				customize: function(win) {
-					$(win.document.body).prepend(summaryDetails);
-				}
+				customize: addHeaderToLoanDetailsPdf
 			},
 			{
 				extend: "csv",
@@ -175,9 +168,7 @@ $(function() {
 			{
 				extend: "print",
 				title: "Processing Fee Payments",
-				customize: function(win) {
-					$(win.document.body).prepend(summaryDetails);
-				}
+				customize: addHeaderToLoanDetailsPdf
 			},
 			{
 				extend: "csv",

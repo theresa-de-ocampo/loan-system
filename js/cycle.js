@@ -1,6 +1,5 @@
 // jshint esversion: 6
 $(function() {
-	let coopInfo = $("#coop-info-holder").html();
 	let $cycleTbl = $("#cycle-tbl").DataTable({
 		dom: "Bfrtip", 
 		responsive: true,
@@ -8,9 +7,7 @@ $(function() {
 			{
 				extend: "print",
 				title: "Cycle",
-				customize: function(win) {
-					$(win.document.body).prepend(coopInfo);
-				}
+				customize: addHeaderToPdf
 			},
 			{
 				extend: 'csv',

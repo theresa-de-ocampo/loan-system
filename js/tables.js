@@ -1,4 +1,10 @@
 // jshint esversion: 6
+let coopInfo = $("#coop-info-holder").html();
+
+function addHeaderToPdf(win) {
+	$(win.document.body).prepend(coopInfo);
+}
+
 function checkForRows($table, $id) {
 	if (!$table.data().count()) {
 		$($id + "_wrapper .dt-buttons button.buttons-print").hide();
