@@ -31,6 +31,7 @@ class Transaction {
 		return $this->db->resultColumn();
 	}
 
+	# Used for receipts (will soon include name for treasurer)
 	protected function getEntities($borrower_id, $guarantor_id) {
 		$data_subject = new DataSubject();
 		$borrower = $data_subject->getName($borrower_id);
