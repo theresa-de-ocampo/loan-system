@@ -110,7 +110,16 @@
 	.step-item.description {
 		background-color: var(--botticelli);
 		border-radius: 0 0 15px 15px;
-	} 
+	}
+
+	.empty-state {
+		background-image: url("../img/others/wavy-bg.svg");
+		background-size: cover;
+	}
+
+	.empty-state div {
+		width: 100%;
+	}
 }
 
 @media screen and (max-width: 800px) {

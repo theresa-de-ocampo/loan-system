@@ -5,6 +5,22 @@ class Loan extends Transaction {
 		return $this->db->resultSet();
 	}
 
+	public function getTotalReceivablesByLoan($id) {
+		$this->db->query("CALL get_total_receivables_by_loan($id, @total_receivables)");
+		$this->db->execute();
+
+		$this->db->query("SELECT @total_receivables");
+		return $this->db->resultColumn();
+	}
+
+	public function getTotalPaymentsByLoan($id) {
+		$this->db->query("CALL get_total_payments_by_loan($id, @total_payments)");
+		$this->db->execute();
+
+		$this->db->query("SELECT @total_payments");
+		return $this->db->resultColumn();
+	}
+
 	public function getAllPrincipalPayments() {
 		$this->db->query("SELECT `borrower_id`, `guarantor_id`, `principal_payment`.`amount`, `date_time_paid` FROM `principal_payment` INNER JOIN `loan` USING (`loan_id`) WHERE `loan`.`cycle_id` = $this->cycle");
 		return $this->db->resultSet();
@@ -164,6 +180,21 @@ class Loan extends Transaction {
 		}
 		finally {
 			$this->db->confirmQuery("Loan disbursement was successfully recorded!", "../transactions.php");
+		}
+	}
+
+	public function getLoanSummaryByGuarantor($id) {
+		$this->db->query("SELECT * FROM `loan` WHERE `cycle_id` = $this->cycle AND `guarantor_id` = $id");
+		$loan = $this->db->resultRecord();
+
+		if ($loan) {
+			$entities = $this->getEntities($loan->borrower_id, $loan->guarantor_id);
+			return array(
+				"borrower" => $entities["borrower"],
+				"status" => $loan->status,
+				"paid" => $this->getTotalPaymentsByLoan($loan->loan_id),
+				"unpaid" => $this->getTotalReceivablesByLoan($loan->loan_id)
+			);
 		}
 	}
 }

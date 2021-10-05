@@ -484,6 +484,19 @@ BEGIN
 END $$
 DELIMITER ;
 
+-- [STORED PROCEDURE] get_total_payments_by_loan
+DELIMITER $$
+CREATE PROCEDURE get_total_payments_by_loan (
+	IN p_loan_id INT UNSIGNED,
+	OUT p_total_payments DECIMAL(50, 2)
+)
+BEGIN
+	SET p_total_payments = 
+		total_principal_paid(p_loan_id) + total_interest_paid(p_loan_id) + 
+		total_penalty_paid (p_loan_id) + total_processing_fee_paid(p_loan_id);
+END $$
+DELIMITER ;
+
 -- [STORED PROCEDURE] check_for_interest
 DELIMITER $$
 CREATE PROCEDURE check_for_interest()

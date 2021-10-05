@@ -1,0 +1,21 @@
+.empty-state {
+	align-items: center;
+	background-image: url("../img/others/empty-state.png");
+	background-position: center center;
+	background-repeat: no-repeat;
+	background-size: contain;
+	display: flex;
+	height: calc(100vh - 160px);
+	justify-content: flex-end;
+}
+
+.empty-state div {
+	text-align: center;
+	width: 40%;
+}
+
+.empty-state div p:first-of-type {
+	font-size: 24px;
+	font-weight: bold;
+	margin-bottom: 5px;
+}
