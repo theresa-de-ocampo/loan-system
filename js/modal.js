@@ -8,8 +8,11 @@ function createModal(content) {
 		cssClass: ["modal"],
 		beforeClose: function() {
 			return true; // close the modal
+		},
+		onClose: function() {
+			$modal.destroy();
 		}
 	});
 	$modal.setContent(content);
-	return $modal;
+	$modal.open();
 }
