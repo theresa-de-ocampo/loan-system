@@ -1,0 +1,26 @@
+* {
+	box-sizing: border-box;
+	font-family: "Poppins", sans-serif;
+	margin: 0;
+	padding: 0;
+}
+
+html {
+	align-items: center;
+	background-attachment: fixed;
+	background-image: url("../img/others/wavy-bg.svg");
+	background-position: center center;
+	background-repeat: no-repeat;
+	background-size: cover;
+	display: flex;
+	flex-direction: column;
+	height: 100%;
+	justify-content: center;
+	text-align: center;
+	width: 100%;
+}
+
+img {
+	height: calc(100vh - 300px);
+	margin: 20px;
+}
