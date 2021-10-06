@@ -9,7 +9,7 @@
 	<link rel="stylesheet" type="text/css" href="css/all.min.css" />
 	<link rel="stylesheet" type="text/css" href="css/style.css" />
 	<link rel="stylesheet" type="text/css" href="css/agreement.css" />
-	<link rel="shortcut icon" type="image/x-icon" href="img/favicon.png" />
+	<link rel="shortcut icon" type="image/x-icon" href="img/others/favicon.png" />
 	<title><?php echo COOPERATIVE; ?></title>
 </head>
 <body>

@@ -15,7 +15,7 @@ body {
 
 .login-container::before {
 	background-attachment: fixed;
-	background-image: url("../img/coop-bg.svg");
+	background-image: url("../img/others/coop-bg.svg");
 	background-position: center center;
 	background-repeat: no-repeat;
 	background-size: cover;

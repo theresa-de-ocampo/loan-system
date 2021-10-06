@@ -30,7 +30,7 @@
 	<link rel="stylesheet" type="text/css" href="css/image-upload.css" />
 	<link rel="stylesheet" type="text/css" href="css/add-loan.css" />
 	<link rel="stylesheet" type="text/css" href="css/media-queries.css" />
-	<link rel="shortcut icon" type="image/x-icon" href="img/favicon.png" />
+	<link rel="shortcut icon" type="image/x-icon" href="img/others/favicon.png" />
 	<title><?php echo COOPERATIVE; ?></title>
 </head>
 <body>
