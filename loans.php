@@ -8,6 +8,7 @@
 	require_once "models/Transaction.php";
 	require_once "models/Loan.php";
 
+	$cycle = new Cycle();
 	$data_subject = new DataSubject();
 	$guarantor = new Guarantor();
 	$guarantors = $guarantor->getCurrentGuarantors();
@@ -42,6 +43,7 @@
 
 		<!-- Hidden, used as header for printing. -->
 		<div id="coop-info-holder"><?php require_once "inc/print-header.php"; ?></div>
+		<div id="cycle-holder"><?php echo $cycle->getCycleId(); ?></div>
 		
 		<?php
 		if (count($guarantors) > 0):

@@ -12,7 +12,8 @@ $(function() {
 				{
 					extend: "print",
 					title: title,
-					customize: addHeaderToPdf
+					customize: addHeaderToPdf,
+					messageTop: cycle
 				},
 				{
 					extend: "csv",

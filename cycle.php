@@ -37,6 +37,7 @@
 
 		<!-- Hidden, used as header for printing. -->
 		<div id="coop-info-holder"><?php require_once "inc/print-header.php"; ?></div>
+		<div id="cycle-holder"><?php echo $year; ?></div>
 
 		<section id="cycle-settings">
 			<h3>Settings</h3>

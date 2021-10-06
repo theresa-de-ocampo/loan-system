@@ -7,6 +7,7 @@
 	require_once "models/Guarantor.php";
 
 	$converter = new Converter();
+	$cycle = new Cycle();
 	$guarantor = new Guarantor();
 	$guarantors = $guarantor->getCurrentGuarantors();
 	$savings = $guarantor->getSavings();
@@ -40,6 +41,7 @@
 
 		<!-- Hidden, used as header for printing. -->
 		<div id="coop-info-holder"><?php require_once "inc/print-header.php"; ?></div>
+		<div id="cycle-holder"><?php echo $cycle->getCycleId(); ?></div>
 		
 		<section id="guarantors">
 			<h3>Guarantors</h3>
@@ -61,14 +63,14 @@
 				<tbody>
 					<?php foreach ($guarantors as $g): ?>
 					<tr>
-						<td><?php echo $g->guarantor_id ?></td>
-						<td><?php echo $g->fname ?></td>
-						<td><?php echo $g->mname ?></td>
-						<td><?php echo $g->lname ?></td>
-						<td><?php echo $g->contact_no ?></td>
-						<td><?php echo $converter->shortToLongDate($g->bday) ?></td>
+						<td><?php echo $g->guarantor_id; ?></td>
+						<td><?php echo $g->fname; ?></td>
+						<td><?php echo $g->mname; ?></td>
+						<td><?php echo $g->lname; ?></td>
+						<td><?php echo $g->contact_no; ?></td>
+						<td><?php echo $converter->shortToLongDate($g->bday); ?></td>
 						<td><?php echo $converter->bdayToAge($g->bday); ?></td>
-						<td><?php echo $g->phase_block_lot ?></td>
+						<td><?php echo $g->phase_block_lot; ?></td>
 						<td><i class="fas fa-user-edit"></i></td>
 					</tr>
 					<?php endforeach; ?>

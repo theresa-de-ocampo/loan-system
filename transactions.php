@@ -9,6 +9,7 @@
 	require_once "models/Loan.php";
 
 	$converter = new Converter();
+	$cycle = new Cycle();
 	$data_subject = new DataSubject();
 	$loan = new Loan();
 	$loans = $loan->getLoans();
@@ -43,6 +44,7 @@
 
 		<!-- Hidden, used as header for printing. -->
 		<div id="coop-info-holder"><?php require_once "inc/print-header.php"; ?></div>
+		<div id="cycle-holder"><?php echo $cycle->getCycleId(); ?></div>
 		
 		<section id="loan-disbursements">
 			<h3>Loan Disbursements</h3>

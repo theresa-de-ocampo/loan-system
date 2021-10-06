@@ -1,5 +1,6 @@
 // jshint esversion: 6
 let coopInfo = $("#coop-info-holder").html();
+let cycle = "&copy; Cycle " + $("#cycle-holder").text();
 
 function addHeaderToPdf(win) {
 	$(win.document.body).prepend(coopInfo);

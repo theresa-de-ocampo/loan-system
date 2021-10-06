@@ -19,7 +19,8 @@ $(function() {
 				exportOptions: {
 					columns: [0, 1, 2, 3, 4]
 				},
-				customize: addHeaderToPdf
+				customize: addHeaderToPdf,
+				messageTop: cycle
 			},
 			{
 				extend: 'csv',
@@ -45,7 +46,8 @@ $(function() {
 			{
 				extend: "print",
 				title: "Principal Payments",
-				customize: addHeaderToPdf
+				customize: addHeaderToPdf,
+				messageTop: cycle
 			},
 			{
 				extend: 'csv',

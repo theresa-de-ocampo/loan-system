@@ -7,7 +7,8 @@ $(function() {
 			{
 				extend: "print",
 				title: "Cycle",
-				customize: addHeaderToPdf
+				customize: addHeaderToPdf,
+				messageTop: cycle
 			},
 			{
 				extend: 'csv',
