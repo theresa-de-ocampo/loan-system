@@ -50,7 +50,7 @@
 					</div><!-- .flex-item -->
 					<div class="flex-item short">
 						<label for="">No. of Share</label>
-						<input id="number-of-share" type="number" name="number-of-share" required pattern="[1-5]" />
+						<input type="number" name="number-of-share" class="number-of-share" required min="1" max="5" />
 					</div><!-- .flex-item -->
 				</div><!-- .flex-wrapper -->
 				<footer>
@@ -92,6 +92,7 @@
 	<script src="js/tingle.min.js"></script>
 	<script src="js/tables.js"></script>
 	<script src="js/modal.js"></script>
+	<script src="js/validation.js"></script>
 	<script src="js/add-guarantor.js"></script>
 </body>
 </html>

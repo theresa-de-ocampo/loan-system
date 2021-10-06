@@ -1,4 +1,4 @@
-<form action="src/add-new-guarantor.php" method="post">
+<form action="src/add-new-guarantor.php" method="post" novalidate>
 	<div class="grid-wrapper">
 		<header class="modal">New Guarantor</header>
 		<div class="grid-item">
@@ -27,7 +27,7 @@
 		</div><!-- .grid-item -->
 		<div class="grid-item">
 			<label for="">No. of Share</label>
-			<input id="number-of-share" type="number" name="number-of-share" required class="short" pattern="[1-5]" />
+			<input type="number" name="number-of-share" required class="number-of-share short" pattern="[1-5]" />
 		</div><!-- .grid-item -->
 	</div><!-- .grid-wrapper -->
 

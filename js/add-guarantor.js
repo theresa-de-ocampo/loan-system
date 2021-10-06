@@ -1,5 +1,6 @@
 // jshint esversion: 6
 $.get("inc/guarantor-form.html", function(data) {
+	$modal = createModal(data);
 	let $table = $("#new-guarantor-tbl").DataTable({
 		dom: "Bfrtip", 
 		responsive: true,
@@ -7,7 +8,7 @@ $.get("inc/guarantor-form.html", function(data) {
 			{
 				text: "New",
 				action: function() {
-					createModal(data);
+					$modal.open();
 				},
 				attr: {
 					id: "add-guarantor"
@@ -30,4 +31,14 @@ $("input[readonly]").on("click", function() {
 
 $("button[type='reset']").on("click", function() {
 	window.location.replace("members.php");
+});
+
+$("#new-guarantor form").on("submit", function(e) {
+	if (checkIfComplete(e, "#new-guarantor form"))
+		checkNumberOfShares(e, "#new-guarantor form");
+});
+
+$("body").on("submit", ".tingle-modal form", function(e) {
+	if (checkIfComplete(e, ".tingle-modal form"))
+		checkNumberOfShares(e, ".tingle-modal form");
 });

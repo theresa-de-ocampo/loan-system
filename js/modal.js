@@ -1,6 +1,6 @@
 // jshint esversion: 6
 function createModal(content) {
-	let modal = new tingle.modal({
+	let $modal = new tingle.modal({
 		footer: false,
 		stickyFooter: false,
 		closeMethods: ["overlay", "button", "escape"],
@@ -10,6 +10,6 @@ function createModal(content) {
 			return true; // close the modal
 		}
 	});
-	modal.setContent(content);
-	modal.open();
+	$modal.setContent(content);
+	return $modal;
 }
