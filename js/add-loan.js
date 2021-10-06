@@ -81,10 +81,7 @@ $(function() {
 		else
 			$("#borrower-id").val("");
 
-		if (!completeInputs()) {
-			e.preventDefault();
-			alert("Please fill out all required fields!");
-		}
+		checkIfComplete(e);
 	});
 
 	/*
