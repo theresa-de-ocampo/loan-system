@@ -50,10 +50,7 @@ class Guarantor {
 			$data_subject->addDataSubject([$data["fname"], $data["mname"], $data["lname"], $data["contact-no"], $data["bday"], $data["address"]]);
 			$id = $this->db->lastInsertId();
 
-			$this->db->query("INSERT INTO `guarantor` VALUES (?)");
-			$this->db->bind(1, $id);
-			$this->db->executeWithoutCatch();
-
+			$this->insertGuarantor($id);
 			$this->insertGurantorCycleMap($id, $data["number-of-share"]);
 			$this->db->commit();
 		}
@@ -69,8 +66,16 @@ class Guarantor {
 
 	public function addGuarantor($data) {
 		try {
+			$id = $data["data-subject-id"];
+			$this->db->query("SELECT `guarantor_id` FROM `guarantor` WHERE `guarantor_id` = $id");
+			$exists = $this->db->resultColumn();
+
+			// If selected person was never a guarantor (e.g. borrowers who were never a guarantor)
+			if (!$exists)
+				$this->insertGuarantor($id);
+
 			$this->db->startTransaction();
-			$this->insertGurantorCycleMap($data["data-subject-id"], $data["number-of-share"]);
+			$this->insertGurantorCycleMap($id, $data["number-of-share"]);
 			$this->db->commit();
 		}
 		catch (PDOException $e) {
@@ -81,6 +86,12 @@ class Guarantor {
 		finally {
 			$this->db->confirmQuery("Guarantor was successfully added!", "../members.php");
 		}
+	}
+
+	private function insertGuarantor($id) {
+		$this->db->query("INSERT INTO `guarantor` VALUES (?)");
+		$this->db->bind(1, $id);
+		$this->db->executeWithoutCatch();
 	}
 
 	private function insertGurantorCycleMap($id, $numberOfShare) {
