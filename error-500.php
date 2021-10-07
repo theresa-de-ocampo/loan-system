@@ -1,3 +1,4 @@
+<?php require_once "config/config.php" ?>
 <!DOCTYPE html>
 <html lang="en">
 <head>
@@ -7,7 +8,7 @@
 	<meta name="viewport" content="width=device-width, initial-scale=1.0">
 	<link rel="stylesheet" type="text/css" href="css/error.css" />
 	<link rel="shortcut icon" type="image/x-icon" href="img/others/favicon.png" />
-	<title></title>
+	<title><?php echo COOPERATIVE; ?></title>
 </head>
 <body>
 	<img src="img/others/bug.svg" alt="Fixing Graphic" />
