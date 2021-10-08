@@ -1,4 +1,4 @@
-<form action="src/add-processing-fee-payment.php" method="post">
+<form action="src/add-processing-fee-payment.php" method="post" novalidate>
 	<div class="grid-wrapper">
 		<header class="modal">Processing Fee Payment</header>
 		<div class="grid-item">
@@ -15,7 +15,7 @@
 		</div><!-- .grid-item -->
 		<div class="grid-item">
 			<label for="amount">Amount</label>
-			<input id="amount" type="number" name="amount" required class="medium" />
+			<input id="amount" type="number" name="amount" required class="medium" min="1" />
 		</div><!-- .grid-item -->
 	</div><!-- .grid-wrapper -->
 

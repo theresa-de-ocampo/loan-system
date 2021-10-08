@@ -336,6 +336,7 @@
 	<script src="js/tingle.min.js"></script>
 	<script src="js/tables.js"></script>
 	<script src="js/modal.js"></script>
+	<script src="js/validation.js"></script>
 	<script src="js/loan-details.js"></script>
 </body>
 </html>

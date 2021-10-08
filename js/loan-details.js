@@ -6,11 +6,11 @@ $(function() {
 		$(win.document.body).prepend(summaryDetails);
 	}
 
-	function confirmPayment() {
+	function confirmPayment(e, balance) {
 		$(".tingle-modal-box form .fa-pencil-alt").on("click", function(e) {
-			let ans = confirm("Proceed with payment?");
-			if (!ans)
-				e.preventDefault();
+			let amount = parseFloat($(".tingle-modal-box #amount").val());
+			if (checkIfComplete(e))
+				checkAmount(e, balance, amount);
 		});
 	}
 
@@ -21,12 +21,13 @@ $(function() {
 		buttons: [
 			{
 				text: "Pay",
-				action: function() {
+				action: function(e) {
 					$.get("inc/principal-payment-form.html", function(data) {
 						createModal(data);
+						const balance = $("#loan-balance-holder").text();
 						$(".tingle-modal-box #loan-id").val($("#loan-id-holder").text());
-						$(".tingle-modal-box #balance").val($("#loan-balance-holder").text());
-						confirmPayment();
+						$(".tingle-modal-box #balance").val(balance);
+						confirmPayment(e, balance);
 					});
 				},
 				attr: {
@@ -84,14 +85,15 @@ $(function() {
 	checkForRows($interestPaymentsTbl, "#interest-payments-tbl");
 	
 	$.get("inc/interest-payment-form.html", function(data) {
-		$("#interests-tbl td a").on("click", function() {
+		$("#interests-tbl td a").on("click", function(e) {
 			$button = $(this);
 			createModal(data);
 
+			let balance = $button.attr("data-interest-balance");
 			$(".tingle-modal-box #loan-id").val($button.attr("data-loan-id"));
 			$(".tingle-modal-box #interest-id").val($button.attr("data-interest-id"));
-			$(".tingle-modal-box #balance").val($button.attr("data-interest-balance"));
-			confirmPayment();
+			$(".tingle-modal-box #balance").val(balance);
+			confirmPayment(e, balance);
 		});
 	});
 
@@ -132,14 +134,15 @@ $(function() {
 	checkForRows($penaltyPaymentsTbl, "#penalty-payments-tbl");
 
 	$.get("inc/penalty-payment-form.html", function(data) {
-		$("#penalties-tbl td a").on("click", function() {
+		$("#penalties-tbl td a").on("click", function(e) {
 			$button = $(this);
 			createModal(data);
 
+			let balance = $button.attr("data-penalty-balance");
 			$(".tingle-modal-box #loan-id").val($button.attr("data-loan-id"));
 			$(".tingle-modal-box #penalty-id").val($button.attr("data-penalty-id"));
-			$(".tingle-modal-box #balance").val($button.attr("data-penalty-balance"));
-			confirmPayment();
+			$(".tingle-modal-box #balance").val(balance);
+			confirmPayment(e, balance);
 		});
 	});
 
@@ -180,14 +183,15 @@ $(function() {
 	checkForRows($processingFeePaymentsTbl, "#processing-fee-payments-tbl");
 
 	$.get("inc/processing-fee-payment-form.html", function(data) {
-		$("#processing-fees-tbl td a").on("click", function() {
+		$("#processing-fees-tbl td a").on("click", function(e) {
 			$button = $(this);
 			createModal(data);
 
+			let balance = $button.attr("data-processing-fee-balance");
 			$(".tingle-modal-box #loan-id").val($button.attr("data-loan-id"));
 			$(".tingle-modal-box #processing-fee-id").val($button.attr("data-processing-fee-id"));
-			$(".tingle-modal-box #balance").val($button.attr("data-processing-fee-balance"));
-			confirmPayment();
+			$(".tingle-modal-box #balance").val(balance);
+			confirmPayment(e, balance);
 		});
 	});
 });
