@@ -24,11 +24,19 @@
 		font-size: 15px;
 		font-weight: unset;
 	}
+
+	#loans p {
+		width: 40%;
+	}
 }
 
 @media screen and (max-width: 960px) {
 	#collateral {
 		width: 90%;
+	}
+
+	#loans p {
+		width: 50%;
 	}
 }
 
@@ -122,6 +130,12 @@
 	}
 }
 
+@media screen and (max-width: 850px) {
+	#loans p {
+		width: 60%;
+	}
+}
+
 @media screen and (max-width: 800px) {
 	#dashboard .grid-wrapper {
 		grid-template-columns: 1fr;
@@ -132,6 +146,15 @@
 @media only screen and (max-width: 769px) {
 	.login-container .headline {
 		padding-bottom: 20px;
+	}
+
+	#loans p {
+		width: 80%;
+	}
+
+	#loans p span.amount {
+		font-size: 22px;
+		font-weight: unset;
 	}
 }
 
@@ -188,6 +211,10 @@
 
 	#drop-area button {
 		padding: 5px 20px;
+	}
+
+	#loans p {
+		width: 100%;
 	}
 }
 

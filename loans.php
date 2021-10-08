@@ -78,6 +78,7 @@
 					<?php endif; ?>
 				</tbody>
 			</table>
+			<p class="pattern-bg"><span class="peso-sign">&#8369; </span><span class="amount"></span></p>
 		</section>
 		<?php 
 			endforeach;

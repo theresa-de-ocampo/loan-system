@@ -22,5 +22,7 @@ $(function() {
 			]
 		});
 		checkForRows($table, id);
+		let grandTotal = $table.column(2).data().sum() + $table.column(3).data().sum();
+		$(id + "_wrapper + p span.amount").text(grandTotal.toLocaleString("en"));
 	}
 });
