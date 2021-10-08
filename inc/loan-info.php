@@ -1,4 +1,4 @@
-<table>
+<table class="pattern-bg">
 	<tr>
 		<th>Loan ID:</th>
 		<td><?php echo $id; ?></td>
@@ -19,4 +19,4 @@
 		<th>Loan Date:</th>
 		<td><?php echo $converter->shortToLongDateTime($loan_record->loan_date_time); ?></td>
 	</tr>
-</table>
+</table><!-- .pattern-bg -->

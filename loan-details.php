@@ -79,14 +79,14 @@
 			<h3>Summary</h3>
 			<div class="grid-wrapper">
 				<?php require "inc/loan-info.php"; ?>
-				<div id="accrued-interest">
+				<div id="accrued-interest" class="pattern-bg">
 					<h4>Accrued Interest</h4>
 					<p><span>&#8369;</span> <?php echo number_format($accrued_interest, 2, ".", ","); ?></p>
-				</div><!-- #accrued-interest -->
-				<div id="total-receivables">
+				</div><!-- #accrued-interest.pattern-bg -->
+				<div id="total-receivables" class="pattern-bg">
 					<h4>Total Receivables</h4>
 					<p><span>&#8369;</span> <?php echo number_format($total_receivables, 2, ".", ","); ?></p>
-				</div><!-- #total-receivables -->
+				</div><!-- #total-receivables.pattern-bg -->
 			</div><!-- .grid-wrapper -->
 		</section><!-- #summary -->
 
