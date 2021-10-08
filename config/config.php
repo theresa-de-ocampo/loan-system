@@ -6,7 +6,7 @@ define("BARANGAY", "Timalan Balsahan");
 define("CITY_TOWN", "Naic");
 define("PROVINCE", "Cavite");
 define("LANDLINE", "(046) 404-1739");
-define("CP_NUMBER", "09074895893");
+define("CP_NUMBER", "0907 489 5893");
 
 // Database parameters
 define("DB_HOST", "localhost");

@@ -7,7 +7,7 @@ html, body {
 .header a {
     font-size: 16px;
 	height: 60px;
-    color: var(--link-water);
+    color: #fff;
     text-decoration: none;
 }
 

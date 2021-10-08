@@ -17,7 +17,7 @@
         <a href="home.php">
 			<h1>
 				<i class="fas fa-handshake"></i>
-				<span>Ciudad Nuevo</span>
+				<span><?php echo COOPERATIVE; ?></span>
 			</h1>
 		</a>
     </div>
