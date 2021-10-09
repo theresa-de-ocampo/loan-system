@@ -6,10 +6,7 @@ class Loan extends Transaction {
 	}
 
 	public function getTotalReceivablesByLoan($id) {
-		$this->db->query("CALL get_total_receivables_by_loan($id, @total_receivables)");
-		$this->db->execute();
-
-		$this->db->query("SELECT @total_receivables");
+		$this->db->query("SELECT total_receivables_by_loan($id)");
 		return $this->db->resultColumn();
 	}
 
@@ -184,17 +181,7 @@ class Loan extends Transaction {
 	}
 
 	public function getLoanSummaryByGuarantor($id) {
-		$this->db->query("SELECT * FROM `loan` WHERE `cycle_id` = $this->cycle AND `guarantor_id` = $id");
-		$loan = $this->db->resultRecord();
-
-		if ($loan) {
-			$entities = $this->getEntities($loan->borrower_id, $loan->guarantor_id);
-			return array(
-				"borrower" => $entities["borrower"],
-				"status" => $loan->status,
-				"paid" => $this->getTotalPaymentsByLoan($loan->loan_id),
-				"unpaid" => $this->getTotalReceivablesByLoan($loan->loan_id)
-			);
-		}
+		$this->db->query("SELECT `borrower_id`, `status`, total_payments_by_loan(`loan_id`) AS `paid`, total_receivables_by_loan(`loan_id`) AS `unpaid` FROM `loan` WHERE `cycle_id` = $this->cycle AND `guarantor_id` = $id");
+		return $this->db->resultSet();
 	}
 }

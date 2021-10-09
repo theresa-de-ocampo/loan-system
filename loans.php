@@ -48,7 +48,7 @@
 		<?php
 		if (count($guarantors) > 0):
 			foreach ($guarantors as $g): 
-				$data = $loan->getLoanSummaryByGuarantor($g->guarantor_id); 
+				$loans = $loan->getLoanSummaryByGuarantor($g->guarantor_id);
 				$guarantor_name = $data_subject->getName($g->guarantor_id);
 		?>
 		<section>
@@ -68,14 +68,20 @@
 					</tr>
 				</thead>
 				<tbody>
-					<?php if (!is_null($data)): ?>
+					<?php 
+						if (!is_null($loans)):
+							foreach ($loans as $l):
+					 ?>
 					<tr>
-						<td><?php echo $data["borrower"]; ?></td>
-						<td><?php echo $data["status"]; ?></td>
-						<td><?php echo number_format($data["paid"], 2, ".", ","); ?></td>
-						<td><?php echo number_format($data["unpaid"], 2, ".", ","); ?></td>
+						<td><?php echo $data_subject->getName($l->borrower_id); ?></td>
+						<td><?php echo $l->status; ?></td>
+						<td><?php echo number_format($l->paid, 2, ".", ","); ?></td>
+						<td><?php echo number_format($l->unpaid, 2, ".", ","); ?></td>
 					</tr>
-					<?php endif; ?>
+					<?php
+							endforeach;
+						endif; 
+					?>
 				</tbody>
 			</table>
 			<p class="pattern-bg"><span class="peso-sign">&#8369; </span><span class="amount"></span></p>

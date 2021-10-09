@@ -484,18 +484,33 @@ BEGIN
 END $$
 DELIMITER ;
 
--- [STORED PROCEDURE] get_total_payments_by_loan
+-- [FUNCTION] total_receivables_by_loan
 DELIMITER $$
-CREATE PROCEDURE get_total_payments_by_loan (
-	IN p_loan_id INT UNSIGNED,
-	OUT p_total_payments DECIMAL(50, 2)
+CREATE FUNCTION total_receivables_by_loan (
+	p_loan_id INT UNSIGNED
 )
+RETURNS DECIMAL(50, 2)
+NOT DETERMINISTIC
 BEGIN
-	SET p_total_payments = 
-		total_principal_paid(p_loan_id) + total_interest_paid(p_loan_id) + 
-		total_penalty_paid (p_loan_id) + total_processing_fee_paid(p_loan_id);
+	CALL get_principal_balance(p_loan_id, @principal_balance);
+	CALL get_interest_receivables(p_loan_id, @interest_receivables);
+	CALL get_penalty_receivables(p_loan_id, @penalty_receivables);
+	CALL get_processing_fee_receivables(p_loan_id, @processing_fee_receivables);
+
+	RETURN (@principal_balance + @interest_receivables + @penalty_receivables + @processing_fee_receivables);
 END $$
 DELIMITER ;
+
+-- [FUNCTION] total_payments_by_loan
+CREATE FUNCTION total_payments_by_loan (
+	p_loan_id INT UNSIGNED
+)
+RETURNS DECIMAL(50, 2)
+NOT DETERMINISTIC
+	RETURN (
+		total_principal_paid(p_loan_id) + total_interest_paid(p_loan_id) + 
+		total_penalty_paid (p_loan_id) + total_processing_fee_paid(p_loan_id)
+	);
 
 -- [STORED PROCEDURE] check_for_interest
 DELIMITER $$
