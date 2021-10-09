@@ -189,7 +189,7 @@
 									<li class="step-item description">Finalize Transaction</li>
 								</ul><!-- .step-container -->
 							</header>
-							<label for="principal">Principal</label>
+							<label for="principal">Principal (&#8369;)</label>
 							<input id="principal" type="number" name="principal" required />
 							<label for="proof">Proof of Transaction</label>
 							<div id="drop-area">

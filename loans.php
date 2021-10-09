@@ -63,8 +63,8 @@
 					<tr>
 						<th>Borrower</th>
 						<th>Loan Status</th>
-						<th>Paid</th>
-						<th>Unpaid</th>
+						<th>Paid <span>(&#8369;)</span></th>
+						<th>Unpaid <span>(&#8369;)</span></th>
 					</tr>
 				</thead>
 				<tbody>

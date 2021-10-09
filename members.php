@@ -85,7 +85,7 @@
 					<tr>
 						<th>Member</th>
 						<th>No. of Share</th>
-						<th>Principal</th>
+						<th>Principal <span>(&#8369;)</span></th>
 					</tr>
 				</thead>
 				<tbody>

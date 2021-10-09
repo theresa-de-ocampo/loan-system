@@ -54,9 +54,9 @@
 			<table id="cycle-tbl" class="display cell-border" width="100%">
 				<thead>
 					<th>Year</th>
-					<th>Membership Fee</th>
+					<th>Membership Fee <span>(&#8369;)</span></th>
 					<th>Interest Rate</th>
-					<th>Minimum Processing Fee</th>
+					<th>Minimum Processing Fee <span>(&#8369;)</span></th>
 					<th>Checkout</th>
 				</thead>
 				<tbody>

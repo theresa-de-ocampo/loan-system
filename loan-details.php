@@ -98,8 +98,8 @@
 			<table id="principal-payments-tbl" class="display cell-border" width="100%">
 				<thead>
 					<tr>
-						<th>Balance</th>
-						<th>Payment</th>
+						<th>Balance <span>(&#8369;)</span></th>
+						<th>Payment <span>(&#8369;)</span></th>
 						<th>Date Paid</th>
 					</tr>
 				</thead>
@@ -129,7 +129,7 @@
 					<tr>
 						<th>ID</th>
 						<th>Interest Date</th>
-						<th>Amount</th>
+						<th>Amount <span>(&#8369;)</span></th>
 						<th>Status</th>
 					</tr>
 				</thead>
@@ -166,7 +166,7 @@
 				<thead>
 					<tr>
 						<th>Interest Date</th>
-						<th>Amount</th>
+						<th>Amount <span>(&#8369;)</span></th>
 						<th>Date Paid</th>
 					</tr>
 				</thead>
@@ -191,7 +191,7 @@
 						<th>ID</th>
 						<th>Penalty Date</th>
 						<th>From Interest Date</th>
-						<th>Amount</th>
+						<th>Amount <span>(&#8369;)</span></th>
 						<th>Status</th>
 					</tr>
 				</thead>
@@ -229,7 +229,7 @@
 				<thead>
 					<tr>
 						<th>Penalty Date</th>
-						<th>Amount</th>
+						<th>Amount <span>(&#8369;)</span></th>
 						<th>Date Paid</th>
 					</tr>
 				</thead>
@@ -253,7 +253,7 @@
 					<tr>
 						<th>ID</th>
 						<th>Fee Date</th>
-						<th>Amount</th>
+						<th>Amount <span>(&#8369;)</span></th>
 						<th>Status</th>
 					</tr>
 				</thead>
@@ -291,7 +291,7 @@
 				<thead>
 					<tr>
 						<th>Fee Date</th>
-						<th>Amount</th>
+						<th>Amount <span>(&#8369;)</span></th>
 						<th>Date Paid</th>
 					</tr>
 				</thead>

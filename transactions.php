@@ -56,7 +56,7 @@
 						<th>Borrower</th>
 						<th>Guarantor</th>
 						<th>Loan Date</th>
-						<th>Principal</th>
+						<th>Principal <span>(&#8369;)</span></th>
 						<th>Status</th>
 						<th>Details</th>
 					</tr>
@@ -83,7 +83,7 @@
 				<thead>
 					<th>Borrower</th>
 					<th>Guarantor</th>
-					<th>Amount</th>
+					<th>Amount <span>(&#8369;)<span></th>
 					<th>Date Time Paid</th>
 				</thead>
 				<tbody>
