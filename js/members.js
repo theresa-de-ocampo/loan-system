@@ -35,7 +35,8 @@ $(function() {
 				targets: [5],
 				width: 100
 			}
-		]
+		],
+		order: [[3, "asc"]]
 	});
 	checkForRows($guarantorsTbl, "#guarantors-tbl");
 

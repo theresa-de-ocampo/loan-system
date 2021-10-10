@@ -14,7 +14,8 @@ $(function() {
 						id: "add-guarantor"
 					}
 				}
-			]
+			],
+			order: [[3, "asc"]]
 		});
 
 		$table.on("click", "tr", function() {

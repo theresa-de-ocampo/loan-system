@@ -35,7 +35,8 @@ $(function() {
 				targets: [3],
 				width: 100
 			}
-		]
+		],
+		order: [[5, "asc"], [3, "asc"]]
 	});
 	checkForRows($loanDisbursementsTbl, "#loan-disbursements-tbl");
 
@@ -53,7 +54,8 @@ $(function() {
 				extend: 'csv',
 				title: "Principal Payments"
 			}
-		]
+		],
+		order: [[3, "asc"]]
 	});
 	checkForRows($principalPaymentsTbl, "#principal-payments-tbl");
 });

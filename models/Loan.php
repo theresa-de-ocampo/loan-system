@@ -181,7 +181,7 @@ class Loan extends Transaction {
 	}
 
 	public function getLoanSummaryByGuarantor($id) {
-		$this->db->query("SELECT `borrower_id`, `status`, total_payments_by_loan(`loan_id`) AS `paid`, total_receivables_by_loan(`loan_id`) AS `unpaid` FROM `loan` WHERE `cycle_id` = $this->cycle AND `guarantor_id` = $id");
+		$this->db->query("SELECT CONCAT(`fname`, ' ', LEFT(`mname`, 1), '. ', `lname`) AS `name`, `lname`, `status`, total_payments_by_loan(`loan_id`) AS `paid`, total_receivables_by_loan(`loan_id`) AS `unpaid` FROM `loan` INNER JOIN `data_subject` ON `borrower_id` = `data_subject_id` WHERE `cycle_id` = $this->cycle AND `guarantor_id` = $id");
 		return $this->db->resultSet();
 	}
 }

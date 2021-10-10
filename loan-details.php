@@ -114,7 +114,9 @@
 							?>
 						</td>
 						<td><?php echo number_format($pp->amount, 2, ".", ","); ?></td>
-						<td><?php echo $converter->shortToLongDate($pp->date_time_paid); ?></td>
+						<td data-sort="<?php echo strtotime($pp->date_time_paid); ?>">
+							<?php echo $converter->shortToLongDate($pp->date_time_paid); ?>
+						</td>
 					</tr>
 					<?php endforeach; ?>
 				</tbody>
@@ -137,7 +139,9 @@
 					<?php foreach ($interests as $i): ?>
 					<tr>
 						<td><?php echo $i->interest_id; ?></td>
-						<td><?php echo $converter->shortToLongDate($i->interest_date); ?></td>
+						<td data-sort="<?php echo strtotime($i->interest_date); ?>">
+							<?php echo $converter->shortToLongDate($i->interest_date); ?>
+						</td>
 						<td><?php echo number_format($i->amount, 2, ".", ","); ?></td>
 						<?php if ($i->status == "Paid" || $i->status == "Late"): ?>
 						<td><?php echo $i->status; ?></td>
@@ -173,9 +177,13 @@
 				<tbody>
 					<?php foreach ($interest_payments as $ip): ?>
 					<tr>
-						<td><?php echo $converter->shortToLongDate($ip->interest_date); ?></td>
+						<td data-sort="<?php echo strtotime($ip->interest_date); ?>">
+							<?php echo $converter->shortToLongDate($ip->interest_date); ?>
+						</td>
 						<td><?php echo number_format($ip->amount, 2, ".", ","); ?></td>
-						<td><?php echo $converter->shortToLongDate($ip->date_time_paid); ?></td>
+						<td data-sort="<?php echo strtotime($ip->date_time_paid); ?>">
+							<?php echo $converter->shortToLongDate($ip->date_time_paid); ?>
+						</td>
 					</tr>
 					<?php endforeach; ?>
 				</tbody>
@@ -199,8 +207,12 @@
 					<?php foreach ($penalties as $p): ?>
 					<tr>
 						<td><?php echo $p->penalty_id; ?></td>
-						<td><?php echo $converter->shortToLongDate($p->penalty_date); ?></td>
-						<td><?php echo $converter->shortToLongDate($p->interest_date); ?></td>
+						<td data-sort="<?php echo strtotime($p->penalty_date); ?>">
+							<?php echo $converter->shortToLongDate($p->penalty_date); ?>
+						</td>
+						<td data-sort="<?php echo strtotime($p->interest_date); ?>">
+							<?php echo $converter->shortToLongDate($p->interest_date); ?>
+						</td>
 						<td><?php echo number_format($p->amount, 2, ".", ","); ?></td>
 						<?php if ($p->status == "Paid"): ?>
 						<td><?php echo $p->status; ?></td>
@@ -236,9 +248,13 @@
 				<tbody>
 					<?php foreach ($penalty_payments as $pp): ?>
 					<tr>
-						<td><?php echo $converter->shortToLongDate($pp->penalty_date); ?></td>
+						<td data-sort="<?php echo strtotime($pp->penalty_date); ?>">
+							<?php echo $converter->shortToLongDate($pp->penalty_date); ?>
+						</td>
 						<td><?php echo number_format($pp->amount, 2, ".", ","); ?></td>
-						<td><?php echo $converter->shortToLongDate($pp->date_time_paid); ?></td>
+						<td data-sort="<?php echo strtotime($pp->date_time_paid); ?>">
+							<?php echo $converter->shortToLongDate($pp->date_time_paid); ?>
+						</td>
 					</tr>
 					<?php endforeach; ?>
 				</tbody>
@@ -261,7 +277,9 @@
 					<?php foreach ($processing_fees as $pf): ?>
 					<tr>
 						<td><?php echo $pf->processing_fee_id; ?></td>
-						<td><?php echo $converter->shortToLongDate($pf->processing_fee_date); ?></td>
+						<td data-sort="<?php echo strtotime($pf->processing_fee_date); ?>">
+							<?php echo $converter->shortToLongDate($pf->processing_fee_date); ?>
+						</td>
 						<td><?php echo number_format($pf->amount, 2, ".", ","); ?></td>
 						<?php if ($pf->status == "Paid"): ?>
 						<td><?php echo $pf->status; ?></td>
@@ -298,9 +316,13 @@
 				<tbody>
 					<?php foreach ($processing_fee_payments as $pfp): ?>
 					<tr>
-						<td><?php echo $converter->shortToLongDate($pfp->processing_fee_date); ?></td>
+						<td data-sort="<?php echo strtotime($pfp->processing_fee_date); ?>">
+							<?php echo $converter->shortToLongDate($pfp->processing_fee_date); ?>
+						</td>
 						<td><?php echo number_format($pfp->amount, 2, ".", ","); ?></td>
-						<td><?php echo $converter->shortToLongDate($pfp->date_time_paid); ?></td>
+						<td data-sort="<?php echo strtotime($pfp->date_time_paid); ?>">
+							<?php echo $converter->shortToLongDate($pfp->date_time_paid); ?>
+						</td>
 					</tr>
 					<?php endforeach; ?>
 				</tbody>

@@ -91,7 +91,7 @@
 				<tbody>
 					<?php foreach ($savings as $s): ?>
 					<tr>
-						<td><?php echo $s->member; ?></td>
+						<td data-sort="<?php echo $s->lname; ?>"><?php echo $s->member; ?></td>
 						<td><?php echo $s->number_of_share; ?></td>
 						<td><?php echo number_format($s->principal, 2, ".", ","); ?></td>
 					</tr>

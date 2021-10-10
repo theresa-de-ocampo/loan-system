@@ -8,7 +8,8 @@ $(function() {
 
 	let $guarantorTbl = $("#guarantor-tbl").DataTable({
 		dom: "frtip",
-		responsive: true
+		responsive: true,
+		order: [[3, "asc"]]
 	});
 
 	let $dataSubjectTbl = $("#data-subject-tbl").DataTable({
@@ -26,7 +27,8 @@ $(function() {
 					$newDataSubjectInputs.attr("required", true);
 				}
 			}
-		]
+		],
+		order: [[3, "asc"]]
 	});
 
 	$("#new-data-subject button").on("click", function() {

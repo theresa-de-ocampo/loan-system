@@ -67,7 +67,9 @@
 						<td><?php echo $l->loan_id; ?></td>
 						<td><?php echo $data_subject->getName($l->borrower_id); ?></td>
 						<td><?php echo $data_subject->getName($l->guarantor_id); ?></td>
-						<td><?php echo $converter->shortToLongDate($l->loan_date_time); ?></td>
+						<td data-sort="<?php echo strtotime($l->loan_date_time) ?>">
+							<?php echo $converter->shortToLongDate($l->loan_date_time); ?>		
+						</td>
 						<td><?php echo number_format($l->principal, 2, ".", ","); ?></td>
 						<td><?php echo $l->status; ?></td>
 						<td><a class="fas fa-eye" href="loan-details.php?id=<?php echo $l->loan_id; ?>"></a></td>
@@ -92,7 +94,9 @@
 							<td><?php echo $data_subject->getName($pp->borrower_id); ?></td>
 							<td><?php echo $data_subject->getName($pp->guarantor_id); ?></td>
 							<td><?php echo number_format($pp->amount, 2, ".", ","); ?></td>
-							<td><?php echo $converter->shortToLongDateTime($pp->date_time_paid); ?></td>
+							<td data-sort="<?php echo strtotime($pp->date_time_paid) ?>">
+								<?php echo $converter->shortToLongDateTime($pp->date_time_paid); ?>		
+							</td>
 						</tr>
 					<?php endforeach; ?>
 				</tbody>

@@ -44,7 +44,7 @@ $(function() {
 				title: "Principal Payments"
 			}
 		],
-		order: []
+		order: [[2, "asc"]]
 	});
 	checkForRows($principalPaymentsTbl, "#principal-payments-tbl");
 
@@ -62,7 +62,8 @@ $(function() {
 				extend: "csv",
 				title: "Interests"
 			}
-		]
+		],
+		order: [[1, "asc"]]
 	});
 	checkForRows($interestsTbl, "#interests-tbl");
 
@@ -79,8 +80,7 @@ $(function() {
 				extend: "csv",
 				title: "Interest Payments"
 			}
-		],
-		order: []
+		]
 	});
 	checkForRows($interestPaymentsTbl, "#interest-payments-tbl");
 	
@@ -111,7 +111,8 @@ $(function() {
 				extend: "csv",
 				title: "Penalties"
 			}
-		]
+		],
+		order: [[1, "asc"]]
 	});
 	checkForRows($penaltiesTbl, "#penalties-tbl");
 
@@ -128,8 +129,7 @@ $(function() {
 				extend: "csv",
 				title: "Penalty Payments"
 			}
-		],
-		order: []
+		]
 	});
 	checkForRows($penaltyPaymentsTbl, "#penalty-payments-tbl");
 
@@ -160,7 +160,8 @@ $(function() {
 				extend: "csv",
 				title: "Processing Fees"
 			}
-		]
+		],
+		order: [[1, "asc"]]
 	});
 	checkForRows($processingFeesTbl, "#processing-fees-tbl");
 
@@ -177,8 +178,7 @@ $(function() {
 				extend: "csv",
 				title: "Processing Fee Payments"
 			}
-		],
-		order: []
+		]
 	});
 	checkForRows($processingFeePaymentsTbl, "#processing-fee-payments-tbl");
 

@@ -19,7 +19,8 @@ $(function() {
 					extend: "csv",
 					title: title
 				}
-			]
+			],
+			order: [[1, "asc"], [3, "desc"]]
 		});
 		checkForRows($table, id);
 		let grandTotal = $table.column(2).data().sum() + $table.column(3).data().sum();

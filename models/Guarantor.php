@@ -25,7 +25,7 @@ class Guarantor {
 
 	public function getSavings() {
 		$this->db->query(
-			"SELECT `guarantor_id`, CONCAT(fname, ' ', LEFT(mname, 1), '. ', lname) AS `member`, `number_of_share`, `number_of_share` * `membership_fee` AS `principal` FROM `data_subject` INNER JOIN `guarantor_cycle_map` gcm ON `data_subject_id` = `guarantor_id` AND `cycle_id` = $this->cycle INNER JOIN `cycle` c ON c.`cycle_id` = gcm.`cycle_id`"
+			"SELECT `guarantor_id`, `lname`, CONCAT(fname, ' ', LEFT(mname, 1), '. ', lname) AS `member`, `number_of_share`, `number_of_share` * `membership_fee` AS `principal` FROM `data_subject` INNER JOIN `guarantor_cycle_map` gcm ON `data_subject_id` = `guarantor_id` AND `cycle_id` = $this->cycle INNER JOIN `cycle` c ON c.`cycle_id` = gcm.`cycle_id`"
 		);
 		return $this->db->resultSet();
 	}

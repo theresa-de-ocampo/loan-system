@@ -73,7 +73,7 @@
 							foreach ($loans as $l):
 					 ?>
 					<tr>
-						<td><?php echo $data_subject->getName($l->borrower_id); ?></td>
+						<td data-sort="<?php echo $l->lname; ?>"><?php echo $l->name; ?></td>
 						<td><?php echo $l->status; ?></td>
 						<td><?php echo number_format($l->paid, 2, ".", ","); ?></td>
 						<td><?php echo number_format($l->unpaid, 2, ".", ","); ?></td>
@@ -104,6 +104,6 @@
 	<script src="js/vertical-nav-bar.js"></script>
 	<script src="js/datatables.min.js"></script>
 	<script src="js/tables.js"></script>
-	<script src="js/loan.js"></script>
+	<script src="js/loans.js"></script>
 </body>
 </html>
