@@ -40,22 +40,22 @@ $(function() {
 	});
 	checkForRows($loanDisbursementsTbl, "#loan-disbursements-tbl");
 
-	let $principalPaymentsTbl = $("#principal-payments-tbl").DataTable({
+	let $appropriationsTbl = $("#appropriations-tbl").DataTable({
 		dom: "Bfrtip", 
 		responsive: true,
 		buttons: [
 			{
 				extend: "print",
-				title: "Principal Payments",
+				title: "Appropriations",
 				customize: addHeaderToPdf,
 				messageTop: cycle
 			},
 			{
 				extend: 'csv',
-				title: "Principal Payments"
+				title: "Appropriations"
 			}
 		],
-		order: [[3, "asc"]]
+		order: [[2, "desc"], [0, "asc"]]
 	});
-	checkForRows($principalPaymentsTbl, "#principal-payments-tbl");
+	checkForRows($appropriationsTbl, "#appropriations");
 });

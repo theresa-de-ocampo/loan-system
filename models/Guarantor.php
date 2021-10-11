@@ -88,6 +88,34 @@ class Guarantor {
 		}
 	}
 
+	public function getAppropriations() {
+		$this->db->query("
+			SELECT
+				`guarantor_id`,
+				`lname`, 
+				`name`,
+				`principal`,
+				`principal` - total_amount_lent(derived_table.`guarantor_id`, $this->cycle) AS `outstanding`
+			FROM (
+				SELECT
+					`guarantor_id`,
+					`lname`, 
+					CONCAT(fname, ' ', LEFT(mname, 1), '. ', lname) AS `name`,
+					COALESCE(SUM(`number_of_share` * `membership_fee`), 0) AS `principal`
+				FROM
+					`data_subject` 
+				INNER JOIN `guarantor_cycle_map` gcm 
+					ON `data_subject_id` = `guarantor_id` 
+					AND `cycle_id` = '2021'
+				INNER JOIN `cycle` c 
+					ON c.`cycle_id` = gcm.`cycle_id`
+				GROUP BY
+					`guarantor_id`
+				) derived_table;
+		");
+		return $this->db->resultSet();
+	}
+
 	private function insertGuarantor($id) {
 		$this->db->query("INSERT INTO `guarantor` VALUES (?)");
 		$this->db->bind(1, $id);

@@ -7,13 +7,15 @@
 	require_once "models/DataSubject.php";
 	require_once "models/Transaction.php";
 	require_once "models/Loan.php";
+	require_once "models/Guarantor.php";
 
 	$converter = new Converter();
 	$cycle = new Cycle();
 	$data_subject = new DataSubject();
 	$loan = new Loan();
+	$guarantor = new Guarantor();
 	$loans = $loan->getLoans();
-	$principal_payments = $loan->getAllPrincipalPayments();
+	$appropriations = $guarantor->getAppropriations();
 ?>
 <!DOCTYPE html>
 <html lang="en">
@@ -79,29 +81,25 @@
 			</table><!-- #loan-disbursements-tbl -->
 		</section><!-- #loan-disbursements -->
 
-		<section id="principal-payments">
-			<h3>Principal Payments</h3>
-			<table id="principal-payments-tbl" class="display cell-border" width="100%">
+		<section id="appropriations">
+			<h3>Appropriations</h3>
+			<table id="appropriations-tbl" class="display cell-border" width="100%">
 				<thead>
-					<th>Borrower</th>
 					<th>Guarantor</th>
-					<th>Amount <span>(&#8369;)<span></th>
-					<th>Date Time Paid</th>
+					<th>Principal <span>(&#8369;)<span></th>
+					<th>Outstanding <span>(&#8369;)<span></th>
 				</thead>
 				<tbody>
-					<?php foreach ($principal_payments as $pp): ?>
+					<?php foreach ($appropriations as $a):?>
 						<tr>
-							<td><?php echo $data_subject->getName($pp->borrower_id); ?></td>
-							<td><?php echo $data_subject->getName($pp->guarantor_id); ?></td>
-							<td><?php echo number_format($pp->amount, 2, ".", ","); ?></td>
-							<td data-sort="<?php echo strtotime($pp->date_time_paid) ?>">
-								<?php echo $converter->shortToLongDateTime($pp->date_time_paid); ?>		
-							</td>
+							<td data-sort="<?php echo $a->lname; ?>"><?php echo $a->name; ?></td>
+							<td><?php echo number_format($a->principal, 2, ".", ","); ?></td>
+							<td><?php echo number_format($a->outstanding, 2, ".", ","); ?></td>
 						</tr>
 					<?php endforeach; ?>
 				</tbody>
-			</table><!-- #principal-payments-tbl -->
-		</section><!-- #principal-payments -->
+			</table><!-- #appropriations-tbl -->
+		</section><!-- #appropriations -->
 	</main>
 
 	<script src="js/jquery-3.6.0.min.js"></script>

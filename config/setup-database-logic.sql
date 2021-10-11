@@ -162,7 +162,7 @@ CREATE PROCEDURE get_min_processing_fee(OUT p_min_processing_fee SMALLINT)
 
 -- [STORED PROCEDURE] get_processing_fee()
 DELIMITER $$
-CREATE PROCEDURE get_processing_fee(
+CREATE PROCEDURE get_processing_fee (
 	IN p_principal_balance DECIMAL(10, 2),
 	OUT p_processing_fee DECIMAL(8, 2)
 )
@@ -465,22 +465,6 @@ BEGIN
 	IF principal_flag = 0 AND interest_flag = 0 AND penalty_flag = 0 AND processing_fee_flag = 0 THEN
 		UPDATE `loan` SET `status` = 'Closed' WHERE `loan_id` = p_loan_id;
 	END IF;
-END $$
-DELIMITER ;
-
--- [STORED PROCEDURE] get_total_receivables_by_loan
-DELIMITER $$
-CREATE PROCEDURE get_total_receivables_by_loan (
-	IN p_loan_id INT UNSIGNED,
-	OUT p_total_receivables DECIMAL(50, 2)
-)
-BEGIN
-	CALL get_principal_balance(p_loan_id, @principal_balance);
-	CALL get_interest_receivables(p_loan_id, @interest_receivables);
-	CALL get_penalty_receivables(p_loan_id, @penalty_receivables);
-	CALL get_processing_fee_receivables(p_loan_id, @processing_fee_receivables);
-
-	SET p_total_receivables = @principal_balance + @interest_receivables + @penalty_receivables + @processing_fee_receivables;
 END $$
 DELIMITER ;
 
