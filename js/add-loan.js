@@ -45,7 +45,7 @@ $(function() {
 	});
 
 	$("#borrower-content input[readonly]").on("click", function() {
-		createModal("<div class='info'>Select the borrower from the table.</div>");
+		createModal("<div class='info'>Select the borrower from the table, or click the <b>New Data Subject</b> button.</div>");
 	});
 
 	$("label[for='collateral']").on("click", function(e) {
@@ -83,7 +83,8 @@ $(function() {
 		else
 			$("#borrower-id").val("");
 
-		checkIfComplete(e);
+		if (checkIfComplete(e))
+			checkValue(e, $("#principal").val());
 	});
 
 	/*
