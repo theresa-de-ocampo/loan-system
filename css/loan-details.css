@@ -1,3 +1,7 @@
+#back {
+	margin-top: 10px;
+}
+
 #summary table tr:first-child th,
 #summary table tr:first-child td {
 	padding-top: 20px;

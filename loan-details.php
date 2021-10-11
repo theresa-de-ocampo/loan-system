@@ -76,6 +76,7 @@
 		</div><!-- #loan-info-holder -->
 
 		<section id="summary">
+			<button id="back" type="button" class="dt-button">&#8592; Back to Loan Disbursements</button>
 			<h3>Summary</h3>
 			<div class="grid-wrapper">
 				<?php require "inc/loan-info.php"; ?>

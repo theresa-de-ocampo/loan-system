@@ -1,5 +1,9 @@
 // jshint esversion: 6
 $(function() {
+	$("#back").on("click", function() {
+		window.location.href = "transactions#loan-disbursements";
+	});
+
 	let summaryDetails = $("#loan-info-holder").html();
 
 	function addHeaderToLoanDetailsPdf(win) {
