@@ -19,7 +19,19 @@ class Loan extends Transaction {
 	}
 
 	public function getAllPrincipalPayments() {
-		$this->db->query("SELECT `borrower_id`, `guarantor_id`, `principal_payment`.`amount`, `date_time_paid` FROM `principal_payment` INNER JOIN `loan` USING (`loan_id`) WHERE `loan`.`cycle_id` = $this->cycle");
+		$this->db->query("
+			SELECT
+				`borrower_id`,
+				`guarantor_id`,
+				`principal_payment`.`amount`,
+				`date_time_paid`
+			FROM
+				`principal_payment`
+			INNER JOIN `loan`
+				USING (`loan_id`)
+			WHERE
+				`loan`.`cycle_id` = $this->cycle
+		");
 		return $this->db->resultSet();
 	}
 
@@ -181,7 +193,21 @@ class Loan extends Transaction {
 	}
 
 	public function getLoanSummaryByGuarantor($id) {
-		$this->db->query("SELECT CONCAT(`fname`, ' ', LEFT(`mname`, 1), '. ', `lname`) AS `name`, `lname`, `status`, total_payments_by_loan(`loan_id`) AS `paid`, total_receivables_by_loan(`loan_id`) AS `unpaid` FROM `loan` INNER JOIN `data_subject` ON `borrower_id` = `data_subject_id` WHERE `cycle_id` = $this->cycle AND `guarantor_id` = $id");
+		$this->db->query("
+			SELECT
+				CONCAT(`fname`, ' ', LEFT(`mname`, 1), '. ', `lname`) AS `name`,
+				`lname`,
+				`status`,
+				total_payments_by_loan(`loan_id`) AS `paid`,
+				total_receivables_by_loan(`loan_id`) AS `unpaid`
+			FROM
+				`loan`
+			INNER JOIN `data_subject`
+				ON `borrower_id` = `data_subject_id`
+			WHERE
+				`cycle_id` = $this->cycle AND
+				`guarantor_id` = $id
+		");
 		return $this->db->resultSet();
 	}
 }

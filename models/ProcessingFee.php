@@ -16,7 +16,18 @@ class ProcessingFee extends Transaction {
 	}
 
 	public function getProcessingFeePayments($id) {
-		$this->db->query("SELECT `processing_fee_date`, `processing_fee_payment`.`amount`, `date_time_paid` FROM `processing_fee_payment` INNER JOIN `processing_fee` USING (`processing_fee_id`) WHERE `loan_id` = ?");
+		$this->db->query("
+			SELECT
+				`processing_fee_date`,
+				`processing_fee_payment`.`amount`,
+				`date_time_paid`
+			FROM
+				`processing_fee_payment`
+			INNER JOIN `processing_fee`
+				USING (`processing_fee_id`)
+			WHERE
+				`loan_id` = ?
+		");
 		$this->db->bind(1, $id);
 		return $this->db->resultSet();
 	}

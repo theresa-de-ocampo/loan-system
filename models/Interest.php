@@ -25,7 +25,18 @@ class Interest extends Transaction {
 	}
 
 	public function getInterestPayments($id) {
-		$this->db->query("SELECT `interest_date`, `interest_payment`.`amount`, `date_time_paid` FROM `interest_payment` INNER JOIN `interest` USING (`interest_id`) WHERE `loan_id` = ?");
+		$this->db->query("
+			SELECT
+				`interest_date`,
+				`interest_payment`.`amount`,
+				`date_time_paid`
+			FROM
+				`interest_payment`
+			INNER JOIN `interest`
+				USING (`interest_id`)
+			WHERE
+				`loan_id` = ?
+		");
 		$this->db->bind(1, $id);
 		return $this->db->resultSet();
 	}

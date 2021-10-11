@@ -1,7 +1,20 @@
 <?php
 class Penalty extends Transaction {
 	public function getPenalties($id) {
-		$this->db->query("SELECT `penalty_id`, `penalty_date`, `interest_date`, `penalty`.`amount`, `penalty`.`status` FROM `penalty` INNER JOIN `interest` USING (`interest_id`) WHERE `penalty`.`loan_id` = ?");
+		$this->db->query("
+			SELECT
+				`penalty_id`,
+				`penalty_date`,
+				`interest_date`,
+				`penalty`.`amount`,
+				`penalty`.`status`
+			FROM
+				`penalty`
+			INNER JOIN `interest`
+				USING (`interest_id`)
+			WHERE
+				`penalty`.`loan_id` = ?
+		");
 		$this->db->bind(1, $id);
 		return $this->db->resultSet();
 	}
@@ -16,7 +29,18 @@ class Penalty extends Transaction {
 	}
 
 	public function getPenaltyPayments($id) {
-		$this->db->query("SELECT `penalty_date`, `penalty_payment`.`amount`, `date_time_paid` FROM `penalty_payment` INNER JOIN `penalty` USING (`penalty_id`) WHERE `loan_id` = ?");
+		$this->db->query("
+			SELECT
+				`penalty_date`,
+				`penalty_payment`.`amount`,
+				`date_time_paid`
+			FROM
+				`penalty_payment`
+			INNER JOIN `penalty`
+				USING (`penalty_id`)
+			WHERE
+				`loan_id` = ?
+		");
 		$this->db->bind(1, $id);
 		return $this->db->resultSet();
 	}
