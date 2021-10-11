@@ -86,7 +86,10 @@
 				</div><!-- #accrued-interest.pattern-bg -->
 				<div id="total-receivables" class="pattern-bg">
 					<h4>Total Receivables</h4>
-					<p><span>&#8369;</span> <?php echo number_format($total_receivables, 2, ".", ","); ?></p>
+					<p>
+						<span>&#8369;</span>
+						<span id="total-receivables-amount"><?php echo number_format($total_receivables, 2, ".", ","); ?></span>
+					</p>
 				</div><!-- #total-receivables.pattern-bg -->
 			</div><!-- .grid-wrapper -->
 		</section><!-- #summary -->

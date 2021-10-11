@@ -51,6 +51,8 @@ $(function() {
 		order: [[2, "asc"]]
 	});
 	checkForRows($principalPaymentsTbl, "#principal-payments-tbl");
+	if ($("#total-receivables-amount").text() === "0.00")
+		$("#principal-payment").hide();
 
 	// INTERESTS
 	let $interestsTbl = $("#interests-tbl").DataTable({
