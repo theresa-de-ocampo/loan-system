@@ -195,7 +195,8 @@ class Loan extends Transaction {
 	public function getLoanSummaryByGuarantor($id) {
 		$this->db->query("
 			SELECT
-				CONCAT(`fname`, ' ', LEFT(`mname`, 1), '. ', `lname`) AS `name`,
+				`fname`,
+				`mname`,
 				`lname`,
 				`status`,
 				total_payments_by_loan(`loan_id`) AS `paid`,

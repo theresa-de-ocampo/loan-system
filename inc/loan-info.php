@@ -1,4 +1,8 @@
 <table class="pattern-bg">
+	<?php
+		$bname = $data_subject->getName($loan_record->borrower_id);
+		$gname = $data_subject->getName($loan_record->guarantor_id);
+	?>
 	<tr>
 		<th>Loan ID:</th>
 		<td><?php echo $id; ?></td>
@@ -9,11 +13,13 @@
 	</tr>
 	<tr>
 		<th>Borrower:</th>
-		<td><?php echo $data_subject->getName($loan_record->borrower_id); ?></td>
+		<td>
+			<?php echo $bname->fname." ".$bname->mname[0].". ".$bname->lname; ?>
+		</td>
 	</tr>
 	<tr>
 		<th>Guarantor:</th>
-		<td><?php echo $data_subject->getName($loan_record->guarantor_id); ?></td>
+		<td><?php echo $gname->fname." ".$gname->mname[0].". ".$gname->lname; ?></td>
 	</tr>
 	<tr>
 		<th>Loan Date:</th>

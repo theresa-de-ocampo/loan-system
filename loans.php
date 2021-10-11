@@ -49,13 +49,14 @@
 		if (count($guarantors) > 0):
 			foreach ($guarantors as $g): 
 				$loans = $loan->getLoanSummaryByGuarantor($g->guarantor_id);
-				$guarantor_name = $data_subject->getName($g->guarantor_id);
+				$gname_composed = $g->fname." ".$g->mname[0].". ".$g->lname;
 		?>
-		<section>
-			<h3><?php echo $guarantor_name; ?></h3>
+		<!-- Use data-gurantor-lname in the future to sort sections by guarantor's last name -->
+		<section data-gurantor-lname="<?php echo $g->lname; ?>">
+			<h3><?php echo $gname_composed; ?></h3>
 			<table 
-				id="<?php echo $g->guarantor_id; ?>-tbl" 
-				data-guarantor-name="<?php echo $guarantor_name; ?>"
+				id="<?php echo $g->guarantor_id; ?>-tbl"
+				data-guarantor-name="<?php echo $gname_composed; ?>"
 				class="display cell-border" 
 				width="100%"
 				>
@@ -73,7 +74,7 @@
 							foreach ($loans as $l):
 					 ?>
 					<tr>
-						<td data-sort="<?php echo $l->lname; ?>"><?php echo $l->name; ?></td>
+						<td data-sort="<?php echo $l->lname; ?>"><?php echo $l->fname." ".$l->mname[0].". ".$l->lname; ?></td>
 						<td><?php echo $l->status; ?></td>
 						<td><?php echo number_format($l->paid, 2, ".", ","); ?></td>
 						<td><?php echo number_format($l->unpaid, 2, ".", ","); ?></td>

@@ -41,8 +41,9 @@ class Guarantor {
 		$this->db->query("
 			SELECT
 				`guarantor_id`,
+				`fname`,
+				`mname`,
 				`lname`,
-				CONCAT(fname, ' ', LEFT(mname, 1), '. ', lname) AS `member`,
 				`number_of_share`, `number_of_share` * `membership_fee` AS `principal`
 			FROM
 				`data_subject`
@@ -142,15 +143,17 @@ class Guarantor {
 		$this->db->query("
 			SELECT
 				`guarantor_id`,
-				`lname`, 
-				`name`,
+				`fname`,
+				`mname`,
+				`lname`,
 				`principal`,
 				`principal` - total_amount_lent(derived_table.`guarantor_id`, $this->cycle) AS `outstanding`
 			FROM (
 				SELECT
 					`guarantor_id`,
-					`lname`, 
-					CONCAT(fname, ' ', LEFT(mname, 1), '. ', lname) AS `name`,
+					`fname`,
+					`mname`,
+					`lname`,
 					COALESCE(SUM(`number_of_share` * `membership_fee`), 0) AS `principal`
 				FROM
 					`data_subject` 

@@ -15,14 +15,16 @@ class DataSubject {
 	public function getName($id) {
 		$this->db->query("
 			SELECT
-				CONCAT(`fname`, ' ', LEFT(`mname`, 1), '. ', `lname`) AS name
+				`fname`,
+				`mname`,
+				`lname`
 			FROM
 				`data_subject`
 			WHERE
 				`data_subject_id` = ?
 		");
 		$this->db->bind(1, $id);
-		return $this->db->resultColumn();
+		return $this->db->resultRecord();
 	}
 
 	public function getDataSubject($id) {

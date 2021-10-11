@@ -64,11 +64,19 @@
 					</tr>
 				</thead>
 				<tbody>
-					<?php foreach ($loans as $l): ?>
+					<?php
+						foreach ($loans as $l):
+							$bname = $data_subject->getName($l->borrower_id);
+							$gname = $data_subject->getName($l->guarantor_id);
+					?>
 					<tr>
 						<td><?php echo $l->loan_id; ?></td>
-						<td><?php echo $data_subject->getName($l->borrower_id); ?></td>
-						<td><?php echo $data_subject->getName($l->guarantor_id); ?></td>
+						<td data-sort="<?php echo $bname->lname; ?>">
+							<?php echo $bname->fname." ".$bname->mname[0].". ".$bname->lname; ?>
+						</td>
+						<td data-sort="<?php echo $gname->lname; ?>">
+							<?php echo $gname->fname." ".$gname->mname[0].". ".$gname->lname; ?>
+						</td>
 						<td data-sort="<?php echo strtotime($l->loan_date_time) ?>">
 							<?php echo $converter->shortToLongDate($l->loan_date_time); ?>		
 						</td>
@@ -92,7 +100,7 @@
 				<tbody>
 					<?php foreach ($appropriations as $a):?>
 						<tr>
-							<td data-sort="<?php echo $a->lname; ?>"><?php echo $a->name; ?></td>
+							<td data-sort="<?php echo $a->lname; ?>"><?php echo $a->fname." ".$a->mname[0].". ".$a->lname; ?></td>
 							<td><?php echo number_format($a->principal, 2, ".", ","); ?></td>
 							<td><?php echo number_format($a->outstanding, 2, ".", ","); ?></td>
 						</tr>
