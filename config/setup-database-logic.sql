@@ -111,6 +111,22 @@ BEGIN
 END $$
 DELIMITER ;
 
+CREATE FUNCTION total_amount_lent (
+	p_guarantor_id INT UNSIGNED,
+	p_cycle_id YEAR
+)
+RETURNS DECIMAL (50, 2)
+NOT DETERMINISTIC
+	RETURN (
+		SELECT
+			COALESCE(SUM(`principal`), 0)
+		FROM
+			`loan`
+		WHERE
+			`guarantor_id` = p_guarantor_id AND
+			`cycle_id` = p_cycle_id
+	);
+
 -- [STORED PROCEDURE] calculate_age
 CREATE PROCEDURE calculate_age (
 	IN p_bday DATE,
