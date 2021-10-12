@@ -34,8 +34,10 @@ class Transaction {
 	# Used for receipts (will soon include name for treasurer)
 	protected function getEntities($borrower_id, $guarantor_id) {
 		$data_subject = new DataSubject();
-		$borrower = $data_subject->getName($borrower_id);
-		$guarantor = $data_subject->getName($guarantor_id);
+		$bname = $data_subject->getName($borrower_id);
+		$gname = $data_subject->getName($guarantor_id);
+		$borrower = $bname->fname." ".$bname->mname[0].". ".$bname->lname;
+		$guarantor = $gname->fname." ".$gname->mname[0].". ".$gname->lname;
 		return array("borrower" => $borrower, "guarantor" => $guarantor);
 	}
 }
