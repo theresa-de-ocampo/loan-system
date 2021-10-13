@@ -70,3 +70,22 @@ table.display.dataTable tbody tr:hover > .sorting_1 {
 th span {
 	font-weight: normal;
 }
+
+p.pattern-bg {
+	border-radius: 10px;
+	margin: 20px auto 0 auto;
+	padding: 10px;
+	text-align: center;
+	width: 30%;
+}
+
+.peso-sign {
+	color: var(--roman-silver);
+	font-size: 18px;
+}
+
+.amount {
+	font-family: "Consolas", serif;
+	font-size: 26px;
+	font-weight: bold;
+}

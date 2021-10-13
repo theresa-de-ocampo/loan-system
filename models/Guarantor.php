@@ -184,6 +184,33 @@ class Guarantor {
 		return $this->db->resultColumn();
 	}
 
+	public function getTotalAmountLent($id) {
+		$this->db->query("SELECT total_amount_lent($id, $this->cycle)");
+		return $this->db->resultColumn();
+	}
+
+	public function getTotalInterestCollected($id) {
+		$this->db->query("
+			SELECT
+				COALESCE(SUM(`amount`), 0)
+			FROM
+				`interest_payment`
+			WHERE
+				`interest_id` IN (
+					SELECT
+						`interest_id`
+					FROM
+						`interest`
+					INNER JOIN `loan`
+						USING (`loan_id`)
+					WHERE
+						`guarantor_id` = $id AND
+						`cycle_id` = $this->cycle
+				)
+		");
+		return $this->db->resultColumn();
+	}
+
 	private function insertGuarantor($id) {
 		$this->db->query("INSERT INTO `guarantor` VALUES (?)");
 		$this->db->bind(1, $id);
