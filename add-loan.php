@@ -92,7 +92,9 @@
 								<tbody>
 									<?php foreach ($current_guarantors as $cg): ?>
 									<tr>
-										<td><?php echo $cg->data_subject_id; ?></td>
+										<td data-outstanding="<?php echo $guarantor->getOutstanding($cg->data_subject_id); ?>">
+											<?php echo $cg->data_subject_id; ?>
+										</td>
 										<td><?php echo $cg->fname; ?></td>
 										<td><?php echo $cg->mname; ?></td>
 										<td><?php echo $cg->lname; ?></td>

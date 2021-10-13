@@ -5,6 +5,7 @@ $(function() {
 	let $existingDataSubjectInputs = $("#existing-data-subject");
 	let $newDataSubjectInputs = $("#existing-data-subject");
 	let $principal = $("#principal");
+	let guarantorOutstanding;
 
 	let $guarantorTbl = $("#guarantor-tbl").DataTable({
 		dom: "frtip",
@@ -58,6 +59,8 @@ $(function() {
 		let person = getPerson($guarantorTbl, $tr);
 		$("#guarantor-id").val(person[0]);
 		$("#guarantor-name").val(person[1]);
+
+		guarantorOutstanding = parseFloat($tr.find("[data-outstanding]").attr("data-outstanding"));
 	});
 
 	$("#data-subject-tbl").on("click", "tr", function() {
@@ -74,7 +77,6 @@ $(function() {
 			$collateral.attr("required", true);
 		else
 			$collateral.removeAttr("required");
-		console.log(principal);
 	});
 
 	$("form").on("submit", function(e) {
@@ -83,8 +85,10 @@ $(function() {
 		else
 			$("#borrower-id").val("");
 
+		const principal = $("#principal").val();
 		if (checkIfComplete(e))
-			checkValue(e, $("#principal").val());
+			if (checkValue(e, principal))
+				checkGuarantorOutstanding(e, guarantorOutstanding, principal);
 	});
 
 	/*

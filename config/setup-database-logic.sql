@@ -763,16 +763,3 @@ BEGIN
 	CALL check_loan_status(acquired_loan_id);
 END $$
 DELIMITER ;
-
--- [TRIGGER] before_insert_loan
-DELIMITER $$
-CREATE TRIGGER before_insert_loan
-BEFORE INSERT ON `loan`
-FOR EACH ROW
-BEGIN
-	IF NEW.`principal` >= 10000 AND NEW.`collateral` IS NULL THEN
-		SIGNAL SQLSTATE '45000'
-			SET MESSAGE_TEXT = 'Collateral is required for loans with a principal of Php 10,000 or greater.';
-	END IF;
-END $$
-DELIMITER ;

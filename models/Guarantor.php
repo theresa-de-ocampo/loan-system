@@ -140,6 +140,7 @@ class Guarantor {
 	}
 
 	public function getAppropriations() {
+		/*You also place `cycle_id` = $this->cycle on a WHERE clause instead.*/
 		$this->db->query("
 			SELECT
 				`guarantor_id`,
@@ -154,19 +155,33 @@ class Guarantor {
 					`fname`,
 					`mname`,
 					`lname`,
-					COALESCE(SUM(`number_of_share` * `membership_fee`), 0) AS `principal`
+					`number_of_share` * `membership_fee` AS `principal`
 				FROM
 					`data_subject` 
 				INNER JOIN `guarantor_cycle_map` gcm 
-					ON `data_subject_id` = `guarantor_id` 
-					AND `cycle_id` = '2021'
+					ON `data_subject_id` = `guarantor_id`
+					AND `cycle_id` = $this->cycle
 				INNER JOIN `cycle` c 
 					ON c.`cycle_id` = gcm.`cycle_id`
-				GROUP BY
-					`guarantor_id`
 				) derived_table;
 		");
 		return $this->db->resultSet();
+	}
+
+	public function getOutstanding($id) {
+		/*You could also place the gurantor_id on the join condition.*/
+		$this->db->query("
+			SELECT
+				(`number_of_share` * `membership_fee`) - total_amount_lent($id, $this->cycle) AS `outstanding`
+			FROM
+				`guarantor_cycle_map`
+			INNER JOIN `cycle`
+				USING (`cycle_id`)
+			WHERE
+				`guarantor_id` = $id AND
+				`guarantor_cycle_map`.`cycle_id` = $this->cycle
+		");
+		return $this->db->resultColumn();
 	}
 
 	private function insertGuarantor($id) {

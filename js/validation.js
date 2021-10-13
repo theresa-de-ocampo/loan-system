@@ -48,3 +48,22 @@ function checkAmount(e, balance, amount) {
 	}
 	return false;
 }
+
+function checkGuarantorOutstanding(e, guarantorOutstanding, loanAmount) {
+	let flag = false;
+
+	if (guarantorOutstanding == 0)
+		alert("This guarantor has already maxed out his/her investment.");
+	else if (guarantorOutstanding < loanAmount) {
+		let encodedMessage = "Insufficient funds! Selected guarantor has only &#8369; ";
+		encodedMessage += guarantorOutstanding.toLocaleString("en") + " left.";
+		const decodedMessage = $("<div/>").html(encodedMessage).text();
+		alert(decodedMessage);
+	}
+	else 
+		flag = true;
+
+	if (!flag)
+		e.preventDefault();
+	return flag;
+}
