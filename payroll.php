@@ -2,12 +2,19 @@
 	require_once "config/config.php";
 	require_once "lib/verification.php";
 	require_once "lib/database-handler.php";
+	require_once "lib/conversion-util.php";
 	require_once "models/Cycle.php";
 	require_once "models/Guarantor.php";
+	require_once "models/Transaction.php";
+	require_once "models/Payroll.php";
 
+	$converter = new Converter();
 	$cycle = new Cycle();
 	$guarantor = new Guarantor();
+	$payroll = new Payroll();
 	$guarantors = $guarantor->getCurrentGuarantors();
+	$profits = $payroll->getProfits();
+	$per_share = $converter->roundDown($profits["per_share"]);
 ?>
 <!DOCTYPE html>
 <html lang="en">
@@ -22,6 +29,7 @@
 	<link rel="stylesheet" type="text/css" href="css/vertical-nav-bar.css" />
 	<link rel="stylesheet" type="text/css" href="css/tables.css" />
 	<link rel="stylesheet" type="text/css" href="css/forms.css" />
+	<link rel="stylesheet" type="text/css" href="css/payroll.css" />
 	<link rel="stylesheet" type="text/css" href="css/media-queries.css" />
 	<link rel="shortcut icon" type="image/x-icon" href="img/others/favicon.png" />
 	<title><?php echo COOPERATIVE; ?></title>
@@ -41,6 +49,24 @@
 
 		<section id="profits">
 			<h3>Profits</h3>
+				<table class="pattern-bg">
+					<tr>
+						<th>Interest</th>
+						<td>&#8369; <?php echo number_format($profits["interest"], 2, ".", ","); ?></td>
+					</tr>
+					<tr>
+						<th>10% Guarantor</th>
+						<td>&#8369; <?php echo number_format($profits["guarantor_cut"], 2, ".", ","); ?></td>
+					</tr>
+					<tr>
+						<th>Net Income</th>
+						<td>&#8369; <?php echo number_format($profits["net_income"], 2, ".", ","); ?></td>
+					</tr>
+					<tr>
+						<th>Per Share</th>
+						<td>&#8369; <?php echo number_format($converter->roundDown($profits["per_share"]), 2, ".", ","); ?></td>
+					</tr>
+				</table><!-- .pattern-bg -->
 		</section><!-- #profits -->
 
 		<section id="principal-summation">

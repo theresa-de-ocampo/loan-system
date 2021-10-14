@@ -37,4 +37,13 @@ class Converter {
 			$formatted_date = str_replace(".", "y", $formatted_date);
 		return $formatted_date;
 	}
+
+	public function roundDown($n, $precision = 2) {
+		if ($precision < 0)
+			$precision = 0;
+		$numPointPosition = intval(strpos($n, "."));
+		if ($numPointPosition === 0) // If $n is an integer
+			return $n;
+		return floatval(substr($n, 0, $numPointPosition + $precision + 1));
+	}
 }

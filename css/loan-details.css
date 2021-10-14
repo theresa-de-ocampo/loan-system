@@ -2,28 +2,6 @@
 	margin-top: 10px;
 }
 
-#summary table tr:first-child th,
-#summary table tr:first-child td {
-	padding-top: 20px;
-}
-
-#summary table tr:last-child th,
-#summary table tr:last-child td {
-	padding-bottom: 20px;
-}
-
-#summary th {
-	text-align: right;
-}
-
-#summary td {
-	text-align: left;
-}
-
-#summary th, #summary td {
-	padding: 2px 5px;
-}
-
 #summary .grid-wrapper {
 	display: grid;
 	gap: 0 30px;

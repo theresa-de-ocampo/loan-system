@@ -89,3 +89,20 @@ p.pattern-bg {
 	font-size: 26px;
 	font-weight: bold;
 }
+
+table.pattern-bg tr:last-child th,
+table.pattern-bg tr:last-child td {
+	padding-bottom: 20px;
+}
+
+table.pattern-bg th {
+	text-align: right;
+}
+
+table.pattern-bg td {
+	text-align: left;
+}
+
+table.pattern-bg th, table.pattern-bg td {
+	padding: 2px 5px;
+}
