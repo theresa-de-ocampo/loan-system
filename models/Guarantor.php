@@ -44,7 +44,8 @@ class Guarantor {
 				`fname`,
 				`mname`,
 				`lname`,
-				`number_of_share`, `number_of_share` * `membership_fee` AS `principal`
+				`number_of_share`,
+				`number_of_share` * `membership_fee` AS `principal`
 			FROM
 				`data_subject`
 			INNER JOIN `guarantor_cycle_map` gcm
@@ -209,6 +210,56 @@ class Guarantor {
 				)
 		");
 		return $this->db->resultColumn();
+	}
+
+	public function getNumberOfShares($id) {
+		$this->db->query("
+			SELECT `number_of_share` 
+			FROM `guarantor_cycle_map` 
+			WHERE `cycle_id` = $this->cycle AND `guarantor_id` = $id
+		");
+		return $this->db->resultColumn();
+	}
+
+	public function getPrincipal($id) {
+		$this->db->query("
+			SELECT
+				`number_of_share` * `membership_fee`
+			FROM
+				`guarantor_cycle_map`
+			INNER JOIN `cycle`
+				USING (`cycle_id`)
+			WHERE
+				`cycle_id` = $this->cycle AND
+				`guarantor_id` = $id
+		");
+		return $this->db->resultColumn();
+	}
+
+	public function getTotalPrincipalReturned($id) {
+		$this->db->query("
+			SELECT
+				COALESCE(SUM(`principal_payment`.`amount`), 0)
+			FROM
+				`principal_payment`
+			INNER JOIN `loan`
+				USING (`loan_id`)
+			WHERE
+				`guarantor_id` = $id AND
+				`cycle_id` = $this->cycle
+		");
+		$principal_collected = $this->db->resultColumn();
+		$total_amount_lent = $this->getTotalAmountLent($id);
+		$investment = $this->getPrincipal($id);
+		
+		if ($total_amount_lent == $principal_collected)
+			$principal_returned = $investment;
+		else {
+			$uncollected = $total_amount_lent - $principal_collected;
+			$principal_returned = $investment - $uncollected;
+		}
+
+		return $principal_returned;
 	}
 
 	private function insertGuarantor($id) {

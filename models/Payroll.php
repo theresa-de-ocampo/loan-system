@@ -32,15 +32,16 @@ class Payroll extends Transaction {
 		$this->db->query("SELECT COALESCE(SUM(`number_of_share`), 0) FROM `guarantor_cycle_map` WHERE `cycle_id` = $this->cycle");
 		$total_number_of_shares = $this->db->resultColumn();
 
-		$guarantor_cut = $interest * $rate;
-		$net_income = $interest - $guarantor_cut;
+		$ten_percent_return = $interest * $rate;
+		$net_income = $interest - $ten_percent_return;
 		$per_share = $net_income / $total_number_of_shares;
 
 		return array(
 			"interest" => $interest,
-			"guarantor_cut" => $guarantor_cut,
+			"ten_percent_return" => $ten_percent_return,
 			"net_income" => $net_income,
-			"per_share" => $per_share
+			"per_share" => $per_share,
+			"rate" => $rate
 		);
 	}
 }

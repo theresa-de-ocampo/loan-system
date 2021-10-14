@@ -14,7 +14,7 @@
 	$payroll = new Payroll();
 	$guarantors = $guarantor->getCurrentGuarantors();
 	$profits = $payroll->getProfits();
-	$per_share = $converter->roundDown($profits["per_share"]);
+	$rate = $profits["rate"];
 ?>
 <!DOCTYPE html>
 <html lang="en">
@@ -56,7 +56,7 @@
 					</tr>
 					<tr>
 						<th>10% Guarantor</th>
-						<td>&#8369; <?php echo number_format($profits["guarantor_cut"], 2, ".", ","); ?></td>
+						<td>&#8369; <?php echo number_format($profits["ten_percent_return"], 2, ".", ","); ?></td>
 					</tr>
 					<tr>
 						<th>Net Income</th>
@@ -64,7 +64,13 @@
 					</tr>
 					<tr>
 						<th>Per Share</th>
-						<td>&#8369; <?php echo number_format($converter->roundDown($profits["per_share"]), 2, ".", ","); ?></td>
+						<td>
+							&#8369; 
+							<?php
+								$per_share = $converter->roundDown($profits["per_share"]);
+								echo number_format($per_share, 2, ".", ","); 
+							?>
+						</td>
 					</tr>
 				</table><!-- .pattern-bg -->
 		</section><!-- #profits -->
@@ -112,6 +118,66 @@
 			</table><!-- #interest-summation-tbl -->
 			<p class="pattern-bg"><span class="peso-sign">&#8369; </span><span class="amount"></span></p>
 		</section><!-- #interest-summation -->
+
+		<section id="shares">
+			<h3>Shares</h3>
+			<hr />
+			<table id="shares-tbl" class="display cell-border" width="100%">
+				<thead>
+					<th>Guarantor</th>
+					<th>No. of Share</th>
+					<th>Interest</th>
+					<th>10% Return</th>
+					<th>Cut</th>
+					<th>Total</th>
+					<th>Grand Total</th>
+				</thead>
+				<tbody>
+					<?php foreach ($guarantors as $g): ?>
+						<tr>
+							<td data-sort="<?php echo $g->lname; ?>"><?php echo $g->fname." ".$g->mname[0].". ".$g->lname; ?></td>
+							<td>
+								<?php
+									$number_of_share = $guarantor->getNumberOfShares($g->guarantor_id);
+									echo $number_of_share;
+								?>
+							</td>
+							<td>
+								<?php
+									$totalInterestCollected = $guarantor->getTotalInterestCollected($g->guarantor_id);
+									echo number_format($totalInterestCollected, 2, ".", ",");
+								?>
+							</td>
+							<td>
+								<?php
+									$ten_percent_return = $totalInterestCollected * $rate;
+									echo number_format($ten_percent_return, 2, ".", ",");
+								?>
+							</td>
+							<td>
+								<?php
+									$cut = $number_of_share * $per_share;
+									echo number_format($cut, 2, ".", ",");
+								?>
+							</td>
+							<td>
+								<?php
+									$total = $ten_percent_return + $cut;
+									echo number_format($total, 2, ".", ",");
+								?>
+							</td>
+							<td>
+								<?php
+									$principal_returned = $guarantor->getTotalPrincipalReturned($g->guarantor_id);
+									$grand_total = $total + $principal_returned;
+									echo number_format($grand_total, 2, ".", ",");
+								?>
+							</td>
+						</tr>
+					<?php endforeach; ?>
+				</tbody>
+			</table><!-- #shares-tbl -->
+		</section><!-- #shares -->
 	</main><!-- #payroll -->
 
 	<script src="js/jquery-3.6.0.min.js"></script>
