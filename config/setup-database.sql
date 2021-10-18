@@ -164,6 +164,51 @@ CREATE TABLE `processing_fee_payment` (
 		ON DELETE RESTRICT
 ) Engine=InnoDB;
 
+CREATE TABLE `closing` (
+	`closing_id` YEAR PRIMARY KEY DEFAULT (YEAR(CURDATE())),
+	`closing_date` DATE NOT NULL DEFAULT (CURDATE()),
+	`interest` DECIMAL(50, 2) NOT NULL,
+	`processing_fee` DECIMAL(30, 2) NOT NULL,
+	`penalty` DECIMAL(50, 2) NOT NULL,
+
+	CONSTRAINT fk_closing_cycle_id FOREIGN KEY (`closing_id`)
+		REFERENCES `cycle` (`cycle_id`)
+		ON UPDATE CASCADE
+		ON DELETE RESTRICT
+) Engine=InnoDB;
+
+CREATE TABLE `roi` (
+	`roi_id` INT UNSIGNED AUTO_INCREMENT PRIMARY KEY,
+	`amount` DECIMAL(50, 2) NOT NULL,
+	`status` ENUM('Pending', 'Claimed') DEFAULT 'Pending',
+	`date_time_claimed` DATETIME,
+	`guarantor_id` INT UNSIGNED NOT NULL,
+	`closing_id` YEAR NOT NULL,
+
+	CONSTRAINT fk_roi_guarantor_id FOREIGN KEY (`guarantor_id`)
+		REFERENCES `guarantor_cycle_map` (`guarantor_id`)
+		ON UPDATE CASCADE
+		ON DELETE RESTRICT,
+	CONSTRAINT fk_roi_closing_id FOREIGN KEY (`closing_id`)
+		REFERENCES `closing` (`closing_id`)
+		ON UPDATE CASCADE
+		ON DELETE RESTRICT
+) Engine=InnoDB;
+
+/*CREATE TABLE `salary` (
+	`salary_id` INT UNSIGNED AUTO_INCREMENT PRIMARY KEY,
+) Engine=InnoDB;
+
+CREATE TABLE `fund` (
+	`fund_id` INT UNSIGNED AUTO_INCREMENT PRIMARY KEY,
+	`amount` DECIMAL(50, 2) NOT NULL,
+	`received_by` INT UNSIGNED NOT NULL,
+	`date_time_received` DATETIME NOT NULL,
+	`purpose` VARCHAR(2000) NOT NULL,
+
+	Add constraint to received by
+) Engine=InnoDB;*/
+
 CREATE TABLE `administrator` (
 	`admin_id` INT UNSIGNED AUTO_INCREMENT PRIMARY KEY,
 	`email` VARCHAR(100) NOT NULL,
@@ -296,7 +341,7 @@ VALUES
 	(DEFAULT, '2021-03-12', 1000, 'Paid', 3), -- 14
 	(DEFAULT, '2021-04-12', 1000, 'Paid', 3), -- 15
 	(DEFAULT, '2021-05-12', 1000, 'Paid', 3), -- 16
-	(DEFAULT, '2021-04-05', 1500, 'Paid', 4), -- 17 *
+	(DEFAULT, '2021-04-05', 1500, 'Paid', 4), -- 17
 	(DEFAULT, '2021-05-05', 1500, 'Paid', 4), -- 18
 	(DEFAULT, '2021-06-05', 1500, 'Paid', 4), -- 19
 	(DEFAULT, '2021-07-05', 1000, 'Paid', 4), -- 20

@@ -111,11 +111,12 @@ BEGIN
 END $$
 DELIMITER ;
 
+-- [FUNCTION] total_amount_lent
 CREATE FUNCTION total_amount_lent (
 	p_guarantor_id INT UNSIGNED,
 	p_cycle_id YEAR
 )
-RETURNS DECIMAL (50, 2)
+RETURNS DECIMAL (30, 2)
 NOT DETERMINISTIC
 	RETURN (
 		SELECT

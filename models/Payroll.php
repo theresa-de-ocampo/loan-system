@@ -1,5 +1,8 @@
 <?php
-class Payroll extends Transaction {
+class Payroll {
+	protected $db;
+	protected $cycle;
+
 	public function __construct() {
 		$this->db = new Database();
 		$cycle = new Cycle();
@@ -43,5 +46,35 @@ class Payroll extends Transaction {
 			"per_share" => $per_share,
 			"rate" => $rate
 		);
+	}
+
+	public function getProcessedFlag() {
+		$this->db->query("SELECT `closing_id` FROM `closing` WHERE `closing_id` = $this->cycle");
+		return $this->db->resultColumn();
+	}
+
+	public function addClosing($data) {
+		$this->db->query("INSERT INTO `closing` (`interest`, `processing_fee`, `penalty`) VALUES (?, ?, ?)");
+		$this->db->bind(1, $data["interest"]);
+		$this->db->bind(2, $data["processing-fee"]);
+		$this->db->bind(3, $data["penalty"]);
+		$this->db->execute();
+	}
+
+	public function addRoi($ids, $totals) {
+		$i = 0;
+
+		foreach ($ids as $id) {
+			$this->db->query("INSERT INTO `roi` (`amount`, `guarantor_id`, `closing_id`) VALUES (?, ?, ?)");
+			$this->db->bind(1, $totals[$i++]);
+			$this->db->bind(2, $id);
+			$this->db->bind(3, $this->cycle);
+			$this->db->execute();
+		}
+	}
+
+	public function getShareStatus($id) {
+		$this->db->query("SELECT `status` FROM `roi` INNER JOIN `closing` USING (`closing_id`) WHERE `guarantor_id` = $id");
+		return $this->db->resultColumn();
 	}
 }

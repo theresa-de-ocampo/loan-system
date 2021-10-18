@@ -15,6 +15,8 @@
 	$guarantors = $guarantor->getCurrentGuarantors();
 	$profits = $payroll->getProfits();
 	$rate = $profits["rate"];
+	$interest = $profits["interest"];
+	$flag = $payroll->getProcessedFlag();
 ?>
 <!DOCTYPE html>
 <html lang="en">
@@ -47,12 +49,15 @@
 		<div id="coop-info-holder"><?php require_once "inc/print-header.php"; ?></div>
 		<div id="cycle-holder"><?php echo $cycle->getCycleId(); ?></div>
 
+		<!-- Hidden. If today if November 30, this flag is used to check if the year-end records are already set. -->
+		<div id="flag-holder"><?php echo $flag; ?></div>
+
 		<section id="profits">
 			<h3>Profits</h3>
 				<table class="pattern-bg">
 					<tr>
 						<th>Interest</th>
-						<td>&#8369; <?php echo number_format($profits["interest"], 2, ".", ","); ?></td>
+						<td>&#8369; <?php echo number_format($interest, 2, ".", ","); ?></td>
 					</tr>
 					<tr>
 						<th>10% Guarantor</th>
@@ -87,10 +92,10 @@
 				</thead>
 				<tbody>
 					<?php foreach ($guarantors as $g): ?>
-						<tr>
-							<td data-sort="<?php echo $g->lname; ?>"><?php echo $g->fname." ".$g->mname[0].". ".$g->lname; ?></td>
-							<td><?php echo number_format($guarantor->getTotalAmountLent($g->guarantor_id), 2, ".", ","); ?></td>
-						</tr>
+					<tr>
+						<td data-sort="<?php echo $g->lname; ?>"><?php echo $g->fname." ".$g->mname[0].". ".$g->lname; ?></td>
+						<td><?php echo number_format($guarantor->getTotalAmountLent($g->guarantor_id), 2, ".", ","); ?></td>
+					</tr>
 					<?php endforeach; ?>
 				</tbody>
 			</table><!-- #principal-summation-tbl -->
@@ -107,12 +112,12 @@
 				</thead>
 				<tbody>
 					<?php foreach ($guarantors as $g): ?>
-						<tr>
-							<td data-sort="<?php echo $g->lname; ?>"><?php echo $g->fname." ".$g->mname[0].". ".$g->lname; ?></td>
-							<td>
-								<?php echo number_format($guarantor->getTotalInterestCollected($g->guarantor_id), 2, ".", ","); ?>
-							</td>
-						</tr>
+					<tr>
+						<td data-sort="<?php echo $g->lname; ?>"><?php echo $g->fname." ".$g->mname[0].". ".$g->lname; ?></td>
+						<td>
+							<?php echo number_format($guarantor->getTotalInterestCollected($g->guarantor_id), 2, ".", ","); ?>
+						</td>
+					</tr>
 					<?php endforeach; ?>
 				</tbody>
 			</table><!-- #interest-summation-tbl -->
@@ -127,57 +132,84 @@
 					<th>Guarantor</th>
 					<th>No. of Share</th>
 					<th>Interest</th>
-					<th>10% Return</th>
+					<th><?php echo $rate * 100; ?>% Return</th>
 					<th>Cut</th>
 					<th>Total</th>
 					<th>Grand Total</th>
+					<th>Status</th>
 				</thead>
 				<tbody>
-					<?php foreach ($guarantors as $g): ?>
-						<tr>
-							<td data-sort="<?php echo $g->lname; ?>"><?php echo $g->fname." ".$g->mname[0].". ".$g->lname; ?></td>
-							<td>
-								<?php
-									$number_of_share = $guarantor->getNumberOfShares($g->guarantor_id);
-									echo $number_of_share;
-								?>
-							</td>
-							<td>
-								<?php
-									$totalInterestCollected = $guarantor->getTotalInterestCollected($g->guarantor_id);
-									echo number_format($totalInterestCollected, 2, ".", ",");
-								?>
-							</td>
-							<td>
-								<?php
-									$ten_percent_return = $totalInterestCollected * $rate;
-									echo number_format($ten_percent_return, 2, ".", ",");
-								?>
-							</td>
-							<td>
-								<?php
-									$cut = $number_of_share * $per_share;
-									echo number_format($cut, 2, ".", ",");
-								?>
-							</td>
-							<td>
-								<?php
-									$total = $ten_percent_return + $cut;
-									echo number_format($total, 2, ".", ",");
-								?>
-							</td>
-							<td>
-								<?php
-									$principal_returned = $guarantor->getTotalPrincipalReturned($g->guarantor_id);
-									$grand_total = $total + $principal_returned;
-									echo number_format($grand_total, 2, ".", ",");
-								?>
-							</td>
-						</tr>
-					<?php endforeach; ?>
+					<?php foreach ($guarantors as $g): $guarantor_id = (int)$g->guarantor_id; ?>
+					<tr>
+						<td data-sort="<?php echo $g->lname; ?>"><?php echo $g->fname." ".$g->mname[0].". ".$g->lname; ?></td>
+						<td>
+							<?php
+								$number_of_share = $guarantor->getNumberOfShares($guarantor_id);
+								echo $number_of_share;
+							?>
+						</td>
+						<td>
+							<?php
+								$totalInterestCollected = $guarantor->getTotalInterestCollected($guarantor_id);
+								echo number_format($totalInterestCollected, 2, ".", ",");
+							?>
+						</td>
+						<td>
+							<?php
+								$ten_percent_return = $totalInterestCollected * $rate;
+								echo number_format($ten_percent_return, 2, ".", ",");
+							?>
+						</td>
+						<td>
+							<?php
+								$cut = $number_of_share * $per_share;
+								echo number_format($cut, 2, ".", ",");
+							?>
+						</td>
+						<td>
+							<?php
+								$total = $ten_percent_return + $cut;
+								echo number_format($total, 2, ".", ",");
+							?>
+						</td>
+						<td>
+							<?php
+								$principal_returned = $guarantor->getTotalPrincipalReturned($guarantor_id);
+								$grand_total = $total + $principal_returned;
+								echo number_format($grand_total, 2, ".", ",");
+							?>
+						</td>
+						<?php if (date("m") != 10 && date("d") != 18): ?>
+						<td>On Going</td>
+						<?php else: ?>
+							<?php if ($flag !== ""): ?>
+								<td><a href="#"><?php echo $payroll->getShareStatus($guarantor_id); ?></a></td>
+							<?php endif; ?>
+						<?php endif; ?>
+						<input type="hidden" name="g-id[]" value="<?php echo $guarantor_id; ?>" />
+						<input type="hidden" name="g-amount[]" value="<?php echo $grand_total; ?>" />
+					</tr>
+					<?php
+						$guarantorIds[] = $guarantor_id;
+						$guarantorTotals[] = $grand_total;
+						endforeach;
+					?>
 				</tbody>
 			</table><!-- #shares-tbl -->
 		</section><!-- #shares -->
+
+		<form action="src/process-year-end.php" method="post">
+			<input type="hidden" name="interest" value="<?php echo $interest; ?>" />
+			<input type="hidden" name="processing-fee" value="20" />
+			<input type="hidden" name="penalty" value="15" />
+
+			<?php
+				$serializedGuarantorIds = serialize($guarantorIds);
+				$serializedGuarantorTotals = serialize($guarantorTotals);
+			?>
+			<input type="hidden" name="g-ids" value="<?php echo $serializedGuarantorIds; ?>" />
+			<input type="hidden" name="g-amount" value="<?php echo $serializedGuarantorTotals; ?>" />
+		</form>
 	</main><!-- #payroll -->
 
 	<script src="js/jquery-3.6.0.min.js"></script>
