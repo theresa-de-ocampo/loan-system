@@ -89,7 +89,7 @@ div[id$="-holder"] {
 }
 
 .focal-button {
-	background-color: var(--blue-chill);
+	background-color: var(--blue-chill) !important;
 	border-radius: 5px;
 	border: none;
 	color: #fff;
@@ -101,7 +101,7 @@ div[id$="-holder"] {
 }
 
 .focal-button:hover {
-	background-color: var(--cyan);
+	background-color: var(--cyan) !important;
 }
 
 .pattern-bg {

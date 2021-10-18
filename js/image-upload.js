@@ -1,10 +1,10 @@
 // jshint esversion: 6
 $(function() {
-	const $dropArea = $("#drop-area");
+	const $dropArea = $("[id*=drop-area]");
 	let file;
-	let $instructions = $("#drop-area > div:nth-of-type(2)");
-	let $browseButton = $("#drop-area button");
-	let $imageField = $("#drop-area + input");
+	let $instructions = $("[id*=drop-area] > div:nth-of-type(2)");
+	let $browseButton = $("[id*=drop-area] button");
+	let $imageField = $("[id*=drop-area] + input");
 
 	function displayPreview() {
 		let fileType = file.type;
@@ -43,7 +43,7 @@ $(function() {
 		e.preventDefault();
 		file = e.originalEvent.dataTransfer.files[0]; // Retrieve the first file only if user selected multiple files
 		displayPreview();
-		$imageField = file;
+		$imageField.files = file;
 	});
 
 	$browseButton.on("click", function() {

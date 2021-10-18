@@ -72,4 +72,20 @@ $(function() {
 			$("form").submit();
 		}
 	}
+
+	$.get("inc/roi-form.html", function(data) {
+		$sharesTbl.on("click", "td a", function() {
+			let $tr = $(this).closest("tr");
+			if ($tr.hasClass("child"))
+				$tr = $tr.prev();
+			const id = $tr.attr("data-guarantor-id");
+			const row = $sharesTbl.row($tr).data();
+			console.log(row);
+
+			createModal(data);
+			$(".tingle-modal-box #id").val(id);
+			$(".tingle-modal-box #name").val(row[0].display);
+			$.getScript("js/image-upload.js");
+		});
+	});
 });

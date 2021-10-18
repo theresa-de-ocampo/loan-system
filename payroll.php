@@ -27,10 +27,12 @@
 	<meta name="viewport" content="width=device-width, initial-scale=1.0">
 	<link rel="stylesheet" type="text/css" href="css/all.min.css" />
 	<link rel="stylesheet" type="text/css" href="css/datatables.min.css" />
+	<link rel="stylesheet" type="text/css" href="css/tingle.min.css" />
 	<link rel="stylesheet" type="text/css" href="css/style.css" />
 	<link rel="stylesheet" type="text/css" href="css/vertical-nav-bar.css" />
 	<link rel="stylesheet" type="text/css" href="css/tables.css" />
 	<link rel="stylesheet" type="text/css" href="css/forms.css" />
+	<link rel="stylesheet" type="text/css" href="css/image-upload.css" />
 	<link rel="stylesheet" type="text/css" href="css/payroll.css" />
 	<link rel="stylesheet" type="text/css" href="css/media-queries.css" />
 	<link rel="shortcut icon" type="image/x-icon" href="img/others/favicon.png" />
@@ -140,7 +142,7 @@
 				</thead>
 				<tbody>
 					<?php foreach ($guarantors as $g): $guarantor_id = (int)$g->guarantor_id; ?>
-					<tr>
+					<tr data-guarantor-id="<?php echo $guarantor_id; ?>">
 						<td data-sort="<?php echo $g->lname; ?>"><?php echo $g->fname." ".$g->mname[0].". ".$g->lname; ?></td>
 						<td>
 							<?php
@@ -215,7 +217,9 @@
 	<script src="js/jquery-3.6.0.min.js"></script>
 	<script src="js/vertical-nav-bar.js"></script>
 	<script src="js/datatables.min.js"></script>
+	<script src="js/tingle.min.js"></script>
 	<script src="js/tables.js"></script>
+	<script src="js/modal.js"></script>
 	<script src="js/payroll.js"></script>
 </body>
 </html>
