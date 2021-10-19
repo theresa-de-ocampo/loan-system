@@ -40,7 +40,7 @@
 				<div>
 					<i class="fa fa-home"></i>
 					<span>
-						<p class="fifth"><?php echo CITY_TOWN.", ".PROVINCE; ?></p>
+						<p class="fifth"><?php echo TOWN.", ".PROVINCE; ?></p>
 						<p>Location</p>
 					</span>
 				</div>

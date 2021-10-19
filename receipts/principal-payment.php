@@ -39,7 +39,7 @@
 		<div class="fas fa-handshake"></div>
 		<h1><?php echo COOPERATIVE; ?></h1>
 		<address>
-			<?php echo BARANGAY."<br />".CITY_TOWN.", ".PROVINCE; ?>
+			<?php echo BARANGAY."<br />".TOWN.", ".PROVINCE; ?>
 			<br />
 			<?php echo LANDLINE." &#183; ".CP_NUMBER; ?>
 		</address>

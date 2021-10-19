@@ -29,7 +29,7 @@
 		</nav>
 		<div class="text-box">
 			<h1><?php echo COOPERATIVE; ?></h1>
-			<h1><?php echo CITY_TOWN.", ".PROVINCE; ?></h1>
+			<h1><?php echo TOWN.", ".PROVINCE; ?></h1>
 			<p>Providing a convenient, reliable, and secure online micro-lending platform.</p>
 			<a href="" class="hero-btn">log in</a>
 		</div><!-- .text-box -->

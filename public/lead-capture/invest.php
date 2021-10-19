@@ -59,7 +59,7 @@
 			<div class="boxes-col">
 				<p class="third">Step 1 </br> Request an Account</p>
 				<p>
-					Contact us to claim your account. Do note that you must be a local resident of <?php echo SUBDIVISION.", ".CITY_TOWN.", ".PROVINCE?> for us to process your application.
+					Contact us to claim your account. Do note that you must be a local resident of <?php echo SUBDIVISION.", ".BARANGAY ?> for us to process your application.
 				</p>
 			</div><!-- .boxes-col -->
 			<div class="boxes-col">
