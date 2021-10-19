@@ -111,9 +111,9 @@ class Loan extends Transaction {
 			$loan_id = $this->db->lastInsertId();
 
 			/*
-			Add files to project repository. 
 			UPDATE newly inserted loan record to include the documents.
 			Add advance interest, and processing fee.
+			Add files to project repository. 
 			[NOTE] Sequencing of commands is important.
 				1. UPDATE can't be done with the INSERT command earlier because the filename is based on the record ID.
 				2. UPDATE is done before the file(s) was/were copied to the project repository. If it was the other way around, you'd have to delete the files from the respository in case the UPDATE command fails.
@@ -128,8 +128,8 @@ class Loan extends Transaction {
 					$path = $files["proof"]["name"];
 					$extension = strtolower(pathinfo($path, PATHINFO_EXTENSION));
 					$target_dir = "../img/transactions/loan/";
-					$file_dest = $target_dir.$loan_id.".".$extension;
 					$file_name = $loan_id.".".$extension;
+					$file_dest = $target_dir.$file_name;
 
 					$this->db->query("UPDATE `loan` SET `proof` = '$file_name' WHERE `loan_id` = $loan_id");
 					$this->db->executeWithoutCatch();
