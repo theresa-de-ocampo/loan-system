@@ -68,7 +68,7 @@
 						<td><?php echo $g->mname; ?></td>
 						<td><?php echo $g->lname; ?></td>
 						<td><?php echo $g->contact_no; ?></td>
-						<td><?php echo $converter->shortToLongDate($g->bday); ?></td>
+						<td data-sort="<?php echo $g->bday; ?>"><?php echo $converter->shortToLongDate($g->bday); ?></td>
 						<td><?php echo $converter->bdayToAge($g->bday); ?></td>
 						<td><?php echo $g->phase_block_lot; ?></td>
 						<td><i class="fas fa-user-edit"></i></td>

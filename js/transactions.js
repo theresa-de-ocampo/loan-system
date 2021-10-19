@@ -36,7 +36,7 @@ $(function() {
 				width: 100
 			}
 		],
-		order: [[5, "asc"], [3, "asc"]]
+		order: [[5, "asc"], [3, "desc"]]
 	});
 	checkForRows($loanDisbursementsTbl, "#loan-disbursements-tbl");
 

@@ -77,7 +77,7 @@
 						<td data-sort="<?php echo $gname->lname; ?>">
 							<?php echo $gname->fname." ".$gname->mname[0].". ".$gname->lname; ?>
 						</td>
-						<td data-sort="<?php echo strtotime($l->loan_date_time) ?>">
+						<td data-sort="<?php echo $l->loan_date_time; ?>">
 							<?php echo $converter->shortToLongDate($l->loan_date_time); ?>		
 						</td>
 						<td><?php echo number_format($l->principal, 2, ".", ","); ?></td>
