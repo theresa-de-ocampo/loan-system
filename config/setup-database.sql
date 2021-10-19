@@ -178,13 +178,14 @@ CREATE TABLE `closing` (
 ) Engine=InnoDB;
 
 CREATE TABLE `roi` (
-	`roi_id` INT UNSIGNED AUTO_INCREMENT PRIMARY KEY,
 	`amount` DECIMAL(50, 2) NOT NULL,
 	`status` ENUM('Pending', 'Claimed') DEFAULT 'Pending',
 	`date_time_claimed` DATETIME,
+	`proof` CHAR(10),
 	`guarantor_id` INT UNSIGNED NOT NULL,
 	`closing_id` YEAR NOT NULL,
 
+	CONSTRAINT pk_roi PRIMARY KEY (`guarantor_id`, `closing_id`),
 	CONSTRAINT fk_roi_guarantor_id FOREIGN KEY (`guarantor_id`)
 		REFERENCES `guarantor_cycle_map` (`guarantor_id`)
 		ON UPDATE CASCADE

@@ -1,9 +1,9 @@
-<form action="src/process-roi-claim.php" method="post" novalidate>
+<form action="src/process-roi-claim.php" method="post" enctype="multipart/form-data" novalidate>
 	<div class="grid-wrapper">
 		<header class="modal">Guarantor Lump Sum</header>
 		<div class="grid-item solo">
 			<label for="name">Name</label>
-			<input id="name" type="text" disabled class="medium" />
+			<input id="name" type="text" readonly class="medium" />
 		</div><!-- .grid-item.solo -->
 		<div class="grid-item solo">
 			<label for="proof">Proof of Claim</label>
@@ -19,6 +19,6 @@
 	<input id="id" type="hidden" name="id" required readonly />
 
 	<footer>
-		<button id="modal-ok" type="submit" name="add"><i class="fas fa-pencil-alt"></i></button>
+		<button id="modal-ok" type="submit" name="accept"><i class="fas fa-pencil-alt"></i></button>
 	</footer>
 </form>

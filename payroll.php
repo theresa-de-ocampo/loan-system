@@ -181,7 +181,7 @@
 								echo number_format($grand_total, 2, ".", ",");
 							?>
 						</td>
-						<?php if (date("m") != 10 && date("d") != 18): ?>
+						<?php if (date("m") <= 9 && date("d") < 30): ?>
 						<td>On Going</td>
 						<?php else: ?>
 							<?php if ($flag !== ""): ?>
