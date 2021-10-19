@@ -220,6 +220,7 @@
 	<script src="js/tingle.min.js"></script>
 	<script src="js/tables.js"></script>
 	<script src="js/modal.js"></script>
+	<script src="js/validation.js"></script>
 	<script src="js/payroll.js"></script>
 </body>
 </html>
