@@ -137,13 +137,16 @@
 					<th><?php echo $rate * 100; ?>% Return</th>
 					<th>Cut</th>
 					<th>Total</th>
+					<th>Principal Returned</th>
 					<th>Grand Total</th>
 					<th>Status</th>
 				</thead>
 				<tbody>
 					<?php foreach ($guarantors as $g): $guarantor_id = (int)$g->guarantor_id; ?>
 					<tr data-guarantor-id="<?php echo $guarantor_id; ?>">
-						<td data-sort="<?php echo $g->lname; ?>"><?php echo $g->fname." ".$g->mname[0].". ".$g->lname; ?></td>
+						<td data-sort="<?php echo $g->lname; ?>">
+							<?php echo $g->fname." ".$g->mname[0].". ".$g->lname; ?>
+						</td>
 						<td>
 							<?php
 								$number_of_share = $guarantor->getNumberOfShares($guarantor_id);
@@ -152,13 +155,13 @@
 						</td>
 						<td>
 							<?php
-								$totalInterestCollected = $guarantor->getTotalInterestCollected($guarantor_id);
-								echo number_format($totalInterestCollected, 2, ".", ",");
+								$total_interest_collected = $guarantor->getTotalInterestCollected($guarantor_id);
+								echo number_format($total_interest_collected, 2, ".", ",");
 							?>
 						</td>
 						<td>
 							<?php
-								$ten_percent_return = $totalInterestCollected * $rate;
+								$ten_percent_return = $total_interest_collected * $rate;
 								echo number_format($ten_percent_return, 2, ".", ",");
 							?>
 						</td>
@@ -177,6 +180,11 @@
 						<td>
 							<?php
 								$principal_returned = $guarantor->getTotalPrincipalReturned($guarantor_id);
+								echo number_format($principal_returned, 2, ".", ",");
+							?>
+						</td>
+						<td>
+							<?php
 								$grand_total = $total + $principal_returned;
 								echo number_format($grand_total, 2, ".", ",");
 							?>

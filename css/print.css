@@ -48,6 +48,11 @@ th {
 	text-align: right;
 	border-right: 1px solid rgba(0, 0, 0, 1);;
 	color: #1E1E1E;
+	width: 50%;
+}
+
+th span {
+	font-weight: normal;
 }
 
 td {

@@ -80,7 +80,6 @@ $(function() {
 				$tr = $tr.prev();
 			const id = $tr.attr("data-guarantor-id");
 			const row = $sharesTbl.row($tr).data();
-			console.log(row);
 
 			createModal(data);
 			$(".tingle-modal-box #id").val(id);

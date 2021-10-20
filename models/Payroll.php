@@ -108,9 +108,44 @@ class Payroll {
 				$this->db->bind(2, $file_name);
 				$this->db->bind(3, $id);
 				$this->db->bind(4, $this->cycle);
-				$this->db->execute("Year-end share was successfully claimed!", "../payroll.php");
+				$this->db->execute("Year-end share was successfully claimed!", "../receipts/roi-claim.php?guarantor-id=$id");
 				move_uploaded_file($file_tmp_name, $file_dest);
 			}
 		}
+	}
+
+	public function getRoiClaimReceiptData($id) {
+		$converter = new Converter();
+		$profits = $this->getProfits();
+		$per_share = $converter->roundDown($profits["per_share"]);
+		$rate = $profits["rate"];
+
+		$guarantor = new Guarantor();
+		$number_of_share = $guarantor->getNumberOfShares($id);
+		$total_interest_collected = $guarantor->getTotalInterestCollected($id);
+		$ten_percent_return = $total_interest_collected * $rate;
+		$cut = $number_of_share * $per_share;
+		$total = $ten_percent_return + $cut;
+		$principal_returned = $guarantor->getTotalPrincipalReturned($id);
+		$grand_total = $total + $principal_returned;
+
+		$this->db->query("SELECT `date_time_claimed` FROM `roi` WHERE `guarantor_id` = ? AND `closing_id` = ?");
+		$this->db->bind(1, $id);
+		$this->db->bind(2, $this->cycle);
+		$date_time_claimed = $converter->shortToLongDateTime($this->db->resultColumn());
+
+		$custom_id = "G".$id." C".$this->cycle;
+		return array(
+			"per_share" => $per_share,
+			"number_of_share" => $number_of_share,
+			"total_interest_collected" => $total_interest_collected,
+			"ten_percent_return" => $ten_percent_return,
+			"cut" => $cut,
+			"total" => $total,
+			"principal_returned" => $principal_returned,
+			"grand_total" => $grand_total,
+			"date_time_claimed" => $date_time_claimed,
+			"custom_id" => $custom_id
+		);
 	}
 }
