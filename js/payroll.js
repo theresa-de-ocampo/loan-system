@@ -57,6 +57,10 @@ $(function() {
 		],
 		columnDefs: [
 			{
+				targets: [0],
+				width: 200
+			},
+			{
 				targets: [1],
 				width: 50
 			}
@@ -68,9 +72,8 @@ $(function() {
 		const today = new Date();
 		const day = today.getDate();
 		const month = today.getMonth() + 1;
-		if (month == 10 && day == 19) {
+		if (month == 11 && day == 30)
 			$("form").submit();
-		}
 	}
 
 	$.get("inc/roi-form.html", function(data) {

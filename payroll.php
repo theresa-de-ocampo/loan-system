@@ -131,15 +131,20 @@
 			<hr />
 			<table id="shares-tbl" class="display cell-border" width="100%">
 				<thead>
-					<th>Guarantor</th>
-					<th>No. of Share</th>
-					<th>Interest</th>
-					<th><?php echo $rate * 100; ?>% Return</th>
-					<th>Cut</th>
-					<th>Total</th>
-					<th>Principal Returned</th>
-					<th>Grand Total</th>
-					<th>Status</th>
+					<tr>
+						<th rowspan="2">Guarantor</th>
+						<th rowspan="2">No. of Share</th>
+						<th>Interest</th>
+						<th><?php echo $rate * 100; ?>% Return</th>
+						<th>Cut</th>
+						<th>Total</th>
+						<th>Principal Returned</th>
+						<th>Grand Total</th>
+						<th rowspan="2">Status</th>
+					</tr>
+					<tr>
+						<th colspan="6"><span>(&#8369;)</span></th>
+					</tr>
 				</thead>
 				<tbody>
 					<?php foreach ($guarantors as $g): $guarantor_id = (int)$g->guarantor_id; ?>
@@ -189,7 +194,7 @@
 								echo number_format($grand_total, 2, ".", ",");
 							?>
 						</td>
-						<?php if (date("m") <= 9 && date("d") < 30): ?>
+						<?php if (date("m") <= 11 && date("d") < 30): ?>
 						<td>On Going</td>
 						<?php else: ?>
 							<?php if ($flag !== ""): ?>
