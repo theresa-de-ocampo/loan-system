@@ -77,7 +77,7 @@ $(function() {
 	}
 
 	$.get("inc/roi-form.html", function(data) {
-		$sharesTbl.on("click", "td a", function() {
+		$sharesTbl.on("click", "td a.pending", function() {
 			let $tr = $(this).closest("tr");
 			if ($tr.hasClass("child"))
 				$tr = $tr.prev();
@@ -91,6 +91,30 @@ $(function() {
 
 			$("form").on("submit", function(e) {
 				checkIfComplete(e);
+			});
+		});
+	});
+
+	$.get("inc/claimed-roi.html", function(data) {
+		$sharesTbl.on("click", "td a.claimed", function() {
+			let $this = $(this);
+			let $tr = $this.closest("tr");
+			if ($tr.hasClass("child"))
+				$tr = $tr.prev();
+			const row = $sharesTbl.row($tr).data();
+			const dateTimeClaimed = $this.attr("data-date-time-claimed");
+			const proofSrc = "img/payroll/2021/roi/" + $this.attr("data-proof");
+
+			createModal(data);
+			const $proof = $(".tingle-modal-box img");
+			$proof.attr("src", proofSrc);
+			$(".tingle-modal-box #name").text(row[0].display);
+			$(".tingle-modal-box #date-time-claimed").text(dateTimeClaimed);
+
+			$proof.on("load", function() {
+				const $modal = $(".tingle-modal");
+				if (window.innerHeight <= $modal.height())
+					$modal.addClass("tingle-modal--overflow");
 			});
 		});
 	});

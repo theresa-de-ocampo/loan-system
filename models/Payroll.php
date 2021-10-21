@@ -73,9 +73,9 @@ class Payroll {
 		}
 	}
 
-	public function getShareStatus($id) {
-		$this->db->query("SELECT `status` FROM `roi` INNER JOIN `closing` USING (`closing_id`) WHERE `guarantor_id` = $id");
-		return $this->db->resultColumn();
+	public function getRoi($id) {
+		$this->db->query("SELECT * FROM `roi` WHERE `guarantor_id` = $id AND `closing_id` = $this->cycle");
+		return $this->db->resultRecord();
 	}
 
 	public function processRoiClaim($id, $files) {

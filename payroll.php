@@ -194,11 +194,24 @@
 								echo number_format($grand_total, 2, ".", ",");
 							?>
 						</td>
-						<?php if (date("m") <= 11 && date("d") < 30): ?>
+						<?php if (date("m") <= 9 && date("d") < 30): ?>
 						<td>On Going</td>
 						<?php else: ?>
-							<?php if ($flag !== ""): ?>
-								<td><a href="#"><?php echo $payroll->getShareStatus($guarantor_id); ?></a></td>
+							<?php if ($flag !== ""): $roi = $payroll->getRoi($guarantor_id); $status = $roi->status; ?>
+								<?php if ($status == "Pending"): ?>
+									<td><a href="#" class="<?php echo strtolower($status); ?>"><?php echo $status; ?></a></td>
+								<?php else: ?>
+									<td>
+										<a 
+											href="#" 
+											class="<?php echo strtolower($status); ?>"
+											data-date-time-claimed="<?php echo $converter->shortToLongDateTime($roi->date_time_claimed); ?>"
+											data-proof="<?php echo $roi->proof; ?>"
+											>
+											<?php echo $status; ?>
+										</a>
+									</td>
+								<?php endif; ?>
 							<?php endif; ?>
 						<?php endif; ?>
 						<input type="hidden" name="g-id[]" value="<?php echo $guarantor_id; ?>" />

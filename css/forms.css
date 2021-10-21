@@ -8,6 +8,7 @@ input:read-only,
 	padding-bottom: 8vh;
 }
 
+.container .grid-wrapper,
 form .grid-wrapper {
 	display: grid;
 	grid-gap: 15px 30px;
@@ -15,10 +16,24 @@ form .grid-wrapper {
 	margin: 48px 48px 32px 48px;
 }
 
+.container .grid-wrapper h2 {
+	text-align: center;
+	margin: 0;
+}
+
+.container .grid-wrapper img {
+	border-radius: 15px;
+	width: 100%;
+	height: auto;
+	margin: 0 auto 20px auto;
+	display: block;
+}
+
 section form .grid-wrapper {
 	margin: 0;
 }
 
+.container .grid-wrapper .solo,
 form .grid-wrapper .solo {
 	grid-column: 1/-1;
 }
@@ -33,6 +48,10 @@ header.modal {
 	padding: 15px;
 	text-align: center;
 	text-shadow: 1px 1px 2px #000;
+}
+
+.container header.modal {
+	margin-bottom: 0;
 }
 
 form label {
