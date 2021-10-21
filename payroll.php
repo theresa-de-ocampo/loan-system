@@ -132,18 +132,15 @@
 			<table id="shares-tbl" class="display cell-border" width="100%">
 				<thead>
 					<tr>
-						<th rowspan="2">Guarantor</th>
-						<th rowspan="2">No. of Share</th>
-						<th>Interest</th>
-						<th><?php echo $rate * 100; ?>% Return</th>
-						<th>Cut</th>
-						<th>Total</th>
-						<th>Principal Returned</th>
-						<th>Grand Total</th>
-						<th rowspan="2">Status</th>
-					</tr>
-					<tr>
-						<th colspan="6"><span>(&#8369;)</span></th>
+						<th>Guarantor</th>
+						<th>No. of Share</th>
+						<th>Interest <span>(&#8369;)</span></th>
+						<th><?php echo $rate * 100; ?>% Return <span>(&#8369;)</span></th>
+						<th>Cut <span>(&#8369;)</span></th>
+						<th>Total <span>(&#8369;)</span></th>
+						<th>Principal Returned <span>(&#8369;)</span></th>
+						<th>Grand Total <span>(&#8369;)</span></th>
+						<th>Status</th>
 					</tr>
 				</thead>
 				<tbody>
