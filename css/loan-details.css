@@ -17,10 +17,6 @@
 	text-align: center;
 }
 
-#summary .grid-wrapper > * {
-	border-radius: 15px;
-}
-
 #summary-details {
 	display: flex;
 	justify-content: center;
