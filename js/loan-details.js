@@ -4,7 +4,8 @@ $(function() {
 		window.location.href = "transactions#loan-disbursements";
 	});
 
-	let summaryDetails = $("#loan-info-holder").html();
+	let summaryDetails = $("#loan-info-holder").html().replace(' class="pattern-bg"', "");
+	console.log(summaryDetails);
 
 	function addHeaderToLoanDetailsPdf(win) {
 		$(win.document.body).prepend(summaryDetails);
