@@ -1,3 +1,13 @@
+<?php
+	require_once "models/User.php";
+	$user = new User();
+	$id = $_SESSION["admin-verified"];
+	$admin = $user->getAdmin($id);
+	$username = $admin->username;
+	$position = $admin->position;
+	$profile_picture = "img/profile-pictures/".$admin->profile_picture;
+	$profile_picture_alt = $username."'s Profile Picture";
+?>
 <nav class="closed">
 	<h1>
 		<i class="fas fa-handshake"></i>
@@ -86,12 +96,12 @@
 		<li>
 			<div class="profile-details">
 				<div class="profile-content">
-					<img src="img/profile-pictures/profile.jpg" alt="profileImg">
+					<img src="<?php echo $profile_picture; ?>" alt="<?php echo $profile_picture_alt; ?>">
 				</div><!-- .profile-content -->
-				<div class="name-job">
-					<div class="username">Theresa</div>
-					<div class="job">Treasurer</div>
-				</div><!-- .name-job -->
+				<div class="name-position">
+					<div class="username"><?php echo $username; ?></div>
+					<div class="position"><?php echo $position; ?></div>
+				</div><!-- .name-position -->
 				<i class="fas fa-sign-out-alt"></i>
 			</div><!-- .profile-details -->
 		</li>

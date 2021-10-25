@@ -7,6 +7,7 @@
 	}
 
 	require_once "config/config.php";
+	require_once "lib/verification.php";
 	require_once "lib/database-handler.php";
 	require_once "lib/conversion-util.php";
 	require_once "models/Cycle.php";
@@ -61,7 +62,8 @@
 	<title><?php echo COOPERATIVE; ?></title>
 </head>
 <body>
-	<?php require_once "inc/vertical-nav-bar.html"; ?>
+	<?php require_once "inc/vertical-nav-bar.php"; ?>
+	
 	<main>
 		<header>
 			<i class="fas fa-bars"></i>

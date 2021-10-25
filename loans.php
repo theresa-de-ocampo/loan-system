@@ -33,7 +33,7 @@
 	<title><?php echo COOPERATIVE; ?></title>
 </head>
 <body>
-	<?php require_once "inc/vertical-nav-bar.html"; ?>
+	<?php require_once "inc/vertical-nav-bar.php"; ?>
 
 	<main id="loans">
 		<header>

@@ -219,7 +219,7 @@ nav.closed .profile-details img{
 	padding: 10px;
 }
 nav .profile-details .username,
-nav .profile-details .job {
+nav .profile-details .position {
 	color: #fff;
 	font-size: 18px;
 	font-weight: 500;
@@ -228,11 +228,11 @@ nav .profile-details .job {
 
 nav.closed .profile-details i,
 nav.closed .profile-details .username,
-nav.closed .profile-details .job {
+nav.closed .profile-details .position {
 	display: none;
 }
 
-nav .profile-details .job {
+nav .profile-details .position {
 	font-size: 12px;
 }
 

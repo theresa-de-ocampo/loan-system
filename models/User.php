@@ -1,6 +1,6 @@
 <?php
 
-class Administrator {
+class User {
 	private $db;
 
 	public function __construct() {
@@ -20,6 +20,12 @@ class Administrator {
 				`email` = ?
 		");
 		$this->db->bind(1, $email);
+		return $this->db->resultRecord();
+	}
+
+	public function getAdmin($id) {
+		$this->db->query("SELECT * FROM `administrator` INNER JOIN `user` USING (`user_id`) WHERE `user_id` = ?");
+		$this->db->bind(1, $id);
 		return $this->db->resultRecord();
 	}
 }
