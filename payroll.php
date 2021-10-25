@@ -17,6 +17,7 @@
 	$rate = $profits["rate"];
 	$interest = $profits["interest"];
 	$flag = $payroll->getProcessedFlag();
+	$salary = $payroll->getSalary();
 ?>
 <!DOCTYPE html>
 <html lang="en">
@@ -87,10 +88,8 @@
 			<hr />
 			<table id="principal-summation-tbl" class="display cell-border" width="100%">
 				<thead>
-					<tr>
-						<th>Guarantor</th>
-						<th>Total Amount Lent <span>(&#8369;)</span></th>
-					</tr>
+					<th>Guarantor</th>
+					<th>Total Amount Lent <span>(&#8369;)</span></th>
 				</thead>
 				<tbody>
 					<?php foreach ($guarantors as $g): ?>
@@ -131,17 +130,15 @@
 			<hr />
 			<table id="shares-tbl" class="display cell-border" width="100%">
 				<thead>
-					<tr>
-						<th>Guarantor</th>
-						<th>No. of Share</th>
-						<th>Interest <span>(&#8369;)</span></th>
-						<th><?php echo $rate * 100; ?>% Return <span>(&#8369;)</span></th>
-						<th>Cut <span>(&#8369;)</span></th>
-						<th>Total <span>(&#8369;)</span></th>
-						<th>Principal Returned <span>(&#8369;)</span></th>
-						<th>Grand Total <span>(&#8369;)</span></th>
-						<th>Status</th>
-					</tr>
+					<th>Guarantor</th>
+					<th>No. of Share</th>
+					<th>Interest <span>(&#8369;)</span></th>
+					<th><?php echo $rate * 100; ?>% Return <span>(&#8369;)</span></th>
+					<th>Cut <span>(&#8369;)</span></th>
+					<th>Total <span>(&#8369;)</span></th>
+					<th>Principal Returned <span>(&#8369;)</span></th>
+					<th>Grand Total <span>(&#8369;)</span></th>
+					<th>Status</th>
 				</thead>
 				<tbody>
 					<?php foreach ($guarantors as $g): $guarantor_id = (int)$g->guarantor_id; ?>
@@ -222,6 +219,21 @@
 				</tbody>
 			</table><!-- #shares-tbl -->
 		</section><!-- #shares -->
+
+		<section id="salary">
+			<h3>Salary</h3>
+			<hr />
+			<table id="salary-tbl" class="display cell-border" width="100%">
+				<thead>
+					<th>Member</th>
+					<th>Earnings</th>
+					<th>Status</th>
+				</thead>
+				<tbody>
+					<td>
+				</tbody>
+			</table><!-- #salary-tbl -->
+		</section><!-- #salary -->
 
 		<form action="src/process-year-end.php" method="post">
 			<input type="hidden" name="interest" value="<?php echo $interest; ?>" />

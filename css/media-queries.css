@@ -171,6 +171,17 @@
 		width: 60%;
 	}
 
+	.tingle-modal-box th,
+	.tingle-modal-box td {
+		display: block;
+		text-align: center !important;
+	}
+
+	table.pattern-bg tr:last-child th {
+		padding-bottom: unset;
+		padding-top: 10px;
+	}
+
 	#content-wrapper header {
 		margin: 0 0 20px 0;
 	}
@@ -229,6 +240,8 @@
 
 	.tingle-modal-box {
 		width: 100%;
+		position: absolute;
+		top: 0;
 	}
 
 	.tingle-modal--overflow {
