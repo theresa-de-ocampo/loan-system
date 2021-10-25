@@ -210,14 +210,28 @@ CREATE TABLE `fund` (
 	Add constraint to received by
 ) Engine=InnoDB;*/
 
-CREATE TABLE `administrator` (
-	`admin_id` INT UNSIGNED AUTO_INCREMENT PRIMARY KEY,
+CREATE TABLE `user` (
+	`user_id` INT UNSIGNED PRIMARY KEY,
 	`email` VARCHAR(100) NOT NULL,
 	`password` VARCHAR(255) NOT NULL,
-	`data_subject_id` INT UNSIGNED,
+	`profile_picture` CHAR(10),
 
-	CONSTRAINT fk_admin_data_subject_id FOREIGN KEY (`data_subject_id`)
+	CONSTRAINT fk_user_id FOREIGN KEY (`user_id`)
 		REFERENCES `data_subject` (`data_subject_id`)
+		ON UPDATE CASCADE
+		ON DELETE RESTRICT
+) Engine=InnoDB;
+
+CREATE TABLE `administrator` (
+	`username` CHAR(8) NOT NULL,
+	`position` ENUM('Auditor', 'Treasurer', 'Asst. Treasurer') NOT NULL,
+	`cycle_id` YEAR DEFAULT (YEAR(CURDATE())) NOT NULL,
+	`user_id` INT UNSIGNED NOT NULL,
+
+	CONSTRAINT pfk_administrator PRIMARY KEY (`user_id`, `cycle_id`),
+	CONSTRAINT uc_administrator UNIQUE (`position`, `cycle_id`),
+	CONSTRAINT fk_administrator_cycle_id FOREIGN KEY (`cycle_id`)
+		REFERENCES `cycle` (`cycle_id`)
 		ON UPDATE CASCADE
 		ON DELETE RESTRICT
 ) Engine=InnoDB;
@@ -241,12 +255,25 @@ VALUES
 	(DEFAULT, 'Raquel', 'Pagtakhan', 'Loyola', '09184720087', '1980-05-25', 'P1, B1, L5'),
 	(DEFAULT, 'Iconarclo', 'Cabrera', 'Api', '09497266639', '1969-10-09', 'P1, B1, L6'),
 	(DEFAULT, 'Felicita', 'Magtibay', 'Imbis', '09183719442', '1956-06-01', 'P1, B1, L7'),
+	-- Guarantors for 2020 and 2021
+	(DEFAULT, 'Aurora', 'Imbis', 'Liberato', '09358314949', '1990-01-01', 'P1, B2, L8'),
+	(DEFAULT, 'Beth', 'Bigalbal', 'Navalta', '09189218835', '1965-07-19', 'P1, B2, L9'),
+	(DEFAULT, 'Theresa', 'Gumapas', 'De Ocampo', '09078466964', '1999-11-07', 'P1, B2, L10'),
+	-- Borrowers for 2020
+	(DEFAULT, 'Illuminada', 'Gumapas', 'Tampis', '09074893894', '1985-03-25', 'P1 B2 L1'),
+	(DEFAULT, 'Mirella', 'Cordova', 'Lezada', '09183784784', '1994-07-06', 'P1, B2, L2'),
+	(DEFAULT, 'Rafael', 'Mangalindan', 'Quito', '09349841026', '1990-05-21', 'P1, B2, L3'),
+	(DEFAULT, 'Kiev', 'Santos', 'Albarico', '09238947812', '1989-09-11', 'P1, B2, L4'),
+	(DEFAULT, 'Vicky', 'Lingo', 'Custodio', '09229847810', '1985-03-18', 'P1, B2, L5'),
+	(DEFAULT, 'Jonas', 'Javier', 'Nazareno', '09074893091', '1987-07-01', 'P1, B2, L6'),
+	(DEFAULT, 'Trisha', 'Landico', 'Anastacio', '09459038947', '1991-04-24', 'P1, B2, L6'),
+	(DEFAULT, 'Aiko', 'Sy', 'Salorsano', '09180958413', '1992-07-12', 'P1, B2, L7'),
+	(DEFAULT, 'Bryan', 'Garcia', 'Bueno', '09072838835', '1986-01-21', 'P1, B2, L8'),
+	(DEFAULT, 'Bianca', 'Sobrevega', 'Bersabe', '09453317833', '1988-08-08', 'P1, B2, L9'),
+	(DEFAULT, 'Cristina', 'Reyes', 'Pabillo', '09227184473', '1982-04-15', 'P1, B2, L10'),
 	-- Guarantors for 2021
-	(DEFAULT, 'Aurora', 'Imbis', 'Liberato', '09358314949', '1990-01-01', 'P1, B3, L1'),
-	(DEFAULT, 'Beth', 'Bigalbal', 'Navalta', '09189218835', '1965-07-19', 'P1, B3, L2'),
-	(DEFAULT, 'Theresa', 'Gumapas', 'De Ocampo', '09078466964', '1999-11-07', 'P2, B1, L1'),
-	(DEFAULT, 'Felicita', 'Pabiton', 'Nable', '09186475411', '1995-06-01', 'P1, B3, L3'),
-	(DEFAULT, 'Gina', 'Medina', 'Robiso', '09452579778', '1999-11-13', 'P1, B3, L4'),
+	(DEFAULT, 'Ryan', 'Pabiton', 'Nable', '09186475411', '1995-06-01', 'P1, B3, L3'),
+	(DEFAULT, 'Carlo', 'Medina', 'Robiso', '09452579778', '1993-11-13', 'P1, B3, L4'),
 	(DEFAULT, 'Helen', 'Balatico', 'Tailon', '09072914753', '1980-11-05', 'P1, B3, L5'),
 	(DEFAULT, 'Jane', 'Hera', 'Histo', '09229013858', '1983-03-20', 'P1, B3, L6'),
 	(DEFAULT, 'Adrian', 'Ilag', 'Dela Torre', '09239174896', '1980-06-09', 'P1, B3, L7'),
@@ -265,49 +292,61 @@ VALUES
 INSERT INTO
 	`guarantor`
 VALUES
-	(1), (2), (3), (4), (5), (6), (7), (8), (9), (10), (11), (12), (13), (14), (15), (16), (17), (18), (19), (20), (21), (22);
+	(1), (2), (3), (4), (5), (6), (7), (8), (9), (10), (11), (23), (24), (25), (26), (27), (28), (29), (30), (31), (32), (33);
 
 INSERT INTO
 	`guarantor_cycle_map`
 VALUES
-	(1, '2020', 5),
-	(2, '2020', 5),
-	(3, '2020', 5),
-	(4, '2020', 5),
-	(5, '2020', 5),
-	(6, '2020', 5),
-	(7, '2020', 5),
-	(8, '2020', 5),
-	(9, '2020', 5),
-	(10, '2020', 5),
-	(11, '2020', 5),
+	(1, '2020', 2),
+	(2, '2020', 1),
+	(3, '2020', 3),
+	(4, '2020', 1),
+	(5, '2020', 1),
+	(6, '2020', 1),
+	(7, '2020', 1),
+	(8, '2020', 1),
+	(9, '2020', 1),
+	(10, '2020', 1),
+	(11, '2020', 2),
 	(9, '2021', 5),
 	(10, '2021', 4),
 	(11, '2021', 5),
-	(12, '2021', 5),
-	(13, '2021', 5),
-	(14, '2021', 5),
-	(15, '2021', 4),
-	(16, '2021', 4),
-	(17, '2021', 3),
-	(18, '2021', 5),
-	(19, '2021', 1),
-	(20, '2021', 2),
-	(21, '2021', 5),
-	(22, '2021', 5);
+	(23, '2021', 5),
+	(24, '2021', 5),
+	(25, '2021', 5),
+	(26, '2021', 4),
+	(27, '2021', 4),
+	(28, '2021', 3),
+	(29, '2021', 5),
+	(30, '2021', 1),
+	(31, '2021', 2),
+	(32, '2021', 5),
+	(33, '2021', 5);
+
+INSERT INTO
+	`user`
+VALUES
+	(9, 'aurora.liberato@gmail.com', '$2y$10$CtnzbINrxyH1wLupEyJ2U.ta2WbMK5PdJi8AXNPEK.dQffNpNr5.2', '9.jpg'),
+	(10, 'beth.nevalta@gmail.com', '$2y$10$MTlKxMqwYNONcXUEi.wFMuWZyOCejJxIqtt5oKs3r7ez9BFl4b9uW', '10.jpg'),
+	(11, 'ma_theresa7@yahoo.com', '$2y$10$uyNGNk8Ccj35tfSpFOWVte4rOjE02VDMYTBMYJAqULRysMSDYWjuO', '11.jpg');
 
 INSERT INTO
 	`administrator`
 VALUES
-	(DEFAULT, 'ma_theresa7@yahoo.com', '$2y$10$uyNGNk8Ccj35tfSpFOWVte4rOjE02VDMYTBMYJAqULRysMSDYWjuO', 11);
+	('Aurora', 'Auditor', '2020', 9),
+	('Beth', 'Treasurer', '2020', 10),
+	('Theresa', 'Asst. Treasurer', '2020', 11),
+	('Aurora', 'Auditor', '2021', 9),
+	('Beth', 'Treasurer', '2021', 10),
+	('Theresa', 'Asst. Treasurer', '2021', 11);
 
 INSERT INTO
 	`loan`
 VALUES
-	(DEFAULT, 23, 9, '2021-02-10 07:59:00', 5000, 'Closed', '1.jpg', NULL, '2021'),
-	(DEFAULT, 24, 10, '2021-06-21 08:59:00', 25000, 'Closed', '2.jpg', '2.pdf', '2021'),
-	(DEFAULT, 25, 9, '2021-03-12 09:59:00', 10000, 'Closed', '3.jpg', '3.jpg', '2021'),
-	(DEFAULT, 26, 9, '2021-04-05 10:59:00', 15000, 'Closed', '4.jpg', '4.jpg', '2021');
+	(DEFAULT, 34, 9, '2021-02-10 07:59:00', 5000, 'Closed', '1.jpg', NULL, '2021'),
+	(DEFAULT, 35, 10, '2021-06-21 08:59:00', 25000, 'Closed', '2.jpg', '2.pdf', '2021'),
+	(DEFAULT, 36, 9, '2021-03-12 09:59:00', 10000, 'Closed', '3.jpg', '3.jpg', '2021'),
+	(DEFAULT, 37, 9, '2021-04-05 10:59:00', 15000, 'Closed', '4.jpg', '4.jpg', '2021');
 
 INSERT INTO
 	`principal_payment`

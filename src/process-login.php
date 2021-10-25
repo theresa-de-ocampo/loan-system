@@ -8,11 +8,11 @@ if (isset($_POST["submit"])) {
 
 	$email = $_POST["email"];
 	$password = $_POST["password"];
-	$administrator = new Administrator();
-	$admin = $administrator->getAdmin($email);
+	$user = new User();
+	$admin = $user->confirmAdmin($email);
 	if ($admin) {
 		if (password_verify($password, $admin->password)) {
-			$_SESSION["admin-verified"] = $admin->data_subject_id;
+			$_SESSION["admin-verified"] = $admin->user_id;
 			$_SESSION["cycle"] = date("Y");
 			$path = "../home.php";
 		}
