@@ -12,3 +12,7 @@ let sidebarBtn = document.querySelector(".fa-bars");
 sidebarBtn.addEventListener("click", ()=>{
 	sidebar.classList.toggle("closed");
 });
+
+$(".fa-sign-out-alt").on("click", function() {
+	window.location.replace("src/sign-out.php");
+});

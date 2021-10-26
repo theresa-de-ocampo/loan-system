@@ -3,7 +3,7 @@ if (isset($_POST["submit"])) {
 	session_start();
 	require_once "../config/config.php";
 	require_once "../lib/database-handler.php";
-	require_once "../models/Administrator.php";
+	require_once "../models/User.php";
 	require_once "../models/Cycle.php";
 
 	$email = $_POST["email"];

@@ -101,6 +101,7 @@
 		</section><!-- #dashboard -->
 	</main>
 
+	<script src="js/jquery-3.6.0.min.js"></script>
 	<script src="js/vertical-nav-bar.js"></script>
 </body>
 </html>
