@@ -2,8 +2,8 @@
 $(function() {
 	let $existingDataSubjectPane = $("#existing-data-subject");
 	let $newDataSubjectPane = $("#new-data-subject");
-	let $existingDataSubjectInputs = $("#existing-data-subject");
-	let $newDataSubjectInputs = $("#existing-data-subject");
+	let $existingDataSubjectInputs = $("#existing-data-subject input");
+	let $newDataSubjectInputs = $("#new-data-subject input");
 	let $principal = $("#principal");
 	let guarantorOutstanding;
 
@@ -24,8 +24,12 @@ $(function() {
 					$newDataSubjectPane.css("display", "block");
 					if ($window.width() >= maxWidth)
 						changeHeight("borrower-tab");
-					$existingDataSubjectInputs.removeAttr("required");
-					$newDataSubjectInputs.attr("required", true);
+					$existingDataSubjectInputs.each(function() {
+						$(this).removeAttr("required");
+					});
+					$newDataSubjectInputs.each(function() {
+						$(this).attr("required", true);
+					});
 				}
 			}
 		],
@@ -37,8 +41,12 @@ $(function() {
 		$existingDataSubjectPane.css("display", "block");
 		if ($window.width() >= maxWidth)
 			changeHeight("borrower-tab");
-		$newDataSubjectInputs.removeAttr("required");
-		$existingDataSubjectInputs.attr("required", true);
+		$newDataSubjectInputs.each(function() {
+			$(this).removeAttr("required");
+		});
+		$existingDataSubjectInputs.each(function() {
+			$(this).attr("required", true);
+		});
 	});
 
 	$("#guarantor-content input[readonly]").on("click", function() {
