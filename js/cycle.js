@@ -5,14 +5,27 @@ $(function() {
 		responsive: true,
 		buttons: [
 			{
+				text: "New Cycle",
+				action: newCycle,
+				attr: {
+					id: "new-cycle"
+				}
+			},
+			{
 				extend: "print",
 				title: "Cycle",
 				customize: addHeaderToPdf,
-				messageTop: cycle
+				messageTop: cycle,
+				exportOptions: {
+					columns: [0, 1, 2, 3]
+				}
 			},
 			{
 				extend: 'csv',
-				title: "Cycle"
+				title: "Cycle",
+				exportOptions: {
+					columns: [0, 1, 2, 3]
+				}
 			}
 		],
 		order: [[0, "desc"]]
@@ -35,4 +48,15 @@ $(function() {
 	$("input[readonly]").on("click", function() {
 		createModal("<div class='info'>View cooperative's state at a specific cycle by checking out from the table below.</div>");
 	});
+
+	function newCycle() {
+		const nextCycle = parseInt($cycleTbl.column(0).data().sort().reverse()[0]) + 1;
+		const today = new Date();
+		const year = today.getFullYear();
+		/*if (year != nextCycle)*/
+		if (false)
+			alert("Please wait for this business year to close.");
+		else
+			window.location.href = "new-cycle.php";
+	}
 });

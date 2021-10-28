@@ -29,6 +29,11 @@ form .grid-wrapper {
 	display: block;
 }
 
+.personal-details .grid-wrapper,
+.account-details .grid-wrapper {
+	margin: 0 20px;
+}
+
 section form .grid-wrapper {
 	margin: 0;
 }

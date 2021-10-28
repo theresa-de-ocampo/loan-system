@@ -177,7 +177,7 @@
 										<input id="bday" type="date" name="bday" class="medium" />
 									</div><!-- .grid-item -->
 									<div class="grid-item">
-										<label for="">Phase, Block, and Lot</label>
+										<label for="address">Phase, Block, and Lot</label>
 										<input id="address" type="text" name="address" class="medium" />
 									</div><!-- .grid-item -->
 								</div><!-- .grid-wrapper -->
@@ -212,7 +212,7 @@
 									<li class="step-item description">Agreement</li>
 								</ul><!-- .step-container -->
 							</header>
-							<p>
+							<p class="agreement">
 								By clicking the button below, you agree to our <a href="agreement.php" target="_blank"><b>Terms</b> and that you have read our <b>Data Use Policy</b>, including our <b>Cookie Use</b></a>.
 							</p>
 							<button type="submit" name="submit" class="dt-button">Submit</button>
