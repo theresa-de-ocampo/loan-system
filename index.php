@@ -41,5 +41,8 @@
 
 	<script src="js/jquery-3.6.0.min.js"></script>
 	<script src="js/show-password.js"></script>
+	<script>
+		$("#show-password").on("click", toggleVisibility);
+	</script>
 </body>
 </html>

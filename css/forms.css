@@ -192,3 +192,10 @@ form .flex-wrapper .flex-item:not(:last-child) {
 .flex-wrapper + button[type="submit"] {
 	display: none;
 }
+
+input[id*="show-password"],
+input[id*="show-password"] + label {
+	display: inline-block;
+	vertical-align: middle;
+	width: unset;
+}

@@ -116,5 +116,6 @@ $(function() {
 		$tbl = $tables[i++];
 		$(qualifier + " .new-data-subject button").on("click", {qualifier: qualifier}, displayExistingDataSubject);
 		$tbl.on("click", "tbody tr", {qualifier: qualifier, tbl: $tbl}, setExistingDataSubjectTbl);
+		$(qualifier + " input[id*='show-password']").on("click", {qualifier: qualifier}, toggleVisibility);
 	}
 });

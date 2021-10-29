@@ -54,27 +54,27 @@
 				</div><!-- .grid-item.solo-->
 				<div class="grid-item">
 					<label for="<?php echo $position; ?>-fname">First Name</label>
-					<input id="<?php echo $position; ?>fname" type="text" name="fname" />
+					<input id="<?php echo $position; ?>-fname" type="text" name="fname" />
 				</div><!-- .grid-item -->
 				<div class="grid-item">
-					<label for=<?php echo $position; ?>"mname">Middle Name</label>
-					<input id="<?php echo $position; ?>mname" type="text" name="mname" />
+					<label for="<?php echo $position; ?>-mname">Middle Name</label>
+					<input id="<?php echo $position; ?>-mname" type="text" name="mname" />
 				</div><!-- .grid-item -->
 				<div class="grid-item">
-					<label for="<?php echo $position; ?>lname">Last Name</label>
-					<input id="<?php echo $position; ?>lname" type="text" name="lname" />
+					<label for="<?php echo $position; ?>-lname">Last Name</label>
+					<input id="<?php echo $position; ?>-lname" type="text" name="lname" />
 				</div><!-- .grid-item -->
 				<div class="grid-item">
-					<label for="<?php echo $position; ?>contact-no">Contact No. (09*********)</label>
-					<input id="<?php echo $position; ?>contact-no" type="text" name="contact-no" pattern="^09[0-9]{9}" />
+					<label for="<?php echo $position; ?>-contact-no">Contact No. (09*********)</label>
+					<input id="<?php echo $position; ?>-contact-no" type="text" name="contact-no" pattern="^09[0-9]{9}" />
 				</div><!-- .grid-item -->
 				<div class="grid-item">
-					<label for="<?php echo $position; ?>bday">Birthday</label>
-					<input id="<?php echo $position; ?>bday" type="date" name="bday" class="medium" />
+					<label for="<?php echo $position; ?>-bday">Birthday</label>
+					<input id="<?php echo $position; ?>-bday" type="date" name="bday" class="medium" />
 				</div><!-- .grid-item -->
 				<div class="grid-item">
-					<label for="<?php echo $position; ?>address">Phase, Block, and Lot</label>
-					<input id="<?php echo $position; ?>address" type="text" name="address" class="medium" />
+					<label for="<?php echo $position; ?>-address">Phase, Block, and Lot</label>
+					<input id="<?php echo $position; ?>-address" type="text" name="address" class="medium" />
 				</div><!-- .grid-item -->
 			</div><!-- .grid-wrapper -->
 		</div><!-- .new-data-subject -->
@@ -86,20 +86,25 @@
 		<h4>Account Details</h4>
 		<div class="grid-wrapper">
 			<div class="grid-item">
-				<label for="<?php echo $position; ?>username">Username</label>
-				<input id="<?php echo $position; ?>-username" type="text" required />
+				<label for="<?php echo $position; ?>-username">Username</label>
+				<input id="<?php echo $position; ?>-username" type="text" name="<?php echo $position; ?>-username" required />
 			</div><!-- .grid-item -->
 			<div class="grid-item">
-				<label for="<?php echo $position; ?>email">Email</label>
-				<input id="<?php echo $position; ?>email" type="email" required />
+				<label for="<?php echo $position; ?>-email">Email</label>
+				<input id="<?php echo $position; ?>-email" type="email" name="<?php echo $position; ?>-email" required />
 			</div><!-- .grid-item -->
 			<div class="grid-item">
-				<label for="<?php echo $position; ?>password">Password</label>
-				<input id="<?php echo $position; ?>password" type="password" required />
+				<label for="<?php echo $position; ?>-password">Password</label>
+				<input id="<?php echo $position; ?>-password" type="password" name="<?php echo $position; ?>-password" required />
 			</div><!-- .grid-item -->
 			<div class="grid-item">
-				<label for="<?php echo $position; ?>confirm-password">Confirm Password</label>
-				<input id="<?php echo $position; ?>confirm-password" type="password" required />
+				<label for="<?php echo $position; ?>-confirm-password">Confirm Password</label>
+				<input id="<?php echo $position; ?>-confirm-password" type="password" 
+					name="<?php echo $position; ?>-confirm-password" required />
+			</div><!-- .grid-item -->
+			<div class="grid-item solo">
+				<input id="<?php echo $position; ?>-show-passwords" type="checkbox" />
+				<label for="<?php echo $position; ?>-show-passwords">Show Passwords</label>
 			</div><!-- .grid-item -->
 		</div><!-- .grid-wrapper -->
 		<p>Looks like you already have an account using <b></b></p>

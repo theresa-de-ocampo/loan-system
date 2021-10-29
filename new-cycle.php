@@ -64,6 +64,7 @@
 	<script src="js/tables.js"></script>
 	<script src="js/modal.js"></script>
 	<script src="js/image-upload.js"></script>
+	<script src="js/show-password.js"></script>
 	<script src="js/new-cycle.js"></script>
 </body>
 </html>
