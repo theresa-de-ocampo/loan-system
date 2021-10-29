@@ -5,3 +5,7 @@
 .flex-wrapper {
 	margin-bottom: 20px;
 }
+
+.account-details p {
+	display: none;
+}

@@ -5,9 +5,11 @@
 	require_once "lib/conversion-util.php";
 	require_once "models/Cycle.php";
 	require_once "models/DataSubject.php";
+	require_once "models/User.php";
 
 	$converter = new Converter();
 	$data_subject = new DataSubject();
+	$user = new User();
 	$data_subjects = $data_subject->getDataSubjects();
 ?>
 <!DOCTYPE html>

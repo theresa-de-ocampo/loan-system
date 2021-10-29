@@ -46,6 +46,26 @@ $(function() {
 		let person = getPerson($tbl, $tr);
 		$(qualifier + "-id").val(person[0]);
 		$(qualifier + "-name").val(person[1]);
+
+		const hasAccount = $tr.attr("data-with-account");
+		const $withAccountPane = $(qualifier + " .account-details p");
+		const $withoutAccountPane = $(qualifier + " .account-details .grid-wrapper");
+		const $newAccountInputs = $(qualifier + " .account-details .grid-wrapper input");
+		if (hasAccount === "0") {
+			$withoutAccountPane.css("display", "grid");
+			$withAccountPane.css("display", "none");
+			$newAccountInputs.each(function() {
+				$(this).attr("required", true);
+			});
+		}
+		else {
+			$withoutAccountPane.css("display", "none");
+			$withAccountPane.css("display", "block");
+			$(qualifier + " .account-details p b").text(hasAccount);
+			$newAccountInputs.each(function() {
+				$(this).removeAttr("required");
+			});
+		}
 	}
 
 	const $auditorTbl = $("#auditor-tbl").DataTable({

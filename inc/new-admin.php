@@ -35,7 +35,7 @@
 				</thead>
 				<tbody>
 					<?php foreach ($data_subjects as $ds): ?>
-					<tr>
+					<tr data-with-account="<?php echo $user->hasAccount($ds->data_subject_id); ?>">
 						<td><?php echo $ds->data_subject_id; ?></td>
 						<td><?php echo $ds->fname; ?></td>
 						<td><?php echo $ds->mname; ?></td>
@@ -102,5 +102,6 @@
 				<input id="<?php echo $position; ?>confirm-password" type="password" required />
 			</div><!-- .grid-item -->
 		</div><!-- .grid-wrapper -->
+		<p>Looks like you already have an account using <b></b></p>
 	</div><!-- .account-details -->
 </section><!-- #auditor -->

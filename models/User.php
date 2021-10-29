@@ -7,6 +7,20 @@ class User {
 		$this->db = new Database();
 	}
 
+	public function getUser($id) {
+		$this->db->query("SELECT * FROM `user` WHERE `user_id` = ?");
+		$this->db->bind(1, $id);
+		return $this->db->resultRecord();
+	}
+
+	public function hasAccount($id) {
+		$user = $this->getUser($id);
+		if ($user)
+			return $user->email;
+		else
+			return 0;
+	}
+
 	public function confirmAdmin($email) {
 		$query = "
 			SELECT
