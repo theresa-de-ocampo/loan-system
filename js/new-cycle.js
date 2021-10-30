@@ -118,4 +118,28 @@ $(function() {
 		$tbl.on("click", "tbody tr", {qualifier: qualifier, tbl: $tbl}, setExistingDataSubjectTbl);
 		$(qualifier + " input[id*='show-password']").on("click", {qualifier: qualifier}, toggleVisibility);
 	}
+
+	function finalizeRequirements() {
+		if ($existingDataSubjectPane.is(":visible"))
+			$newDataSubjectInputs.each(function() {
+				$(this).val("");
+			});
+		else
+			$existingDataSubjectInputs.each(function() {
+				$(this).val("");
+			});
+	}
+
+	$("form").on("submit", function(e) {
+		for (let qualifier of positions) {
+			setVariables(qualifier);
+			finalizeRequirements();
+		}
+
+		checkIfComplete(e);
+		/*if (checkIfComplete(e))
+			if (checkUsername())
+				if (checkEmail())
+					checkPasswords();*/
+	});
 });

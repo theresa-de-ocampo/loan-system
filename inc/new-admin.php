@@ -54,27 +54,29 @@
 				</div><!-- .grid-item.solo-->
 				<div class="grid-item">
 					<label for="<?php echo $position; ?>-fname">First Name</label>
-					<input id="<?php echo $position; ?>-fname" type="text" name="fname" />
+					<input id="<?php echo $position; ?>-fname" type="text" name="<?php echo $position; ?>fname" />
 				</div><!-- .grid-item -->
 				<div class="grid-item">
 					<label for="<?php echo $position; ?>-mname">Middle Name</label>
-					<input id="<?php echo $position; ?>-mname" type="text" name="mname" />
+					<input id="<?php echo $position; ?>-mname" type="text" name="<?php echo $position; ?>mname" />
 				</div><!-- .grid-item -->
 				<div class="grid-item">
 					<label for="<?php echo $position; ?>-lname">Last Name</label>
-					<input id="<?php echo $position; ?>-lname" type="text" name="lname" />
+					<input id="<?php echo $position; ?>-lname" type="text" name="<?php echo $position; ?>lname" />
 				</div><!-- .grid-item -->
 				<div class="grid-item">
 					<label for="<?php echo $position; ?>-contact-no">Contact No. (09*********)</label>
-					<input id="<?php echo $position; ?>-contact-no" type="text" name="contact-no" pattern="^09[0-9]{9}" />
+					<input id="<?php echo $position; ?>-contact-no" type="text" 
+						name="<?php echo $position; ?>contact-no" pattern="^09[0-9]{9}" />
 				</div><!-- .grid-item -->
 				<div class="grid-item">
 					<label for="<?php echo $position; ?>-bday">Birthday</label>
-					<input id="<?php echo $position; ?>-bday" type="date" name="bday" class="medium" />
+					<input id="<?php echo $position; ?>-bday" type="date" name="<?php echo $position; ?>bday" class="medium" />
 				</div><!-- .grid-item -->
 				<div class="grid-item">
 					<label for="<?php echo $position; ?>-address">Phase, Block, and Lot</label>
-					<input id="<?php echo $position; ?>-address" type="text" name="address" class="medium" />
+					<input id="<?php echo $position; ?>-address" type="text" 
+						name="<?php echo $position; ?>address" class="medium" />
 				</div><!-- .grid-item -->
 			</div><!-- .grid-wrapper -->
 		</div><!-- .new-data-subject -->
