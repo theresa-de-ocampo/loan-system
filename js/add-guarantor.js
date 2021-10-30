@@ -18,7 +18,7 @@ $(function() {
 			order: [[3, "asc"]]
 		});
 
-		$table.on("click", "tr", function() {
+		$table.on("click", "tbody tr", function() {
 			let $tr = $(this);
 			let person = getPerson($table, $tr);
 			$("#data-subject-id").val(person[0]);

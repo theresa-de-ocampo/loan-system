@@ -62,7 +62,7 @@ $(function() {
 		createModal("<div class='info'>Required if loan amount >= &#8369; 10,000</div>");
 	});
 
-	$("#guarantor-tbl").on("click", "tr", function() {
+	$("#guarantor-tbl").on("click", "tbody tr", function() {
 		let $tr = $(this);
 		let person = getPerson($guarantorTbl, $tr);
 		$("#guarantor-id").val(person[0]);
@@ -71,7 +71,7 @@ $(function() {
 		guarantorOutstanding = parseFloat($tr.find("[data-outstanding]").attr("data-outstanding"));
 	});
 
-	$("#data-subject-tbl").on("click", "tr", function() {
+	$("#data-subject-tbl").on("click", "tbody tr", function() {
 		let $tr = $(this);
 		let person = getPerson($dataSubjectTbl, $tr);
 		$("#borrower-id").val(person[0]);
