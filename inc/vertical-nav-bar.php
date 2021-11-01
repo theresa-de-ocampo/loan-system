@@ -1,8 +1,8 @@
 <?php
 	require_once "models/User.php";
 	$user = new User();
-	$id = $_SESSION["admin-verified"];
-	$admin = $user->getAdmin($id);
+	$admin_verified_id = $_SESSION["admin-verified"];
+	$admin = $user->getAdmin($admin_verified_id);
 	$username = $admin->username;
 	$position = $admin->position;
 	$profile_picture = "img/profile-pictures/".$admin->profile_picture;
