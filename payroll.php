@@ -188,7 +188,7 @@
 								echo number_format($grand_total, 2, ".", ",");
 							?>
 						</td>
-						<?php if (date("m") <= 11 && date("d") < 30): ?>
+						<?php if (date("m") < 11 || (date("m") <= 11) && date("d") < 30): ?>
 						<td>On Going</td>
 						<?php else: ?>
 							<?php if ($flag !== ""): $roi = $payroll->getRoi($guarantor_id); $status = $roi->status; ?>
