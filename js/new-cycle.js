@@ -50,7 +50,7 @@ $(function() {
 		const hasAccount = $tr.attr("data-with-account");
 		const $withAccountPane = $(qualifier + " .account-details p");
 		const $withoutAccountPane = $(qualifier + " .account-details .grid-wrapper");
-		const $newAccountInputs = $(qualifier + " .account-details .grid-wrapper input");
+		const $newAccountInputs = $(qualifier + " .account-details .grid-wrapper input:not(.show-password)");
 		if (hasAccount === "0") {
 			$withoutAccountPane.css("display", "grid");
 			$withAccountPane.css("display", "none");
@@ -119,27 +119,38 @@ $(function() {
 		$(qualifier + " input[id*='show-password']").on("click", {qualifier: qualifier}, toggleVisibility);
 	}
 
-	function finalizeRequirements() {
-		if ($existingDataSubjectPane.is(":visible"))
+	function finalizeRequirements(qualifier) {
+		if ($existingDataSubjectPane.is(":visible")) {
 			$newDataSubjectInputs.each(function() {
 				$(this).val("");
 			});
-		else
+
+			const $withAccountPane = $(qualifier + " .account-details p");
+			const $newAccountInputs = $(qualifier + " .account-details .grid-wrapper input");
+
+			if ($withAccountPane.is(":visible")) {
+				$newAccountInputs.each(function() {
+					$(this).val("");
+				});
+			}
+		}
+		else {
 			$existingDataSubjectInputs.each(function() {
 				$(this).val("");
 			});
+		}
 	}
 
 	$("form").on("submit", function(e) {
 		for (let qualifier of positions) {
 			setVariables(qualifier);
-			finalizeRequirements();
+			finalizeRequirements(qualifier);
 		}
 
-		checkIfComplete(e);
-		/*if (checkIfComplete(e))
-			if (checkUsername())
-				if (checkEmail())
+		if (checkIfComplete(e))
+			if (checkUsernames(e))
+				checkEmails(e);
+				/*if (checkEmails(e))
 					checkPasswords();*/
 	});
 });
