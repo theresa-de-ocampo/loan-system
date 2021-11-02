@@ -5,12 +5,18 @@ $(function() {
 	let $newDataSubjectPane;
 	let $existingDataSubjectInputs;
 	let $newDataSubjectInputs;
+	let $withAccountPane;
+	let $withoutAccountPane;
+	let $newAccountInputs;
 
 	function setVariables(qualifier) {
 		$existingDataSubjectPane = $(qualifier + " .existing-data-subject");
 		$newDataSubjectPane = $(qualifier + " .new-data-subject");
 		$existingDataSubjectInputs = $(qualifier + " .existing-data-subject input");
 		$newDataSubjectInputs = $(qualifier + " .new-data-subject input");
+		$withAccountPane = $(qualifier + " .account-details p");
+		$withoutAccountPane = $(qualifier + " .account-details .grid-wrapper");
+		$newAccountInputs = $(qualifier + " .account-details .grid-wrapper input:not(.show-password)");
 	}
 
 	function displayExistingDataSubject(e) {
@@ -24,6 +30,7 @@ $(function() {
 		$existingDataSubjectInputs.each(function() {
 			$(this).attr("required", true);
 		});
+		setExistingDataSubjectTbl(null, $(qualifier + "-tbl").find("tr.selected"));
 	}
 
 	function displayNewDataSubject(qualifier) {
@@ -36,22 +43,28 @@ $(function() {
 		$newDataSubjectInputs.each(function() {
 			$(this).attr("required", true);
 		});
+		$withoutAccountPane.css("display", "grid");
+		$withAccountPane.css("display", "none");
+		$newAccountInputs.each(function() {
+			$(this).attr("required", true);
+		});
 	}
 
-	function setExistingDataSubjectTbl(e) {
-		let $tr = $(e.currentTarget);
-		const $tbl = e.data.tbl;
-		const qualifier = e.data.qualifier;
+	function setExistingDataSubjectTbl(e, $tr) {
+		let qualifier;
+		if (e != null) {
+			$tr = $(e.currentTarget);
+			const $tbl = e.data.tbl;
+			qualifier = e.data.qualifier;
+			setVariables(qualifier);
 
-		let person = getPerson($tbl, $tr);
-		$(qualifier + "-id").val(person[0]);
-		$(qualifier + "-name").val(person[1]);
-
+			let person = getPerson($tbl, $tr);
+			$(qualifier + "-id").val(person[0]);
+			$(qualifier + "-name").val(person[1]);
+		}
+		
 		const hasAccount = $tr.attr("data-with-account");
-		const $withAccountPane = $(qualifier + " .account-details p");
-		const $withoutAccountPane = $(qualifier + " .account-details .grid-wrapper");
-		const $newAccountInputs = $(qualifier + " .account-details .grid-wrapper input:not(.show-password)");
-		if (hasAccount === "0") {
+		if (hasAccount === "0" || hasAccount === undefined) {
 			$withoutAccountPane.css("display", "grid");
 			$withAccountPane.css("display", "none");
 			$newAccountInputs.each(function() {
@@ -125,9 +138,6 @@ $(function() {
 				$(this).val("");
 			});
 
-			const $withAccountPane = $(qualifier + " .account-details p");
-			const $newAccountInputs = $(qualifier + " .account-details .grid-wrapper input");
-
 			if ($withAccountPane.is(":visible")) {
 				$newAccountInputs.each(function() {
 					$(this).val("");
@@ -148,9 +158,10 @@ $(function() {
 		}
 
 		if (checkIfComplete(e))
-			if (checkUsernames(e))
-				checkEmails(e);
-				/*if (checkEmails(e))
-					checkPasswords();*/
+			if (checkNewCycleEntities(e))
+				if (checkUsernames(e))
+					if (checkEmails(e))
+						if (checkPasswords(e))
+							confirmPasswords(e);
 	});
 });

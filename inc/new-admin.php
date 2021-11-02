@@ -68,7 +68,7 @@
 				<div class="grid-item">
 					<label for="<?php echo $position; ?>-contact-no">Contact No. (09*********)</label>
 					<input id="<?php echo $position; ?>-contact-no" type="text" 
-						name="<?php echo $position; ?>-contact-no" pattern="^09[0-9]{9}" />
+						name="<?php echo $position; ?>-contact-no" pattern="^09[0-9]{9}" class="small" />
 				</div><!-- .grid-item -->
 				<div class="grid-item">
 					<label for="<?php echo $position; ?>-bday">Birthday</label>
@@ -90,11 +90,12 @@
 		<div class="grid-wrapper">
 			<div class="grid-item">
 				<label for="<?php echo $position; ?>-username">Username</label>
-				<input id="<?php echo $position; ?>-username" type="text" name="<?php echo $position; ?>-username" required />
+				<input id="<?php echo $position; ?>-username" type="text" name="<?php echo $position; ?>-username"
+					class="small" required />
 			</div><!-- .grid-item -->
 			<div class="grid-item">
 				<label for="<?php echo $position; ?>-email">Email</label>
-				<input id="<?php echo $position; ?>-email" type="email" name="<?php echo $position; ?>-email" required />
+				<input id="<?php echo $position; ?>-email" type="email" name="<?php echo $position; ?>-email" class="medium" required />
 			</div><!-- .grid-item -->
 			<div class="grid-item">
 				<label for="<?php echo $position; ?>-password">Password</label>

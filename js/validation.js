@@ -85,6 +85,12 @@ function checkNewCycle(e, type, message) {
 				case "email":
 					errorFlag = !checkEmail($field.val());
 					break;
+				case "password":
+					errorFlag = !checkPassword($field.val());
+					break;
+				case "confirm-password":
+					errorFlag = $field.val() != $(qualifier + "-password").val();
+					break;
 			}
 			if (errorFlag) {
 				error = qualifier.substring(1);
@@ -123,4 +129,40 @@ function checkEmail(email) {
 
 function checkEmails(e) {
 	return checkNewCycle(e, "email", "Invalid email address");
+}
+
+function checkPassword(password) {
+	const regex = /^(?=.*\d)(?=.*[a-z])(?=.*[A-Z])[0-9a-zA-Z!@\-#\s$%^&*]{8,}$/;
+	return regex.test(password);
+}
+
+function checkPasswords(e) {
+	const message = "Password should be a minimum of 8 characters consisting of at least one uppercase letter, one lowercase letter, and a digit";
+	return checkNewCycle(e, "password", message);
+}
+
+function confirmPasswords(e) {
+	return checkNewCycle(e, "confirm-password", "Passwords do not match");
+}
+
+function checkNewCycleEntities(e) {
+	const $fields = [$("#auditor-id"), $("#treasurer-id"), $("#asst-treasurer-id")];
+	let dataSubjectIds = [];
+
+	for (let $field of $fields)
+		if ($field.attr("required") === "required")
+			dataSubjectIds.push($field.val());
+
+	let valuesSoFar = Object.create(null);
+	for (let i = 0; i < dataSubjectIds.length; ++i) {
+		let value = dataSubjectIds[i];
+		if (value != "undefined")
+			if (value in valuesSoFar) {
+				e.preventDefault();
+				alert("A person may only hold one position per cycle.");
+				return false;
+			}
+		valuesSoFar[value] = true;
+	}
+	return true;
 }
