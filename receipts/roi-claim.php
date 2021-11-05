@@ -44,8 +44,8 @@
 	<h2>ROI Claim</h2>
 	<table>
 		<tr>
-			<th>Treasurer</th>
-			<td>Felicita P. Nable</td>
+			<th>Asst. Treasurer</th>
+			<td>Theresa G. De Ocampo</td>
 		</tr>
 		<tr>
 			<th>Per Share</th>

@@ -48,8 +48,8 @@
 	<h2>Interest Payment</h2>
 	<table>
 		<tr>
-			<th>Treasurer</th>
-			<td>Felicita P. Nable</td>
+			<th>Asst. Treasurer</th>
+			<td>Theresa G. De Ocampo</td>
 		</tr>
 		<tr>
 			<th>Borrower</th>
