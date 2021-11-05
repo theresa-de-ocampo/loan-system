@@ -6,14 +6,25 @@ A web-based application that automates the entire loan lifecycle of a cooperativ
 1. Tables
 	1. Provision for printing.
 	2. Provision for exporting to csv.
+	3. Sorts date and time columns appropriately while displayed in long format.
+	4. Sorts full name columns by last name.
 2. Login & Account Management
 	1. Password update *(to be implemented)*.
-	2. Strong password requirement *(to be implemented)*.
-	3. Only the master admin can create and revoke accounts *(to be implemented)*.
-3. Validations *(to be implemented)*
-	1. Added server-side validation to HTML5 validation *(to be implemented)*.
-	1. Checks if collateral is required on loan request.
-	2. File validations are based on MIME and EXIF.
+	2. Strong password requirement.
+	3. Password confirmation.
+	4. Only the latest auditor and treasurer can create accounts.
+	5. Automatically revokes administrator access of old employees without deleting the account.
+3. Validations
+	1. Checks for incomplete inputs.
+	2. Checks number of shares upon adding a new guarantor.
+	3. Checks for valid money value.
+	4. Checks balance payment.
+	5. Checks guarantor outstanding on loan request.
+	6. Checks if collateral is required on loan request.
+	7. Checks username length on admin account request.
+	8. Checks email on account request.
+	9. Checks for duplicate entities on new cycle and upon loan request.
+	10. File validations are based on MIME and EXIF.
 4. Automation
 	1. Automatically closes a loan.
 	2. Automatically accrues interest every month.
@@ -22,6 +33,9 @@ A web-based application that automates the entire loan lifecycle of a cooperativ
 	5. Automatically halts accrual of penalty if interest is paid in full during the grace period.
 	6. Automatically sets processing fee every 3 months.
 	7. Automatically halts accrual of processing fee once the principal is paid in full.
+	8. Automatically calculates and records closing entries by the end of the business year.
+	9. Automatically sets each of the guarantor's ROI by the end of the business year.
+	10. Automatically sets the salary of employees by the end of the business year *(to be implemented)*.
 5. Dashboard
 	1. Financial Standing *(to be implemented)*
 	2. Quick Stats *(under construction)*
@@ -29,16 +43,42 @@ A web-based application that automates the entire loan lifecycle of a cooperativ
 	1. Lists guarantors.
 	2. Lists savings.
 	3. Add guarantors to current cycle without data redundancy.
+	4. Edit guarantor information.
+	5. List all data subjects *(to be implemented)*.
+	6. Edit data subject information *(to be implemented)*.
 7. Transactions
 	1. Lists loan disbursements.
-	2. Lists principal payments.
+	2. Lists appropriations.
 	3. Display loan details including quick stats, and related documents.
 	4. Accepts multiple principal payments in increments with receipt.
 	5. Accepts multiple interest payments in increments with receipt.
 	6. Accepts multiple penalty payments in increments with receipt.
 	7. Accepts multiple processing fee payments in increments with receipt.
 	8. Processes new loan.
+8. Payroll *(This entire module is time-aware)*
+	1. Displays quick stats of the cooperative's profit.
+	2. Calculates principal summation.
+	3. Calculates interest summation.
+	4. Calculates interest summation.
+	5. Lists shares per guarantor.
+	6. Allows ROI claim.
+	7. Displays claimed ROI.
+	8. Lists salary per employee *(to be implemented)*.
+	9. Allows salary claim *(to be implemented)*.
+	10. Displays claimed salary *(to be implemented)*.
+	11. Displays funds *(to be implemented)*.
+	12. Restricts claim of funds to employees only *(to be implemented)*.
 9. Cycle Switcher
+	1. Lists history of business periods.
+	2. Provision to add a new cycle *(under construction)*.
+10. Public Portal
+	1. Details borrower requirements.
+	2. Details guarantor requirements.
+	3. Details the cooperative's terms and conditions.
+	4. *(more to follow)*
+11. Others
+	1. Includes empty states design.
+	2. Prompts the user to read the "Terms, Data Policy, & Cookie Use" wherever appropriate.
 
 ## Requirements
 - Apache Server 2.4.41 or higher.
@@ -48,12 +88,12 @@ A web-based application that automates the entire loan lifecycle of a cooperativ
 ## Installation
 1. Clone the repository.
 	```bash
-		git clone https://github.com/theresa-de-ocampo/muzon.git
+		git clone https://github.com/theresa-de-ocampo/loan-system.git
 	```
 2. Run SQL file through MySQL Console.
 	```sql
-		source your-path/config/setup-database.sql;
-		source your-path/config/setup-database-logic.sql;
+		source your-path/config/setup-database.sql
+		source your-path/config/setup-database-logic.sql
 	```
 3. Change DSN at ```your-path/config/config.php```.
 	```php
@@ -63,10 +103,9 @@ A web-based application that automates the entire loan lifecycle of a cooperativ
 	```
 4. Open the admin portal (```index.php```) using any of the accounts from the next section.
 
-## Accounts
+## 2021 Accounts
 | Position | Email | Password |
 | --- | --- | --- |
-| Master Administrator | *(to be created)* | *(to be created)* |
-| Treasurer | ma_theresa7@yahoo.com | Dear 2020 |
-| Asst. Treasurer | *(to be created)* | *(to be created)* |
-| Auditor | *(to be created)* | *(to be created)* |
+| Auditor | ryan.nable@gmail.com | Green 0456 |
+| Treasurer | carlo.robiso@gmail.com | Vincenzo, EP 2 |
+| Asst. Treasurer | ma_theresa7@yahoo.com | Dear 2020 |
