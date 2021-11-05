@@ -44,8 +44,7 @@ A web-based application that automates the entire loan lifecycle of a cooperativ
 	2. Lists savings.
 	3. Add guarantors to current cycle without data redundancy.
 	4. Edit guarantor information.
-	5. List all data subjects *(to be implemented)*.
-	6. Edit data subject information *(to be implemented)*.
+	5. Data subject management *(to be implemented)*.
 7. Transactions
 	1. Lists loan disbursements.
 	2. Lists appropriations.
@@ -63,11 +62,7 @@ A web-based application that automates the entire loan lifecycle of a cooperativ
 	5. Lists shares per guarantor.
 	6. Allows ROI claim.
 	7. Displays claimed ROI.
-	8. Lists salary per employee *(to be implemented)*.
-	9. Allows salary claim *(to be implemented)*.
-	10. Displays claimed salary *(to be implemented)*.
-	11. Displays funds *(to be implemented)*.
-	12. Restricts claim of funds to employees only *(to be implemented)*.
+	8. Salary and funds management *(to be implemented)*.
 9. Cycle Switcher
 	1. Lists history of business periods.
 	2. Provision to add a new cycle *(under construction)*.
@@ -75,10 +70,11 @@ A web-based application that automates the entire loan lifecycle of a cooperativ
 	1. Details borrower requirements.
 	2. Details guarantor requirements.
 	3. Details the cooperative's terms and conditions.
-	4. *(more to follow)*
+	4. Borrower and guarantor view with notifications *(under construction)*.
 11. Others
 	1. Includes empty states design.
 	2. Prompts the user to read the "Terms, Data Policy, & Cookie Use" wherever appropriate.
+	3. Audit Trail *(to be implemented)*.
 
 ## Requirements
 - Apache Server 2.4.41 or higher.
