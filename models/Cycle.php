@@ -33,19 +33,31 @@ class Cycle {
 	}
 
 	public function addCycle($admins) {
-		$new_cycle = $this->getCycleId() + 1;
-		$this->db->query("INSERT INTO `cycle` (`cycle_id`) VALUES (?)");
-		$this->db->bind(1, $new_cycle);
-		$this->db->executeWithoutCatch();
+		try {
+			$new_cycle = $this->getCycleId() + 1;
+			$this->db->query("INSERT INTO `cycle` (`cycle_id`) VALUES (?)");
+			$this->db->bind(1, $new_cycle);
+			$this->db->executeWithoutCatch();
 
-		$administrator = new Administrator();
-		foreach ($admins as $position => $admin) {
-			if ($position === "asst-treasurer")
-				$position = "Asst. Treasurer";
-			else
-				$position = ucfirst($position);
+			$administrator = new Administrator();
+			foreach ($admins as $position => $admin) {
+				if ($position === "asst-treasurer")
+					$position = "Asst. Treasurer";
+				else
+					$position = ucfirst($position);
 
-			$administrator->addAdmin($position, $new_cycle, $admin);
+				$administrator->addAdmin($position, $new_cycle, $admin);
+			}
+			session_unset();
+			session_destroy();
+		}
+		catch (PDOException $e) {
+			$this->db->rollBack();
+			$error = $e->getMessage()." in ".$e->getFile()." on line ".$e->getLine();
+			$this->db->logError($error);
+		}
+		finally {
+			$this->db->confirmQuery("New cycle has started", "../index.php");
 		}
 	}
 }
