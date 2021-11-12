@@ -1,12 +1,17 @@
 <?php
 	require_once "models/User.php";
-	$user = new User();
+	require_once "models/Administrator.php";
+
+	$administrator = new Administrator();
 	$admin_verified_id = $_SESSION["admin-verified"];
-	$admin = $user->getAdmin($admin_verified_id);
+	$admin = $administrator->getAdmin($admin_verified_id);
 	$username = $admin->username;
 	$position = $admin->position;
-	$profile_picture = "img/profile-pictures/".$admin->profile_picture;
-	$profile_picture_alt = $username."'s Profile Picture";
+	$profile_picture = "img/profile-pictures/";
+	if (is_null($admin->profile_picture))
+		$profile_picture .= "default.jpg";
+	else
+		$profile_picture .= $admin->profile_picture;
 ?>
 <nav class="closed">
 	<h1>
@@ -96,7 +101,7 @@
 		<li>
 			<div class="profile-details">
 				<div class="profile-content">
-					<img src="<?php echo $profile_picture; ?>" alt="<?php echo $profile_picture_alt; ?>">
+					<img src="<?php echo $profile_picture; ?>" alt="Avatar">
 				</div><!-- .profile-content -->
 				<div class="name-position">
 					<div class="username"><?php echo $username; ?></div>

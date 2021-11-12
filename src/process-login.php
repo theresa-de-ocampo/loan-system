@@ -4,16 +4,20 @@ if (isset($_POST["submit"])) {
 	require_once "../config/config.php";
 	require_once "../lib/database-handler.php";
 	require_once "../models/User.php";
+	require_once "../models/Administrator.php";
 	require_once "../models/Cycle.php";
 
 	$email = $_POST["email"];
 	$password = $_POST["password"];
-	$user = new User();
-	$admin = $user->confirmAdmin($email);
+
+	$cycle = new Cycle();
+	$cycle_id = $cycle->getLatestPeriod();
+	$administrator = new Administrator();
+	$admin = $administrator->confirmAdmin($email, $cycle_id);
 	if ($admin) {
 		if (password_verify($password, $admin->password)) {
 			$_SESSION["admin-verified"] = $admin->user_id;
-			$_SESSION["cycle"] = date("Y");
+			$_SESSION["cycle"] = $cycle_id;
 			$path = "../home.php";
 		}
 		else {

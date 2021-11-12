@@ -13,7 +13,7 @@
 			<div class="flex-wrapper">
 				<div class="flex-item short">
 					<label for="<?php echo $position; ?>-id">ID<i class="far fa-question-circle"></i></label>
-					<input id="<?php echo $position; ?>-id" type="number" name="<?php echo $position; ?>-data-subject-id" 
+					<input id="<?php echo $position; ?>-id" type="number" name="<?php echo $position; ?>[data-subject-id]" 
 						required readonly />
 				</div><!-- .flex-item -->
 				<div class="flex-item">
@@ -55,29 +55,30 @@
 				</div><!-- .grid-item.solo-->
 				<div class="grid-item">
 					<label for="<?php echo $position; ?>-fname">First Name</label>
-					<input id="<?php echo $position; ?>-fname" type="text" name="<?php echo $position; ?>-fname" />
+					<input id="<?php echo $position; ?>-fname" type="text" name="<?php echo $position; ?>[fname]" />
 				</div><!-- .grid-item -->
 				<div class="grid-item">
 					<label for="<?php echo $position; ?>-mname">Middle Name</label>
-					<input id="<?php echo $position; ?>-mname" type="text" name="<?php echo $position; ?>-mname" />
+					<input id="<?php echo $position; ?>-mname" type="text" name="<?php echo $position; ?>[mname]" />
 				</div><!-- .grid-item -->
 				<div class="grid-item">
 					<label for="<?php echo $position; ?>-lname">Last Name</label>
-					<input id="<?php echo $position; ?>-lname" type="text" name="<?php echo $position; ?>-lname" />
+					<input id="<?php echo $position; ?>-lname" type="text" name="<?php echo $position; ?>[lname]" />
 				</div><!-- .grid-item -->
 				<div class="grid-item">
 					<label for="<?php echo $position; ?>-contact-no">Contact No. (09*********)</label>
 					<input id="<?php echo $position; ?>-contact-no" type="text" 
-						name="<?php echo $position; ?>-contact-no" pattern="^09[0-9]{9}" class="small" />
+						name="<?php echo $position; ?>[contact-no]" pattern="^09[0-9]{9}" class="small" />
 				</div><!-- .grid-item -->
 				<div class="grid-item">
 					<label for="<?php echo $position; ?>-bday">Birthday</label>
-					<input id="<?php echo $position; ?>-bday" type="date" name="<?php echo $position; ?>-bday" class="medium" />
+					<input id="<?php echo $position; ?>-bday" type="date" 
+						name="<?php echo $position; ?>[bday]" class="medium" />
 				</div><!-- .grid-item -->
 				<div class="grid-item">
 					<label for="<?php echo $position; ?>-address">Phase, Block, and Lot</label>
 					<input id="<?php echo $position; ?>-address" type="text" 
-						name="<?php echo $position; ?>-address" class="medium" />
+						name="<?php echo $position; ?>[address]" class="medium" />
 				</div><!-- .grid-item -->
 			</div><!-- .grid-wrapper -->
 		</div><!-- .new-data-subject -->
@@ -90,21 +91,23 @@
 		<div class="grid-wrapper">
 			<div class="grid-item">
 				<label for="<?php echo $position; ?>-username">Username</label>
-				<input id="<?php echo $position; ?>-username" type="text" name="<?php echo $position; ?>-username"
+				<input id="<?php echo $position; ?>-username" type="text" name="<?php echo $position; ?>[username]"
 					class="small" required />
 			</div><!-- .grid-item -->
 			<div class="grid-item">
 				<label for="<?php echo $position; ?>-email">Email</label>
-				<input id="<?php echo $position; ?>-email" type="email" name="<?php echo $position; ?>-email" class="medium" required />
+				<input id="<?php echo $position; ?>-email" type="email" name="<?php echo $position; ?>[email]" 
+					class="medium" required />
 			</div><!-- .grid-item -->
 			<div class="grid-item">
 				<label for="<?php echo $position; ?>-password">Password</label>
-				<input id="<?php echo $position; ?>-password" type="password" name="<?php echo $position; ?>-password" required />
+				<input id="<?php echo $position; ?>-password" type="password" 
+					name="<?php echo $position; ?>[password]" required />
 			</div><!-- .grid-item -->
 			<div class="grid-item">
 				<label for="<?php echo $position; ?>-confirm-password">Confirm Password</label>
 				<input id="<?php echo $position; ?>-confirm-password" type="password" 
-					name="<?php echo $position; ?>-confirm-password" required />
+					name="<?php echo $position; ?>[confirm-password]" required />
 			</div><!-- .grid-item -->
 			<div class="grid-item solo">
 				<input id="<?php echo $position; ?>-show-passwords" type="checkbox" class="show-password" />

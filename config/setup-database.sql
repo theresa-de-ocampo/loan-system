@@ -214,7 +214,8 @@ CREATE TABLE `user` (
 	`user_id` INT UNSIGNED PRIMARY KEY,
 	`email` VARCHAR(100) NOT NULL,
 	`password` VARCHAR(255) NOT NULL,
-	`profile_picture` CHAR(10),
+	`username` CHAR(8) NOT NULL,
+	`profile_picture` CHAR(12) NOT NULL DEFAULT 'default.jpg',
 
 	CONSTRAINT fk_user_id FOREIGN KEY (`user_id`)
 		REFERENCES `data_subject` (`data_subject_id`)
@@ -223,15 +224,18 @@ CREATE TABLE `user` (
 ) Engine=InnoDB;
 
 CREATE TABLE `administrator` (
-	`username` CHAR(8) NOT NULL,
 	`position` ENUM('Auditor', 'Treasurer', 'Asst. Treasurer') NOT NULL,
 	`cycle_id` YEAR DEFAULT (YEAR(CURDATE())) NOT NULL,
 	`user_id` INT UNSIGNED NOT NULL,
 
-	CONSTRAINT pfk_administrator PRIMARY KEY (`user_id`, `cycle_id`),
+	CONSTRAINT pk_administrator PRIMARY KEY (`user_id`, `cycle_id`),
 	CONSTRAINT uc_administrator UNIQUE (`position`, `cycle_id`),
 	CONSTRAINT fk_administrator_cycle_id FOREIGN KEY (`cycle_id`)
 		REFERENCES `cycle` (`cycle_id`)
+		ON UPDATE CASCADE
+		ON DELETE RESTRICT,
+	CONSTRAINT fk_administrator_user_id FOREIGN KEY (`user_id`)
+		REFERENCES `user` (`user_id`)
 		ON UPDATE CASCADE
 		ON DELETE RESTRICT
 ) Engine=InnoDB;
@@ -326,21 +330,21 @@ VALUES
 INSERT INTO
 	`user`
 VALUES
-	(9, 'aurora.liberato@gmail.com', '$2y$10$CtnzbINrxyH1wLupEyJ2U.ta2WbMK5PdJi8AXNPEK.dQffNpNr5.2', '9.jpg'), -- Jeremiah 29:11
-	(10, 'beth.nevalta@gmail.com', '$2y$10$MTlKxMqwYNONcXUEi.wFMuWZyOCejJxIqtt5oKs3r7ez9BFl4b9uW', '10.jpg'), -- 7-Eleven
-	(11, 'ma_theresa7@yahoo.com', '$2y$10$uyNGNk8Ccj35tfSpFOWVte4rOjE02VDMYTBMYJAqULRysMSDYWjuO', '11.jpg'), -- Dear 2020
-	(23, 'ryan.nable@gmail.com', '$2y$10$nOpsIELnJbe5kQVWFiMKqOPX8MGprsty2Mto.1Uj7Cb0eNS6uPK7a', '23.jpg'), -- Green 0456
-	(24, 'carlo.robiso@gmail.com', '$2y$10$jxR6Yl2Pzb422tKFtJBz2.SVXU3XLcAeNRQ4wzLz6TzF7Lh4w3OpW', '24.jpg'); -- Vincenzo, EP 2
+	(9, 'aurora.liberato@gmail.com', '$2y$10$CtnzbINrxyH1wLupEyJ2U.ta2WbMK5PdJi8AXNPEK.dQffNpNr5.2', 'Aurora', '9.jpg'),
+	(10, 'beth.nevalta@gmail.com', '$2y$10$MTlKxMqwYNONcXUEi.wFMuWZyOCejJxIqtt5oKs3r7ez9BFl4b9uW', 'Beth', '10.jpg'),
+	(11, 'ma_theresa7@yahoo.com', '$2y$10$uyNGNk8Ccj35tfSpFOWVte4rOjE02VDMYTBMYJAqULRysMSDYWjuO', 'Theresa', '11.jpg'),
+	(23, 'ryan.nable@gmail.com', '$2y$10$nOpsIELnJbe5kQVWFiMKqOPX8MGprsty2Mto.1Uj7Cb0eNS6uPK7a', 'Ryan', '23.jpg'),
+	(24, 'carlo.robiso@gmail.com', '$2y$10$jxR6Yl2Pzb422tKFtJBz2.SVXU3XLcAeNRQ4wzLz6TzF7Lh4w3OpW', 'Carlo', '24.jpg');
 
 INSERT INTO
 	`administrator`
 VALUES
-	('Aurora', 'Auditor', '2020', 9),
-	('Beth', 'Treasurer', '2020', 10),
-	('Theresa', 'Asst. Treasurer', '2020', 11),
-	('Ryan', 'Auditor', '2021', 23),
-	('Carlo', 'Treasurer', '2021', 24),
-	('Theresa', 'Asst. Treasurer', '2021', 11);
+	('Auditor', '2020', 9),
+	('Treasurer', '2020', 10),
+	('Asst. Treasurer', '2020', 11),
+	('Auditor', '2021', 23),
+	('Treasurer', '2021', 24),
+	('Asst. Treasurer', '2021', 11);
 
 INSERT INTO
 	`loan`
@@ -348,8 +352,7 @@ VALUES
 	(DEFAULT, 34, 9, '2021-02-10 07:59:00', 5000, 'Closed', '1.jpg', NULL, '2021'),
 	(DEFAULT, 35, 10, '2021-06-21 08:59:00', 25000, 'Closed', '2.jpg', '2.pdf', '2021'),
 	(DEFAULT, 36, 9, '2021-03-12 09:59:00', 10000, 'Closed', '3.jpg', '3.jpg', '2021'),
-	(DEFAULT, 37, 9, '2021-04-05 10:59:00', 15000, 'Closed', '4.jpg', '4.jpg', '2021'),
-	(DEFAULT, 16, 33, '2021-11-04 12:59:00', 5000, 'Active', '5.jpg', NULL, '2021');
+	(DEFAULT, 37, 9, '2021-04-05 10:59:00', 15000, 'Closed', '4.jpg', '4.jpg', '2021');
 
 INSERT INTO
 	`principal_payment`
@@ -390,8 +393,7 @@ VALUES
 	(DEFAULT, '2021-07-05', 1000, 'Paid', 4), -- 20
 	(DEFAULT, '2021-08-05', 500, 'Paid', 4),  -- 21
 	(DEFAULT, '2021-09-05', 500, 'Paid', 4),  -- 22
-	(DEFAULT, '2021-10-05', 300, 'Paid', 4),  -- 23
-	(DEFAULT, '2021-11-04', 500, 'Paid', 5); -- 24
+	(DEFAULT, '2021-10-05', 300, 'Paid', 4);  -- 23
 
 INSERT INTO
 	`interest_payment`
@@ -419,8 +421,7 @@ VALUES
 	(DEFAULT, 1000, '2021-07-05 11:01:00', 20),
 	(DEFAULT, 500, '2021-08-05 11:01:00', 21),
 	(DEFAULT, 500, '2021-09-05 11:01:00', 22),
-	(DEFAULT, 300, '2021-10-05 11:01:00', 23),
-	(DEFAULT, 500, '2021-11-04 01:00:00', 24);
+	(DEFAULT, 300, '2021-10-05 11:01:00', 23);
 
 INSERT INTO
 	`penalty`
@@ -459,8 +460,7 @@ VALUES
 	(DEFAULT, '2021-03-12', 110, 'Paid', 3), -- 6
 	(DEFAULT, '2021-04-05', 160, 'Paid', 4), -- 7
 	(DEFAULT, '2021-07-05', 110, 'Paid', 4), -- 8
-	(DEFAULT, '2021-10-05', 40, 'Paid', 4),  -- 9
-	(DEFAULT, '2021-11-04', 60, 'Pending', 5); -- 10
+	(DEFAULT, '2021-10-05', 40, 'Paid', 4);  -- 9
 
 INSERT INTO
 	`processing_fee_payment`
@@ -472,5 +472,4 @@ VALUES
 	(DEFAULT, 30, '2021-08-10 08:02:00', 5),
 	(DEFAULT, 110, '2021-03-12 10:02:00', 6),
 	(DEFAULT, 160, '2021-04-05 11:02:00', 7),
-	(DEFAULT, 110, '2021-07-05 11:02:00', 8),
-	(DEFAULT, 40, '2021-10-05 11:02:00', 9);
+	(DEFAULT, 110, '2021-07-05 11:02:00', 8);

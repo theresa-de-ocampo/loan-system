@@ -4,10 +4,8 @@ $("form").attr("novalidate", true); // Disable HTML5 validation
 function checkIfComplete(e, formQualifier = "") {
 	let isComplete = true;
 	$(formQualifier + " :required").each(function() {
-		if ($(this).val() === "") {
-			console.log($(this).attr("id"));
+		if ($(this).val() === "") 
 			isComplete = false;
-		}
 	});
 
 	if (!isComplete) {

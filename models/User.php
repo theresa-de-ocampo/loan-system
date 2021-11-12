@@ -1,5 +1,4 @@
 <?php
-
 class User {
 	private $db;
 
@@ -21,56 +20,12 @@ class User {
 			return 0;
 	}
 
-	public function confirmAdmin($email) {
-		$query = "
-			SELECT
-				`user_id`,
-				`password`
-			FROM
-				`administrator`
-			INNER JOIN `user`
-				USING (`user_id`)
-			WHERE
-				`cycle_id` = ? AND
-				`email` = ?
-		";
-		$this->db->query($query);
-		$this->db->bind(1, date("Y"));
-		$this->db->bind(2, $email);
-		$admin = $this->db->resultRecord();
-		if ($admin)
-			return $admin;
-		else {
-			if ($this->sysAdminExists())
-				return $admin;
-			else {
-				$this->db->query($query);
-				$this->db->bind(1, date("Y") - 1);
-				$this->db->bind(2, $email);
-				return $this->db->resultRecord();
-			}
-		}
-	}
-
-	public function getAdmin($id) {
-		$this->db->query("SELECT * FROM `administrator` INNER JOIN `user` USING (`user_id`) WHERE `user_id` = ?");
-		$this->db->bind(1, $id);
-		return $this->db->resultRecord();
-	}
-
-	private function sysAdminExists() {
-		$this->db->query("
-			SELECT
-				`user_id`
-			FROM
-				`administrator`
-			INNER JOIN `user`
-				USING (`user_id`)
-			WHERE
-				`cycle_id` = ? AND
-				`position` IN ('Auditor', 'Treasurer')
-		");
-		$this->db->bind(1, date("Y"));
-		return $this->db->resultRecord();
+	public function addUser($user) {
+		$this->db->query("INSERT INTO `user` VALUES (?, ?, ?, ?, DEFAULT)");
+		$this->db->bind(1, $user["user_id"]);
+		$this->db->bind(2, $user["email"]);
+		$this->db->bind(3, password_hash($user["password"], PASSWORD_DEFAULT));
+		$this->db->bind(4, $user["username"]);
+		$this->db->executeWithoutCatch();
 	}
 }
