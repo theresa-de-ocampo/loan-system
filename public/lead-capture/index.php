@@ -31,7 +31,7 @@
 			<h1><?php echo COOPERATIVE; ?></h1>
 			<h1><?php echo TOWN.", ".PROVINCE; ?></h1>
 			<p>Providing a convenient, reliable, and secure online micro-lending platform.</p>
-			<a href="" class="hero-btn">log in</a>
+			<a href="login.php" target="_blank" class="hero-btn">log in</a>
 		</div><!-- .text-box -->
 	</section><!-- .header -->
 

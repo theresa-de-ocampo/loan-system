@@ -211,4 +211,9 @@ class Loan extends Transaction {
 		");
 		return $this->db->resultSet();
 	}
+
+	public function getLoansByBorrower($id) {
+		$this->db->query("SELECT * FROM `loan`  WHERE `borrower_id` = $id");
+		return $this->db->resultSet();
+	}
 }

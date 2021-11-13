@@ -6,6 +6,12 @@ class User {
 		$this->db = new Database();
 	}
 
+	public function confirmUser($email) {
+		$this->db->query("SELECT * FROM `user` WHERE `email` = ?");
+		$this->db->bind(1, $email);
+		return $this->db->resultRecord();
+	}
+
 	public function getUser($id) {
 		$this->db->query("SELECT * FROM `user` WHERE `user_id` = ?");
 		$this->db->bind(1, $id);

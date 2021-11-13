@@ -334,7 +334,8 @@ VALUES
 	(10, 'beth.nevalta@gmail.com', '$2y$10$MTlKxMqwYNONcXUEi.wFMuWZyOCejJxIqtt5oKs3r7ez9BFl4b9uW', 'Beth', '10.jpg'),
 	(11, 'ma_theresa7@yahoo.com', '$2y$10$uyNGNk8Ccj35tfSpFOWVte4rOjE02VDMYTBMYJAqULRysMSDYWjuO', 'Theresa', '11.jpg'),
 	(23, 'ryan.nable@gmail.com', '$2y$10$nOpsIELnJbe5kQVWFiMKqOPX8MGprsty2Mto.1Uj7Cb0eNS6uPK7a', 'Ryan', '23.jpg'),
-	(24, 'carlo.robiso@gmail.com', '$2y$10$jxR6Yl2Pzb422tKFtJBz2.SVXU3XLcAeNRQ4wzLz6TzF7Lh4w3OpW', 'Carlo', '24.jpg');
+	(24, 'carlo.robiso@gmail.com', '$2y$10$jxR6Yl2Pzb422tKFtJBz2.SVXU3XLcAeNRQ4wzLz6TzF7Lh4w3OpW', 'Carlo', '24.jpg'),
+	(34, 'cherry.javier@gmail.com', '$2y$10$XXUH1F2sBoSNQ2HsXfS5aekKncilh1aj27ijIuiCV4JpWvDnhjC5.', 'Cherry', DEFAULT);
 
 INSERT INTO
 	`administrator`
@@ -352,7 +353,8 @@ VALUES
 	(DEFAULT, 34, 9, '2021-02-10 07:59:00', 5000, 'Closed', '1.jpg', NULL, '2021'),
 	(DEFAULT, 35, 10, '2021-06-21 08:59:00', 25000, 'Closed', '2.jpg', '2.pdf', '2021'),
 	(DEFAULT, 36, 9, '2021-03-12 09:59:00', 10000, 'Closed', '3.jpg', '3.jpg', '2021'),
-	(DEFAULT, 37, 9, '2021-04-05 10:59:00', 15000, 'Closed', '4.jpg', '4.jpg', '2021');
+	(DEFAULT, 37, 9, '2021-04-05 10:59:00', 15000, 'Closed', '4.jpg', '4.jpg', '2021'),
+	(DEFAULT, 34, 1, '2020-03-13 07:59:00', 8000, 'Closed', '5.jpg',  NULL, '2020');
 
 INSERT INTO
 	`principal_payment`
@@ -366,7 +368,8 @@ VALUES
 	(DEFAULT, 5000, '2021-06-05 11:00:00', 4),
 	(DEFAULT, 5000, '2021-07-23 11:00:00', 4),
 	(DEFAULT, 2000, '2021-09-05 11:00:00', 4),
-	(DEFAULT, 3000, '2021-10-05 11:00:00', 4);
+	(DEFAULT, 3000, '2021-10-05 11:00:00', 4),
+	(DEFAULT, 8000, '2021-05-26 08:00:00', 5);
 
 INSERT INTO
 	`interest`
@@ -393,7 +396,10 @@ VALUES
 	(DEFAULT, '2021-07-05', 1000, 'Paid', 4), -- 20
 	(DEFAULT, '2021-08-05', 500, 'Paid', 4),  -- 21
 	(DEFAULT, '2021-09-05', 500, 'Paid', 4),  -- 22
-	(DEFAULT, '2021-10-05', 300, 'Paid', 4);  -- 23
+	(DEFAULT, '2021-10-05', 300, 'Paid', 4),  -- 23
+	(DEFAULT, '2020-03-13', 800, 'Paid', 5), -- 24
+	(DEFAULT, '2020-04-13', 800, 'Paid', 5), -- 25
+	(DEFAULT, '2020-05-13', 800, 'Paid', 5); -- 26
 
 INSERT INTO
 	`interest_payment`
@@ -421,7 +427,10 @@ VALUES
 	(DEFAULT, 1000, '2021-07-05 11:01:00', 20),
 	(DEFAULT, 500, '2021-08-05 11:01:00', 21),
 	(DEFAULT, 500, '2021-09-05 11:01:00', 22),
-	(DEFAULT, 300, '2021-10-05 11:01:00', 23);
+	(DEFAULT, 300, '2021-10-05 11:01:00', 23),
+	(DEFAULT, 800, '2020-03-13 08:00:00', 24),
+	(DEFAULT, 800, '2020-04-13 08:00:00', 25),
+	(DEFAULT, 800, '2020-05-13 08:00:00', 26);
 
 INSERT INTO
 	`penalty`
@@ -460,7 +469,8 @@ VALUES
 	(DEFAULT, '2021-03-12', 110, 'Paid', 3), -- 6
 	(DEFAULT, '2021-04-05', 160, 'Paid', 4), -- 7
 	(DEFAULT, '2021-07-05', 110, 'Paid', 4), -- 8
-	(DEFAULT, '2021-10-05', 40, 'Paid', 4);  -- 9
+	(DEFAULT, '2021-10-05', 40, 'Paid', 4),  -- 9
+	(DEFAULT, '2020-03-13', 90, 'Paid', 5); -- 10
 
 INSERT INTO
 	`processing_fee_payment`
@@ -472,4 +482,6 @@ VALUES
 	(DEFAULT, 30, '2021-08-10 08:02:00', 5),
 	(DEFAULT, 110, '2021-03-12 10:02:00', 6),
 	(DEFAULT, 160, '2021-04-05 11:02:00', 7),
-	(DEFAULT, 110, '2021-07-05 11:02:00', 8);
+	(DEFAULT, 110, '2021-07-05 11:02:00', 8),
+	(DEFAULT, 40, '2021-10-05 11:02:00', 9),
+	(DEFAULT, 90, '2020-03-13 08:02:00', 10);
