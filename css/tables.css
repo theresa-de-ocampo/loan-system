@@ -22,7 +22,7 @@ table .fas {
 }
 
 table .fas:hover {
-	color: var(--cyan);
+	color: var(--cyan) !important;
 }
 
 .dataTables_filter input {
@@ -31,12 +31,17 @@ table .fas:hover {
 	width: 200px;
 }
 
-table td a {
+table td a,
+#public-loans table a:hover {
 	color: var(--persian-red);
 }
 
 table td a:hover {
 	color: #ff0000;
+}
+
+#public-loans table a {
+	cursor: text;
 }
 
 table td a.claimed {

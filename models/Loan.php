@@ -218,7 +218,21 @@ class Loan extends Transaction {
 	}
 
 	public function getLoansByGuarantor($id) {
-		$this->db->query("SELECT * FROM `loan`  WHERE `guarantor_id` = $id");
+		$this->db->query("
+			SELECT
+				`fname`,
+				`mname`,
+				`lname`,
+				`status`,
+				total_payments_by_loan(`loan_id`) AS `paid`,
+				total_receivables_by_loan(`loan_id`) AS `unpaid`
+			FROM
+				`loan`
+			INNER JOIN `data_subject`
+				ON `borrower_id` = `data_subject_id`
+			WHERE
+				`guarantor_id` = $id
+		");
 		return $this->db->resultSet();
 	}
 }

@@ -1,7 +1,7 @@
 // jshint esversion: 6
 $(function() {
 	$("#back").on("click", function() {
-		window.location.href = "loan-info.php#loan-disbursements";
+		window.location.href = "loans.php";
 	});
 
 	let summaryDetails = $("#loan-info-holder").html().replace(' class="pattern-bg"', "");
@@ -108,4 +108,8 @@ $(function() {
 		]
 	});
 	checkForRows($processingFeePaymentsTbl, "#processing-fee-payments-tbl");
+
+	$("table td a").on("click", function(e) {
+		e.preventDefault();
+	});
 });

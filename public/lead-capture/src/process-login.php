@@ -13,7 +13,7 @@ if (isset($_POST["submit"])) {
 	if ($account) {
 		if (password_verify($password, $account->password)) {
 			$_SESSION["generic-user-verified"] = $account->user_id;
-			$path = "../loan-info.php";
+			$path = "../loans.php";
 		}
 		else {
 			$message = "The password you entered is incorrect!";

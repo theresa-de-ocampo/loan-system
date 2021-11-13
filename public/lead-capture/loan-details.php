@@ -61,8 +61,13 @@
 	<title><?php echo COOPERATIVE; ?></title>
 </head>
 <body>
+	<?php require_once "inc/vertical-nav-bar.php"; ?>
 	
-	<main>
+	<main id="public-loans">
+		<header>
+			<i class="fas fa-bars"></i>
+			<h2 class="text">Loans</h2>
+		</header>
 
 		<!-- Hidden, used as header for printing. -->
 		<div id="loan-info-holder">
@@ -72,7 +77,7 @@
 		</div><!-- #loan-info-holder -->
 
 		<section id="summary">
-			<button id="back" type="button" class="dt-button">&#8592; Back to Loan Disbursements</button>
+			<button id="back" type="button" class="dt-button">&#8592; Back to Loan History</button>
 			<h3>Summary</h3>
 			<div class="grid-wrapper">
 				<?php require "../../inc/loan-info.php"; ?>
