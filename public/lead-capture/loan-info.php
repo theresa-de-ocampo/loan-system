@@ -14,11 +14,15 @@
 	$account = $user->getUser($user_id);
 	$username = $account->username;
 
-	$converter = new Converter();
-	$cycle = new Cycle();
-	$data_subject = new DataSubject();
 	$loan = new Loan();
 	$loans = $loan->getLoansByBorrower($user_id);
+	$disbursements = $loan->getLoansByGuarantor($user_id);
+
+	$data_subject = new DataSubject();
+	$name = $data_subject->getName($user_id);
+	$composed_name = $name->fname." ".$name->mname[0].". ".$name->lname;
+	$converter = new Converter();
+	$cycle = new Cycle();
 ?>
 <!DOCTYPE html>
 <html lang="en">
@@ -84,6 +88,33 @@
 	<section id="debt-collection-history">
 		<h2>Debt Collection History</h2>
 		<hr />
+		<table id="debt-collection-history-tbl" class="display cell-border" width="100%">
+			<thead>
+				<tr>
+					<th>Borrower</th>
+					<th>Loan Status</th>
+					<th>Paid <span>(&#8369;)</span></th>
+					<th>Unpaid <span>(&#8369;)</span></th>
+				</tr>
+			</thead>
+			<tbody>
+				<?php 
+					if (!is_null($disbursements)):
+						foreach ($disbursements as $d):
+				 ?>
+				<tr>
+					<td data-sort="<?php echo $d->lname; ?>"><?php echo $d->fname." ".$d->mname[0].". ".$d->lname; ?></td>
+					<td><?php echo $d->status; ?></td>
+					<td><?php echo number_format($d->paid, 2, ".", ","); ?></td>
+					<td><?php echo number_format($d->unpaid, 2, ".", ","); ?></td>
+				</tr>
+				<?php
+						endforeach;
+					endif; 
+				?>
+			</tbody>
+		</table><!-- .debt-collection-history-tbl -->
+		<p class="pattern-bg"><span class="peso-sign">&#8369; </span><span class="amount"></span></p>
 	</section><!-- #dect-collection-history -->
 
 	<!-- 
