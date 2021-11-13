@@ -50,12 +50,10 @@ $(function() {
 	});
 
 	function newCycle() {
-		/*Change logic to newCycle = latestCycleId + 1*/
 		const nextCycle = parseInt($cycleTbl.column(0).data().sort().reverse()[0]) + 1;
 		const today = new Date();
 		const year = today.getFullYear();
-		/*if (year != nextCycle)*/
-		if (false)
+		if (year != nextCycle)
 			alert("Please wait for this business year to close.");
 		else
 			window.location.href = "new-cycle.php";
