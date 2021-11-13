@@ -199,3 +199,12 @@ input[id*="show-password"] + label {
 	vertical-align: middle;
 	width: unset;
 }
+
+input::-ms-reveal,
+input::-ms-clear {
+	display: none;
+}
+
+input:-webkit-autofill {
+	-webkit-box-shadow: 0 0 0 30px #fff inset;
+}

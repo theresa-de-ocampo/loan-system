@@ -88,12 +88,3 @@ body {
 	height: 13px;
     width: 13px;
 }
-
-input::-ms-reveal,
-input::-ms-clear {
-	display: none;
-}
-
-.login-container .form-group input:-webkit-autofill {
-	-webkit-box-shadow: 0 0 0 30px #fff inset;
-}
