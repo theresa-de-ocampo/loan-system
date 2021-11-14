@@ -114,4 +114,22 @@ $(function() {
 			});
 		});
 	});
+
+	const $salaryTbl = $("#salary-tbl").DataTable({
+		dom: "Bfrtip",
+		responsive: true,
+		buttons: [
+			{
+				extend: "print",
+				title: "Salary",
+				customize: addHeaderToPdf,
+				messageTop: cycle
+			},
+			{
+				extend: "csv",
+				title: "Salary"
+			}
+		]
+	});
+	checkForRows($salaryTbl, "#salary-tbl");
 });

@@ -18,6 +18,8 @@
 	$interest = $profits["interest"];
 	$flag = $payroll->getProcessedFlag();
 	$salary = $payroll->getSalary();
+	$earnings = $converter->roundDown($salary["earnings"] / 3);
+	$employees = $payroll->getEmployees();
 ?>
 <!DOCTYPE html>
 <html lang="en">
@@ -225,12 +227,26 @@
 			<hr />
 			<table id="salary-tbl" class="display cell-border" width="100%">
 				<thead>
-					<th>Member</th>
+					<th>Employee</th>
+					<th>Position</th>
 					<th>Earnings</th>
 					<th>Status</th>
 				</thead>
 				<tbody>
-					<td>
+					<?php foreach ($employees as $e): ?>
+					<tr>
+						<td data-sort="<?php echo $e->fname; ?>"><?php echo $e->fname." ".$e->mname[0].". ".$e->lname; ?></td>
+						<td><?php echo $e->position; ?></td>
+						<td><?php echo $earnings; ?></td>
+						<td>On Going</td>
+					</tr>
+					<?php endforeach; ?>
+					<tr>
+						<td data-sort="1">Cooperative</td>
+						<td>N/A</td>
+						<td><?php echo $salary["funds"]; ?></td>
+						<td>On Going</td>
+					</tr>
 				</tbody>
 			</table><!-- #salary-tbl -->
 		</section><!-- #salary -->

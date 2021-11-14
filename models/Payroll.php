@@ -183,4 +183,18 @@ class Payroll {
 			"funds" => $total_funds
 		);
 	}
+
+	public function getEmployees() {
+		$this->db->query("
+			SELECT
+				*
+			FROM
+				`administrator`
+			INNER JOIN `data_subject`
+				ON `administrator`.`user_id` = `data_subject_id`
+			WHERE
+				`cycle_id` = $this->cycle
+		");
+		return $this->db->resultSet();
+	}
 }
