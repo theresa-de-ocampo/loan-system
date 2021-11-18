@@ -8,13 +8,15 @@
 	require_once "../config/config.php";
 	require_once "../lib/database-handler.php";
 	require_once "../lib/conversion-util.php";
+	require_once "../models/DataSubject.php";
 	require_once "../models/Cycle.php";
 	require_once "../models/Guarantor.php";
 	require_once "../models/Payroll.php";
+	require_once "../models/Roi.php";
 	session_start();
 
-	$payroll = new Payroll();
-	$data = $payroll->getRoiClaimReceiptData($guarantor_id);
+	$roi = new Roi();
+	$data = $roi->getRoiClaimReceiptData($guarantor_id);
 	$custom_id = $data["custom_id"];
 ?>
 <!DOCTYPE html>
@@ -25,7 +27,7 @@
 	<meta name="description" content="" />
 	<meta name="viewport" content="width=device-width, initial-scale=1.0">
 	<link rel="stylesheet" type="text/css" href="../css/all.min.css" />
-	<link rel="stylesheet" type="text/css" href="../css/long-print-size.css" media="print" />
+	<link rel="stylesheet" type="text/css" href="../css/roi-print-size.css" media="print" />
 	<link rel="stylesheet" type="text/css" href="../css/print.css" media="print" />
 	<link rel="shortcut icon" type="image/x-icon" href="../img/favicon.png" />
 	<title><?php echo $custom_id; ?></title>
@@ -46,6 +48,10 @@
 		<tr>
 			<th>Asst. Treasurer</th>
 			<td>Theresa G. De Ocampo</td>
+		</tr>
+		<tr>
+			<th>Guarantor</th>
+			<td><?php echo $data["claimer"]; ?></td>
 		</tr>
 		<tr>
 			<th>Per Share</th>
