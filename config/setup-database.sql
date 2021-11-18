@@ -196,19 +196,42 @@ CREATE TABLE `roi` (
 		ON DELETE RESTRICT
 ) Engine=InnoDB;
 
-/*CREATE TABLE `salary` (
-	`salary_id` INT UNSIGNED AUTO_INCREMENT PRIMARY KEY,
+CREATE TABLE `salary` (
+	`amount`DECIMAL(50, 2) NOT NULL,
+	`status` ENUM('Pending', 'Claimed') DEFAULT 'Pending',
+	`date_time_claimed` DATETIME,
+	`proof` CHAR(10),
+	`guarantor_id` INT UNSIGNED NOT NULL,
+	`closing_id` YEAR NOT NULL,
+
+	CONSTRAINT pk_salary PRIMARY KEY (`guarantor_id`, `closing_id`),
+	CONSTRAINT fk_salary_guarantor_id FOREIGN KEY (`guarantor_id`)
+		REFERENCES `guarantor_cycle_map` (`guarantor_id`)
+		ON UPDATE CASCADE
+		ON DELETE RESTRICT,
+	CONSTRAINT fk_salary_closing_id FOREIGN KEY (`closing_id`)
+		REFERENCES `closing` (`closing_id`)
+		ON UPDATE CASCADE
+		ON DELETE RESTRICT
 ) Engine=InnoDB;
 
 CREATE TABLE `fund` (
-	`fund_id` INT UNSIGNED AUTO_INCREMENT PRIMARY KEY,
+	`closing_id` YEAR PRIMARY KEY,
 	`amount` DECIMAL(50, 2) NOT NULL,
-	`received_by` INT UNSIGNED NOT NULL,
-	`date_time_received` DATETIME NOT NULL,
-	`purpose` VARCHAR(2000) NOT NULL,
+	`received_by` INT UNSIGNED,
+	`date_time_received` DATETIME,
+	`proof` CHAR(10),
+	`purpose` VARCHAR(2000),
 
-	Add constraint to received by
-) Engine=InnoDB;*/
+	CONSTRAINT fk_fund_received_by FOREIGN KEY (`received_by`)
+		REFERENCES `guarantor_cycle_map` (`guarantor_id`)
+		ON UPDATE CASCADE
+		ON DELETE RESTRICT,
+	CONSTRAINT fk_fund_closing_id FOREIGN KEY (`closing_id`)
+		REFERENCES `closing` (`closing_id`)
+		ON UPDATE CASCADE
+		ON DELETE RESTRICT
+) Engine=InnoDB;
 
 CREATE TABLE `user` (
 	`user_id` INT UNSIGNED PRIMARY KEY,

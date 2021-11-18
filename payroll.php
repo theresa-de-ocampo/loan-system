@@ -4,22 +4,33 @@
 	require_once "lib/database-handler.php";
 	require_once "lib/conversion-util.php";
 	require_once "models/Cycle.php";
+	require_once "models/DataSubject.php";
 	require_once "models/Guarantor.php";
 	require_once "models/Transaction.php";
 	require_once "models/Payroll.php";
+	require_once "models/Roi.php";
+	require_once "models/Salary.php";
+	require_once "models/Fund.php";
 
 	$converter = new Converter();
 	$cycle = new Cycle();
+	$data_subject = new DataSubject();
 	$guarantor = new Guarantor();
 	$payroll = new Payroll();
+	$roi = new Roi();
+	$salary = new Salary();
+	$fund = new Fund();
+
 	$guarantors = $guarantor->getCurrentGuarantors();
 	$profits = $payroll->getProfits();
 	$rate = $profits["rate"];
 	$interest = $profits["interest"];
-	$flag = $payroll->getProcessedFlag();
-	$salary = $payroll->getSalary();
-	$earnings = $converter->roundDown($salary["earnings"] / 3);
-	$employees = $payroll->getEmployees();
+	$processed = $payroll->getProcessedFlag();
+	$honorarium = $payroll->getHonorarium();
+	$earnings = $converter->roundDown($honorarium["earnings"] / 3);
+	$funds = $honorarium["funds"]; /*Amount of funds for this cycle, not an array of `fund` records. */
+	$employees = $salary->getEmployees();
+	$on_going = date("m") < 11 || (date("m") <= 11) && date("d") < 30;
 ?>
 <!DOCTYPE html>
 <html lang="en">
@@ -47,7 +58,7 @@
 	<main id="payroll">
 		<header>
 			<i class="fas fa-bars"></i>
-			<h2 class="text">Loans</h2>
+			<h2 class="text">Payroll</h2>
 		</header>
 
 		<!-- Hidden, used as header for printing. -->
@@ -55,7 +66,7 @@
 		<div id="cycle-holder"><?php echo $cycle->getCycleId(); ?></div>
 
 		<!-- Hidden. If today if November 30, this flag is used to check if the year-end records are already set. -->
-		<div id="flag-holder"><?php echo $flag; ?></div>
+		<div id="flag-holder"><?php echo $processed; ?></div>
 
 		<section id="profits">
 			<h3>Profits</h3>
@@ -190,10 +201,10 @@
 								echo number_format($grand_total, 2, ".", ",");
 							?>
 						</td>
-						<?php if (date("m") < 11 || (date("m") <= 11) && date("d") < 30): ?>
+						<?php if ($on_going): ?>
 						<td>On Going</td>
 						<?php else: ?>
-							<?php if ($flag !== ""): $roi = $payroll->getRoi($guarantor_id); $status = $roi->status; ?>
+							<?php if ($processed): $r = $roi->getRoi($guarantor_id); $status = $r->status; ?>
 								<?php if ($status == "Pending"): ?>
 									<td><a href="#" class="<?php echo strtolower($status); ?>"><?php echo $status; ?></a></td>
 								<?php else: ?>
@@ -201,31 +212,33 @@
 										<a 
 											href="#" 
 											class="<?php echo strtolower($status); ?>"
-											data-date-time-claimed="<?php echo $converter->shortToLongDateTime($roi->date_time_claimed); ?>"
-											data-proof="<?php echo $roi->proof; ?>"
+											data-date-time-claimed="<?php echo $converter->shortToLongDateTime($r->date_time_claimed); ?>"
+											data-proof="<?php echo $r->proof; ?>"
 											>
 											<?php echo $status; ?>
 										</a>
 									</td>
 								<?php endif; ?>
+							<?php else: ?>
+								<td>On Going</td>
 							<?php endif; ?>
 						<?php endif; ?>
 						<input type="hidden" name="g-id[]" value="<?php echo $guarantor_id; ?>" />
 						<input type="hidden" name="g-amount[]" value="<?php echo $grand_total; ?>" />
 					</tr>
 					<?php
-						$guarantorIds[] = $guarantor_id;
-						$guarantorTotals[] = $grand_total;
+						$guarantor_ids[] = $guarantor_id;
+						$guarantor_totals[] = $grand_total;
 						endforeach;
 					?>
 				</tbody>
 			</table><!-- #shares-tbl -->
 		</section><!-- #shares -->
 
-		<section id="salary">
-			<h3>Salary</h3>
+		<section id="honorarium">
+			<h3>Honorarium</h3>
 			<hr />
-			<table id="salary-tbl" class="display cell-border" width="100%">
+			<table id="honorarium-tbl" class="display cell-border" width="100%">
 				<thead>
 					<th>Employee</th>
 					<th>Position</th>
@@ -238,18 +251,73 @@
 						<td data-sort="<?php echo $e->fname; ?>"><?php echo $e->fname." ".$e->mname[0].". ".$e->lname; ?></td>
 						<td><?php echo $e->position; ?></td>
 						<td><?php echo $earnings; ?></td>
+						<?php if ($on_going): ?>
 						<td>On Going</td>
+						<?php else: ?>
+							<?php if ($processed): $s = $salary->getSalary($e->user_id); $status = $s->status; ?>
+								<?php if ($status == "Pending"): ?>
+									<td><a href="#" class="<?php echo strtolower($status); ?>"><?php echo $status; ?></a></td>
+								<?php else: ?>
+									<td>
+										<a 
+											href="#" 
+											class="<?php echo strtolower($status); ?>"
+											data-date-time-claimed=
+												"<?php echo $converter->shortToLongDateTime($s->date_time_claimed); ?>"
+											data-proof="<?php echo $s->proof; ?>"
+											>
+											<?php echo $status; ?>
+										</a>
+									</td>
+								<?php endif; ?>
+							<?php else: ?>
+								<td>On Going</td>
+							<?php endif; ?>
+						<?php endif; ?>
 					</tr>
 					<?php endforeach; ?>
 					<tr>
 						<td data-sort="1">Cooperative</td>
 						<td>N/A</td>
-						<td><?php echo $salary["funds"]; ?></td>
+						<td><?php echo $funds; ?></td>
+						<?php if ($on_going): ?>
 						<td>On Going</td>
+						<?php else: ?>
+							<?php 
+								if ($processed):
+									$f = $fund->getFund();
+
+								if (is_null($f->received_by))
+									$status = "Pending";
+								else {
+									$receiver = $data_subject->getName($f->received_by);
+									$name = $receiver->fname." ".$receiver->mname[0].". ".$receiver->lname;
+									$status = "Received by $name";
+								}
+							?>
+								<?php if ($status == "Pending"): ?>
+									<td><a href="#" class="<?php echo strtolower($status); ?>"><?php echo $status; ?></a></td>
+								<?php else: ?>
+									<td>
+										<a 
+											href="#" 
+											class="<?php echo strtolower($status); ?>"
+											data-date-time-claimed=
+												"<?php echo $converter->shortToLongDateTime($f->date_time_claimed); ?>"
+											data-proof="<?php echo $f->proof; ?>"
+											>
+											<?php echo $status; ?>
+										</a>
+									</td>
+								<?php endif; ?>
+							<?php else: ?>
+								<td>On Going</td>
+							<?php endif; ?>
+						<?php endif; ?>
 					</tr>
 				</tbody>
-			</table><!-- #salary-tbl -->
-		</section><!-- #salary -->
+			</table><!-- #honorarium-tbl -->
+		</section><!-- #honorarium -->
 
 		<form action="src/process-year-end.php" method="post">
 			<input type="hidden" name="interest" value="<?php echo $interest; ?>" />
@@ -257,11 +325,13 @@
 			<input type="hidden" name="penalty" value="15" />
 
 			<?php
-				$serializedGuarantorIds = serialize($guarantorIds);
-				$serializedGuarantorTotals = serialize($guarantorTotals);
+				$serialized_guarantor_ids = serialize($guarantor_ids);
+				$serialized_guarantor_totals = serialize($guarantor_totals);
 			?>
-			<input type="hidden" name="g-ids" value="<?php echo $serializedGuarantorIds; ?>" />
-			<input type="hidden" name="g-amount" value="<?php echo $serializedGuarantorTotals; ?>" />
+			<input type="hidden" name="g-ids" value="<?php echo $serialized_guarantor_ids; ?>" />
+			<input type="hidden" name="g-amount" value="<?php echo $serialized_guarantor_totals; ?>" />
+			<input type="hidden" name="salary" value="<?php echo $earnings; ?>" />
+			<input type="hidden" name="funds" value="<?php echo $funds; ?>" />
 		</form>
 	</main><!-- #payroll -->
 

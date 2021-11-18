@@ -61,23 +61,6 @@ class Payroll {
 		$this->db->execute();
 	}
 
-	public function addRoi($ids, $totals) {
-		$i = 0;
-
-		foreach ($ids as $id) {
-			$this->db->query("INSERT INTO `roi` (`amount`, `guarantor_id`, `closing_id`) VALUES (?, ?, ?)");
-			$this->db->bind(1, $totals[$i++]);
-			$this->db->bind(2, $id);
-			$this->db->bind(3, $this->cycle);
-			$this->db->execute();
-		}
-	}
-
-	public function getRoi($id) {
-		$this->db->query("SELECT * FROM `roi` WHERE `guarantor_id` = $id AND `closing_id` = $this->cycle");
-		return $this->db->resultRecord();
-	}
-
 	public function processRoiClaim($id, $files) {
 		require_once "../lib/upload-file.php";
 		$upload_file = new UploadFile();
@@ -149,7 +132,7 @@ class Payroll {
 		);
 	}
 
-	public function getSalary() {
+	public function getHonorarium() {
 		$this->db->query("
 			SELECT
 				COALESCE(SUM(`processing_fee_payment`.`amount`), 0)
@@ -182,19 +165,5 @@ class Payroll {
 			"earnings" => $total_earnings,
 			"funds" => $total_funds
 		);
-	}
-
-	public function getEmployees() {
-		$this->db->query("
-			SELECT
-				*
-			FROM
-				`administrator`
-			INNER JOIN `data_subject`
-				ON `administrator`.`user_id` = `data_subject_id`
-			WHERE
-				`cycle_id` = $this->cycle
-		");
-		return $this->db->resultSet();
 	}
 }
