@@ -132,4 +132,23 @@ $(function() {
 		]
 	});
 	checkForRows($honorariumTbl, "#honorarium-tbl");
+
+	$.get("inc/salary-form.html", function(data) {
+		$honorariumTbl.on("click", "td a.salary.pending", function() {
+			let $tr = $(this).closest("tr");
+			if ($tr.hasClass("child"))
+				$tr = $tr.prev();
+			const id = $tr.attr("data-guarantor-id");
+			const row = $honorariumTbl.row($tr).data();
+
+			createModal(data);
+			$(".tingle-modal-box #id").val(id);
+			$(".tingle-modal-box #name").val(row[0].display);
+			$.getScript("js/image-upload.js");
+
+			$("form").on("submit", function(e) {
+				checkIfComplete(e);
+			});
+		});
+	});
 });

@@ -5,18 +5,20 @@
 		echo "<script>alert('Sorry, something went wrong!');</script>";
 		echo "<script>window.location.replace('../payroll.php');</script>";
 	}
+
 	require_once "../config/config.php";
 	require_once "../lib/database-handler.php";
 	require_once "../lib/conversion-util.php";
 	require_once "../models/DataSubject.php";
 	require_once "../models/Cycle.php";
-	require_once "../models/Guarantor.php";
+	require_once "../models/Transaction.php";
+	require_once "../models/ProcessingFee.php";
 	require_once "../models/Payroll.php";
-	require_once "../models/Roi.php";
+	require_once "../models/Salary.php";
 	session_start();
 
-	$roi = new Roi();
-	$data = $roi->getRoiClaimReceiptData($guarantor_id);
+	$salary = new Salary();
+	$data = $salary->getSalaryClaimReceiptData($guarantor_id);
 	$custom_id = $data["custom_id"];
 ?>
 <!DOCTYPE html>
@@ -27,7 +29,7 @@
 	<meta name="description" content="" />
 	<meta name="viewport" content="width=device-width, initial-scale=1.0">
 	<link rel="stylesheet" type="text/css" href="../css/all.min.css" />
-	<link rel="stylesheet" type="text/css" href="../css/roi-print-size.css" media="print" />
+	<link rel="stylesheet" type="text/css" href="../css/extra-short-print-size.css" media="print" />
 	<link rel="stylesheet" type="text/css" href="../css/print.css" media="print" />
 	<link rel="shortcut icon" type="image/x-icon" href="../img/favicon.png" />
 	<title><?php echo $custom_id; ?></title>
@@ -43,47 +45,27 @@
 		</address>
 	</header>
 	<hr />
-	<h2>ROI Claim</h2>
+	<h2>Salary Claim</h2>
 	<table>
 		<tr>
 			<th>Asst. Treasurer</th>
 			<td>Theresa G. De Ocampo</td>
 		</tr>
 		<tr>
-			<th>Claimer</th>
-			<td><?php echo $data["claimer"]; ?></td>
+			<th>Total Processing Fee</th>
+			<td>&#8369; <?php echo number_format($data["total_processing_fee"], 2, ".", ","); ?></td>
 		</tr>
 		<tr>
-			<th>Per Share</th>
-			<td>&#8369; <?php echo $data["per_share"]; ?></td>
+			<th>Earnings</th>
+			<td>&#8369; <?php echo number_format($data["earnings"], 2, ".", ","); ?></td>
 		</tr>
 		<tr>
-			<th>No. of Share</th>
-			<td><?php echo $data["number_of_share"]; ?></td>
+			<th>Claimer Position</th>
+			<td><?php echo $data["claimer_position"]; ?></td>
 		</tr>
 		<tr>
-			<th>Interest Collected</th>
-			<td>&#8369; <?php echo number_format($data["total_interest_collected"], 2, ".", ","); ?></td>
-		</tr>
-		<tr>
-			<th>10% Return</th>
-			<td>&#8369; <?php echo number_format($data["ten_percent_return"], 2, ".", ","); ?></td>
-		</tr>
-		<tr>
-			<th>Cut <span>(No. of Share * Per Share)</span></th>
-			<td>&#8369; <?php echo number_format($data["cut"], 2, ".", ","); ?></td>
-		</tr>
-		<tr>
-			<th>Total <span>(10% Return + Cut)</span></th>
-			<td>&#8369; <?php echo number_format($data["total"], 2, ".", ","); ?></td>
-		</tr>
-		<tr>
-			<th>Principal Returned</th>
-			<td>&#8369; <?php echo number_format($data["principal_returned"], 2, ".", ","); ?></td>
-		</tr>
-		<tr>
-			<th>Grand Total <span>(Principal Returned + Total)</span></th>
-			<td>&#8369; <?php echo number_format($data["grand_total"], 2, ".", ","); ?></td>
+			<th>Claimer Name</th>
+			<td><?php echo $data["claimer_name"]; ?></td>
 		</tr>
 		<tr>
 			<th>Date & Time Claimed</th>

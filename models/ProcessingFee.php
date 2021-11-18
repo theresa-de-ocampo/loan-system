@@ -91,4 +91,20 @@ class ProcessingFee extends Transaction {
 			"loan_id" => $loan->loan_id
 		);
 	}
+
+	public function getTotalProcessingFeeCollected() {
+		$this->db->query("
+			SELECT
+				COALESCE(SUM(`processing_fee_payment`.`amount`), 0)
+			FROM
+				`processing_fee_payment`
+			INNER JOIN `processing_fee`
+				USING (`processing_fee_id`)
+			INNER JOIN `loan`
+				USING (`loan_id`)
+			WHERE
+				`cycle_id` = $this->cycle
+		");
+		return $this->db->resultColumn();
+	}
 }

@@ -247,7 +247,7 @@
 				</thead>
 				<tbody>
 					<?php foreach ($employees as $e): ?>
-					<tr>
+					<tr data-guarantor-id="<?php echo $e->user_id ?>">
 						<td data-sort="<?php echo $e->fname; ?>"><?php echo $e->fname." ".$e->mname[0].". ".$e->lname; ?></td>
 						<td><?php echo $e->position; ?></td>
 						<td><?php echo $earnings; ?></td>
@@ -256,12 +256,14 @@
 						<?php else: ?>
 							<?php if ($processed): $s = $salary->getSalary($e->user_id); $status = $s->status; ?>
 								<?php if ($status == "Pending"): ?>
-									<td><a href="#" class="<?php echo strtolower($status); ?>"><?php echo $status; ?></a></td>
+									<td>
+										<a href="#" class="salary <?php echo strtolower($status); ?>"><?php echo $status; ?></a>
+									</td>
 								<?php else: ?>
 									<td>
 										<a 
 											href="#" 
-											class="<?php echo strtolower($status); ?>"
+											class="salary <?php echo strtolower($status); ?>"
 											data-date-time-claimed=
 												"<?php echo $converter->shortToLongDateTime($s->date_time_claimed); ?>"
 											data-proof="<?php echo $s->proof; ?>"
@@ -296,12 +298,14 @@
 								}
 							?>
 								<?php if ($status == "Pending"): ?>
-									<td><a href="#" class="<?php echo strtolower($status); ?>"><?php echo $status; ?></a></td>
+									<td>
+										<a href="#" class="fund <?php echo strtolower($status); ?>"><?php echo $status; ?></a>
+									</td>
 								<?php else: ?>
 									<td>
 										<a 
 											href="#" 
-											class="<?php echo strtolower($status); ?>"
+											class="fund <?php echo strtolower($status); ?>"
 											data-date-time-claimed=
 												"<?php echo $converter->shortToLongDateTime($f->date_time_claimed); ?>"
 											data-proof="<?php echo $f->proof; ?>"

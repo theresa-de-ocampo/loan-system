@@ -1,0 +1,24 @@
+<form action="src/process-salary-claim.php" method="post" enctype="multipart/form-data" novalidate>
+	<div class="grid-wrapper">
+		<header class="modal">Salary</header>
+		<div class="grid-item solo">
+			<label for="name">Name</label>
+			<input id="name" type="text" readonly class="medium" />
+		</div><!-- .grid-item.solo -->
+		<div class="grid-item solo">
+			<label for="proof">Proof of Claim</label>
+			<div id="drop-area">
+				<div class="fas fa-cloud-upload-alt"></div>
+				<div>Drag &amp; Drop to Upload File</div>
+				<div>OR</div>
+				<button type="button" class="focal-button">Browse File</button>
+			</div><!-- #drop-area -->
+			<input id="proof" type="file" name="proof" required />
+		</div><!-- .grid-item.solo -->
+	</div><!-- .grid-wrapper -->
+	<input id="id" type="hidden" name="id" required readonly />
+
+	<footer>
+		<button id="modal-ok" type="submit" name="accept"><i class="fas fa-pencil-alt"></i></button>
+	</footer>
+</form>
