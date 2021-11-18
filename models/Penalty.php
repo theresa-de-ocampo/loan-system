@@ -107,4 +107,20 @@ class Penalty extends Transaction {
 			"interest_id" => $interest->interest_id
 		);
 	}
+
+	public function getTotalPenaltiesCollected() {
+		$this->db->query("
+			SELECT
+				COALESCE(SUM(`penalty_payment`.`amount`), 0)
+			FROM
+				`penalty_payment`
+			INNER JOIN `penalty`
+				USING (`penalty_id`)
+			INNER JOIN `loan`
+				USING (`loan_id`)
+			WHERE
+				`cycle_id` = $this->cycle
+		");
+		return $this->db->resultColumn();
+	}
 }

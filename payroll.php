@@ -7,6 +7,8 @@
 	require_once "models/DataSubject.php";
 	require_once "models/Guarantor.php";
 	require_once "models/Transaction.php";
+	require_once "models/ProcessingFee.php";
+	require_once "models/Penalty.php";
 	require_once "models/Payroll.php";
 	require_once "models/Roi.php";
 	require_once "models/Salary.php";
@@ -16,6 +18,8 @@
 	$cycle = new Cycle();
 	$data_subject = new DataSubject();
 	$guarantor = new Guarantor();
+	$processing_fee = new ProcessingFee();
+	$penalty = new Penalty();
 	$payroll = new Payroll();
 	$roi = new Roi();
 	$salary = new Salary();
@@ -26,9 +30,9 @@
 	$rate = $profits["rate"];
 	$interest = $profits["interest"];
 	$processed = $payroll->getProcessedFlag();
-	$honorarium = $payroll->getHonorarium();
-	$earnings = $converter->roundDown($honorarium["earnings"] / 3);
-	$funds = $honorarium["funds"]; /*Amount of funds for this cycle, not an array of `fund` records. */
+	$total_processing_fee_collected = $processing_fee->getTotalProcessingFeeCollected();
+	$earnings = $converter->roundDown($total_processing_fee_collected / 3);
+	$funds = $penalty->getTotalPenaltiesCollected(); /*Amount of funds for this cycle, not an array of `fund` records. */
 	$employees = $salary->getEmployees();
 	$on_going = date("m") < 11 || (date("m") <= 11) && date("d") < 30;
 ?>

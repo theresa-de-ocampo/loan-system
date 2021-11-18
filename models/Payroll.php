@@ -60,39 +60,4 @@ class Payroll {
 		$this->db->bind(3, $data["penalty"]);
 		$this->db->execute();
 	}
-
-	public function getHonorarium() {
-		$this->db->query("
-			SELECT
-				COALESCE(SUM(`processing_fee_payment`.`amount`), 0)
-			FROM
-				`processing_fee_payment`
-			INNER JOIN `processing_fee`
-				USING (`processing_fee_id`)
-			INNER JOIN `loan`
-				USING (`loan_id`)
-			WHERE
-				`cycle_id` = $this->cycle
-		");
-		$total_earnings = $this->db->resultColumn();
-
-		$this->db->query("
-			SELECT
-				COALESCE(SUM(`penalty_payment`.`amount`), 0)
-			FROM
-				`penalty_payment`
-			INNER JOIN `penalty`
-				USING (`penalty_id`)
-			INNER JOIN `loan`
-				USING (`loan_id`)
-			WHERE
-				`cycle_id` = $this->cycle
-		");
-		$total_funds = $this->db->resultColumn();
-
-		return array(
-			"earnings" => $total_earnings,
-			"funds" => $total_funds
-		);
-	}
 }
