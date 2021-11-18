@@ -115,21 +115,21 @@ $(function() {
 		});
 	});
 
-	const $salaryTbl = $("#salary-tbl").DataTable({
+	const $honorariumTbl = $("#honorarium-tbl").DataTable({
 		dom: "Bfrtip",
 		responsive: true,
 		buttons: [
 			{
 				extend: "print",
-				title: "Salary",
+				title: "Honorarium",
 				customize: addHeaderToPdf,
 				messageTop: cycle
 			},
 			{
 				extend: "csv",
-				title: "Salary"
+				title: "Honorarium"
 			}
 		]
 	});
-	checkForRows($salaryTbl, "#salary-tbl");
+	checkForRows($honorariumTbl, "#honorarium-tbl");
 });

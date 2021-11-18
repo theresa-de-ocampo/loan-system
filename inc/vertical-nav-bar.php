@@ -84,7 +84,7 @@
 				<li><a href="payroll.php#principal-summation">Principal Summation</a></li>
 				<li><a href="payroll.php#interest-summation">Interest Summation</a></li>
 				<li><a href="payroll.php#shares">Shares</a></li>
-				<li><a href="payroll.php#salary">Salary</a></li>
+				<li><a href="payroll.php#honorarium">Honorarium</a></li>
 			</ul><!-- .sub-menu -->
 		</li>
 
