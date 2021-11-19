@@ -89,7 +89,7 @@ class Salary extends Payroll {
 			"claimer_position" => $claimer_position,
 			"claimer_name" => $claimer_name,
 			"date_time_claimed" => $date_time_claimed,
-			"custom_id" => "G".$id." C".$this->cycle
+			"custom_id" => "A".$id." C".$this->cycle
 		);
 	}
 }

@@ -8,6 +8,8 @@
 		echo "<script>alert('Sorry, something went wrong!');</script>";
 		echo "<script>window.location.replace('../transactions.php');</script>";
 	}
+	session_start();
+	
 	require_once "../config/config.php";
 	require_once "../lib/database-handler.php";
 	require_once "../lib/conversion-util.php";
@@ -15,6 +17,7 @@
 	require_once "../models/DataSubject.php";
 	require_once "../models/Transaction.php";
 	require_once "../models/Penalty.php";
+	require_once "../inc/get-cashier.php";
 
 	$converter = new Converter();
 	$penalty = new Penalty();
@@ -48,8 +51,8 @@
 	<h2>Penalty Payment</h2>
 	<table>
 		<tr>
-			<th>Asst. Treasurer</th>
-			<td>Theresa G. De Ocampo</td>
+			<th><?php echo $position; ?></th>
+			<td><?php echo $cashier; ?></td>
 		</tr>
 		<tr>
 			<th>Borrower</th>
