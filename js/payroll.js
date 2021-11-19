@@ -151,4 +151,29 @@ $(function() {
 			});
 		});
 	});
+
+	$.get("inc/claimed-salary.html", function(data) {
+		$honorariumTbl.on("click", "td a.salary.claimed", function() {
+			let $this = $(this);
+			let $tr = $this.closest("tr");
+			if ($tr.hasClass("child"))
+				$tr = $tr.prev();
+			const row = $honorariumTbl.row($tr).data();
+			const dateTimeClaimed = $this.attr("data-date-time-claimed");
+			const proofSrc = "img/payroll/2021/salary/" + $this.attr("data-proof");
+
+			createModal(data);
+			const $proof = $(".tingle-modal-box img");
+			$proof.attr("src", proofSrc);
+			$(".tingle-modal-box #position").text(row[1].display);
+			$(".tingle-modal-box #name").text(row[0].display);
+			$(".tingle-modal-box #date-time-claimed").text(dateTimeClaimed);
+
+			$proof.on("load", function() {
+				const $modal = $(".tingle-modal");
+				if (window.innerHeight <= $modal.height())
+					$modal.addClass("tingle-modal--overflow");
+			});
+		});
+	});
 });
