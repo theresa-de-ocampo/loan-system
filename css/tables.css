@@ -117,9 +117,17 @@ table.pattern-bg th {
 }
 
 table.pattern-bg td {
-	text-align: left;
+	text-align: justify;
 }
 
 table.pattern-bg th, table.pattern-bg td {
 	padding: 2px 5px;
+}
+
+.tingle-modal-box table.pattern-bg td {
+	padding-right: 30px;
+}
+
+#claimed-fund th {
+	width: 20ch;
 }

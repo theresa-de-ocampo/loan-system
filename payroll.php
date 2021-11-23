@@ -318,6 +318,8 @@
 										<a 
 											href="#" 
 											class="fund <?php echo strtolower($status); ?>"
+											data-claimer="<?php echo $name; ?>"
+											data-purpose="<?php echo $f->purpose; ?>"
 											data-date-time-claimed=
 												"<?php echo $converter->shortToLongDateTime($f->date_time_claimed); ?>"
 											data-proof="<?php echo $f->proof; ?>"

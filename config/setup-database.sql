@@ -220,7 +220,7 @@ CREATE TABLE `fund` (
 	`amount` DECIMAL(50, 2) NOT NULL,
 	`claimed_by` INT UNSIGNED,
 	`date_time_claimed` DATETIME,
-	`proof` CHAR(10),
+	`proof` CHAR(15),
 	`purpose` VARCHAR(2000),
 
 	CONSTRAINT fk_fund_received_by FOREIGN KEY (`claimed_by`)

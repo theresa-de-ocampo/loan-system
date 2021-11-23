@@ -197,4 +197,31 @@ $(function() {
 			});
 		});
 	});
+
+	$.get("inc/claimed-fund.html", function(data) {
+		$honorariumTbl.on("click", "td a.fund.claimed", function() {
+			let $this = $(this);
+			let $tr = $this.closest("tr");
+			if ($tr.hasClass("child"))
+				$tr = $tr.prev();
+			const row = $honorariumTbl.row($tr).data();
+			const dateTimeClaimed = $this.attr("data-date-time-claimed");
+			const claimer = $this.attr("data-claimer");
+			const purpose = $this.attr("data-purpose");
+			const proofSrc = "img/payroll/2021/" + $this.attr("data-proof");
+
+			createModal(data);
+			const $proof = $(".tingle-modal-box img");
+			$proof.attr("src", proofSrc);
+			$(".tingle-modal-box #name").text(claimer);
+			$(".tingle-modal-box #purpose").text(purpose);
+			$(".tingle-modal-box #date-time-claimed").text(dateTimeClaimed);
+
+			$proof.on("load", function() {
+				const $modal = $(".tingle-modal");
+				if (window.innerHeight <= $modal.height())
+					$modal.addClass("tingle-modal--overflow");
+			});
+		});
+	});
 });

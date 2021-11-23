@@ -177,9 +177,16 @@
 		text-align: center !important;
 	}
 
+	table.pattern-bg tr th {
+		padding-top: 10px;
+	}
+
 	table.pattern-bg tr:last-child th {
 		padding-bottom: unset;
-		padding-top: 10px;
+	}
+
+	#claimed-fund th {
+		width: unset;
 	}
 
 	#content-wrapper header {
