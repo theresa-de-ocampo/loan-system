@@ -169,7 +169,6 @@ CREATE TABLE `closing` (
 	`closing_date` DATE NOT NULL DEFAULT (CURDATE()),
 	`interest` DECIMAL(50, 2) NOT NULL,
 	`processing_fee` DECIMAL(30, 2) NOT NULL,
-	`penalty` DECIMAL(50, 2) NOT NULL,
 
 	CONSTRAINT fk_closing_cycle_id FOREIGN KEY (`closing_id`)
 		REFERENCES `cycle` (`cycle_id`)

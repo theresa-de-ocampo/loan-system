@@ -339,8 +339,7 @@
 
 		<form action="src/process-year-end.php" method="post">
 			<input type="hidden" name="interest" value="<?php echo $interest; ?>" />
-			<input type="hidden" name="processing-fee" value="20" />
-			<input type="hidden" name="penalty" value="15" />
+			<input type="hidden" name="processing-fee" value="<?php echo $total_processing_fee_collected; ?>" />
 
 			<?php
 				$serialized_guarantor_ids = serialize($guarantor_ids);

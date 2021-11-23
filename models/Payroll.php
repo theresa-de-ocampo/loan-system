@@ -54,10 +54,32 @@ class Payroll {
 	}
 
 	public function addClosing($data) {
-		$this->db->query("INSERT INTO `closing` (`interest`, `processing_fee`, `penalty`) VALUES (?, ?, ?)");
+		$this->db->query("INSERT INTO `closing` (`interest`, `processing_fee`) VALUES (?, ?)");
 		$this->db->bind(1, $data["interest"]);
 		$this->db->bind(2, $data["processing-fee"]);
-		$this->db->bind(3, $data["penalty"]);
-		$this->db->execute();
+		$this->db->executeWithoutCatch();
+	}
+
+	public function processYearEnd($closing_data, $guarantorIds, $guarantorTotals, $earnings, $funds) {
+		try {
+			$this->db->startTransaction();
+			$roi = new Roi();
+			$salary = new Salary();
+			$fund = new Fund();
+
+			$this->addClosing($closing_data);
+			$roi->addRoi($guarantorIds, $guarantorTotals);
+			$salary->addSalary($earnings);
+			$fund->addFund($funds);
+		}
+		catch (PDOException $e) {
+			$this->db->rollBack();
+			$error = $e->getMessage()." in ".$e->getFile()." on line ".$e->getLine();
+			$this->db->logError($error);
+			echo "<script>alert('An unexpected error occurred with the year-end processing');</script>";
+		}
+		finally {
+			header("Location: ../payroll.php");
+		}
 	}
 }

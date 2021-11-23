@@ -4,7 +4,7 @@ class Fund extends Payroll {
 		$this->db->query("INSERT INTO `fund` (`closing_id`, `amount`) VALUES (?, ?)");
 		$this->db->bind(1, $this->cycle);
 		$this->db->bind(2, $funds);
-		$this->db->execute();
+		$this->db->executeWithoutCatch();
 	}
 
 	public function getFund() {

@@ -12,7 +12,6 @@ if (isset($_POST)) {
 	$closing_data = array(
 		"interest" => $_POST["interest"],
 		"processing-fee" => $_POST["processing-fee"],
-		"penalty" => $_POST["penalty"]
 	);
 
 	$guarantorIds = unserialize($_POST["g-ids"]);
@@ -25,9 +24,5 @@ if (isset($_POST)) {
 	$salary = new Salary();
 	$fund = new Fund();
 
-	$payroll->addClosing($closing_data);
-	$roi->addRoi($guarantorIds, $guarantorTotals);
-	$salary->addSalary($earnings);
-	$fund->addFund($funds);
-	header("Location: ../payroll.php");
+	$payroll->processYearEnd($closing_data, $guarantorIds, $guarantorTotals, $earnings, $funds);
 }

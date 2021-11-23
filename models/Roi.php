@@ -8,7 +8,7 @@ class Roi extends Payroll {
 			$this->db->bind(1, $totals[$i++]);
 			$this->db->bind(2, $id);
 			$this->db->bind(3, $this->cycle);
-			$this->db->execute();
+			$this->db->executeWithoutCatch();
 		}
 	}
 
