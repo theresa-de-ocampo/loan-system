@@ -117,7 +117,7 @@
 					<?php endforeach; ?>
 				</tbody>
 			</table><!-- #principal-summation-tbl -->
-			<p class="pattern-bg"><span class="peso-sign">&#8369; </span><span class="amount"></span></p>
+			<p class="pattern-bg total"><span class="peso-sign">&#8369; </span><span class="amount"></span></p>
 		</section><!-- #principal-summation -->
 
 		<section id="interest-summation">
@@ -139,7 +139,7 @@
 					<?php endforeach; ?>
 				</tbody>
 			</table><!-- #interest-summation-tbl -->
-			<p class="pattern-bg"><span class="peso-sign">&#8369; </span><span class="amount"></span></p>
+			<p class="pattern-bg total"><span class="peso-sign">&#8369; </span><span class="amount"></span></p>
 		</section><!-- #interest-summation -->
 
 		<section id="shares">

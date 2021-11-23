@@ -25,7 +25,7 @@
 		font-weight: unset;
 	}
 
-	#loans p {
+	p.total {
 		width: 40%;
 	}
 }
@@ -35,7 +35,7 @@
 		width: 90%;
 	}
 
-	#loans p {
+	p.total {
 		width: 50%;
 	}
 }
@@ -131,7 +131,7 @@
 }
 
 @media screen and (max-width: 850px) {
-	#loans p {
+	p.total {
 		width: 60%;
 	}
 }
@@ -148,11 +148,11 @@
 		padding-bottom: 20px;
 	}
 
-	#loans p {
+	p.total {
 		width: 80%;
 	}
 
-	#loans p span.amount {
+	p.total span.amount {
 		font-size: 22px;
 		font-weight: unset;
 	}
@@ -231,7 +231,7 @@
 		padding: 5px 20px;
 	}
 
-	#loans p {
+	p.total {
 		width: 100%;
 	}
 }
