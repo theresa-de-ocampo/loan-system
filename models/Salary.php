@@ -62,7 +62,7 @@ class Salary extends Payroll {
 				$this->db->bind(2, $file_name);
 				$this->db->bind(3, $id);
 				$this->db->bind(4, $this->cycle);
-				$this->db->execute("Year-end share was successfully claimed!", "../receipts/salary-claim.php?guarantor-id=$id");
+				$this->db->execute("Year-end earnings was successfully claimed!", "../receipts/salary-claim.php?guarantor-id=$id");
 				move_uploaded_file($file_tmp_name, $file_dest);
 			}
 		}
@@ -89,7 +89,7 @@ class Salary extends Payroll {
 			"claimer_position" => $claimer_position,
 			"claimer_name" => $claimer_name,
 			"date_time_claimed" => $date_time_claimed,
-			"custom_id" => "A".$id." C".$this->cycle
+			"custom_id" => "S".$id." C".$this->cycle
 		);
 	}
 }

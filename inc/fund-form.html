@@ -1,0 +1,30 @@
+<form action="src/process-fund-claim.php" method="post" enctype="multipart/form-data" novalidate>
+	<div class="grid-wrapper">
+		<header class="modal">Funds</header>
+		<div class="grid-item solo">
+			<label for="claimer">Claimer</label>
+			<select id="claimer" name="claimer" required>
+				<!-- Options are provided through JS -->
+			</select><!-- #claimer -->
+		</div><!-- .grid-item.solo -->
+		<div class="grid-item solo">
+			<label for="purpose">Purpose</label>
+			<textarea id="purpose" name="purpose" required></textarea>
+		</div><!-- .grid-item.solo -->
+
+		<div class="grid-item solo">
+			<label for="proof">Proof of Claim</label>
+			<div id="drop-area">
+				<div class="fas fa-cloud-upload-alt"></div>
+				<div>Drag &amp; Drop to Upload File</div>
+				<div>OR</div>
+				<button type="button" class="focal-button">Browse File</button>
+			</div><!-- #drop-area -->
+			<input id="proof" type="file" name="proof" required />
+		</div><!-- .grid-item.solo -->
+	</div><!-- .grid-wrapper -->
+
+	<footer>
+		<button id="modal-ok" type="submit" name="accept"><i class="fas fa-pencil-alt"></i></button>
+	</footer>
+</form>

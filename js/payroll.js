@@ -176,4 +176,25 @@ $(function() {
 			});
 		});
 	});
+
+	$.get("inc/fund-form.html", function(data) {
+		$honorariumTbl.on("click", "td a.fund.pending", function() {
+			const treasurerName = $("#treasurer-name").text();
+			const asstTreasurerName = $("#asst-treasurer-name").text();
+			const treasurerId = $("#treasurer-name").closest("tr").attr("data-guarantor-id");
+			const asstTreasurerId = $("#asst-treasurer-name").closest("tr").attr("data-guarantor-id");
+
+			createModal(data);
+			const claimerOptions = `
+				<option value="${treasurerId}">${treasurerName}</option>
+				<option value="${asstTreasurerId}">${asstTreasurerName}</option>
+			`;
+			$(".tingle-modal-box #claimer").html(claimerOptions);
+			$.getScript("js/image-upload.js");
+
+			$("form").on("submit", function(e) {
+				checkIfComplete(e);
+			});
+		});
+	});
 });

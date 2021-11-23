@@ -252,7 +252,15 @@
 				<tbody>
 					<?php foreach ($employees as $e): ?>
 					<tr data-guarantor-id="<?php echo $e->user_id ?>">
-						<td data-sort="<?php echo $e->fname; ?>"><?php echo $e->fname." ".$e->mname[0].". ".$e->lname; ?></td>
+						<?php
+							if ($e->position == "Asst. Treasurer")
+								$position_attr = "asst-treasurer";
+							else
+								$position_attr = "treasurer";
+						?>
+						<td id="<?php echo $position_attr; ?>-name" data-sort="<?php echo $e->fname; ?>">
+							<?php echo $e->fname." ".$e->mname[0].". ".$e->lname; ?>
+						</td>
 						<td><?php echo $e->position; ?></td>
 						<td><?php echo $earnings; ?></td>
 						<?php if ($on_going): ?>
@@ -293,12 +301,12 @@
 								if ($processed):
 									$f = $fund->getFund();
 
-								if (is_null($f->received_by))
+								if (is_null($f->claimed_by))
 									$status = "Pending";
 								else {
-									$receiver = $data_subject->getName($f->received_by);
-									$name = $receiver->fname." ".$receiver->mname[0].". ".$receiver->lname;
-									$status = "Received by $name";
+									$claimer = $data_subject->getName($f->claimed_by);
+									$name = $claimer->fname." ".$claimer->mname[0].". ".$claimer->lname;
+									$status = "Claimed";
 								}
 							?>
 								<?php if ($status == "Pending"): ?>

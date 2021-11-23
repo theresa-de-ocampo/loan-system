@@ -218,12 +218,12 @@ CREATE TABLE `salary` (
 CREATE TABLE `fund` (
 	`closing_id` YEAR PRIMARY KEY,
 	`amount` DECIMAL(50, 2) NOT NULL,
-	`received_by` INT UNSIGNED,
-	`date_time_received` DATETIME,
+	`claimed_by` INT UNSIGNED,
+	`date_time_claimed` DATETIME,
 	`proof` CHAR(10),
 	`purpose` VARCHAR(2000),
 
-	CONSTRAINT fk_fund_received_by FOREIGN KEY (`received_by`)
+	CONSTRAINT fk_fund_received_by FOREIGN KEY (`claimed_by`)
 		REFERENCES `guarantor_cycle_map` (`guarantor_id`)
 		ON UPDATE CASCADE
 		ON DELETE RESTRICT,

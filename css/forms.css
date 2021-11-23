@@ -64,7 +64,9 @@ form label {
 	white-space: nowrap;
 }
 
-input {
+input,
+select,
+textarea {
 	border-radius: 5px;
 	border: 1px solid var(--light-gray);
 	border-bottom-width: 2px; /* Should always be after border property. */
@@ -76,12 +78,31 @@ input {
 	width: 100%;
 }
 
-input:focus {
+input:focus,
+select:focus,
+textarea:focus {
 	border-color: var(--blue-chill);
 }
 
 input[type="file"] {
 	padding-top: 5px;
+}
+
+select {
+	-moz-appearance: none;
+	-webkit-appearance: none;
+	background-image: url("../img/others/down-arrow.svg");
+	background-position: right 15px center;
+	background-repeat: no-repeat;
+	background-size: 24px 24px;
+	padding: 0 45px 0 15px;
+}
+
+textarea {
+	height: 85px;
+	padding: 7px 15px;
+	resize: none;
+	text-align: justify;
 }
 
 .medium {
