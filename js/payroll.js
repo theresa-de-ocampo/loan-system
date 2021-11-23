@@ -1,5 +1,6 @@
 // jshint esversion: 6
 $(function() {
+	const yearFolder = $("#cycle-holder").text();
 	const $principalSummationTbl = $("#principal-summation-tbl").DataTable({
 		dom: "Bfrtip",
 		responsive: true,
@@ -99,7 +100,7 @@ $(function() {
 				$tr = $tr.prev();
 			const row = $sharesTbl.row($tr).data();
 			const dateTimeClaimed = $this.attr("data-date-time-claimed");
-			const proofSrc = "img/payroll/2021/roi/" + $this.attr("data-proof");
+			const proofSrc = "img/payroll/" + yearFolder + "/roi/" + $this.attr("data-proof");
 
 			createModal(data);
 			const $proof = $(".tingle-modal-box img");
@@ -160,7 +161,7 @@ $(function() {
 				$tr = $tr.prev();
 			const row = $honorariumTbl.row($tr).data();
 			const dateTimeClaimed = $this.attr("data-date-time-claimed");
-			const proofSrc = "img/payroll/2021/salary/" + $this.attr("data-proof");
+			const proofSrc = "img/payroll/" + yearFolder + "/salary/" + $this.attr("data-proof");
 
 			createModal(data);
 			const $proof = $(".tingle-modal-box img");
@@ -208,7 +209,7 @@ $(function() {
 			const dateTimeClaimed = $this.attr("data-date-time-claimed");
 			const claimer = $this.attr("data-claimer");
 			const purpose = $this.attr("data-purpose");
-			const proofSrc = "img/payroll/2021/" + $this.attr("data-proof");
+			const proofSrc = "img/payroll/" + yearFolder + "/" + $this.attr("data-proof");
 
 			createModal(data);
 			const $proof = $(".tingle-modal-box img");
