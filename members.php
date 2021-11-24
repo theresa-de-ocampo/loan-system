@@ -4,13 +4,20 @@
 	require_once "lib/database-handler.php";
 	require_once "lib/conversion-util.php";
 	require_once "models/Cycle.php";
+	require_once "models/DataSubject.php";
 	require_once "models/Guarantor.php";
+	require_once "models/User.php";
+	require_once "models/Administrator.php";
 
 	$converter = new Converter();
 	$cycle = new Cycle();
 	$guarantor = new Guarantor();
 	$guarantors = $guarantor->getCurrentGuarantors();
 	$savings = $guarantor->getSavings();
+	$data_subject = new DataSubject();
+	$data_subjects = $data_subject->getDataSubjects();
+	$user = new User();
+	$admininistrator = new Administrator();
 ?>
 <!DOCTYPE html>
 <html lang="en">
@@ -49,7 +56,6 @@
 			<table id="guarantors-tbl" class="display cell-border" width="100%">
 				<thead>
 					<tr>
-						<th>ID</th>
 						<th>First Name</th>
 						<th>Middle Name</th>
 						<th>Last Name</th>
@@ -57,13 +63,11 @@
 						<th>Birthday</th>
 						<th>Age</th>
 						<th>Address</th>
-						<th>Edit</th>
 					</tr>
 				</thead>
 				<tbody>
 					<?php foreach ($guarantors as $g): ?>
 					<tr>
-						<td><?php echo $g->guarantor_id; ?></td>
 						<td><?php echo $g->fname; ?></td>
 						<td><?php echo $g->mname; ?></td>
 						<td><?php echo $g->lname; ?></td>
@@ -71,7 +75,6 @@
 						<td data-sort="<?php echo $g->bday; ?>"><?php echo $converter->shortToLongDate($g->bday); ?></td>
 						<td><?php echo $converter->bdayToAge($g->bday); ?></td>
 						<td><?php echo $g->phase_block_lot; ?></td>
-						<td><i class="fas fa-user-edit"></i></td>
 					</tr>
 					<?php endforeach; ?>
 				</tbody>
@@ -99,6 +102,48 @@
 				</tbody>
 			</table><!-- #savings-tbl -->
 		</section><!-- .savings -->
+
+		<section id="data-subjects">
+			<h3>All Data Subjects</h3>
+			<table id="data-subjects-tbl" class="display cell-border" width="100%">
+				<thead>
+					<tr>
+						<th>First Name</th>
+						<th>Middle Name</th>
+						<th>Last Name</th>
+						<th>Contact Number</th>
+						<th>Birthday</th>
+						<th>Age</th>
+						<th>Address</th>
+						<th>Edit</th>
+						<th>Acct</th>
+					</tr>
+				</thead>
+				<tbody>
+					<?php foreach ($data_subjects as $ds): ?>
+					<tr data-data-subject-id="<?php echo $ds->data_subject_id; ?>">
+						<td><?php echo $ds->fname; ?></td>
+						<td><?php echo $ds->mname; ?></td>
+						<td><?php echo $ds->lname; ?></td>
+						<td><?php echo $ds->contact_no; ?></td>
+						<td data-sort="<?php echo $g->bday; ?>"><?php echo $converter->shortToLongDate($ds->bday); ?></td>
+						<td><?php echo $converter->bdayToAge($g->bday); ?></td>
+						<td><?php echo $ds->phase_block_lot; ?></td>
+						<td><i class="fas fa-user-edit"></i></td>
+						<?php if (!$user->hasAccount($ds->data_subject_id)): ?>
+						<td><i class="fas fa-plus-square"></i></td>
+						<?php else: ?>
+							<?php if ($administrator->currentAdmin($ds->data_subject_id, $cycle->getLatestPeriod())): ?>
+						<td><i class="fas fa-times-circle"></i></td>
+							<?php else: ?>
+						<td><i class="fas fa-minus-square"></i></td>
+							<?php endif; ?>
+						<?php endif; ?>
+					</tr>
+					<?php endforeach; ?>
+				</tbody>
+			</table><!-- #data-subjects-tbl -->
+		</section><!-- #data-subjects -->
 	</main>
 
 	<script src="js/jquery-3.6.0.min.js"></script>

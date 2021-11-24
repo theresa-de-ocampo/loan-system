@@ -16,27 +16,15 @@ $(function() {
 			{
 				extend: "print",
 				title: "Guarantors",
-				exportOptions: {
-					columns: [0, 1, 2, 3, 4, 5, 6, 7]
-				},
 				customize: addHeaderToPdf,
 				messageTop: cycle
 			},
 			{
 				extend: 'csv',
-				title: "Guarantors",
-				exportOptions: {
-					columns: [0, 1, 2, 3, 4, 5, 6, 7]
-				}
+				title: "Guarantors"
 			}
 		],
-		columnDefs: [
-			{
-				targets: [5],
-				width: 100
-			}
-		],
-		order: [[3, "asc"]]
+		order: [[2, "asc"]]
 	});
 	checkForRows($guarantorsTbl, "#guarantors-tbl");
 
@@ -58,6 +46,37 @@ $(function() {
 	});
 	checkForRows($savingsTbl, "#savings-tbl");
 
+	let $dataSubjectsTbl = $("#data-subjects-tbl").DataTable({
+		dom: "Bfrtip", 
+		responsive: true,
+		buttons: [
+			{
+				extend: "print",
+				title: "Data Subjects",
+				exportOptions: {
+					columns: [0, 1, 2, 3, 4, 5, 6]
+				},
+				customize: addHeaderToPdf,
+				messageTop: cycle
+			},
+			{
+				extend: 'csv',
+				title: "Data Subjects",
+				exportOptions: {
+					columns: [0, 1, 2, 3, 4, 5, 6]
+				},
+			}
+		],
+		columnDefs: [
+			{
+				targets: [4],
+				width: 100
+			}
+		],
+		order: [[2, "asc"]]
+	});
+	checkForRows($dataSubjectsTbl, "#savings-tbl");
+
 	$.get("inc/data-subject-form.html", function(data) {
 		function formatDate(date) {
 			let d = new Date(date);
@@ -73,20 +92,20 @@ $(function() {
 			return [year, month, day].join('-');
 		}
 
-		$guarantorsTbl.on("click", ".fa-user-edit", function() {
+		$dataSubjectsTbl.on("click", ".fa-user-edit", function() {
 			let $tr = $(this).closest("tr");
 			if ($tr.hasClass("child"))
 				$tr = $tr.prev();
-			let row = $guarantorsTbl.row($tr).data();
+			let row = $dataSubjectsTbl.row($tr).data();
 			
 			createModal(data);
-			$(".tingle-modal-box #id").val(row[0]);
-			$(".tingle-modal-box #fname").val(row[1]);
-			$(".tingle-modal-box #mname").val(row[2]);
-			$(".tingle-modal-box #lname").val(row[3]);
-			$(".tingle-modal-box #contact-no").val(row[4]);
-			$(".tingle-modal-box #bday").val(formatDate(row[5]));
-			$(".tingle-modal-box #address").val(row[7]);
+			$(".tingle-modal-box #id").val($tr.attr("data-data-subject-id"));
+			$(".tingle-modal-box #fname").val(row[0]);
+			$(".tingle-modal-box #mname").val(row[1]);
+			$(".tingle-modal-box #lname").val(row[2]);
+			$(".tingle-modal-box #contact-no").val(row[3]);
+			$(".tingle-modal-box #bday").val(formatDate(row[4].display));
+			$(".tingle-modal-box #address").val(row[5]);
 			let $form = $("form");
 			let origForm = $form.serialize();
 

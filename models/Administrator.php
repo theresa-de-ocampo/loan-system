@@ -54,19 +54,18 @@ class Administrator extends User {
 		$this->db->executeWithoutCatch();
 	}
 
-	private function sysAdminExists() {
+	public function currentAdmin($id, $latest_period) {
 		$this->db->query("
 			SELECT
-				`user_id`
+				`position`
 			FROM
 				`administrator`
 			INNER JOIN `user`
 				USING (`user_id`)
 			WHERE
-				`cycle_id` = ? AND
-				`position` IN ('Treasurer', 'Asst. Treasurer')
+				`cycle_id` = $latest_period AND
+				`user_id` = $id
 		");
-		$this->db->bind(1, date("Y"));
-		return $this->db->resultRecord();
+		return $this->db->resultColumn();
 	}
 }

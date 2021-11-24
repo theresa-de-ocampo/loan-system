@@ -1,6 +1,7 @@
 /*@import url("https://fonts.googleapis.com/css2?family=Poppins:ital,wght@0,100;0,200;0,300;0,400;0,500;0,600;0,700;0,800;0,900;1,100;1,200;1,300;1,400;1,500;1,600;1,700;1,800;1,900&display=swap");*/
 
 :root {
+	--alizarin-crimson: #E61D1D;
 	--athens-gray: #e8e9eb;
 	--azureish-white: #dae8f5;
 	--blue-chill: #0d8b90;
@@ -12,6 +13,7 @@
 	--light-gray: #d3d3d3;
 	--light-steel-blue: #a9bcd0;
 	--link-water: #e4e9f7;
+	--mine-shaft: #333232;
 	--persian-red: #d33333;
 	--roman-silver: #787e87;
 	--silver-sand: #c5c6c8;

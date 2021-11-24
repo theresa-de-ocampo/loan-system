@@ -16,13 +16,27 @@ table thead th:last-child {
 	border-radius: 0 5px 0 0;
 }
 
-table .fas {
+table .fa-user-edit,
+table .fa-plus-square {
 	color: var(--blue-chill);
 	text-decoration: none;
 }
 
-table .fas:hover {
+table .fa-minus-square {
+	color: var(--persian-red);
+}
+
+table .fa-times-circle {
+	color: var(--mine-shaft);
+}
+
+table .fa-user-edit:hover,
+table .fa-plus-square:hover {
 	color: var(--cyan) !important;
+}
+
+table .fa-minus-square:hover {
+	color: var(--alizarin-crimson);
 }
 
 .dataTables_filter input {
@@ -57,7 +71,7 @@ table.display.dataTable tbody tr:hover > .sorting_1 {
 	background-color: var(--botticelli);
 }
 
-.fas, .far,
+.fas:not(.fa-times-circle), .far,
 #new-guarantor table tr:hover {
 	cursor: pointer;
 }

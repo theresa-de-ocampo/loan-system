@@ -58,6 +58,6 @@ class DataSubject {
 		$i = 1;
 		foreach ($data as $field)
 			$this->db->bind($i++, $field);
-		$this->db->execute("Data subject was updated successfully!", "../members.php");
+		$this->db->execute("Data subject was updated successfully!", "../members.php#data-subjects");
 	}
 }
