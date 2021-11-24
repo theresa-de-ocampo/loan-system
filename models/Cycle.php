@@ -57,7 +57,7 @@ class Cycle {
 			$this->db->logError($error);
 		}
 		finally {
-			$this->db->confirmQuery("New cycle has started", "../index.php");
+			$this->db->confirmQuery("New cycle has started!", "../index.php");
 		}
 	}
 }
