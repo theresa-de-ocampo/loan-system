@@ -116,4 +116,4 @@
 		</div><!-- .grid-wrapper -->
 		<p>Looks like you already have an account using <b></b></p>
 	</div><!-- .account-details -->
-</section><!-- #auditor -->
+</section><!-- #[position] -->

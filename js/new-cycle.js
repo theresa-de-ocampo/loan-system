@@ -1,6 +1,6 @@
 // jshint esversion: 6
 $(function() {
-	const positions = ["#auditor", "#treasurer", "#asst-treasurer"];
+	const positions = ["#treasurer", "#asst-treasurer"];
 	let $existingDataSubjectPane;
 	let $newDataSubjectPane;
 	let $existingDataSubjectInputs;
@@ -81,20 +81,6 @@ $(function() {
 		}
 	}
 
-	const $auditorTbl = $("#auditor-tbl").DataTable({
-		dom: "Bfrtip",
-		responsive: true,
-		buttons: [
-			{
-				text: "New Data Subject",
-				action: function() {
-					displayNewDataSubject("#auditor");
-				}
-			}
-		],
-		order: [[3, "asc"]]
-	});
-
 	const $treasurerTbl = $("#treasurer-tbl").DataTable({
 		dom: "Bfrtip",
 		responsive: true,
@@ -123,7 +109,7 @@ $(function() {
 		order: [[3, "asc"]]
 	});
 
-	const $tables = [$auditorTbl, $treasurerTbl, $asstTreasurerTbl];
+	const $tables = [$treasurerTbl, $asstTreasurerTbl];
 	let i = 0;
 	for (let qualifier of positions) {
 		$tbl = $tables[i++];

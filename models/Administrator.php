@@ -64,7 +64,7 @@ class Administrator extends User {
 				USING (`user_id`)
 			WHERE
 				`cycle_id` = ? AND
-				`position` IN ('Auditor', 'Treasurer')
+				`position` IN ('Treasurer', 'Asst. Treasurer')
 		");
 		$this->db->bind(1, date("Y"));
 		return $this->db->resultRecord();

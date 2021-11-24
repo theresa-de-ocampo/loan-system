@@ -246,7 +246,7 @@ CREATE TABLE `user` (
 ) Engine=InnoDB;
 
 CREATE TABLE `administrator` (
-	`position` ENUM('Auditor', 'Treasurer', 'Asst. Treasurer') NOT NULL,
+	`position` ENUM('Treasurer', 'Asst. Treasurer') NOT NULL,
 	`cycle_id` YEAR DEFAULT (YEAR(CURDATE())) NOT NULL,
 	`user_id` INT UNSIGNED NOT NULL,
 
@@ -362,10 +362,8 @@ VALUES
 INSERT INTO
 	`administrator`
 VALUES
-	('Auditor', '2020', 9),
 	('Treasurer', '2020', 10),
 	('Asst. Treasurer', '2020', 11),
-	('Auditor', '2021', 23),
 	('Treasurer', '2021', 24),
 	('Asst. Treasurer', '2021', 11);
 

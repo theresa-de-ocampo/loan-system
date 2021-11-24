@@ -42,7 +42,7 @@
 
 		<form action="src/new-cycle.php" method="post">
 			<?php
-				$positions = ["auditor", "treasurer", "asst-treasurer"];
+				$positions = ["treasurer", "asst-treasurer"];
 				foreach ($positions as $position)
 					require "inc/new-admin.php";
 			?>
