@@ -54,7 +54,7 @@
 		<div id="cycle-holder"><?php echo $cycle->getCycleId(); ?></div>
 
 		<section id="loan-history">
-			<h2>Loan History</h2>
+			<h3>Loan History</h3>
 			<hr />
 			<table id="loan-history-tbl" class="display cell-border" width="100%">
 				<thead>

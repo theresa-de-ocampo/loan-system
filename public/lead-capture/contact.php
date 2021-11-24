@@ -14,7 +14,6 @@
 <body>
 	<section class="sub-header">
 		<nav>
-			<a href="index.html"><img src="fa fa-home"/></a>
 			<div class="nav-links" id="navlinks">
 				<i class="fa fa-times" onclick="hideMenu()"></i>
 				<ul>
