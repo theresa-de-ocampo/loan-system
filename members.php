@@ -83,6 +83,7 @@
 
 		<section id="savings">
 			<h3>Savings</h3>
+			<hr />
 			<table id="savings-tbl" class="display cell-border" width="100%">
 				<thead>
 					<tr>
@@ -105,6 +106,7 @@
 
 		<section id="data-subjects">
 			<h3>All Data Subjects</h3>
+			<hr />
 			<table id="data-subjects-tbl" class="display cell-border" width="100%">
 				<thead>
 					<tr>
@@ -152,6 +154,8 @@
 	<script src="js/tingle.min.js"></script>
 	<script src="js/tables.js"></script>
 	<script src="js/modal.js"></script>
+	<script src="js/validation.js"></script>
+	<script src="js/show-password.js"></script>
 	<script src="js/members.js"></script>
 </body>
 </html>

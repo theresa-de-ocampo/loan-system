@@ -147,7 +147,7 @@ $(function() {
 			if (checkNewCycleEntities(e))
 				if (checkUsernames(e))
 					if (checkEmails(e))
-						if (checkPasswords(e))
-							confirmPasswords(e);
+						if (checkPasswordsNC(e))
+							confirmPasswordsNC(e);
 	});
 });

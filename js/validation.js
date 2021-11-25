@@ -67,8 +67,50 @@ function checkGuarantorOutstanding(e, guarantorOutstanding, loanAmount) {
 	return flag;
 }
 
+function checkUsername(e, username) {
+	let flag = true;
+
+	if (username.length > 8) {
+		flag = false;
+		alert("Username must not be longer than 8 characters.");
+		e.preventDefault();
+	}
+	return flag;
+}
+
+function checkEmail(e, email) {
+	const regex = /^([a-zA-Z0-9_.+-])+\@(([a-zA-Z0-9-])+\.)+([a-zA-Z0-9]{2,4})+$/;
+	const flag = regex.test(email);
+	if (!flag) {
+		alert("Invalid email address.");
+		e.preventDefault();
+	}
+	return flag;
+}
+
+function checkPassword(e, password) {
+	const regex = /^(?=.*\d)(?=.*[a-z])(?=.*[A-Z])[0-9a-zA-Z!@\-#\s$%^&*]{8,}$/;
+	const flag = regex.test(password);
+	if (!flag) {
+		alert("Password should be a minimum of 8 characters consisting of at least one uppercase letter, one lowercase letter, and a digit");
+		e.preventDefault();
+	}
+	return flag;
+}
+
+function confirmPassword(e, password, reEnteredPassword) {
+	let flag = true;
+	if (password != reEnteredPassword) {
+		flag = false;
+		alert("Passwords do not match");
+		e.preventDefault();
+	}
+	return flag;
+}
+
+/* Bad code that needs to be improved. */
 function checkNewCycle(e, type, message) {
-	const positions = ["#auditor", "#treasurer", "#asst-treasurer"];
+	const positions = ["#treasurer", "#asst-treasurer"];
 	const errors = [];
 	let i = 0;
 	let error;
@@ -81,10 +123,10 @@ function checkNewCycle(e, type, message) {
 					errorFlag = $field.val().length > 8;
 					break;
 				case "email":
-					errorFlag = !checkEmail($field.val());
+					errorFlag = !checkEmailNC($field.val());
 					break;
 				case "password":
-					errorFlag = !checkPassword($field.val());
+					errorFlag = !checkPasswordNC($field.val());
 					break;
 				case "confirm-password":
 					errorFlag = $field.val() != $(qualifier + "-password").val();
@@ -120,7 +162,7 @@ function checkUsernames(e) {
 	return checkNewCycle(e, "username", "Username must not be longer than 8 characters");
 }
 
-function checkEmail(email) {
+function checkEmailNC(email) {
 	const regex = /^([a-zA-Z0-9_.+-])+\@(([a-zA-Z0-9-])+\.)+([a-zA-Z0-9]{2,4})+$/;
 	return regex.test(email);
 }
@@ -129,22 +171,22 @@ function checkEmails(e) {
 	return checkNewCycle(e, "email", "Invalid email address");
 }
 
-function checkPassword(password) {
+function checkPasswordNC(password) {
 	const regex = /^(?=.*\d)(?=.*[a-z])(?=.*[A-Z])[0-9a-zA-Z!@\-#\s$%^&*]{8,}$/;
 	return regex.test(password);
 }
 
-function checkPasswords(e) {
+function checkPasswordsNC(e) {
 	const message = "Password should be a minimum of 8 characters consisting of at least one uppercase letter, one lowercase letter, and a digit";
 	return checkNewCycle(e, "password", message);
 }
 
-function confirmPasswords(e) {
+function confirmPasswordsNC(e) {
 	return checkNewCycle(e, "confirm-password", "Passwords do not match");
 }
 
 function checkNewCycleEntities(e) {
-	const $fields = [$("#auditor-id"), $("#treasurer-id"), $("#asst-treasurer-id")];
+	const $fields = [$("#treasurer-id"), $("#asst-treasurer-id")];
 	let dataSubjectIds = [];
 
 	for (let $field of $fields)

@@ -117,4 +117,27 @@ $(function() {
 			});
 		});
 	});
+
+	$.get("inc/new-account-form.html", function(data) {
+		$dataSubjectsTbl.on("click", ".fa-plus-square", function() {
+			let $tr = $(this).closest("tr");
+			if ($tr.hasClass("child"))
+				$tr = $tr.prev();
+			let row = $dataSubjectsTbl.row($tr).data();
+			
+			createModal(data);
+			$(".tingle-modal-box #id").val($tr.attr("data-data-subject-id"));
+			$(".tingle-modal-box #fname").val(row[0]);
+			$(".tingle-modal-box #lname").val(row[2]);
+			$("#show-passwords").on("click", toggleVisibility);
+
+			$(".tingle-modal-box #modal-ok").on("click", function(e) {
+				if (checkIfComplete(e))
+					if (checkUsername(e, $("#username").val()))
+						if (checkEmail(e, $("#email").val()))
+							if (checkPassword(e, $("#password").val()))
+								confirmPassword(e, $("#password").val(), $("#confirm-password").val());
+			});
+		});
+	});
 });
