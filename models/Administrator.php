@@ -43,8 +43,8 @@ class Administrator extends User {
 
 		if ($admin["email"] !== "") { // If admin does not have an account yet
 			$user = new User();
-			$new_user = ["user_id" => $user_id, "email" => $admin["email"], "password" => $admin["password"], "username" => $admin["username"]];
-			$user->addUser($new_user);
+			$new_user = ["id" => $user_id, "email" => $admin["email"], "password" => $admin["password"], "username" => $admin["username"]];
+			$user->addUser($new_user, true);
 		}
 
 		$this->db->query("INSERT INTO `administrator` VALUES (?, ?, ?)");

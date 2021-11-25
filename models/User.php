@@ -26,12 +26,16 @@ class User {
 			return 0;
 	}
 
-	public function addUser($user) {
+	public function addUser($user, $new_cycle = false) {
 		$this->db->query("INSERT INTO `user` VALUES (?, ?, ?, ?, DEFAULT)");
-		$this->db->bind(1, $user["user_id"]);
+		$this->db->bind(1, $user["id"]);
 		$this->db->bind(2, $user["email"]);
 		$this->db->bind(3, password_hash($user["password"], PASSWORD_DEFAULT));
 		$this->db->bind(4, $user["username"]);
-		$this->db->executeWithoutCatch();
+
+		if ($new_cycle)
+			$this->db->executeWithoutCatch();
+		else
+			$this->db->execute("New account was successfully created!", "../members#data-subjects");
 	}
 }
