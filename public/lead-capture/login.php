@@ -1,8 +1,8 @@
 <?php
 	require_once "../../config/config.php";
 	session_start();
-	if (isset($_SESSION["generic-user"]))
-		header("Location: index.php");
+	if (isset($_SESSION["generic-user-verified"]))
+		header("Location: loans.php");
 
 ?>
 
