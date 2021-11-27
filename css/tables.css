@@ -108,6 +108,10 @@ th span {
 	font-weight: normal;
 }
 
+section .pattern-bg th {
+	color: var(--eden);
+}
+
 p.pattern-bg {
 	border-radius: 10px;
 	margin: 20px auto 0 auto;
