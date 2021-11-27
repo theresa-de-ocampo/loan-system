@@ -17,7 +17,10 @@ table thead th:last-child {
 }
 
 table .fa-user-edit,
-table .fa-plus-square {
+table .fa-plus-square,
+table .fa-eye,
+table .fa-door-open,
+table .fa-door-closed {
 	color: var(--blue-chill);
 	text-decoration: none;
 }
@@ -31,7 +34,10 @@ table .fa-times-circle {
 }
 
 table .fa-user-edit:hover,
-table .fa-plus-square:hover {
+table .fa-plus-square:hover,
+table .fa-eye:hover,
+table .fa-door-open:hover,
+table .fa-door-closed:hover {
 	color: var(--cyan) !important;
 }
 
