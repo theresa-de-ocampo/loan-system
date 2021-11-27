@@ -37,7 +37,11 @@ class Payroll {
 
 		$ten_percent_return = $interest * $rate;
 		$net_income = $interest - $ten_percent_return;
-		$per_share = $net_income / $total_number_of_shares;
+
+		if ($total_number_of_shares != 0)
+			$per_share = $net_income / $total_number_of_shares;
+		else
+			$per_share = 0;
 
 		return array(
 			"interest" => $interest,

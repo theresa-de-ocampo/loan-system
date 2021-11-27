@@ -262,7 +262,7 @@
 							<?php echo $e->fname." ".$e->mname[0].". ".$e->lname; ?>
 						</td>
 						<td><?php echo $e->position; ?></td>
-						<td><?php echo $earnings; ?></td>
+						<td><?php echo number_format($earnings, 2, ".", ","); ?></td>
 						<?php if ($on_going): ?>
 						<td>On Going</td>
 						<?php else: ?>
@@ -342,8 +342,12 @@
 			<input type="hidden" name="processing-fee" value="<?php echo $total_processing_fee_collected; ?>" />
 
 			<?php
-				$serialized_guarantor_ids = serialize($guarantor_ids);
-				$serialized_guarantor_totals = serialize($guarantor_totals);
+				if (empty($guarantor_ids)) // Cycle has just started, and there's no data yet.
+					$serialized_guarantor_ids = $serialized_guarantor_totals = 0;
+				else {
+					$serialized_guarantor_ids = serialize($guarantor_ids);
+					$serialized_guarantor_totals = serialize($guarantor_totals);
+				}
 			?>
 			<input type="hidden" name="g-ids" value="<?php echo $serialized_guarantor_ids; ?>" />
 			<input type="hidden" name="g-amount" value="<?php echo $serialized_guarantor_totals; ?>" />
