@@ -102,7 +102,7 @@ function confirmPassword(e, password, reEnteredPassword) {
 	let flag = true;
 	if (password != reEnteredPassword) {
 		flag = false;
-		alert("Passwords do not match");
+		alert("Passwords do not match.");
 		e.preventDefault();
 	}
 	return flag;

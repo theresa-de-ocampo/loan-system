@@ -38,4 +38,9 @@ class User {
 		else
 			$this->db->execute("New account was successfully created!", "../members#data-subjects");
 	}
+
+	public function deleteUser($id) {
+		$this->db->query("DELETE FROM `user` WHERE `user_id` = $id");
+		$this->db->execute("Account was successfully deleted!", "../members#data-subjects");
+	}
 }

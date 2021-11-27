@@ -140,4 +140,22 @@ $(function() {
 			});
 		});
 	});
+
+	$dataSubjectsTbl.on("click", ".fa-minus-square", function(e) {
+		let $tr = $(this).closest("tr");
+		if ($tr.hasClass("child"))
+			$tr = $tr.prev();
+		let row = $dataSubjectsTbl.row($tr).data();
+		let fname = row[0];
+		let apostropheRule = "'";
+		if (fname.slice(fname.length - 1) != "s")
+			apostropheRule += "s";
+		let ans = confirm("Are you sure you want to delete " + fname + apostropheRule + " account?");
+		if (!ans)
+			e.preventDefault();
+		else {
+			const id = $tr.attr("data-data-subject-id");
+			window.location.replace("src/delete-account.php?id=" + id);
+		}
+	});
 });
