@@ -9,7 +9,10 @@ class Payroll {
 		$this->cycle = $cycle->getCycleId();
 	}
 
-	public function getProfits() {
+	public function getProfits($year = "") {
+		if ($year == "")
+			$year = $this->cycle;
+
 		$this->db->query("
 			SELECT
 				COALESCE(SUM(`amount`), 0)
@@ -24,15 +27,15 @@ class Payroll {
 					INNER JOIN `loan`
 						USING (`loan_id`)
 					WHERE
-						`cycle_id` = $this->cycle
+						`cycle_id` = $year
 				)
 		");
 		$interest = $this->db->resultColumn();
 
-		$this->db->query("SELECT `interest_rate` FROM `cycle` WHERE `cycle_id` = $this->cycle");
+		$this->db->query("SELECT `interest_rate` FROM `cycle` WHERE `cycle_id` = $year");
 		$rate = $this->db->resultColumn();
 
-		$this->db->query("SELECT COALESCE(SUM(`number_of_share`), 0) FROM `guarantor_cycle_map` WHERE `cycle_id` = $this->cycle");
+		$this->db->query("SELECT COALESCE(SUM(`number_of_share`), 0) FROM `guarantor_cycle_map` WHERE `cycle_id` = $year");
 		$total_number_of_shares = $this->db->resultColumn();
 
 		$ten_percent_return = $interest * $rate;

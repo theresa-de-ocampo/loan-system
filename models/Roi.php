@@ -92,4 +92,10 @@ class Roi extends Payroll {
 			"custom_id" => $custom_id
 		);
 	}
+
+	public function getSharesByGuarantor($id) {
+		$this->db->query("SELECT * FROM `roi` WHERE `guarantor_id` = $id");
+		$this->db->execute();
+		return $this->db->resultSet();
+	}
 }

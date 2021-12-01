@@ -190,7 +190,10 @@ class Guarantor {
 		return $this->db->resultColumn();
 	}
 
-	public function getTotalInterestCollected($id) {
+	public function getTotalInterestCollected($id, $year = "") {
+		if ($year == "")
+			$year = $this->cycle;
+
 		$this->db->query("
 			SELECT
 				COALESCE(SUM(`amount`), 0)
@@ -206,17 +209,20 @@ class Guarantor {
 						USING (`loan_id`)
 					WHERE
 						`guarantor_id` = $id AND
-						`cycle_id` = $this->cycle
+						`cycle_id` = $year
 				)
 		");
 		return $this->db->resultColumn();
 	}
 
-	public function getNumberOfShares($id) {
+	public function getNumberOfShares($id, $year = "") {
+		if ($year == "")
+			$year = $this->cycle;
+
 		$this->db->query("
 			SELECT `number_of_share` 
 			FROM `guarantor_cycle_map` 
-			WHERE `cycle_id` = $this->cycle AND `guarantor_id` = $id
+			WHERE `cycle_id` = $year AND `guarantor_id` = $id
 		");
 		return $this->db->resultColumn();
 	}
@@ -236,7 +242,10 @@ class Guarantor {
 		return $this->db->resultColumn();
 	}
 
-	public function getTotalPrincipalReturned($id) {
+	public function getTotalPrincipalReturned($id, $year = "") {
+		if ($year == "")
+			$year = $this->cycle;
+
 		$this->db->query("
 			SELECT
 				COALESCE(SUM(`principal_payment`.`amount`), 0)
@@ -246,7 +255,7 @@ class Guarantor {
 				USING (`loan_id`)
 			WHERE
 				`guarantor_id` = $id AND
-				`cycle_id` = $this->cycle
+				`cycle_id` = $year
 		");
 		$principal_collected = $this->db->resultColumn();
 		$total_amount_lent = $this->getTotalAmountLent($id);

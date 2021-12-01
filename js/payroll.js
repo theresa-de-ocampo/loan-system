@@ -166,7 +166,7 @@ $(function() {
 			createModal(data);
 			const $proof = $(".tingle-modal-box img");
 			$proof.attr("src", proofSrc);
-			$(".tingle-modal-box #position").text(row[1].display);
+			$(".tingle-modal-box #position").text(row[1]);
 			$(".tingle-modal-box #name").text(row[0].display);
 			$(".tingle-modal-box #date-time-claimed").text(dateTimeClaimed);
 
