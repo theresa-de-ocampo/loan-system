@@ -537,3 +537,38 @@ VALUES
 	(DEFAULT, 90, '2020-03-13 08:02:00', 10),
 	(DEFAULT, 260, '2020-07-18 09:02:00', 11),
 	(DEFAULT, 160, '2020-05-19 09:02:00', 12);
+
+/*
+	Year-end Dummy Data
+	If you add or delete transactions from this setup:
+		- the ff. sql code must be modified accordingly
+		- modify images in `img/year/table/` (e.g., img/2020/roi/)
+*/
+
+INSERT INTO `closing` VALUES (2020, '2020-11-30', 11900, 510);
+
+INSERT INTO
+	`roi`
+VALUES
+	(25668, 'Claimed', '2020-12-01 08:01:00', '1.png', 1, '2020'),
+	(12714, 'Claimed', '2020-12-01 08:02:00', '2.png', 2, '2020'),
+	(39092, 'Claimed', '2020-12-01 08:03:00', '3.png', 3, '2020'),
+	(12714, 'Claimed', '2020-12-01 08:04:00', '4.png', 4, '2020'),
+	(12714, 'Claimed', '2020-12-01 08:05:00', '5.png', 5, '2020'),
+	(12714, 'Claimed', '2020-12-01 08:06:00', '6.png', 6, '2020'),
+	(12714, 'Claimed', '2020-12-01 08:07:00', '7.png', 7, '2020'),
+	(12714, 'Claimed', '2020-12-01 08:08:00', '8.png', 8, '2020'),
+	(12714, 'Claimed', '2020-12-01 08:09:00', '9.png', 9, '2020'),
+	(25428, 'Claimed', '2020-12-01 08:10:00', '10.png', 10, '2020'),
+	(12714, 'Claimed', '2020-12-01 08:11:00', '11.png', 11, '2020');
+
+INSERT INTO
+	`salary`
+VALUES
+	(170, 'Claimed', '2020-12-01 09:01:00', '10.png', 10, '2020'),
+	(170, 'Claimed', '2020-12-01 09:02:00', '11.png', 11, '2020');
+
+INSERT INTO
+	`fund`
+VALUES
+	('2020', 3016, 11, '2020-12-01 09:03:00', '10.png', 'Christmas Party');

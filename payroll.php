@@ -293,7 +293,7 @@
 					<tr>
 						<td data-sort="1">Cooperative</td>
 						<td>N/A</td>
-						<td><?php echo $funds; ?></td>
+						<td><?php echo number_format($funds, 2, ".", ","); ?></td>
 						<?php if ($on_going): ?>
 						<td>On Going</td>
 						<?php else: ?>

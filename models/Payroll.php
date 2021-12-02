@@ -65,6 +65,15 @@ class Payroll {
 		$this->db->bind(1, $data["interest"]);
 		$this->db->bind(2, $data["processing-fee"]);
 		$this->db->executeWithoutCatch();
+
+		/* Use this if you want to insert dummy data for a certain year.
+		$this->db->query("INSERT INTO `closing` VALUES (?, ?, ?, ?)");
+		$this->db->bind(1, '2020');
+		$this->db->bind(2, '2020-11-30');
+		$this->db->bind(3, $data["interest"]);
+		$this->db->bind(4, $data["processing-fee"]);
+		$this->db->executeWithoutCatch();
+		*/
 	}
 
 	public function processYearEnd($closing_data, $guarantorIds, $guarantorTotals, $earnings, $funds) {

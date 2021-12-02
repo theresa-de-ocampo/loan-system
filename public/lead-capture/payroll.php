@@ -69,7 +69,7 @@
 						<td>
 							<?php
 								$per_share = $profits["per_share"];
-								echo $per_share;
+								echo number_format($per_share, 2, ".", ",");
 							?>
 						</td>
 						<td>
@@ -118,7 +118,7 @@
 						<td><a>Not Yet Claimed</a>
 						<?php else: ?>
 						<td data-sort="<?php echo $s->date_time_claimed ?>">
-							<?php echo $converter->shortToLongDate($s->date_time_claimed); ?>
+							<?php echo $converter->shortToLongDateTime($s->date_time_claimed); ?>
 						</td>
 						<?php endif; ?>
 					</tr>
