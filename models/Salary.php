@@ -85,7 +85,7 @@ class Salary extends Payroll {
 
 		return array(
 			"total_processing_fee" => $total_processing_fee,
-			"earnings" => $converter->roundDown($total_processing_fee / 3),
+			"earnings" => $converter->roundDown($total_processing_fee / 2),
 			"claimer_position" => $claimer_position,
 			"claimer_name" => $claimer_name,
 			"date_time_claimed" => $date_time_claimed,

@@ -31,7 +31,7 @@
 	$interest = $profits["interest"];
 	$processed = $payroll->getProcessedFlag();
 	$total_processing_fee_collected = $processing_fee->getTotalProcessingFeeCollected();
-	$earnings = $converter->roundDown($total_processing_fee_collected / 3);
+	$earnings = $converter->roundDown($total_processing_fee_collected / 2);
 	$funds = $penalty->getTotalPenaltiesCollected(); /*Amount of funds for this cycle, not an array of `fund` records. */
 	$employees = $salary->getEmployees();
 	$on_going = date("m") < 11 || (date("m") <= 11) && date("d") < 30;
@@ -246,7 +246,7 @@
 				<thead>
 					<th>Employee</th>
 					<th>Position</th>
-					<th>Earnings</th>
+					<th>Earnings <span>(&#8369;)</span></th>
 					<th>Status</th>
 				</thead>
 				<tbody>
