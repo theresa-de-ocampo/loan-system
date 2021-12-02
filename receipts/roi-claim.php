@@ -101,7 +101,7 @@
 	<script>
 		window.print();
 		window.onafterprint = function(event) {
-			window.location.href = "../payroll.php";
+			window.location.href = "../payroll.php#shares";
 		};
 	</script>
 </body>
