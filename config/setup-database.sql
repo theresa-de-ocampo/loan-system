@@ -545,7 +545,11 @@ VALUES
 		- modify images in `img/year/table/` (e.g., img/2020/roi/)
 */
 
-INSERT INTO `closing` VALUES (2020, '2020-11-30', 11900, 510);
+INSERT INTO
+	`closing`
+VALUES
+	(2020, '2020-11-30', 11900, 510),
+	(2021, '2021-11-30', 26700, 1090);
 
 INSERT INTO
 	`roi`
@@ -560,15 +564,32 @@ VALUES
 	(12714, 'Claimed', '2020-12-01 08:08:00', '8.png', 8, '2020'),
 	(12714, 'Claimed', '2020-12-01 08:09:00', '9.png', 9, '2020'),
 	(25428, 'Claimed', '2020-12-01 08:10:00', '10.png', 10, '2020'),
-	(12714, 'Claimed', '2020-12-01 08:11:00', '11.png', 11, '2020');
+	(12714, 'Claimed', '2020-12-01 08:11:00', '11.png', 11, '2020'),
+	(63673, 'Pending', NULL, NULL, 9, '2021'),
+	(51322.40, 'Pending', NULL, NULL, 10, '2021'),
+	(12480.60, 'Pending', NULL, NULL, 11, '2021'),
+	(62403, 'Pending', NULL, NULL, 23, '2021'),
+	(62403, 'Pending', NULL, NULL, 24, '2021'),
+	(62403, 'Pending', NULL, NULL, 25, '2021'),
+	(49922.40, 'Pending', NULL, NULL, 26, '2021'),
+	(49922.40, 'Pending', NULL, NULL, 27, '2021'),
+	(37441.80, 'Pending', NULL, NULL, 28, '2021'),
+	(62403, 'Pending', NULL, NULL, 29, '2021'),
+	(12480.60, 'Pending', NULL, NULL, 30, '2021'),
+	(24961.20, 'Pending', NULL, NULL, 31, '2021'),
+	(62403, 'Pending', NULL, NULL, 32, '2021'),
+	(12480.60, 'Pending', NULL, NULL, 33, '2021');
 
 INSERT INTO
 	`salary`
 VALUES
-	(170, 'Claimed', '2020-12-01 09:01:00', '10.png', 10, '2020'),
-	(170, 'Claimed', '2020-12-01 09:02:00', '11.png', 11, '2020');
+	(255, 'Claimed', '2020-12-01 09:01:00', '10.png', 10, '2020'),
+	(255, 'Claimed', '2020-12-01 09:02:00', '11.png', 11, '2020'),
+	(545, 'Pending', NULL, NULL, 11, '2021'),
+	(545, 'Pending', NULL, NULL, 24, '2021');
 
 INSERT INTO
 	`fund`
 VALUES
-	('2020', 3016, 11, '2020-12-01 09:03:00', '10.png', 'Christmas Party');
+	('2020', 3016, 11, '2020-12-01 09:03:00', '10.png', 'Christmas Party'),
+	('2021', 702, NULL, NULL, NULL, NULL);
