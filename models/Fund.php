@@ -73,4 +73,9 @@ class Fund extends Payroll {
 			"custom_id" => "F".$id." C".$this->cycle
 		);
 	}
+
+	public function getFundsByGuarantor($id) {
+		$this->db->query("SELECT * FROM `fund` WHERE `claimed_by` = $id OR `claimed_by` IS NULL");
+		return $this->db->resultSet();
+	}
 }

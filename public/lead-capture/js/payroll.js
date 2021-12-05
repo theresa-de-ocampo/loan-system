@@ -35,4 +35,22 @@ $(function() {
 		]
 	});
 	checkForRows($salaryHistoryTbl, "#salary-history-tbl");
+
+	const $fundsHistoryTbl = $("#funds-history-tbl").DataTable({
+		dom: "Bfrtip",
+		responsive: true,
+		buttons: [
+			{
+				extend: "print",
+				title: "History of Claimed Funds",
+				customize: addHeaderToPdf,
+				messageTop: cycle
+			},
+			{
+				extend: "csv",
+				title: "History of Claimed Funds"
+			}
+		]
+	});
+	checkForRows($fundsHistoryTbl, "#funds-history-tbl");
 });

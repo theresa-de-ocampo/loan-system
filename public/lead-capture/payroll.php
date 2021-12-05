@@ -10,6 +10,7 @@
 	require_once "../../models/Guarantor.php";
 	require_once "../../models/Salary.php";
 	require_once "../../models/Administrator.php";
+	require_once "../../models/Fund.php";
 
 	$user_id = $_SESSION["generic-user-verified"];
 	$converter = new Converter();
@@ -19,8 +20,21 @@
 	$guarantor = new Guarantor();
 	$salary = new Salary();
 	$administrator = new Administrator();
+	$fund = new Fund();
 	$shares = $roi->getSharesByGuarantor($user_id);
 	$salaries = $salary->getSalariesByGuarantor($user_id);
+	$funds = $fund->getFundsByGuarantor($user_id);
+
+	function checkClaimStatus($object) {
+		$converter = new Converter();
+		if (is_null($object->date_time_claimed))
+			$column = "<td><a>Not Yet Claimed</a>";
+		else {
+			$formatted_date_time = $converter->shortToLongDateTime($object->date_time_claimed);
+			$column = "<td data-sort='$object->date_time_claimed'>$formatted_date_time</td>";
+		}
+		return $column;
+	}
 ?>
 <!DOCTYPE html>
 <html lang="en">
@@ -121,13 +135,7 @@
 								echo number_format($grand_total, 2, ".", ",");
 							?>
 						</td>
-						<?php if (is_null($s->date_time_claimed)): ?>
-						<td><a>Not Yet Claimed</a>
-						<?php else: ?>
-						<td data-sort="<?php echo $s->date_time_claimed ?>">
-							<?php echo $converter->shortToLongDateTime($s->date_time_claimed); ?>
-						</td>
-						<?php endif; ?>
+						<?php echo checkClaimStatus($s); ?>
 					</tr>
 					<?php endforeach; ?>
 				</tbody>
@@ -150,20 +158,45 @@
 					<?php foreach ($salaries as $s): ?>
 					<tr>
 						<td><?php echo $s->closing_id; ?></td>
-						<td><?php echo $administrator->getPosition($s->closing_id, $s->guarantor_id); ?></td>
+						<td><?php echo $administrator->getPosition($s->closing_id, $user_id); ?></td>
 						<td><?php echo $s->amount; ?></td>
-						<?php if (is_null($s->date_time_claimed)): ?>
-						<td><a>Not Yet Claimed</a>
-						<?php else: ?>
-						<td data-sort="<?php echo $s->date_time_claimed ?>">
-							<?php echo $converter->shortToLongDateTime($s->date_time_claimed); ?>
-						</td>
-						<?php endif; ?>
+						<?php echo checkClaimStatus($s); ?>
 					</tr>
 					<?php endforeach; ?>
 				</tbody>
 			</table><!-- #salary-history-tbl -->
 		</section><!-- #salary-history -->
+
+		<section id="funds-history">
+			<h3>History of Claimed Funds</h3>
+			<hr />
+			<table id="funds-history-tbl" class="display cell-border" width="100%">
+				<thead>
+					<tr>
+						<th>Year</th>
+						<th>Position</th>
+						<th>Earnings</th>
+						<th>Purpose</th>
+						<th>Date & Time Claimed</th>
+					</tr>
+				</thead>
+				<tbody>
+					<?php foreach ($funds as $f): ?>
+					<tr>
+						<td><?php echo $f->closing_id; ?></td>
+						<td><?php echo $administrator->getPosition($f->closing_id, $user_id); ?></td>
+						<td><?php echo number_format($f->amount, 2, ".", ","); ?></td>
+						<?php if (is_null($f->purpose)): ?>
+						<td>N/A</td>
+						<?php else: ?>
+						<td><?php echo $f->purpose; ?></td>
+						<?php endif; ?>
+						<?php echo checkClaimStatus($f); ?>
+					</tr>
+					<?php endforeach; ?>
+				</tbody>
+			</table><!-- #funds-history-tbl -->
+		</section><!-- #funds-history -->
 	</main>
 
 	<script src="../../js/jquery-3.6.0.min.js"></script>
