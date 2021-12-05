@@ -181,7 +181,12 @@
 					</tr>
 				</thead>
 				<tbody>
-					<?php foreach ($funds as $f): ?>
+					<?php
+						foreach ($funds as $f):
+							// If not an employee during that cycle, just skip.
+							if (!$administrator->getPosition($f->closing_id, $user_id))
+								continue;
+					?>
 					<tr>
 						<td><?php echo $f->closing_id; ?></td>
 						<td><?php echo $administrator->getPosition($f->closing_id, $user_id); ?></td>

@@ -54,7 +54,7 @@
 			<ul class="sub-menu">
 				<li><a class="link-name" href="payroll.php">Payroll</a></li>
 				<li><a href="payroll.php#roi-history">Shares</a></li>
-				<li><a href="payroll.php#salary">Salary</a></li>
+				<li><a href="payroll.php#salary-history">Salary</a></li>
 				<li><a href="payroll.php#funds-history">Funds</a></li>
 			</ul><!-- .sub-menu -->
 		</li>
