@@ -1,35 +1,35 @@
-#dashboard .grid-wrapper {
+.tally.grid-wrapper {
 	display: grid;
 	grid-template-columns: 1fr 1fr 1fr;
 	gap: 30px;
 }
 
-#dashboard .tally-label {
+.tally .tally-label {
 	background-color: var(--light-steel-blue);
 	padding: 20px 0 10px 0;
 	border-radius: 5px 5px 0 0;
 }
 
-#dashboard .grid-item {
+.tally .grid-item {
 	text-align: center;
 }
 
-#dashboard .fas {
+.tally .fas {
 	font-size: 38px;
 	color: var(--eden);
 }
 
-#dashboard h4 {
+.tally h4 {
 	font-size: 20px;
 }
 
-#dashboard p {
+.tally p {
 	font-size: 30px;
 	background-color: var(--azureish-white);
 	font-family: "Consolas", serif;
 }
 
-#dashboard p span {
+.tally p span {
 	font-size: 24px;
 	color: var(--roman-silver);
 }

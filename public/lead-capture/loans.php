@@ -16,7 +16,6 @@
 
 	$loan = new Loan();
 	$loans = $loan->getLoansByBorrower($user_id);
-	$disbursements = $loan->getLoansByGuarantor($user_id);
 
 	$data_subject = new DataSubject();
 	$name = $data_subject->getName($user_id);

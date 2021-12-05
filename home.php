@@ -17,7 +17,7 @@
 	<link rel="stylesheet" type="text/css" href="css/all.min.css" />
 	<link rel="stylesheet" type="text/css" href="css/style.css" />
 	<link rel="stylesheet" type="text/css" href="css/vertical-nav-bar.css" />
-	<link rel="stylesheet" type="text/css" href="css/home.css" />
+	<link rel="stylesheet" type="text/css" href="css/tally.css" />
 	<link rel="stylesheet" type="text/css" href="css/media-queries.css" />
 	<link rel="shortcut icon" type="image/x-icon" href="img/others/favicon.png" />
 	<title><?php echo COOPERATIVE; ?></title>
@@ -33,7 +33,7 @@
 
 		<section id="dashboard">
 			<h3>Dashboard</h3>
-			<div class="grid-wrapper">
+			<div class="tally grid-wrapper">
 				<div class="grid-item">
 					<div class="tally-label">
 						<div class="fas fa-user-tie"></div>

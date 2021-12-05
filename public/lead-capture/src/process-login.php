@@ -4,15 +4,19 @@ if (isset($_POST["submit"])) {
 	require_once "../../../config/config.php";
 	require_once "../../../lib/database-handler.php";
 	require_once "../../../models/User.php";
+	require_once "../../../models/Cycle.php";
 
 	$email = $_POST["email"];
 	$password = $_POST["password"];
 
+	$cycle = new Cycle();
+	$cycle_id = $cycle->getLatestPeriod();
 	$user = new user();
 	$account = $user->confirmUser($email);
 	if ($account) {
 		if (password_verify($password, $account->password)) {
 			$_SESSION["generic-user-verified"] = $account->user_id;
+			$_SESSION["cycle"] = $cycle_id;
 			$path = "../loans.php";
 		}
 		else {

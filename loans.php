@@ -2,12 +2,14 @@
 	require_once "config/config.php";
 	require_once "lib/verification.php";
 	require_once "lib/database-handler.php";
+	require_once "lib/conversion-util.php";
 	require_once "models/Cycle.php";
 	require_once "models/DataSubject.php";
 	require_once "models/Guarantor.php";
 	require_once "models/Transaction.php";
 	require_once "models/Loan.php";
 
+	$converter = new Converter();
 	$cycle = new Cycle();
 	$data_subject = new DataSubject();
 	$guarantor = new Guarantor();
@@ -63,7 +65,8 @@
 				<thead>
 					<tr>
 						<th>Borrower</th>
-						<th>Loan Status</th>
+						<th>Loan Date & Time</th>
+						<th>Status</th>
 						<th>Paid <span>(&#8369;)</span></th>
 						<th>Unpaid <span>(&#8369;)</span></th>
 					</tr>
@@ -75,6 +78,9 @@
 					 ?>
 					<tr>
 						<td data-sort="<?php echo $l->lname; ?>"><?php echo $l->fname." ".$l->mname[0].". ".$l->lname; ?></td>
+						<td data-sort="<?php echo $l->loan_date_time; ?>">
+							<?php echo $converter->shortToLongDateTime($l->loan_date_time); ?>
+						</td>
 						<td><?php echo $l->status; ?></td>
 						<td><?php echo number_format($l->paid, 2, ".", ","); ?></td>
 						<td><?php echo number_format($l->unpaid, 2, ".", ","); ?></td>

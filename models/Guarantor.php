@@ -1,7 +1,7 @@
 <?php
 class Guarantor {
 	private $db;
-	private $cycle;
+	public $cycle;
 
 	public function __construct() {
 		$this->db = new Database();
@@ -229,7 +229,7 @@ class Guarantor {
 		return $this->db->resultColumn();
 	}
 
-	public function getPrincipal($id, $year) {
+	public function getPrincipal($id, $year = "") {
 		if ($year == "")
 			$year = $this->cycle;
 
@@ -274,6 +274,21 @@ class Guarantor {
 		}
 
 		return $principal_returned;
+	}
+
+	public function getTotalUncollectedPayments($id) {
+		$this->db->query("
+			SELECT `loan_id`
+			FROM `loan`
+			WHERE `cycle_id` = $this->cycle AND `guarantor_id` = $id AND `status` = 'Active'
+		");
+		$active_loans = $this->db->resultSet();
+
+		$total_uncollected_payments = 0;
+		$loan = new Loan();
+		foreach ($active_loans as $loan_id)
+			$total_uncollected_payments += $loan->getTotalReceivablesByLoan($loan_id);
+		return $total_uncollected_payments;
 	}
 
 	private function insertGuarantor($id) {

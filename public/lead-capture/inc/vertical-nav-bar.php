@@ -29,13 +29,18 @@
 		</li>
 
 		<li>
-			<a href="disbursements.php">
-				<i class="fas fa-tasks"></i>
-				<span class="link-name">Disbursements</span>
-			</a>
-			<ul class="sub-menu blank">
+			<div class="parent-menu">
+				<a href="disbursements.php">
+					<i class="fas fa-tasks"></i>
+					<span class="link-name">Disbursements</span>
+				</a>
+				<i class="fas fa-chevron-down"></i>
+			</div><!-- .parent-menu -->
+			<ul class="sub-menu">
 				<li><a class="link-name" href="disbursements.php">Disbursements</a></li>
-			</ul>
+				<li><a href="disbursements.php#finacial-standing">Financial Standing</a></li>
+				<li><a href="disbursements.php#debt-collection-history">Collected Debts</a></li>
+			</ul><!-- .sub-menu -->
 		</li>
 
 		<li>
@@ -50,6 +55,7 @@
 				<li><a class="link-name" href="payroll.php">Payroll</a></li>
 				<li><a href="payroll.php#roi-history">Shares</a></li>
 				<li><a href="payroll.php#salary">Salary</a></li>
+				<li><a href="payroll.php#funds-history">Funds</a></li>
 			</ul><!-- .sub-menu -->
 		</li>
 
