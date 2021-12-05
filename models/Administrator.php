@@ -68,4 +68,9 @@ class Administrator extends User {
 		");
 		return $this->db->resultColumn();
 	}
+
+	public function getPosition($cycle_id, $user_id) {
+		$this->db->query("SELECT `position` FROM  `administrator` WHERE `cycle_id` = $cycle_id AND `user_id` = $user_id");
+		return $this->db->resultColumn();
+	}
 }

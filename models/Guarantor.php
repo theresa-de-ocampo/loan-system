@@ -185,8 +185,10 @@ class Guarantor {
 		return $this->db->resultColumn();
 	}
 
-	public function getTotalAmountLent($id) {
-		$this->db->query("SELECT total_amount_lent($id, $this->cycle)");
+	public function getTotalAmountLent($id, $year = "") {
+		if ($year == "")
+			$year = $this->cycle;
+		$this->db->query("SELECT total_amount_lent($id, $year)");
 		return $this->db->resultColumn();
 	}
 
@@ -227,7 +229,10 @@ class Guarantor {
 		return $this->db->resultColumn();
 	}
 
-	public function getPrincipal($id) {
+	public function getPrincipal($id, $year) {
+		if ($year == "")
+			$year = $this->cycle;
+
 		$this->db->query("
 			SELECT
 				`number_of_share` * `membership_fee`
@@ -236,7 +241,7 @@ class Guarantor {
 			INNER JOIN `cycle`
 				USING (`cycle_id`)
 			WHERE
-				`cycle_id` = $this->cycle AND
+				`cycle_id` = $year AND
 				`guarantor_id` = $id
 		");
 		return $this->db->resultColumn();
@@ -258,8 +263,8 @@ class Guarantor {
 				`cycle_id` = $year
 		");
 		$principal_collected = $this->db->resultColumn();
-		$total_amount_lent = $this->getTotalAmountLent($id);
-		$investment = $this->getPrincipal($id);
+		$total_amount_lent = $this->getTotalAmountLent($id, $year);
+		$investment = $this->getPrincipal($id, $year);
 		
 		if ($total_amount_lent == $principal_collected)
 			$principal_returned = $investment;

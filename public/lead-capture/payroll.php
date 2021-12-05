@@ -8,6 +8,8 @@
 	require_once "../../models/Payroll.php";
 	require_once "../../models/Roi.php";
 	require_once "../../models/Guarantor.php";
+	require_once "../../models/Salary.php";
+	require_once "../../models/Administrator.php";
 
 	$user_id = $_SESSION["generic-user-verified"];
 	$converter = new Converter();
@@ -15,7 +17,10 @@
 	$payroll = new Payroll();
 	$roi = new Roi();
 	$guarantor = new Guarantor();
+	$salary = new Salary();
+	$administrator = new Administrator();
 	$shares = $roi->getSharesByGuarantor($user_id);
+	$salaries = $salary->getSalariesByGuarantor($user_id);
 ?>
 <!DOCTYPE html>
 <html lang="en">
@@ -51,16 +56,18 @@
 			<hr />
 			<table id="roi-history-tbl" class="display cell-border" width="100%">
 				<thead>
-					<th>Year</th>
-					<th>Per Share</th>
-					<th>No. of Share</th>
-					<th>Interest Collected</th>
-					<th>10% Return</th>
-					<th>Cut</th>
-					<th>Total</th>
-					<th>Principal Returned</th>
-					<th>Grand Total</th>
-					<th>Date & Time Claimed</th>
+					<tr>
+						<th>Year</th>
+						<th>Per Share</th>
+						<th>No. of Share</th>
+						<th>Interest Collected</th>
+						<th>10% Return</th>
+						<th>Cut</th>
+						<th>Total</th>
+						<th>Principal Returned</th>
+						<th>Grand Total</th>
+						<th>Date & Time Claimed</th>
+					</tr>
 				</thead>
 				<tbody>
 					<?php foreach($shares as $s): $year = $s->closing_id; $profits = $payroll->getProfits($year); ?>
@@ -126,6 +133,37 @@
 				</tbody>
 			</table><!-- #roi-history-tbl -->
 		</section><!-- #roi-history -->
+
+		<section id="salary-history">
+			<h3>Salary History</h3>
+			<hr />
+			<table id="salary-history-tbl" class="display cell-border" width="100%">
+				<thead>
+					<tr>
+						<th>Year</th>
+						<th>Position</th>
+						<th>Earnings</th>
+						<th>Date & Time Claimed</th>
+					</tr>
+				</thead>
+				<tbody>
+					<?php foreach ($salaries as $s): ?>
+					<tr>
+						<td><?php echo $s->closing_id; ?></td>
+						<td><?php echo $administrator->getPosition($s->closing_id, $s->guarantor_id); ?></td>
+						<td><?php echo $s->amount; ?></td>
+						<?php if (is_null($s->date_time_claimed)): ?>
+						<td><a>Not Yet Claimed</a>
+						<?php else: ?>
+						<td data-sort="<?php echo $s->date_time_claimed ?>">
+							<?php echo $converter->shortToLongDateTime($s->date_time_claimed); ?>
+						</td>
+						<?php endif; ?>
+					</tr>
+					<?php endforeach; ?>
+				</tbody>
+			</table><!-- #salary-history-tbl -->
+		</section><!-- #salary-history -->
 	</main>
 
 	<script src="../../js/jquery-3.6.0.min.js"></script>

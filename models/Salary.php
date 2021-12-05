@@ -92,4 +92,9 @@ class Salary extends Payroll {
 			"custom_id" => "S".$id." C".$this->cycle
 		);
 	}
+
+	public function getSalariesByGuarantor($id) {
+		$this->db->query("SELECT * FROM `salary` WHERE `guarantor_id` = $id");
+		return $this->db->resultSet();
+	}
 }
