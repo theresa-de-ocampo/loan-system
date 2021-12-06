@@ -40,6 +40,7 @@
 	<link rel="stylesheet" type="text/css" href="../../css/tally.css" />
 	<link rel="stylesheet" type="text/css" href="../../css/tables.css" />
 	<link rel="stylesheet" type="text/css" href="../../css/forms.css" />
+	<link rel="stylesheet" type="text/css" href="../../css/media-queries.css" />
 	<link rel="shortcut icon" type="image/x-icon" href="../../img/others/favicon.png" />
 	<title><?php echo COOPERATIVE; ?></title>
 </head>
@@ -89,7 +90,7 @@
 				<div class="grid-item">
 					<div class="tally-label">
 						<div class="fas fa-crosshairs"></div>
-						<h4>Uncollected Payments</h4>
+						<h4>Uncollected Loans</h4>
 					</div>
 					<p>
 						<?php if ($flag): ?>

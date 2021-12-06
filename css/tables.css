@@ -77,7 +77,7 @@ table.display.dataTable tbody tr:hover > .sorting_1 {
 	background-color: var(--botticelli);
 }
 
-.fas:not(.fa-times-circle), .far,
+table .fas:not(.fa-times-circle), .far,
 #new-guarantor table tr:hover {
 	cursor: pointer;
 }
