@@ -282,7 +282,7 @@ class Guarantor {
 			FROM `loan`
 			WHERE `cycle_id` = $this->cycle AND `guarantor_id` = $id AND `status` = 'Active'
 		");
-		$active_loans = $this->db->resultSet();
+		$active_loans = $this->db->resultSetOneColumn();
 
 		$total_uncollected_payments = 0;
 		$loan = new Loan();

@@ -89,7 +89,7 @@
 				<div class="grid-item">
 					<div class="tally-label">
 						<div class="fas fa-crosshairs"></div>
-						<h4>Uncollected Loans</h4>
+						<h4>Uncollected Payments</h4>
 					</div>
 					<p>
 						<?php if ($flag): ?>
