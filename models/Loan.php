@@ -229,4 +229,23 @@ class Loan extends Transaction {
 		");
 		return $this->db->resultColumn();
 	}
+
+	public function getTotalUncollectedLoans() {
+		$total = 0;
+		$active_loans = $this->getActiveLoans();
+		foreach ($active_loans as $loan_id) {
+			$this->db->query("CALL get_principal_balance($loan_id, @balance)");
+			$this->db->bind(1, $loan_id);
+			$this->db->execute();
+
+			$this->db->query("SELECT @balance");
+			$total += $this->db->resultColumn();
+		}
+		return $total;
+	}
+
+	private function getActiveLoans() {
+		$this->db->query("SELECT `loan_id` FROM `loan` WHERE `cycle_id` = $this->cycle AND `status` = 'Active'");
+		return $this->db->resultSetOneColumn();
+	}
 }

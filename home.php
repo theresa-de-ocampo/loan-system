@@ -59,7 +59,7 @@
 						<div class="fas fa-file-invoice"></div>
 						<h4>Payments Today</h4>
 					</div>
-					<p><span>&#8369;</span> <?php echo $transaction->getTotalPaymentsToday(); ?></p>
+					<p><span>&#8369;</span> <?php echo number_format($transaction->getTotalPaymentsToday(), 2, ".", ","); ?></p>
 				</div><!-- .grid-item -->
 				<div class="grid-item">
 					<div class="tally-label">
@@ -73,14 +73,14 @@
 						<div class="fas fa-piggy-bank"></div>
 						<h4>Savings</h4>
 					</div>
-					<p><span>&#8369;</span> <?php echo number_format($guarantor->getTotalSavings()); ?></p>
+					<p><span>&#8369;</span> <?php echo number_format($guarantor->getTotalSavings(), 2, ".", ","); ?></p>
 				</div><!-- .grid-item -->
 				<div class="grid-item">
 					<div class="tally-label">
 						<div class="fas fa-crosshairs"></div>
 						<h4>Uncollected Loans</h4>
 					</div>
-					<p><span>&#8369;</span> 0</p>
+					<p><span>&#8369;</span> <?php echo number_format($loan->getTotalUncollectedLoans(), 2, ".", ","); ?></p>
 				</div><!-- .grid-item -->
 				<div class="grid-item">
 					<div class="tally-label">
