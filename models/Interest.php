@@ -109,4 +109,20 @@ class Interest extends Transaction {
 			"loan_id" => $loan->loan_id
 		);
 	}
+
+	public function getTotalInterestCollected() {
+		$this->db->query("
+			SELECT
+				COALESCE(SUM(`interest_payment`.`amount`), 0)
+			FROM
+				`interest_payment`
+			INNER JOIN `interest`
+				USING (`interest_id`)
+			INNER JOIN `loan`
+				USING (`loan_id`)
+			WHERE
+				`cycle_id` = $this->cycle
+		");
+		return $this->db->resultColumn();
+	}
 }

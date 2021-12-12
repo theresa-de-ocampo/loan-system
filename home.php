@@ -7,11 +7,18 @@
 	require_once "models/Borrower.php";
 	require_once "models/Transaction.php";
 	require_once "models/Loan.php";
+	require_once "models/Interest.php";
+	require_once "models/ProcessingFee.php";
+	require_once "models/Penalty.php";
 
 	$guarantor = new Guarantor();
 	$borrower = new Borrower();
 	$transaction = new Transaction();
 	$loan = new Loan();
+	$interest = new Interest();
+	$processing_fee = new ProcessingFee();
+	$penalty = new Penalty();
+	$collections = $interest->getTotalInterestCollected() + $processing_fee->getTotalProcessingFeeCollected() + $penalty->getTotalPenaltiesCollected();
 ?>
 <!DOCTYPE html>
 <html lang="en">
@@ -87,7 +94,7 @@
 						<div class="fas fa-vote-yea"></div>
 						<h4>Collections</h4>
 					</div>
-					<p><span>&#8369;</span> 0</p>
+					<p><span>&#8369;</span> <?php echo number_format($collections, 2, ".", ","); ?></p>
 				</div><!-- .grid-item -->
 				<div class="grid-item">
 					<div class="tally-label">
