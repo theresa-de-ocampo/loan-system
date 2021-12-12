@@ -217,4 +217,16 @@ class Loan extends Transaction {
 		$this->db->query("SELECT * FROM `loan`  WHERE `borrower_id` = $id");
 		return $this->db->resultSet();
 	}
+
+	public function getTotalLoansToday() {
+		$this->db->query("
+			SELECT
+				COALESCE(COUNT(`loan_id`), 0)
+			FROM
+				`loan`
+			WHERE
+				DATE(`loan_date_time`) = CURDATE()
+		");
+		return $this->db->resultColumn();
+	}
 }

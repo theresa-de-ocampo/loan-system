@@ -4,8 +4,14 @@
 	require_once "lib/database-handler.php";
 	require_once "models/Cycle.php";
 	require_once "models/Guarantor.php";
+	require_once "models/Borrower.php";
+	require_once "models/Transaction.php";
+	require_once "models/Loan.php";
 
 	$guarantor = new Guarantor();
+	$borrower = new Borrower();
+	$transaction = new Transaction();
+	$loan = new Loan();
 ?>
 <!DOCTYPE html>
 <html lang="en">
@@ -46,21 +52,21 @@
 						<div class="fas fa-user-tag"></div>
 						<h4>Borrowers</h4>
 					</div>
-					<p>0</p>
+					<p><?php echo $borrower->getTotalCurrentBorrowers(); ?></p>
 				</div><!-- .grid-item -->
 				<div class="grid-item">
 					<div class="tally-label">
 						<div class="fas fa-file-invoice"></div>
 						<h4>Payments Today</h4>
 					</div>
-					<p><span>&#8369;</span> 0</p>
+					<p><span>&#8369;</span> <?php echo $transaction->getTotalPaymentsToday(); ?></p>
 				</div><!-- .grid-item -->
 				<div class="grid-item">
 					<div class="tally-label">
 						<div class="fas fa-sign-language"></div>
 						<h4>Loans Today</h4>
 					</div>
-					<p>0</p>
+					<p><?php echo $loan->getTotalLoansToday(); ?></p>
 				</div><!-- .grid-item -->
 				<div class="grid-item">
 					<div class="tally-label">

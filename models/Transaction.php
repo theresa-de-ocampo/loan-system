@@ -31,6 +31,23 @@ class Transaction {
 		return $this->db->resultColumn();
 	}
 
+	public function getTotalPaymentsToday() {
+		$types_of_payment = ["principal_payment", "interest_payment", "penalty_payment", "processing_fee_payment"];
+		$total = 0;
+		foreach ($types_of_payment as $table) {
+			$this->db->query("
+				SELECT
+					COALESCE(SUM(`amount`), 0)
+				FROM
+					`$table`
+				WHERE
+					DATE(`date_time_paid`) = CURDATE()
+			");
+			$total += $this->db->resultColumn();
+		}
+		return $total;
+	}
+
 	# Used for receipts (will soon include name for treasurer)
 	protected function getEntities($borrower_id, $guarantor_id) {
 		$data_subject = new DataSubject();
