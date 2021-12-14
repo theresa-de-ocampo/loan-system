@@ -18,7 +18,11 @@
 	$interest = new Interest();
 	$processing_fee = new ProcessingFee();
 	$penalty = new Penalty();
+	$savings = $guarantor->getTotalSavings();
+	$total_uncollected_loans = $loan->getTotalUncollectedLoans();
 	$collections = $interest->getTotalInterestCollected() + $processing_fee->getTotalProcessingFeeCollected() + $penalty->getTotalPenaltiesCollected();
+	$cash_on_hand = ($savings + $collections) - $total_uncollected_loans;
+	$to_be_recovered = $collections - $cash_on_hand;
 ?>
 <!DOCTYPE html>
 <html lang="en">
@@ -80,14 +84,14 @@
 						<div class="fas fa-piggy-bank"></div>
 						<h4>Savings</h4>
 					</div>
-					<p><span>&#8369;</span> <?php echo number_format($guarantor->getTotalSavings(), 2, ".", ","); ?></p>
+					<p><span>&#8369;</span> <?php echo number_format($savings, 2, ".", ","); ?></p>
 				</div><!-- .grid-item -->
 				<div class="grid-item">
 					<div class="tally-label">
 						<div class="fas fa-crosshairs"></div>
 						<h4>Uncollected Loans</h4>
 					</div>
-					<p><span>&#8369;</span> <?php echo number_format($loan->getTotalUncollectedLoans(), 2, ".", ","); ?></p>
+					<p><span>&#8369;</span> <?php echo number_format($total_uncollected_loans, 2, ".", ","); ?></p>
 				</div><!-- .grid-item -->
 				<div class="grid-item">
 					<div class="tally-label">
@@ -101,14 +105,17 @@
 						<div class="fas fa-wallet"></div>
 						<h4>Cash On Hand</h4>
 					</div>
-					<p><span>&#8369;</span> 0</p>
+					<p><span>&#8369;</span> <?php echo number_format($cash_on_hand, 2, ".", ","); ?></p>
 				</div><!-- .grid-item -->
 				<div class="grid-item">
 					<div class="tally-label">
 						<div class="fas fa-exclamation-triangle"></div>
 						<h4>To Be Recovered</h4>
 					</div>
-					<p><span>&#8369;</span> 0</p>
+					<p>
+						<span>&#8369;</span>
+						<?php echo number_format(($to_be_recovered < 0 ? 0 : $to_be_recovered), 2, ".", ","); ?>
+					</p>
 				</div><!-- .grid-item -->
 			</div><!-- .grid-wrapper -->
 		</section><!-- #dashboard -->
