@@ -28,6 +28,11 @@
 	p.total {
 		width: 40%;
 	}
+
+	#user-settings .grid-wrapper {
+		grid-template-columns: 1fr;
+		grid-gap: 15px;
+	}
 }
 
 @media screen and (max-width: 960px) {

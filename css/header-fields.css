@@ -1,0 +1,25 @@
+form .flex-wrapper {
+	display: flex;
+}
+
+form .flex-wrapper .flex-item {
+	padding: 0 30px;
+}
+
+form .flex-wrapper .flex-item:not(.short) {
+	flex-basis: 350px;
+	max-width: 350px;
+}
+
+form .flex-wrapper .short {
+	flex-basis: 180px;
+}
+
+form .flex-wrapper .flex-item:first-child {
+	flex-basis: 150px;
+	padding-left: 0;
+}
+
+form .flex-wrapper .flex-item:not(:last-child) {
+	border-right: 1px solid var(--athens-gray);
+}

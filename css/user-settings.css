@@ -1,0 +1,37 @@
+#user-settings .grid-wrapper {
+	display: grid;
+	grid-template-columns: 1fr 1fr;
+	grid-gap: 5%;
+}
+
+.flex-wrapper {
+	display: flex;
+	flex-direction: column;
+	gap: 15px;
+}
+
+.grid-wrapper hr {
+	margin: 15px 0 5px 0;
+	border-top: 1px dashed #8c8b8b;
+}
+
+#button-container {
+	align-self: flex-end;
+}
+
+#user-settings #drop-area {
+	height: 32vw;
+}
+
+/*#user-settings .fa-cloud-upload-alt {
+	font-size: 70px;
+}
+
+#user-settings #drop-area > div:nth-of-type(2) {
+	font-size: 20px;
+}
+
+#user-settings #drop-area > div:nth-of-type(3) {
+	font-size: 20px;
+	margin: 15px 0;
+}*/
