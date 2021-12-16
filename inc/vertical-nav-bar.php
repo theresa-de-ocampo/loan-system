@@ -42,6 +42,7 @@
 				<li><a class="link-name" href="members.php">Members</a></li>
 				<li><a href="members.php#guarantors">Guarantors</a></li>
 				<li><a href="members.php#savings">Savings</a></li>
+				<li><a href="members.php#data-subjects">All Data Subjects</a>
 			</ul><!-- .sub-menu -->
 		</li>
 
