@@ -27,6 +27,7 @@
 	<link rel="stylesheet" type="text/css" href="css/vertical-nav-bar.css" />
 	<link rel="stylesheet" type="text/css" href="css/tables.css" />
 	<link rel="stylesheet" type="text/css" href="css/forms.css" />
+	<link rel="stylesheet" type="text/css" href="css/header-fields.css" />
 	<link rel="stylesheet" type="text/css" href="css/image-upload.css" />
 	<link rel="stylesheet" type="text/css" href="css/add-loan.css" />
 	<link rel="stylesheet" type="text/css" href="css/media-queries.css" />
