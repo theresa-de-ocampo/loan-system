@@ -92,7 +92,7 @@ function checkPassword(e, password) {
 	const regex = /^(?=.*\d)(?=.*[a-z])(?=.*[A-Z])[0-9a-zA-Z!@\-#\s$%^&*]{8,}$/;
 	const flag = regex.test(password);
 	if (!flag) {
-		alert("Password should be a minimum of 8 characters consisting of at least one uppercase letter, one lowercase letter, and a digit");
+		alert("Password should be a minimum of 8 characters consisting of at least one uppercase letter, one lowercase letter, and a digit.");
 		e.preventDefault();
 	}
 	return flag;

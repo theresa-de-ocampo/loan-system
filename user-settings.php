@@ -81,6 +81,7 @@
 	<script src="js/vertical-nav-bar.js"></script>
 	<script src="js/image-upload.js"></script>
 	<script src="js/show-password.js"></script>
+	<script src="js/validation.js"></script>
 	<script src="js/user-settings.js"></script>
 </body>
 </html>
