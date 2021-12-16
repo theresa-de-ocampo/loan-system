@@ -2,6 +2,11 @@
 	require_once "config/config.php";
 	require_once "lib/verification.php";
 	require_once "lib/database-handler.php";
+	require_once "models/User.php";
+
+	$id = $_SESSION["admin-verified"];
+	$user = new User();
+	$account = $user->getUser($id);
 ?>
 <!DOCTYPE html>
 <html lang="en">
@@ -32,7 +37,7 @@
 		<section id="user-settings">
 			<h3>User Settings</h3>
 			<hr />
-			<form action="src/edit-user.php" method="post" enctype="multipart/form-data" class="grid-wrapper">
+			<form action="src/edit-user.php" method="post" enctype="multipart/form-data" class="grid-wrapper" novalidate>
 				<div class="grid-item">
 						<label for="profile-picture">Profile Picture</label>
 						<div id="drop-area">
@@ -43,11 +48,12 @@
 				<div class="grid-item flex-wrapper">
 					<div class="flex-item">
 						<label for="username">Username</label>
-						<input id="username" type="text" name="username" class="small" required />
+						<input id="username" type="text" name="username" class="small" 
+							value="<?php echo $account->username; ?>" required />
 					</div><!-- .flex-item -->
 					<div class="flex-item">
 						<label for="email">Email</label>
-						<input id="email" type="text" name="email" required />
+						<input id="email" type="text" name="email" value="<?php echo $account->email; ?>" required />
 					</div><!-- .flex-item -->
 					<div class="flex-item">
 						<label for="password">Password</label>
@@ -61,9 +67,10 @@
 						<input id="show-passwords" type="checkbox" required  class="show-password" />
 						<label for="show-passwords">Show Passwords</label>
 					</div><!-- .flex-item -->
+					<input id="id" type="hidden" name="id" required class="short" readonly value="<?php echo $id; ?>" />
 					<hr />
 					<div id="button-container" class="flex-item">
-						<button type="submit" name="submit" class="dt-button">Save Changes</button>
+						<button type="submit" name="edit" class="dt-button">Save Changes</button>
 					</div>
 				</div><!-- .grid-item.flex-wrapper -->
 			</form><!-- .grid-wrapper -->
@@ -73,6 +80,7 @@
 	<script src="js/jquery-3.6.0.min.js"></script>
 	<script src="js/vertical-nav-bar.js"></script>
 	<script src="js/image-upload.js"></script>
+	<script src="js/show-password.js"></script>
 	<script src="js/user-settings.js"></script>
 </body>
 </html>

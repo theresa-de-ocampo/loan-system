@@ -183,8 +183,9 @@ class Loan extends Transaction {
 		}
 		catch (Exception $e) {
 			$this->db->rollBack();
-			$message = $e->getMessage();
-			echo "<script>alert('$message');</script>";
+			$error = $e->getMessage();
+			$this->db->logError($error);
+			echo "<script>alert('$error');</script>";
 			echo "<script>window.location.replace('../transactions.php');</script>";
 		}
 		finally {
