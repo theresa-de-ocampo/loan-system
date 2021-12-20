@@ -61,12 +61,14 @@
 
 		<li>
 			<div class="profile-details">
-				<div class="profile-content">
-					<img src="<?php echo $profile_picture; ?>" alt="Avatar">
-				</div><!-- .profile-content -->
-				<div class="name-position">
-					<div class="username"><?php echo $username; ?></div>
-				</div><!-- .name-position -->
+				<a href="user-settings.php">
+					<div class="profile-content">
+						<img src="<?php echo $profile_picture; ?>" alt="Avatar">
+					</div><!-- .profile-content -->
+					<div class="name-position">
+						<div class="username"><?php echo $username; ?></div>
+					</div><!-- .name-position -->
+				</a>
 				<i class="fas fa-sign-out-alt"></i>
 			</div><!-- .profile-details -->
 		</li>
