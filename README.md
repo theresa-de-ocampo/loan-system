@@ -9,10 +9,10 @@ A web-based application that automates the entire loan lifecycle of a cooperativ
 	3. Sorts date and time columns appropriately while displayed in long format.
 	4. Sorts full name columns by last name.
 2. Login & Account Management
-	1. Password update *(to be implemented)*.
+	1. Provision to change account details.
 	2. Strong password requirement.
 	3. Password confirmation.
-	4. Only the latest auditor and treasurer can create accounts.
+	4. Only the current employees can create accounts.
 	5. Automatically revokes administrator access of old employees without deleting the account.
 3. Validations
 	1. Checks for incomplete inputs.
@@ -35,16 +35,15 @@ A web-based application that automates the entire loan lifecycle of a cooperativ
 	7. Automatically halts accrual of processing fee once the principal is paid in full.
 	8. Automatically calculates and records closing entries by the end of the business year.
 	9. Automatically sets each of the guarantor's ROI by the end of the business year.
-	10. Automatically sets the salary of employees by the end of the business year *(to be implemented)*.
+	10. Automatically sets the salary of employees by the end of the business year.
 5. Dashboard
-	1. Financial Standing *(to be implemented)*
-	2. Quick Stats *(under construction)*
 6. Members
 	1. Lists guarantors.
 	2. Lists savings.
 	3. Add guarantors to current cycle without data redundancy.
 	4. Edit guarantor information.
-	5. Data subject management *(to be implemented)*.
+	5. List all data subjects.
+	6. Edit data subject information.
 7. Transactions
 	1. Lists loan disbursements.
 	2. Lists appropriations.
@@ -62,15 +61,20 @@ A web-based application that automates the entire loan lifecycle of a cooperativ
 	5. Lists shares per guarantor.
 	6. Allows ROI claim.
 	7. Displays claimed ROI.
-	8. Salary and funds management *(to be implemented)*.
+	8. Salary and funds management.
 9. Cycle Switcher
 	1. Lists history of business periods.
-	2. Provision to add a new cycle *(under construction)*.
+	2. Provision to add a new cycle.
 10. Public Portal
 	1. Details borrower requirements.
 	2. Details guarantor requirements.
 	3. Details the cooperative's terms and conditions.
-	4. Borrower and guarantor view with notifications *(under construction)*.
+	4. Loan History
+	5. Financial Standing of Current Guarantors
+	6. Debt Collection History
+	7. Acquired ROI History
+	8. Salary History
+	9. History of Claimed Funds
 11. Others
 	1. Includes empty states design.
 	2. Prompts the user to read the "Terms, Data Policy, & Cookie Use" wherever appropriate.
@@ -99,9 +103,10 @@ A web-based application that automates the entire loan lifecycle of a cooperativ
 	```
 4. Open the admin portal (```index.php```) using any of the accounts from the next section.
 
-## 2021 Accounts
+## Sample Accounts
 | Position | Email | Password |
 | --- | --- | --- |
-| Auditor | ryan.nable@gmail.com | Green 0456 |
 | Treasurer | carlo.robiso@gmail.com | Vincenzo, EP 2 |
-| Asst. Treasurer | ma_theresa7@yahoo.com | Dear 2020 |
+| Asst. Treasurer | theresa@yahoo.com | Dear 2020 |
+| Borrower | cherry.javier@gmail.com | Crayons 24 |
+| Guarantor | aurora.liberato@gmail.com | Jeremiah 29:11 |

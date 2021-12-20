@@ -354,7 +354,7 @@ INSERT INTO
 VALUES
 	(9, 'aurora.liberato@gmail.com', '$2y$10$CtnzbINrxyH1wLupEyJ2U.ta2WbMK5PdJi8AXNPEK.dQffNpNr5.2', 'Aurora', '9.jpg'),
 	(10, 'beth.nevalta@gmail.com', '$2y$10$MTlKxMqwYNONcXUEi.wFMuWZyOCejJxIqtt5oKs3r7ez9BFl4b9uW', 'Beth', '10.jpg'),
-	(11, 'ma_theresa7@yahoo.com', '$2y$10$uyNGNk8Ccj35tfSpFOWVte4rOjE02VDMYTBMYJAqULRysMSDYWjuO', 'Theresa', '11.jpg'),
+	(11, 'theresa@yahoo.com', '$2y$10$uyNGNk8Ccj35tfSpFOWVte4rOjE02VDMYTBMYJAqULRysMSDYWjuO', 'Theresa', '11.jpg'),
 	(23, 'ryan.nable@gmail.com', '$2y$10$nOpsIELnJbe5kQVWFiMKqOPX8MGprsty2Mto.1Uj7Cb0eNS6uPK7a', 'Ryan', '23.jpg'),
 	(24, 'carlo.robiso@gmail.com', '$2y$10$jxR6Yl2Pzb422tKFtJBz2.SVXU3XLcAeNRQ4wzLz6TzF7Lh4w3OpW', 'Carlo', '24.jpg'),
 	(34, 'cherry.javier@gmail.com', '$2y$10$XXUH1F2sBoSNQ2HsXfS5aekKncilh1aj27ijIuiCV4JpWvDnhjC5.', 'Cherry', DEFAULT);
