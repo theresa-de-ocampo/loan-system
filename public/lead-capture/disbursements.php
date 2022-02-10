@@ -137,8 +137,6 @@
 			</table><!-- .debt-collection-history-tbl -->
 			<p class="pattern-bg"><span class="peso-sign">&#8369; </span><span class="amount"></span></p>
 		</section><!-- #dect-collection-history -->
-
-		<?php echo $flag; ?>
 	</main>
 
 	<script src="../../js/jquery-3.6.0.min.js"></script>
