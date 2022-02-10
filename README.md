@@ -78,7 +78,7 @@ A web-based application that automates the entire loan lifecycle of a cooperativ
 11. Others
 	1. Includes empty states design.
 	2. Prompts the user to read the "Terms, Data Policy, & Cookie Use" wherever appropriate.
-	3. Audit Trail *(to be implemented)*.
+	3. Includes a secret gate to back-up the entire database.
 
 ## Requirements
 - Apache Server 2.4.41 or higher.
