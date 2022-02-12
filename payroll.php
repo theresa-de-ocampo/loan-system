@@ -34,7 +34,11 @@
 	$earnings = $converter->roundDown($total_processing_fee_collected / 2);
 	$funds = $penalty->getTotalPenaltiesCollected(); /*Amount of funds for this cycle, not an array of `fund` records. */
 	$employees = $salary->getEmployees();
-	$on_going = date("m") < 11 || (date("m") <= 11) && date("d") < 30;
+	$closed = (int)$cycle->getCycleId() >= date("Y");
+	if ((int)$cycle->getCycleId() < date("Y"))
+		$on_going = false;
+	else
+		$on_going = date("m") < 11 || (date("m") <= 11) && date("d") < 30;
 ?>
 <!DOCTYPE html>
 <html lang="en">
