@@ -591,5 +591,5 @@ VALUES
 INSERT INTO
 	`fund`
 VALUES
-	('2020', 3016, 11, '2020-12-01 09:03:00', '10.png', 'Christmas Party'),
+	('2020', 3016, 11, '2020-12-01 09:03:00', 'fund-11.png', 'Christmas Party'),
 	('2021', 702, NULL, NULL, NULL, NULL);
