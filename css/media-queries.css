@@ -256,6 +256,10 @@
 		top: 0;
 	}
 
+	.tingle-modal-box .info {
+		padding-top: 90px;
+	}
+
 	.tingle-modal--overflow {
 		padding: 0;
 	}
